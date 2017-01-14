@@ -5,25 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeSelectHelper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="500" Width="800">
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListView Name="ListView_Recipes" Grid.Row="3" SizeChanged="ListView_SizeChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Recipe"></GridViewColumn>
-                    <GridViewColumn Header="Score Percentage" Width="Auto"></GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Button Content="Rank Recipes" Grid.Row="0" Click="Button_Click"></Button>
+        <Button Grid.Row="1" Click="Button_Click_1">
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Ingredients in fridge</TextBlock>
+        </Button>
+        <Button Grid.Row="1" Height="118" Margin="0,117.4,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Click="Button_Click_2">
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Recipes</TextBlock>
+        </Button>
+        <Button Grid.Row="3" Click="Button_Click_3">
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Store Products</TextBlock>
+        </Button>
+        <Frame Name="ContentControl" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
+    
 </Window>

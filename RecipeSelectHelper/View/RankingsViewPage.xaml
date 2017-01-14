@@ -1,0 +1,50 @@
+﻿<Page x:Class="RecipeSelectHelper.View.RankingsViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700"
+      Title="RankingsViewPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ListView Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Recipe"></GridViewColumn>
+                    <GridViewColumn Header="Score %" Width="Auto"></GridViewColumn>
+                    <GridViewColumn Width="{x:Static SystemParameters.VerticalScrollBarWidth}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes"></Button>
+        <ProgressBar Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
+        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8"></ComboBox>
+        <!--ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedItem}"-->
+    </Grid>
+</Page>
