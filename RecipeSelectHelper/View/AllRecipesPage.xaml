@@ -36,14 +36,23 @@
         <DockPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="8" LastChildFill="True">
             <Grid DockPanel.Dock="Top">
                 <Expander Header="Filter Recipes" ExpandDirection="Down">
-                    <StackPanel Margin="-2,10,0,0" Orientation="Horizontal">
-                        <StackPanel.Background>
+                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
+                        <WrapPanel.Background>
                             <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                        </StackPanel.Background>
+                        </WrapPanel.Background>
                         <CheckBox Margin="4" Content="Option 1" />
                         <CheckBox Margin="4" Content="Option 2" />
                         <CheckBox Margin="4" Content="Option 3" />
-                    </StackPanel>
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                    </WrapPanel>
                 </Expander>
             </Grid>
             
@@ -61,12 +70,10 @@
             </ListView>
         </DockPanel>
         
-
-        
         <Button Grid.Row="1" Grid.Column="8">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Image Source="/Resources/Search.png" Margin="-1"></Image>
-                <TextBlock Text="  Search"></TextBlock>
+                <Image Source="/Resources/Search.png" Margin="0"></Image>
+                <TextBlock Text="  Search" Margin="2"></TextBlock>
             </StackPanel>
         </Button>
         <TextBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3"></TextBox>

@@ -18,19 +18,28 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Button Content="Rank Recipes" Grid.Row="0" Click="Button_Click"></Button>
+        
         <Button Grid.Row="1" Click="Button_Click_1">
             <TextBlock TextAlignment="Center" TextWrapping="Wrap">Ingredients in fridge</TextBlock>
         </Button>
-        <Button Grid.Row="1" Height="118" Margin="0,117.4,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Click="Button_Click_2">
+        
+        <Button Grid.Row="2" Click="Button_Click_2">
             <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Recipes</TextBlock>
         </Button>
+        
         <Button Grid.Row="3" Click="Button_Click_3">
             <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Store Products</TextBlock>
         </Button>
-        <Frame Name="ContentControl" Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" NavigationUIVisibility="Hidden"></Frame>
+        
+        <Button Grid.Row="4" Click="Button_Click_4">
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Sorting Methods</TextBlock>
+        </Button>
+        
+        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="5" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
     
 </Window>

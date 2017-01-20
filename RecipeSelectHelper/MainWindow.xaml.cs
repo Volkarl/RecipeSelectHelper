@@ -1,4 +1,5 @@
-﻿using RecipeSelectHelper.View;
+﻿using RecipeSelectHelper.Model;
+using RecipeSelectHelper.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,17 @@ namespace RecipeSelectHelper
     {
         public MainWindow()
         {
+            Loaded += MainWindow_Loaded1;
             InitializeComponent();
             SetPage(new RankingsViewPage());
+        }
+
+        public ProgramData Data { get; set; }
+
+        private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
+        {
+            Data = new ProgramData();
+            Data.Load();
         }
 
         private void SetPage(Page newpage)
@@ -52,6 +62,11 @@ namespace RecipeSelectHelper
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             SetPage(new AllStoreProductsPage());
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            SetPage(new SortingMethodsPage());
         }
     }
 }

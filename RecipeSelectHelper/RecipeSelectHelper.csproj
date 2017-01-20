@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\FridgeInfo.cs" />
+    <Compile Include="Model\ICategory.cs" />
+    <Compile Include="Model\IProduct.cs" />
+    <Compile Include="Model\ProgramData.cs" />
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
@@ -66,6 +70,9 @@
     </Compile>
     <Compile Include="View\RankingsViewPage.xaml.cs">
       <DependentUpon>RankingsViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SortingMethodsPage.xaml.cs">
+      <DependentUpon>SortingMethodsPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RankingsViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SortingMethodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
