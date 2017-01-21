@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +22,18 @@ namespace RecipeSelectHelper.View
     /// </summary>
     public partial class AllRecipesPage : Page
     {
-        public AllRecipesPage()
+        private MainWindow _parent;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public AllRecipesPage(MainWindow parent)
+        {
+            this._parent = parent;
+            DataContext = this;
             InitializeComponent();
             this.Loaded += RankingsViewPageLoaded;
         }
@@ -42,6 +54,21 @@ namespace RecipeSelectHelper.View
                 remainingWidth -= gridView.Columns[i].ActualWidth;
             }
             gridView.Columns[0].Width = remainingWidth;
+        }
+
+        private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.Data.AllRecipes.Remove(SelectedItem);
         }
     }
 }

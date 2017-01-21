@@ -10,9 +10,8 @@ namespace RecipeSelectHelper.Model
     {
         string Name { get; set; }
         int Value { get; set; }
-        int BonusValue { get; set; }
-        int ProductID { get; }
-        List<ICategory> Categories { get; set; }
-        FridgeInfo inFridgeInfo { get; set; }
+        int ID { get; }
+        List<IProductCategory> Categories { get; set; }
+        List<IProduct> SubstituteProducts { get; set; }
     }
 }

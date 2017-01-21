@@ -78,8 +78,8 @@
         </Button>
         <TextBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3"></TextBox>
         
-        <Button Content="Add Recipe" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"></Button>
-        <Button Content="Edit Recipe" Grid.Row="6" Grid.Column="4"></Button>
-        <Button Content="Remove Recipe" Grid.Row="6" Grid.Column="8"></Button>
+        <Button Name="Button_AddRecipe" Content="Add Recipe" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_AddRecipe_Click"></Button>
+        <Button Name="Button_EditRecipe" Content="Edit Recipe" Grid.Row="6" Grid.Column="4" Click="Button_EditRecipe_Click"></Button>
+        <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Grid.Row="6" Grid.Column="8" Click="Button_RemoveRecipe_Click"></Button>
     </Grid>
 </Page>

@@ -55,9 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\FridgeInfo.cs" />
+    <Compile Include="Model\ExpirationInfo.cs" />
+    <Compile Include="Model\IBoughtProduct.cs" />
     <Compile Include="Model\ICategory.cs" />
+    <Compile Include="Model\IIngredient.cs" />
     <Compile Include="Model\IProduct.cs" />
+    <Compile Include="Model\IRecipe.cs" />
+    <Compile Include="Model\IRecipeCategory.cs" />
+    <Compile Include="Model\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>

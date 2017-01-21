@@ -8,15 +8,60 @@ namespace RecipeSelectHelper.Model
 {
     public class ProgramData
     {
-        public IProduct AllStoreProducts { get; private set; }
+        public List<IProduct> AllProducts { get; private set; }
+        public List<IBoughtProduct> AllBoughtProducts { get; private set; }
+        public List<IRecipe> AllRecipes { get; private set; }
+        public List<IProductCategory> AllProductCategories { get; private set; }
+        public List<IRecipeCategory> AllRecipeCategories { get; private set; }
+
+        public List<ISortingMethod> AllSortingMethods { get; private set; }
+        // ?? How?
 
         public void Load()
         {
-            AllStoreProducts = LoadStoreProducts();
+            AllProducts = LoadStoreProducts();
             AllBoughtProducts = LoadBoughtProducts();
             AllRecipes = LoadRecipes();
-            AllCategories = LoadCategories();
+            AllProductCategories = LoadProductCategories();
+            AllRecipeCategories = LoadRecipeCategories();
+
             AllSortingMethods = LoadSortingMethods();
+        }
+
+        private List<IRecipeCategory> LoadRecipeCategories()
+        {
+            return null;
+            throw new NotImplementedException();
+        }
+
+        private List<ISortingMethod> LoadSortingMethods()
+        {
+            return null;
+            throw new NotImplementedException();
+        }
+
+        private List<IProductCategory> LoadProductCategories()
+        {
+            return null;
+            throw new NotImplementedException();
+        }
+
+        private List<IRecipe> LoadRecipes()
+        {
+            return null;
+            throw new NotImplementedException();
+        }
+
+        private List<IBoughtProduct> LoadBoughtProducts()
+        {
+            return null;
+            throw new NotImplementedException();
+        }
+
+        private List<IProduct> LoadStoreProducts()
+        {
+            return null;
+            throw new NotImplementedException();
         }
     }
 }

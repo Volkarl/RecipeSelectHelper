@@ -2,8 +2,10 @@
 using RecipeSelectHelper.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +26,18 @@ namespace RecipeSelectHelper
     /// </summary>
     public partial class MainWindow : Window
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public MainWindow()
         {
             Loaded += MainWindow_Loaded1;
+            DataContext = this;
             InitializeComponent();
-            SetPage(new RankingsViewPage());
+            SetPage(new RankingsViewPage(this));
         }
 
         public ProgramData Data { get; set; }
@@ -46,27 +55,27 @@ namespace RecipeSelectHelper
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new RankingsViewPage());
+            SetPage(new RankingsViewPage(this));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            SetPage(new FridgePage());
+            SetPage(new FridgePage(this));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllRecipesPage());
+            SetPage(new AllRecipesPage(this));
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllStoreProductsPage());
+            SetPage(new AllStoreProductsPage(this));
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            SetPage(new SortingMethodsPage());
+            SetPage(new SortingMethodsPage(this));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace RecipeSelectHelper.Model
 {
-    public class FridgeInfo
+    public interface ISortingMethod
     {
     }
 }
