@@ -2,5 +2,6 @@
 {
     public interface ISortingMethod
     {
+        string Name { get; set; }
     }
 }

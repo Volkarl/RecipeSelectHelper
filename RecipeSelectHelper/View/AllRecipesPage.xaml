@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
-      Title="AllRecipesPage">
+      Title="AllRecipesPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -57,26 +59,26 @@
             </Grid>
             
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
-            
-            <ListView Name="ListView_Recipes" Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+            <ListView Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Recipe"></GridViewColumn>
-                        <GridViewColumn Header="Food type" Width="Auto"></GridViewColumn>
-                        <GridViewColumn Header="Attributes" Width="Auto"></GridViewColumn>
+                        <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
+                        <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                         <GridViewColumn Width="{x:Static SystemParameters.VerticalScrollBarWidth}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
         </DockPanel>
         
-        <Button Grid.Row="1" Grid.Column="8">
+        <Button Name="Button_SearchRecipes" Grid.Row="1" Grid.Column="8" Click="Button_SearchRecipes_Click">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Image Source="/Resources/Search.png" Margin="0"></Image>
                 <TextBlock Text="  Search" Margin="2"></TextBlock>
             </StackPanel>
         </Button>
-        <TextBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3"></TextBox>
+        <TextBox Name="TextBox_SearchRecipes" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>
         
         <Button Name="Button_AddRecipe" Content="Add Recipe" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_AddRecipe_Click"></Button>
         <Button Name="Button_EditRecipe" Content="Edit Recipe" Grid.Row="6" Grid.Column="4" Click="Button_EditRecipe_Click"></Button>

@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ProductCategory.cs" />
     <Compile Include="Model\ExpirationInfo.cs" />
     <Compile Include="Model\IBoughtProduct.cs" />
     <Compile Include="Model\ICategory.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Model\Recipe.cs" />
+    <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>

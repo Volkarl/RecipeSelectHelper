@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,7 +22,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for RankingsViewPage.xaml
     /// </summary>
-    public partial class RankingsViewPage : Page
+    public partial class RankingsViewPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
 
@@ -34,8 +36,16 @@ namespace RecipeSelectHelper.View
         {
             this._parent = parent;
             DataContext = this;
+            InitiaalizeObservableObjects();
+
             InitializeComponent();
             this.Loaded += RankingsViewPageLoaded;
+        }
+
+        private void InitiaalizeObservableObjects()
+        {
+            //SortingMethods = new ObservableCollection<string>(_parent.Data.AllSortingMethods.ConvertAll(x => x.Name));
+            //SelectedSortingMethod = SortingMethods.FirstOrDefault();
         }
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
@@ -55,5 +65,38 @@ namespace RecipeSelectHelper.View
             }
             gridView.Columns[0].Width = remainingWidth;
         }
+
+        #region ObservableObjects
+
+        private ObservableCollection<string> _sortingMethods;
+        public ObservableCollection<string> SortingMethods
+        {
+            get { return _sortingMethods; }
+            set { _sortingMethods = value; OnPropertyChanged(nameof(SortingMethods)); }
+        }
+
+        private static string _selectedSortingMethod = string.Empty;
+        public string SelectedSortingMethod
+        {
+            get { return _selectedSortingMethod; }
+            set { _selectedSortingMethod = value; OnPropertyChanged(nameof(SelectedSortingMethod)); }
+        }
+
+        private ObservableCollection<IRecipe> _recipes;
+        public ObservableCollection<IRecipe> Recipes
+        {
+            get { return _recipes; }
+            set { _recipes = value; OnPropertyChanged(nameof(Recipes)); }
+        }
+
+        private IRecipe _selectedRecipe;
+        public IRecipe SelectedRecipe
+        {
+            get { return _selectedRecipe; }
+            set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
+        }
+
+        #endregion
+
     }
 }

@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for FridgePage.xaml
     /// </summary>
-    public partial class FridgePage : Page
+    public partial class FridgePage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
 

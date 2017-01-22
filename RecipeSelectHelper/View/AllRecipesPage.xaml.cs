@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,9 +22,10 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for AllRecipesPage.xaml
     /// </summary>
-    public partial class AllRecipesPage : Page
+    public partial class AllRecipesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
+        public List<IRecipe> AllRecipes { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -33,9 +36,17 @@ namespace RecipeSelectHelper.View
         public AllRecipesPage(MainWindow parent)
         {
             this._parent = parent;
-            DataContext = this;
+            InitializeObservableObjects();
+
             InitializeComponent();
             this.Loaded += RankingsViewPageLoaded;
+        }
+
+        private void InitializeObservableObjects()
+        {
+            AllRecipes = _parent.Data.AllRecipes;
+            Recipes = new ObservableCollection<IRecipe>(AllRecipes);
+            SelectedRecipe = null;
         }
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
@@ -58,7 +69,9 @@ namespace RecipeSelectHelper.View
 
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
-
+            var newRecipe = new Recipe("Pasta");
+            Recipes.Add(newRecipe);
+            AllRecipes.Add(newRecipe);
         }
 
         private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
@@ -68,7 +81,56 @@ namespace RecipeSelectHelper.View
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllRecipes.Remove(SelectedItem);
+            IRecipe recipeToBeRemoved = SelectedRecipe;
+            int indexOfSelection = Recipes.IndexOf(recipeToBeRemoved);
+            if (indexOfSelection != 0)
+            {
+                SelectedRecipe = Recipes[indexOfSelection - 1];
+            }
+            else
+            {
+                SelectedRecipe = null;
+            }
+            ListView_Recipes.Focus();
+
+            Recipes.Remove(recipeToBeRemoved);
+            AllRecipes.Remove(recipeToBeRemoved);
+        }
+
+        #region ObservableObjects
+
+        private ObservableCollection<IRecipe> _recipes;
+        public ObservableCollection<IRecipe> Recipes
+        {
+            get { return _recipes; }
+            set { _recipes = value; OnPropertyChanged(nameof(Recipes)); }
+        }
+
+        private IRecipe _selectedRecipe;
+        public IRecipe SelectedRecipe
+        {
+            get { return _selectedRecipe; }
+            set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
+        }
+
+        #endregion
+
+        private void TextBox_SearchRecipes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                FilterRecipesByName(TextBox_SearchRecipes.Text);
+            }
+        }
+
+        private void FilterRecipesByName(string searchParameter)
+        {
+            Recipes = new ObservableCollection<IRecipe>(AllRecipes.Where(x => x.Name.Contains(searchParameter)));
+        }
+
+        private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            FilterRecipesByName(TextBox_SearchRecipes.Text);
         }
     }
 }

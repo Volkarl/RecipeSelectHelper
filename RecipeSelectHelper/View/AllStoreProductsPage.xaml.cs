@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for AllStoreProductsPage.xaml
     /// </summary>
-    public partial class AllStoreProductsPage : Page
+    public partial class AllStoreProductsPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
 

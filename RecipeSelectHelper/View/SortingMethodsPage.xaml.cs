@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for SortingMethodsPage.xaml
     /// </summary>
-    public partial class SortingMethodsPage : Page
+    public partial class SortingMethodsPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
 

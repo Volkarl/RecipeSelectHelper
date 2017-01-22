@@ -48,6 +48,7 @@ namespace RecipeSelectHelper.Model
 
         private List<IRecipe> LoadRecipes()
         {
+            return new List<IRecipe> { new Recipe("Antipasta", categories: (new List<IRecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") } ) ) };
             return null;
             throw new NotImplementedException();
         }
