@@ -1,68 +1,94 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml;
 
 namespace RecipeSelectHelper.Model
 {
+    [DataContract(Name = "ProgramData")]
     public class ProgramData
     {
-        public List<IProduct> AllProducts { get; private set; }
-        public List<IBoughtProduct> AllBoughtProducts { get; private set; }
-        public List<IRecipe> AllRecipes { get; private set; }
-        public List<IProductCategory> AllProductCategories { get; private set; }
-        public List<IRecipeCategory> AllRecipeCategories { get; private set; }
+        [DataMember]
+        public List<Product> AllProducts { get; set; }
+        [DataMember]
+        public List<BoughtProduct> AllBoughtProducts { get; set; }
+        [DataMember]
+        public List<Recipe> AllRecipes { get; set; }
+        [DataMember]
+        public List<ProductCategory> AllProductCategories { get; set; }
+        [DataMember]
+        public List<RecipeCategory> AllRecipeCategories { get; set; }
 
-        public List<ISortingMethod> AllSortingMethods { get; private set; }
+        [DataMember]
+        public List<SortingMethod> AllSortingMethods { get; set; }
         // ?? How?
 
-        public void Load()
-        {
-            AllProducts = LoadStoreProducts();
-            AllBoughtProducts = LoadBoughtProducts();
-            AllRecipes = LoadRecipes();
-            AllProductCategories = LoadProductCategories();
-            AllRecipeCategories = LoadRecipeCategories();
+        private string _fileName = "data.xml";
 
-            AllSortingMethods = LoadSortingMethods();
+        public ProgramData()
+        {
+
         }
 
-        private List<IRecipeCategory> LoadRecipeCategories()
+        public void FromXML()
         {
-            return null;
-            throw new NotImplementedException();
+            AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
+
+
         }
 
-        private List<ISortingMethod> LoadSortingMethods()
+        public void TestFromXML()
         {
-            return null;
-            throw new NotImplementedException();
+            // can it deserialize itself? That seems dumb?! Make the methods static (class methods)?
+
+            var deserializer = new DataContractSerializer(AllRecipes.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
+            // int to max value?
+            List<Recipe> deserializedRecipes = new List<Recipe>();
+
+            using (var fs = new FileStream(_fileName, FileMode.Open))
+            {
+                using (var xmlr = XmlReader.Create(fs))
+                {
+                    deserializedRecipes = (List<Recipe>)deserializer.ReadObject(xmlr, true);
+                }
+            }
+
+            string s = "Deserialized: ";
+            foreach (Recipe recipe in deserializedRecipes)
+            {
+                s += recipe.Name + recipe.CategoriesAsString;
+            }
+            MessageBox.Show(s);
         }
 
-        private List<IProductCategory> LoadProductCategories()
+        public void SaveToXML()
         {
-            return null;
-            throw new NotImplementedException();
-        }
+            // XML THINGY TEST ATM
 
-        private List<IRecipe> LoadRecipes()
-        {
-            return new List<IRecipe> { new Recipe("Antipasta", categories: (new List<IRecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") } ) ) };
-            return null;
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var serializer = new DataContractSerializer(AllRecipes.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
+                // int.MaxValue?
+                using (var xmlw = XmlWriter.Create(_fileName))
+                {
+                    serializer.WriteObject(xmlw, AllRecipes);
+                }
+            }
+            catch (InvalidDataContractException iExc)
+            {
+                MessageBox.Show("You have an invalid data contract: " + iExc.Message);
+            }
+            catch (SerializationException sExc)
+            {
+                MessageBox.Show("SerializationException: " + sExc.Message);
+            }
+            MessageBox.Show("Serialized");
 
-        private List<IBoughtProduct> LoadBoughtProducts()
-        {
-            return null;
-            throw new NotImplementedException();
-        }
-
-        private List<IProduct> LoadStoreProducts()
-        {
-            return null;
-            throw new NotImplementedException();
         }
     }
 }

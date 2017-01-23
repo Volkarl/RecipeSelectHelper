@@ -45,7 +45,7 @@ namespace RecipeSelectHelper
         private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
         {
             Data = new ProgramData();
-            Data.Load();
+            Data.FromXML();
         }
 
         private void SetPage(Page newpage)

@@ -4,6 +4,6 @@
     {
         int AmountNeeded { get; set; }
         int Value { get; set; }
-        IProduct CorrespondingProduct { get; set; }
+        Product CorrespondingProduct { get; set; }
     }
 }

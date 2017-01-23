@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace RecipeSelectHelper.View
 {
@@ -25,7 +28,7 @@ namespace RecipeSelectHelper.View
     public partial class AllRecipesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
-        public List<IRecipe> AllRecipes { get; private set; }
+        public List<Recipe> AllRecipes { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -45,7 +48,7 @@ namespace RecipeSelectHelper.View
         private void InitializeObservableObjects()
         {
             AllRecipes = _parent.Data.AllRecipes;
-            Recipes = new ObservableCollection<IRecipe>(AllRecipes);
+            Recipes = new ObservableCollection<Recipe>(AllRecipes);
             SelectedRecipe = null;
         }
 
@@ -76,12 +79,13 @@ namespace RecipeSelectHelper.View
 
         private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
         {
-
+            _parent.Data.SaveToXML();
+            _parent.Data.TestFromXML();
         }
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
         {
-            IRecipe recipeToBeRemoved = SelectedRecipe;
+            Recipe recipeToBeRemoved = SelectedRecipe;
             int indexOfSelection = Recipes.IndexOf(recipeToBeRemoved);
             if (indexOfSelection != 0)
             {
@@ -99,15 +103,15 @@ namespace RecipeSelectHelper.View
 
         #region ObservableObjects
 
-        private ObservableCollection<IRecipe> _recipes;
-        public ObservableCollection<IRecipe> Recipes
+        private ObservableCollection<Recipe> _recipes;
+        public ObservableCollection<Recipe> Recipes
         {
             get { return _recipes; }
             set { _recipes = value; OnPropertyChanged(nameof(Recipes)); }
         }
 
-        private IRecipe _selectedRecipe;
-        public IRecipe SelectedRecipe
+        private Recipe _selectedRecipe;
+        public Recipe SelectedRecipe
         {
             get { return _selectedRecipe; }
             set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
@@ -125,7 +129,7 @@ namespace RecipeSelectHelper.View
 
         private void FilterRecipesByName(string searchParameter)
         {
-            Recipes = new ObservableCollection<IRecipe>(AllRecipes.Where(x => x.Name.Contains(searchParameter)));
+            Recipes = new ObservableCollection<Recipe>(AllRecipes.Where(x => x.Name.Contains(searchParameter)));
         }
 
         private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e)

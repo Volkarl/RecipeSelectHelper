@@ -9,8 +9,8 @@ namespace RecipeSelectHelper.Model
         string Instruction { get; set; }
         int ID { get; }
         int Value { get; set; }
-        List<IIngredient> Ingredients { get; set; }
-        List<IRecipeCategory> Categories { get; set; }
+        List<Ingredient> Ingredients { get; set; }
+        List<RecipeCategory> Categories { get; set; }
         string CategoriesAsString { get; }
     }
 }

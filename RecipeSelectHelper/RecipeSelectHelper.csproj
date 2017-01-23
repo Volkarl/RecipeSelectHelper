@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,10 +57,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BoughtProduct.cs" />
+    <Compile Include="Model\Ingredient.cs" />
+    <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductCategory.cs" />
     <Compile Include="Model\ExpirationInfo.cs" />
     <Compile Include="Model\IBoughtProduct.cs" />
-    <Compile Include="Model\ICategory.cs" />
+    <Compile Include="Model\IProductCategory.cs" />
     <Compile Include="Model\IIngredient.cs" />
     <Compile Include="Model\IProduct.cs" />
     <Compile Include="Model\IRecipe.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Model\ProgramData.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
+    <Compile Include="Model\SortingMethod.cs" />
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
