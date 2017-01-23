@@ -61,6 +61,11 @@
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
 
             <ListView Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>

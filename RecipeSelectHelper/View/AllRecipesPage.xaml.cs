@@ -132,5 +132,12 @@ namespace RecipeSelectHelper.View
         {
             FilterRecipesByName(TextBox_SearchRecipes.Text);
         }
+
+        private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            Recipe obj = (Recipe)item.Content;
+            MessageBox.Show(obj.Name);
+        }
     }
 }
