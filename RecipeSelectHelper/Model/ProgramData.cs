@@ -24,5 +24,16 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<SortingMethod> AllSortingMethods { get; set; }
         // ?? How?
+
+        public ProgramData()
+        {
+            AllProducts = new List<Product>();
+            AllBoughtProducts = new List<BoughtProduct>();
+            AllRecipes = new List<Recipe>();
+            AllProductCategories = new List<ProductCategory>();
+            AllRecipeCategories = new List<RecipeCategory>();
+
+            AllSortingMethods = new List<SortingMethod>();
+        }
     }
 }

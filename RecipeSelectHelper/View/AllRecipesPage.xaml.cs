@@ -70,7 +70,38 @@ namespace RecipeSelectHelper.View
 
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
-            var newRecipe = new Recipe("Pasta");
+            // TEST
+            string name = "Leftovers";
+            string description = "A  mix of leftovers";
+            string instruction = "Mix whatever you've got leftover and eat with lots of ketchup";
+            var ingredients = new List<Ingredient>();
+            var recipeCategories = new List<RecipeCategory>();
+
+            var productCategories = new List<ProductCategory>();
+            var productcat = new ProductCategory("Green food");
+            _parent.Data.AllProductCategories.Add(productcat);
+            productCategories.Add(productcat);
+            var product1 = new Product("Celery", productCategories);
+            _parent.Data.AllProducts.Add(product1);
+
+            var productCategories2 = new List<ProductCategory>();
+            productCategories2.Add(productcat);
+            var productcat2 = new ProductCategory("Disgusting");
+            _parent.Data.AllProductCategories.Add(productcat2);
+            productCategories2.Add(productcat2);
+            var product2 = new Product("Milk", productCategories, new List<Product>() { product1 });
+            _parent.Data.AllProducts.Add(product2);
+
+            var newing = new Ingredient(20, product2);
+            ingredients.Add(newing);
+
+            var reccat = new RecipeCategory("Non-appetizing food");
+            _parent.Data.AllRecipeCategories.Add(reccat);
+            recipeCategories.Add(reccat);
+
+            var newRecipe = new Recipe(name, description, instruction, ingredients, recipeCategories);
+            
+            //var newRecipe = new Recipe("Pasta");
             Recipes.Add(newRecipe);
             _parent.Data.AllRecipes.Add(newRecipe);
         }

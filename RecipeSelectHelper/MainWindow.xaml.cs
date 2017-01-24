@@ -48,7 +48,7 @@ namespace RecipeSelectHelper
             Data = xmlReader.FromXML();
 
 
-            Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
+            //Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
         }
 
         private void SetPage(Page newpage)
