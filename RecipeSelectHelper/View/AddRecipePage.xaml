@@ -1,0 +1,105 @@
+﻿<Page x:Class="RecipeSelectHelper.View.AddRecipePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700"
+      Title="AddRecipePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="90"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="160"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Button Name="Button_Back" Content="(--- Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click"></Button>
+        <Button Name="Button_AddProduct" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" Click="Button_AddProduct_Click"></Button>
+        <StackPanel Name="StackPanel_ProductInfoLabel" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3">
+            <Label Content="Recipe Name: " Height="30" HorizontalAlignment="Right"></Label>
+            <Label Content="Recipe Description: " Height="30" HorizontalAlignment="Right"></Label>
+            <Label Content="Cooking Instructions: " Height="30" HorizontalAlignment="Right"></Label>
+            <Label Content="Categories: " Height="30" HorizontalAlignment="Right"></Label>
+            <Label Content="Ingredients: " Height="30" HorizontalAlignment="Right"></Label>
+        </StackPanel>
+        <StackPanel Name="StackPanel_ProductInfoTextBox" Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="3">
+            <TextBox Height="30"></TextBox>
+            <TextBox Height="30"></TextBox>
+            <TextBox Height="30"></TextBox>
+            
+            <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
+                <StackPanel>
+                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                    </WrapPanel>
+
+                    <Button Name="Button_AddCategory" Content="Add New Category..." Height="30"></Button>
+                </StackPanel>
+            </Expander>
+
+            <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down">
+                <StackPanel>
+                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                        <CheckBox Margin="4" Content="Option 1" />
+                        <CheckBox Margin="4" Content="Option 2" />
+                        <CheckBox Margin="4" Content="Option 3" />
+                    </WrapPanel>
+
+                    <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30"></Button>
+                </StackPanel>
+            </Expander>
+
+        </StackPanel>
+        <StackPanel Name="StackPanel_ProductInfoImage" Grid.Column="9" Grid.Row="3">
+            <Button Height="30"></Button>
+            <Button Height="30"></Button>
+            <Button Height="30"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

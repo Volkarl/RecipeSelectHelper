@@ -40,8 +40,8 @@ namespace RecipeSelectHelper.View
             this._parent = parent;
             InitializeObservableObjects();
 
-            InitializeComponent();
             this.Loaded += RankingsViewPageLoaded;
+            InitializeComponent();
         }
 
         private void InitializeObservableObjects()
@@ -68,11 +68,12 @@ namespace RecipeSelectHelper.View
             gridView.Columns[0].Width = remainingWidth;
         }
 
+        private static int _addRecipeCounter = 1;
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             // TEST
-            string name = "Leftovers";
-            string description = "A  mix of leftovers";
+            string name = "Leftovers" + _addRecipeCounter++;
+            string description = "A mix of leftovers";
             string instruction = "Mix whatever you've got leftover and eat with lots of ketchup";
             var ingredients = new List<Ingredient>();
             var recipeCategories = new List<RecipeCategory>();
@@ -108,26 +109,10 @@ namespace RecipeSelectHelper.View
 
         private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
         {
-            var xmlReader = new XMLDataHandler();
-            xmlReader.SaveToXML(_parent.Data);
-            _parent.Data = xmlReader.FromXML();
-
-            var rec = _parent.Data.AllRecipes.FirstOrDefault();
-            string s = "Data on top element: ";
-            s += rec.Name;
-            s += rec.CategoriesAsString;
-            s += rec.Description;
-            s += rec.ID;
-            s += rec.Instruction;
-            s += rec.Value;
-            foreach (Ingredient ing in rec.Ingredients)
+            if (SelectedRecipe != null)
             {
-                s += "|ingredient: ";
-                s += ing.CorrespondingProduct.Name;
-                s += ing.Value;
-                s += ing.AmountNeeded;
+                DisplayRecipeInfo(SelectedRecipe);
             }
-            MessageBox.Show(s);
         }
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
@@ -187,8 +172,27 @@ namespace RecipeSelectHelper.View
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
-            Recipe obj = (Recipe)item.Content;
-            MessageBox.Show(obj.Name);
+            Recipe rec = (Recipe)item.Content;
+
+            DisplayRecipeInfo(rec);
+        }
+
+        private void DisplayRecipeInfo(Recipe rec)
+        {
+            string s = "Name: " + rec.Name + "\n";
+            s += "ID: " + rec.ID + "\n";
+            s += "Categories: " + rec.CategoriesAsString + "\n";
+            s += "Description: " + rec.Description + "\n";
+            s += "Instruction: " + rec.Instruction + "\n";
+            s += "Value: " + rec.Value + "\n";
+            s += "Ingredients: ";
+            foreach (Ingredient ing in rec.Ingredients)
+            {
+                s += ing.CorrespondingProduct.Name + " (";
+                s += "value: " + ing.Value + ", ";
+                s += ing.AmountNeeded + " needed), ";
+            }
+            MessageBox.Show(s, "Recipe information");
         }
     }
 }

@@ -74,6 +74,9 @@
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethod.cs" />
+    <Compile Include="View\AddRecipePage.xaml.cs">
+      <DependentUpon>AddRecipePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddRecipePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AllRecipesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

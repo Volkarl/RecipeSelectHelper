@@ -48,6 +48,7 @@ namespace RecipeSelectHelper.Model
             this.Name = name;
             this.ID = _recipeCreatedNumber++;
             this.Description = description;
+            this.Instruction = instruction;
             this.Ingredients = ingredients;
             this.Categories = categories;
             this.Value = 0;

@@ -80,5 +80,11 @@ namespace RecipeSelectHelper
         {
             SetPage(new SortingMethodsPage(this));
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            var xmlReader = new XMLDataHandler();
+            xmlReader.SaveToXML(this.Data);
+        }
     }
 }

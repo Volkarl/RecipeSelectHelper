@@ -23,7 +23,6 @@ namespace RecipeSelectHelper.Model
         {
             var data = new ProgramData();
             var deserializer = new DataContractSerializer(data.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
-            // int to max value?
 
             var deserializedData = new ProgramData();
 
@@ -36,14 +35,6 @@ namespace RecipeSelectHelper.Model
                         deserializedData = (ProgramData)deserializer.ReadObject(xmlr, true);
                     }
                 }
-
-
-                string s = "Deserialized: ";
-                foreach (Recipe recipe in deserializedData.AllRecipes)
-                {
-                    s += recipe.Name + recipe.CategoriesAsString;
-                }
-                MessageBox.Show(s);
             }
             catch (FileNotFoundException)
             {
@@ -77,23 +68,25 @@ namespace RecipeSelectHelper.Model
 
         public void SaveToXML(ProgramData data)
         {
-            try
+            var serializer = new DataContractSerializer(data.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
+            // int.MaxValue?
+            using (var xmlw = XmlWriter.Create(_filePath))
             {
-                var serializer = new DataContractSerializer(data.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
-                // int.MaxValue?
-                using (var xmlw = XmlWriter.Create(_filePath))
-                {
-                    serializer.WriteObject(xmlw, data);
-                }
+                serializer.WriteObject(xmlw, data);
             }
-            catch (InvalidDataContractException iExc)
-            {
-                MessageBox.Show("You have an invalid data contract: " + iExc.Message);
-            }
-            catch (SerializationException sExc)
-            {
-                MessageBox.Show("SerializationException: " + sExc.Message);
-            }
+
+
+            //try
+            //{
+            //}
+            //catch (InvalidDataContractException iExc)
+            //{
+            //    MessageBox.Show("You have an invalid data contract: " + iExc.Message);
+            //}
+            //catch (SerializationException sExc)
+            //{
+            //    MessageBox.Show("SerializationException: " + sExc.Message);
+            //}
             MessageBox.Show("Serialized");
 
 

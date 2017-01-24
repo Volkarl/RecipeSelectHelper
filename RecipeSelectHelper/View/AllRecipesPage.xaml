@@ -71,7 +71,11 @@
                         <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
                         <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
-                        <GridViewColumn Width="{x:Static SystemParameters.VerticalScrollBarWidth}"></GridViewColumn>
+                        <GridViewColumn Header="" Width="{x:Static SystemParameters.VerticalScrollBarWidth}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate />
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -85,7 +89,7 @@
         </Button>
         <TextBox Name="TextBox_SearchRecipes" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>
         
-        <Button Name="Button_AddRecipe" Content="Add Recipe" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_AddRecipe_Click"></Button>
+        <Button Name="Button_AddRecipe" Content="Add Recipes" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_AddRecipe_Click"></Button>
         <Button Name="Button_EditRecipe" Content="Edit Recipe" Grid.Row="6" Grid.Column="4" Click="Button_EditRecipe_Click"></Button>
         <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Grid.Row="6" Grid.Column="8" Click="Button_RemoveRecipe_Click"></Button>
     </Grid>
