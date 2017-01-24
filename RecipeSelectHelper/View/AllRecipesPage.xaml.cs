@@ -111,7 +111,23 @@ namespace RecipeSelectHelper.View
             var xmlReader = new XMLDataHandler();
             xmlReader.SaveToXML(_parent.Data);
             _parent.Data = xmlReader.FromXML();
-            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes);
+
+            var rec = _parent.Data.AllRecipes.FirstOrDefault();
+            string s = "Data on top element: ";
+            s += rec.Name;
+            s += rec.CategoriesAsString;
+            s += rec.Description;
+            s += rec.ID;
+            s += rec.Instruction;
+            s += rec.Value;
+            foreach (Ingredient ing in rec.Ingredients)
+            {
+                s += "|ingredient: ";
+                s += ing.CorrespondingProduct.Name;
+                s += ing.Value;
+                s += ing.AmountNeeded;
+            }
+            MessageBox.Show(s);
         }
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
