@@ -70,6 +70,7 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Model\XMLDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethod.cs" />

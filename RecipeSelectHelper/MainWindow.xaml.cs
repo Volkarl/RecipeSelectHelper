@@ -44,8 +44,11 @@ namespace RecipeSelectHelper
 
         private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
         {
-            Data = new ProgramData();
-            Data.FromXML();
+            var xmlReader = new XMLDataHandler();
+            Data = xmlReader.FromXML();
+
+
+            Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
         }
 
         private void SetPage(Page newpage)

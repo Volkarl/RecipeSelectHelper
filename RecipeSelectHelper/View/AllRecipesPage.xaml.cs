@@ -28,7 +28,6 @@ namespace RecipeSelectHelper.View
     public partial class AllRecipesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
-        public List<Recipe> AllRecipes { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -47,8 +46,7 @@ namespace RecipeSelectHelper.View
 
         private void InitializeObservableObjects()
         {
-            AllRecipes = _parent.Data.AllRecipes;
-            Recipes = new ObservableCollection<Recipe>(AllRecipes);
+            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes);
             SelectedRecipe = null;
         }
 
@@ -74,13 +72,15 @@ namespace RecipeSelectHelper.View
         {
             var newRecipe = new Recipe("Pasta");
             Recipes.Add(newRecipe);
-            AllRecipes.Add(newRecipe);
+            _parent.Data.AllRecipes.Add(newRecipe);
         }
 
         private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
         {
-            _parent.Data.SaveToXML();
-            _parent.Data.TestFromXML();
+            var xmlReader = new XMLDataHandler();
+            xmlReader.SaveToXML(_parent.Data);
+            _parent.Data = xmlReader.FromXML();
+            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes);
         }
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
@@ -98,7 +98,7 @@ namespace RecipeSelectHelper.View
             ListView_Recipes.Focus();
 
             Recipes.Remove(recipeToBeRemoved);
-            AllRecipes.Remove(recipeToBeRemoved);
+            _parent.Data.AllRecipes.Remove(recipeToBeRemoved);
         }
 
         #region ObservableObjects
@@ -129,7 +129,7 @@ namespace RecipeSelectHelper.View
 
         private void FilterRecipesByName(string searchParameter)
         {
-            Recipes = new ObservableCollection<Recipe>(AllRecipes.Where(x => x.Name.Contains(searchParameter)));
+            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.Where(x => x.Name.Contains(searchParameter)));
         }
 
         private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e)
