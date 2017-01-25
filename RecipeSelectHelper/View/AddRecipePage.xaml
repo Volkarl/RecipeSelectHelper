@@ -50,23 +50,17 @@
             
             <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
                 <StackPanel>
-                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
-                        <WrapPanel.Background>
-                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                        </WrapPanel.Background>
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                    </WrapPanel>
+                    <ItemsControl Name="ItemsControl_Categories">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Name="WrapPanel_Categories" Margin="-2,10,0,0" Orientation="Horizontal">
+                                    <WrapPanel.Background>
+                                        <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                    </WrapPanel.Background>
+                                </WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
 
                     <Button Name="Button_AddCategory" Content="Add New Category..." Height="30"></Button>
                 </StackPanel>
@@ -74,28 +68,23 @@
 
             <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down">
                 <StackPanel>
-                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
-                        <WrapPanel.Background>
-                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                        </WrapPanel.Background>
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                    </WrapPanel>
-
+                    <ItemsControl Name="ItemsControl_Ingredients">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,10,0,0" Orientation="Horizontal">
+                                    <WrapPanel.Background>
+                                        <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                    </WrapPanel.Background>
+                                </WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    
                     <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30"></Button>
                 </StackPanel>
             </Expander>
-            <CheckBox x:Name="CheckBox_ProductCanExpire" Content="Product can expire" Height="20" Margin="6" Checked="CheckBox_ProductCanExpire_Checked"/>
+            
+            <CheckBox x:Name="CheckBox_ProductCanExpire" Content="Product can expire" Height="20" Margin="6" Checked="CheckBox_ProductCanExpire_Toggled" Unchecked="CheckBox_ProductCanExpire_Toggled"/>
             <StackPanel Name="StackPanel_ExpirationInfo">
                 <DockPanel>
                     <Label Content="Product Bought Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
@@ -108,10 +97,11 @@
             </StackPanel>
 
         </StackPanel>
-        <StackPanel Name="StackPanel_ProductInfoImage" Grid.Column="9" Grid.Row="3">
-            <Button Height="30"></Button>
-            <Button Height="30"></Button>
-            <Button Height="30"></Button>
-        </StackPanel>
+        <DockPanel Name="StackPanel_ProductInfoImage" Grid.Column="9" Grid.Row="3">
+            <Button Height="30" DockPanel.Dock="Top"></Button>
+            <Button Height="30" DockPanel.Dock="Top"></Button>
+            <Button Height="30" DockPanel.Dock="Top"></Button>
+            <ScrollViewer VerticalScrollBarVisibility="Auto"></ScrollViewer>
+        </DockPanel>
     </Grid>
 </Page>

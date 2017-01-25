@@ -39,8 +39,17 @@ namespace RecipeSelectHelper.View
 
         private void AddChildrenToWrapPanels()
         {
-            // this.StackPanel_ProductInfoTextBox.Children   (as expander . children. wrappanel. elements?)
-
+            for (int i = 0; i < 9; i++)
+            {
+                var checkBox = new CheckBox();
+                checkBox.Content = "Object " + i;
+                checkBox.Margin = new Thickness(4);
+                ItemsControl_Ingredients.Items.Add(checkBox);
+                var newCheckBox = new CheckBox();
+                newCheckBox.Content = checkBox.Content;
+                newCheckBox.Margin = checkBox.Margin;
+                ItemsControl_Categories.Items.Add(newCheckBox);
+            }
         }
 
         private void Button_AddProduct_Click(object sender, RoutedEventArgs e)
@@ -56,7 +65,7 @@ namespace RecipeSelectHelper.View
             }
         }
 
-        private void CheckBox_ProductCanExpire_Checked(object sender, RoutedEventArgs e)
+        private void CheckBox_ProductCanExpire_Toggled(object sender, RoutedEventArgs e)
         {
             if (CheckBox_ProductCanExpire.IsChecked.Value)
             {
