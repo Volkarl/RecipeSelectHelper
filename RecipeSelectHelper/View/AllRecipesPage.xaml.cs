@@ -105,6 +105,8 @@ namespace RecipeSelectHelper.View
             //var newRecipe = new Recipe("Pasta");
             Recipes.Add(newRecipe);
             _parent.Data.AllRecipes.Add(newRecipe);
+
+            _parent.SetPage(new AddRecipePage(_parent));
         }
 
         private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)

@@ -33,8 +33,14 @@ namespace RecipeSelectHelper.View
 
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
+            AddChildrenToWrapPanels();
+            CheckBox_ProductCanExpire.IsChecked = true;
+        }
+
+        private void AddChildrenToWrapPanels()
+        {
             // this.StackPanel_ProductInfoTextBox.Children   (as expander . children. wrappanel. elements?)
-            throw new NotImplementedException();
+
         }
 
         private void Button_AddProduct_Click(object sender, RoutedEventArgs e)
@@ -44,7 +50,22 @@ namespace RecipeSelectHelper.View
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (_parent.ContentControl.NavigationService.CanGoBack)
+            {
+                _parent.ContentControl.NavigationService.GoBack();
+            }
+        }
+
+        private void CheckBox_ProductCanExpire_Checked(object sender, RoutedEventArgs e)
+        {
+            if (CheckBox_ProductCanExpire.IsChecked.Value)
+            {
+                StackPanel_ExpirationInfo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                StackPanel_ExpirationInfo.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

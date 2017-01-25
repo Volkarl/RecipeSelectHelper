@@ -51,7 +51,7 @@ namespace RecipeSelectHelper
             //Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
         }
 
-        private void SetPage(Page newpage)
+        public void SetPage(Page newpage)
         {
             this.ContentControl.Content = newpage;
         }

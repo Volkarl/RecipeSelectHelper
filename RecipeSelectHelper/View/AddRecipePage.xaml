@@ -41,6 +41,7 @@
             <Label Content="Cooking Instructions: " Height="30" HorizontalAlignment="Right"></Label>
             <Label Content="Categories: " Height="30" HorizontalAlignment="Right"></Label>
             <Label Content="Ingredients: " Height="30" HorizontalAlignment="Right"></Label>
+            <Label Content="Product Expiration: " Height="30" HorizontalAlignment="Right"></Label>
         </StackPanel>
         <StackPanel Name="StackPanel_ProductInfoTextBox" Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="3">
             <TextBox Height="30"></TextBox>
@@ -94,6 +95,17 @@
                     <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30"></Button>
                 </StackPanel>
             </Expander>
+            <CheckBox x:Name="CheckBox_ProductCanExpire" Content="Product can expire" Height="20" Margin="6" Checked="CheckBox_ProductCanExpire_Checked"/>
+            <StackPanel Name="StackPanel_ExpirationInfo">
+                <DockPanel>
+                    <Label Content="Product Bought Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
+                    <DatePicker DockPanel.Dock="Right"></DatePicker>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Expiration Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
+                    <DatePicker DockPanel.Dock="Right"></DatePicker>
+                </DockPanel>
+            </StackPanel>
 
         </StackPanel>
         <StackPanel Name="StackPanel_ProductInfoImage" Grid.Column="9" Grid.Row="3">
