@@ -35,7 +35,8 @@
             </Grid.ColumnDefinitions>
 
             <Button Name="Button_Back" Content="(--- Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click"></Button>
-            <Button Name="Button_AddProduct" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" Click="Button_AddProduct_Click"></Button>
+            <TextBlock Text="Add New Recipe" Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="1" TextAlignment="Center" FontSize="30" FontWeight="DemiBold"></TextBlock>
+            <Button Name="Button_AddRecipe" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" Click="Button_AddRecipe_Click"></Button>
             <StackPanel Name="StackPanel_ProductInfoLabel" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3">
                 <Label Content="Recipe Name: " Height="30" HorizontalAlignment="Right"></Label>
                 <Label Content="Recipe Description: " Height="30" HorizontalAlignment="Right"></Label>
@@ -45,9 +46,9 @@
                 <Label Content="Product Expiration: " Height="30" HorizontalAlignment="Right"></Label>
             </StackPanel>
             <StackPanel Name="StackPanel_ProductInfoTextBox" Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="3">
-                <TextBox Height="30"></TextBox>
-                <TextBox Height="30"></TextBox>
-                <TextBox Height="30"></TextBox>
+                <TextBox Name="TextBox_RecipeName" Height="30"></TextBox>
+                <TextBox Name="TextBox_RecipeDescription" Height="30"></TextBox>
+                <TextBox Name="TextBox_RecipeInstruction" Height="30"></TextBox>
 
                 <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
                     <StackPanel>

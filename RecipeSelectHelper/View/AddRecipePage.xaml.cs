@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,11 +53,6 @@ namespace RecipeSelectHelper.View
             }
         }
 
-        private void Button_AddProduct_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
             if (_parent.ContentControl.NavigationService.CanGoBack)
@@ -75,6 +71,30 @@ namespace RecipeSelectHelper.View
             {
                 StackPanel_ExpirationInfo.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            string name = TextBox_RecipeName.Text;
+            string description = TextBox_RecipeDescription.Text;
+            string instruction = TextBox_RecipeInstruction.Text;
+            var categories = new List<RecipeCategory>();
+            var ingredients = new List<Ingredient>();
+            var expirationInfo = new ExpirationInfo();
+
+            var recipe = new Recipe(name, description, instruction, ingredients, categories);
+
+            ClearUIElements();
+
+
+            // REMOVE PRODUCT EXPIRATION AND PUT IT WHERE IT BELONGS (IE NOT IN ADD RECIPE)
+            // ADD ERROR HANDLING HERE
+            // SYNCHRONIZE THE LABELS IN THE LEFT STACKPANEL WITH THE ELEMENTS IN THE MIDDLE ONE (Might as well do the same with the right ones anyhow)
+        }
+
+        private void ClearUIElements()
+        {
+            throw new NotImplementedException();
         }
     }
 }
