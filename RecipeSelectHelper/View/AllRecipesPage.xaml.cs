@@ -53,6 +53,12 @@ namespace RecipeSelectHelper.View
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
         {
             ListView_SizeChanged(ListView_Recipes, null);
+            _parent.ContentControl.NavigationService.LoadCompleted += NavigationService_LoadCompleted;
+        }
+
+        private void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            FilterRecipesByName(TextBox_SearchRecipes.Text);
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

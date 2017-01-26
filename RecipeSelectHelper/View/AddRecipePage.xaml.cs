@@ -67,7 +67,25 @@ namespace RecipeSelectHelper.View
             string description = TextBox_RecipeDescription.Text;
             string instruction = TextBox_RecipeInstruction.Text;
             var categories = new List<RecipeCategory>();
+
+            var indexList = new List<int>();
+            for (int i = 0; i < ItemsControl_Categories.Items.Count; i++)
+            {
+                if (((CheckBox)(ItemsControl_Categories.Items[i])).IsChecked.Value)
+                {
+                    indexList.Add(i);
+                }
+
+            }
+            foreach (int index in indexList)
+            {
+                categories.Add(_parent.Data.AllRecipeCategories[index]);
+            }
+
             var ingredients = new List<Ingredient>();
+
+            // CLEAN THIS UP AND ADD ONE FOR INGREDIENTS
+
 
             try
             {
@@ -80,9 +98,7 @@ namespace RecipeSelectHelper.View
                 MessageBox.Show(ex.Message);
             }
 
-            // REMOVE PRODUCT EXPIRATION AND PUT IT WHERE IT BELONGS (IE NOT IN ADD RECIPE)
-            // ADD ERROR HANDLING IN RECIPE (Name != null) (Need to be unique)
-            // SYNCHRONIZE THE LABELS IN THE LEFT STACKPANEL WITH THE ELEMENTS IN THE MIDDLE ONE (Might as well do the same with the right ones anyhow)
+            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null) (Need to be unique)
         }
 
         private void ClearUIElements()

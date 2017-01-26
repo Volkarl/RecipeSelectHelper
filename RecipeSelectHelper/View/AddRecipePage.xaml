@@ -36,7 +36,7 @@
 
             <Button Name="Button_Back" Content="(--- Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold"></Button>
             <TextBlock Text="Add New Recipe" Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="1" TextAlignment="Center" FontSize="30" FontWeight="DemiBold"></TextBlock>
-            <Button Name="Button_AddRecipe" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" Click="Button_AddRecipe_Click"></Button>
+            <Button Name="Button_AddRecipe" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" FontSize="15" FontWeight="DemiBold" Click="Button_AddRecipe_Click"></Button>
 
             <StackPanel Grid.Column="1" Grid.ColumnSpan="9" Grid.Row="3">
                 <DockPanel Name="DockPanel_RecipeName" LastChildFill="True" Margin="1">
