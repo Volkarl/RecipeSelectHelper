@@ -121,7 +121,7 @@ namespace RecipeSelectHelper.View
         {
             Recipe recipeToBeRemoved = SelectedRecipe;
             int indexOfSelection = Recipes.IndexOf(recipeToBeRemoved);
-            if (indexOfSelection != 0)
+            if (indexOfSelection > 0)
             {
                 SelectedRecipe = Recipes[indexOfSelection - 1];
             }

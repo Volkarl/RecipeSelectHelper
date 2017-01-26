@@ -25,9 +25,6 @@ namespace RecipeSelectHelper.View
         public AddRecipePage(MainWindow parent)
         {
             _parent = parent;
-
-            // I Will only load new data straight into the parent's data. It's the other page's individual jobs to check for changes?
-
             this.Loaded += AddRecipePage_Loaded;
             InitializeComponent();
         }
@@ -35,21 +32,24 @@ namespace RecipeSelectHelper.View
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
             AddChildrenToWrapPanels();
-            CheckBox_ProductCanExpire.IsChecked = true;
         }
 
         private void AddChildrenToWrapPanels()
         {
-            for (int i = 0; i < 9; i++)
+            foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
             {
                 var checkBox = new CheckBox();
-                checkBox.Content = "Object " + i;
+                checkBox.Content = category.Name;
+                checkBox.Margin = new Thickness(4);
+                ItemsControl_Categories.Items.Add(checkBox);
+            }
+
+            foreach (Product ingredients in _parent.Data.AllProducts)
+            {
+                var checkBox = new CheckBox();
+                checkBox.Content = ingredients.Name;
                 checkBox.Margin = new Thickness(4);
                 ItemsControl_Ingredients.Items.Add(checkBox);
-                var newCheckBox = new CheckBox();
-                newCheckBox.Content = checkBox.Content;
-                newCheckBox.Margin = checkBox.Margin;
-                ItemsControl_Categories.Items.Add(newCheckBox);
             }
         }
 
@@ -61,18 +61,6 @@ namespace RecipeSelectHelper.View
             }
         }
 
-        private void CheckBox_ProductCanExpire_Toggled(object sender, RoutedEventArgs e)
-        {
-            if (CheckBox_ProductCanExpire.IsChecked.Value)
-            {
-                StackPanel_ExpirationInfo.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                StackPanel_ExpirationInfo.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             string name = TextBox_RecipeName.Text;
@@ -80,21 +68,28 @@ namespace RecipeSelectHelper.View
             string instruction = TextBox_RecipeInstruction.Text;
             var categories = new List<RecipeCategory>();
             var ingredients = new List<Ingredient>();
-            var expirationInfo = new ExpirationInfo();
 
-            var recipe = new Recipe(name, description, instruction, ingredients, categories);
-
-            ClearUIElements();
-
+            try
+            {
+                var recipe = new Recipe(name, description, instruction, ingredients, categories);
+                _parent.Data.AllRecipes.Add(recipe);
+                ClearUIElements();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             // REMOVE PRODUCT EXPIRATION AND PUT IT WHERE IT BELONGS (IE NOT IN ADD RECIPE)
-            // ADD ERROR HANDLING HERE
+            // ADD ERROR HANDLING IN RECIPE (Name != null) (Need to be unique)
             // SYNCHRONIZE THE LABELS IN THE LEFT STACKPANEL WITH THE ELEMENTS IN THE MIDDLE ONE (Might as well do the same with the right ones anyhow)
         }
 
         private void ClearUIElements()
         {
-            throw new NotImplementedException();
+            TextBox_RecipeName.Text = string.Empty;
+            TextBox_RecipeDescription.Text = string.Empty;
+            TextBox_RecipeInstruction.Text = string.Empty;
         }
     }
 }
