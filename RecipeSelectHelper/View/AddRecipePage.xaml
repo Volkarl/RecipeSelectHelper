@@ -62,7 +62,7 @@
                             <ItemsControl Name="ItemsControl_Categories">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Name="WrapPanel_Categories" Margin="-2,10,0,0" Orientation="Horizontal">
+                                        <WrapPanel Name="WrapPanel_Categories" Margin="-2,2,0,0" Orientation="Horizontal">
                                             <WrapPanel.Background>
                                                 <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
                                             </WrapPanel.Background>
@@ -71,7 +71,7 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
 
-                            <Button Name="Button_AddCategory" Content="Add New Category..." Height="30"></Button>
+                            <Button Name="Button_AddCategory" Content="Add New Category..." Height="30" Click="Button_AddCategory_Click"></Button>
                         </StackPanel>
                     </Expander>
                 </DockPanel>
@@ -83,7 +83,7 @@
                             <ItemsControl Name="ItemsControl_Ingredients">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,10,0,0" Orientation="Horizontal">
+                                        <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,2,0,0" Orientation="Horizontal">
                                             <WrapPanel.Background>
                                                 <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
                                             </WrapPanel.Background>
@@ -92,7 +92,7 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
 
-                            <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30"></Button>
+                            <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
                         </StackPanel>
                     </Expander>
                 </DockPanel>

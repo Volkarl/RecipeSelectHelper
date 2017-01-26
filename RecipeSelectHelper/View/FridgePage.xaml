@@ -9,6 +9,11 @@
       Title="FridgePage">
 
     <Grid>
-        
+        <CheckBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hello" Margin="1"></TextBlock>
+                <TextBox Width="50"></TextBox>
+            </StackPanel>
+        </CheckBox>
     </Grid>
 </Page>
