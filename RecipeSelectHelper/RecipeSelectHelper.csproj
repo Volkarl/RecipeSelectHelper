@@ -74,6 +74,7 @@
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethod.cs" />
+    <Compile Include="Resources\IntegerTextBox.cs" />
     <Compile Include="View\AddBoughtProductPage.xaml.cs">
       <DependentUpon>AddBoughtProductPage.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
 ﻿using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,9 @@ namespace RecipeSelectHelper.View
 
         private void AddChildrenToWrapPanels()
         {
+            ItemsControl_Categories.Items.Clear();
+            ItemsControl_Ingredients.Items.Clear();
+
             foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
             {
                 var checkBox = new CheckBox();
@@ -50,7 +54,7 @@ namespace RecipeSelectHelper.View
                 var checkBox = new CheckBox();
                 var checkedContent = new StackPanel();
                 var label1 = new Label();
-                var textBox = new TextBox();
+                var textBox = new IntegerTextBox();
                 var label2 = new Label();
 
                 checkBox.Content = ingredients.Name;
@@ -125,21 +129,25 @@ namespace RecipeSelectHelper.View
             // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null) (Need to be unique)
         }
 
+        // REPLACE WITH A LISTVIEW AND A SEARCH BAR AT SOME POINT!
+
         private List<Ingredient> GetCheckedIngredients()
         {
             var ingredients = new List<Ingredient>();
             var checkedProducts = new List<Product>();
             var indexList = new List<int>();
-
-
-
-            // THIS PROBABLY NO LONGER WORKS!!!! BECAUSE CHECKBOX IS ELEMENT 0 INSIDE ONE STACKPANEL
+            var ingredientAmountsNeeded = new List<int>();
 
             for (int i = 0; i < ItemsControl_Ingredients.Items.Count; i++)
             {
-                if (((CheckBox)(ItemsControl_Ingredients.Items[i])).IsChecked.Value)
+                StackPanel content = ItemsControl_Ingredients.Items[i] as StackPanel;
+                if (((CheckBox)(content.Children[0])).IsChecked.Value)
                 {
                     indexList.Add(i);
+                    var checkedContent = content.Children[1] as StackPanel;
+                    IntegerTextBox amountNeededTextBox = checkedContent.Children[1] as IntegerTextBox;
+                    int amountNeeded = Int32.Parse(amountNeededTextBox.Text);
+                    ingredientAmountsNeeded.Add(amountNeeded);
                 }
             }
             foreach (int index in indexList)
@@ -147,10 +155,11 @@ namespace RecipeSelectHelper.View
                 checkedProducts.Add(_parent.Data.AllProducts[index]);
             }
 
-            foreach (Product product in checkedProducts)
+            for (int i = 0; i < checkedProducts.Count; i++)
             {
-                ingredients.Add(new Ingredient(0, product)); // HERE IT NEEDS TO TAKE THE CORRECT VALUE
+                ingredients.Add(new Ingredient(ingredientAmountsNeeded[i], checkedProducts[i]));
             }
+
             return ingredients;
         }
 
@@ -178,6 +187,7 @@ namespace RecipeSelectHelper.View
             TextBox_RecipeName.Text = string.Empty;
             TextBox_RecipeDescription.Text = string.Empty;
             TextBox_RecipeInstruction.Text = string.Empty;
+            AddChildrenToWrapPanels();
         }
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
