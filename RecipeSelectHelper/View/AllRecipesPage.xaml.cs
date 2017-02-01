@@ -71,46 +71,49 @@ namespace RecipeSelectHelper.View
             {
                 remainingWidth -= gridView.Columns[i].ActualWidth;
             }
+
+
+            // ADD LOGIC HERE TO CONTROL THE MIN WIDTH OF THE COLUMNS
+
+
             gridView.Columns[0].Width = remainingWidth;
         }
 
-        private static int _addRecipeCounter = 1;
+        //private static int _addRecipeCounter = 1;
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
-            // TEST
-            string name = "Leftovers" + _addRecipeCounter++;
-            string description = "A mix of leftovers";
-            string instruction = "Mix whatever you've got leftover and eat with lots of ketchup";
-            var ingredients = new List<Ingredient>();
-            var recipeCategories = new List<RecipeCategory>();
+            //string name = "Leftovers" + _addRecipeCounter++;
+            //string description = "A mix of leftovers";
+            //string instruction = "Mix whatever you've got leftover and eat with lots of ketchup";
+            //var ingredients = new List<Ingredient>();
+            //var recipeCategories = new List<RecipeCategory>();
 
-            var productCategories = new List<ProductCategory>();
-            var productcat = new ProductCategory("Green food");
-            _parent.Data.AllProductCategories.Add(productcat);
-            productCategories.Add(productcat);
-            var product1 = new Product("Celery", productCategories);
-            _parent.Data.AllProducts.Add(product1);
+            //var productCategories = new List<ProductCategory>();
+            //var productcat = new ProductCategory("Green food");
+            //_parent.Data.AllProductCategories.Add(productcat);
+            //productCategories.Add(productcat);
+            //var product1 = new Product("Celery", productCategories);
+            //_parent.Data.AllProducts.Add(product1);
 
-            var productCategories2 = new List<ProductCategory>();
-            productCategories2.Add(productcat);
-            var productcat2 = new ProductCategory("Disgusting");
-            _parent.Data.AllProductCategories.Add(productcat2);
-            productCategories2.Add(productcat2);
-            var product2 = new Product("Milk", productCategories, new List<Product>() { product1 });
-            _parent.Data.AllProducts.Add(product2);
+            //var productCategories2 = new List<ProductCategory>();
+            //productCategories2.Add(productcat);
+            //var productcat2 = new ProductCategory("Disgusting");
+            //_parent.Data.AllProductCategories.Add(productcat2);
+            //productCategories2.Add(productcat2);
+            //var product2 = new Product("Milk", productCategories, new List<Product>() { product1 });
+            //_parent.Data.AllProducts.Add(product2);
 
-            var newing = new Ingredient(20, product2);
-            ingredients.Add(newing);
+            //var newing = new Ingredient(20, product2);
+            //ingredients.Add(newing);
 
-            var reccat = new RecipeCategory("Non-appetizing food");
-            _parent.Data.AllRecipeCategories.Add(reccat);
-            recipeCategories.Add(reccat);
+            //var reccat = new RecipeCategory("Non-appetizing food");
+            //_parent.Data.AllRecipeCategories.Add(reccat);
+            //recipeCategories.Add(reccat);
 
-            var newRecipe = new Recipe(name, description, instruction, ingredients, recipeCategories);
+            //var newRecipe = new Recipe(name, description, instruction, ingredients, recipeCategories);
             
-            //var newRecipe = new Recipe("Pasta");
-            Recipes.Add(newRecipe);
-            _parent.Data.AllRecipes.Add(newRecipe);
+            //Recipes.Add(newRecipe);
+            //_parent.Data.AllRecipes.Add(newRecipe);
 
             _parent.SetPage(new AddRecipePage(_parent));
         }

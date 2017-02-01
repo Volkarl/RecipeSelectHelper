@@ -38,6 +38,7 @@ namespace RecipeSelectHelper
             DataContext = this;
             InitializeComponent();
             SetPage(new RankingsViewPage(this));
+            HighlightButtonBackground(Button_RankRecipes);
         }
 
         public ProgramData Data { get; set; }
@@ -56,29 +57,50 @@ namespace RecipeSelectHelper
             this.ContentControl.Content = newpage;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HighlightButtonBackground(Button button)
+        {
+            ClearOtherButtons();
+            button.Background = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        private void ClearOtherButtons()
+        {
+            SolidColorBrush defaultColor = new SolidColorBrush(Colors.LightGray);
+            Button_RankRecipes.Background = defaultColor;
+            Button_FridgeIngredients.Background = defaultColor;
+            Button_AllRecipes.Background = defaultColor;
+            Button_AllStoreProducts.Background = defaultColor;
+            Button_AllSortingMethods.Background = defaultColor;
+        }
+
+        private void Button_RankRecipes_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new RankingsViewPage(this));
+            HighlightButtonBackground(sender as Button);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_FridgeIngredients_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new FridgePage(this));
+            HighlightButtonBackground(sender as Button);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_AllRecipes_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new AllRecipesPage(this));
+            HighlightButtonBackground(sender as Button);
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Button_AllStoreProducts_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new AllStoreProductsPage(this));
+            HighlightButtonBackground(sender as Button);
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Button_AllSortingMethods_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new SortingMethodsPage(this));
+            HighlightButtonBackground(sender as Button);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

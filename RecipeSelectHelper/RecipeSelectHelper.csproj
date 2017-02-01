@@ -87,6 +87,9 @@
     <Compile Include="View\AllStoreProductsPage.xaml.cs">
       <DependentUpon>AllStoreProductsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditRecipePage.xaml.cs">
+      <DependentUpon>EditRecipePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FridgePage.xaml.cs">
       <DependentUpon>FridgePage.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AllStoreProductsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
