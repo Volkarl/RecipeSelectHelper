@@ -87,7 +87,9 @@ namespace RecipeSelectHelper.Model
             //{
             //    MessageBox.Show("SerializationException: " + sExc.Message);
             //}
-            MessageBox.Show("Serialized");
+
+
+            //MessageBox.Show("Serialized");
 
 
 

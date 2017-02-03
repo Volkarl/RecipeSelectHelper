@@ -19,6 +19,7 @@ namespace RecipeSelectHelper.Tests
         [OneTimeSetUp]
         public void Initialize()
         {
+            data = new List<ProgramData>();
             _testFilePath = "testData.xml";
             _xmlConverter = new XMLDataHandler(_testFilePath);
 
@@ -147,7 +148,13 @@ namespace RecipeSelectHelper.Tests
         {
             _xmlConverter.SaveToXML(data[i]);
             ProgramData deserializedData = _xmlConverter.FromXML();
-            Assert.AreEqual(data[i], deserializedData);
+
+            CollectionAssert.AreEqual(data[i].AllBoughtProducts, deserializedData.AllBoughtProducts);
+            CollectionAssert.AreEqual(data[i].AllProductCategories, deserializedData.AllProductCategories);
+            CollectionAssert.AreEqual(data[i].AllProducts, deserializedData.AllProducts);
+            CollectionAssert.AreEqual(data[i].AllRecipeCategories, deserializedData.AllRecipeCategories);
+            CollectionAssert.AreEqual(data[i].AllRecipes, deserializedData.AllRecipes);
+            CollectionAssert.AreEqual(data[i].AllSortingMethods, deserializedData.AllSortingMethods);
         }
     }
 }
