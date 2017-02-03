@@ -47,10 +47,10 @@ namespace RecipeSelectHelper.Model
         {
             this.Name = name;
             this.ID = _recipeCreatedNumber++;
-            this.Description = description;
-            this.Instruction = instruction;
-            this.Ingredients = ingredients;
-            this.Categories = categories;
+            this.Description = description ?? String.Empty;
+            this.Instruction = instruction ?? String.Empty;
+            this.Ingredients = ingredients ?? new List<Ingredient>();
+            this.Categories = categories ?? new List<RecipeCategory>();
             this.Value = 0;
         }
     }

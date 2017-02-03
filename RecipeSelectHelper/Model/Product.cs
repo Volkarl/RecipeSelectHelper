@@ -27,8 +27,8 @@ namespace RecipeSelectHelper.Model
         public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null)
         {
             Name = name;
-            Categories = categories;
-            SubstituteProducts = substituteProducts;
+            Categories = categories ?? new List<ProductCategory>();
+            SubstituteProducts = substituteProducts ?? new List<Product>();
             ID = _productCreatedNumber++;
         }
     }

@@ -35,5 +35,72 @@ namespace RecipeSelectHelper.Model
 
             AllSortingMethods = new List<SortingMethod>();
         }
+
+        public int GetValueHashCode()
+        {
+            int hash = 0;
+            hash += this.AllBoughtProducts.Count.GetHashCode();
+            hash += this.AllProductCategories.Count.GetHashCode();
+            hash += this.AllProducts.Count.GetHashCode();
+            hash += this.AllRecipeCategories.Count.GetHashCode();
+            hash += this.AllRecipes.Count.GetHashCode();
+            hash += this.AllSortingMethods.Count.GetHashCode();
+
+            foreach (BoughtProduct bp in this.AllBoughtProducts)
+            {
+                hash += bp.ID.GetHashCode();
+                hash += bp.Value.GetHashCode();
+                hash += bp.CorrespondingProduct.ID.GetHashCode();
+            }
+
+            foreach (ProductCategory pc in this.AllProductCategories)
+            {
+                hash += pc.Name.GetHashCode();
+                hash += pc.Value.GetHashCode();
+            }
+
+            foreach (Product p in this.AllProducts)
+            {
+                hash += p.ID.GetHashCode();
+                hash += p.Name.GetHashCode();
+                hash += p.Value.GetHashCode();
+                foreach (ProductCategory s in p.Categories)
+                {
+                    hash += s.Name.GetHashCode();
+                    hash += s.Value.GetHashCode();
+                }
+                foreach (Product b in p.SubstituteProducts)
+                {
+                    hash += b.ID.GetHashCode();
+                }
+            }
+
+            foreach (RecipeCategory rc in this.AllRecipeCategories)
+            {
+                hash += rc.Name.GetHashCode();
+                hash += rc.Value.GetHashCode();
+            }
+
+            foreach (Recipe r in this.AllRecipes)
+            {
+                hash += r.CategoriesAsString.GetHashCode();
+                hash += r.Description.GetHashCode();
+                hash += r.ID.GetHashCode();
+                hash += r.Value.GetHashCode();
+                foreach (Ingredient i in r.Ingredients)
+                {
+                    hash += i.AmountNeeded.GetHashCode();
+                    hash += i.Value.GetHashCode();
+                    hash += i.CorrespondingProduct.ID.GetHashCode();
+                }
+            }
+
+            foreach (SortingMethod sm in this.AllSortingMethods)
+            {
+                //hash += sm.GetHashCode();
+            }
+
+            return hash;
+        }
     }
 }

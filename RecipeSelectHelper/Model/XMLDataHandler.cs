@@ -14,9 +14,9 @@ namespace RecipeSelectHelper.Model
     {
         private string _filePath;
 
-        public XMLDataHandler(string filepath = "data.xml")
+        public XMLDataHandler(string filePath = "data.xml")
         {
-            _filePath = filepath;
+            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), filePath);
         }
 
         public ProgramData FromXML()

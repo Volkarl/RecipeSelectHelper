@@ -135,10 +135,6 @@ namespace RecipeSelectHelper.Tests
             {
                 File.Delete(_testFilePath);
             }
-            else
-            {
-                throw new FileNotFoundException(_testFilePath + "does not exist and could not be deleted.");
-            }
         }
 
         [TestCase(0)]
@@ -148,13 +144,7 @@ namespace RecipeSelectHelper.Tests
         {
             _xmlConverter.SaveToXML(data[i]);
             ProgramData deserializedData = _xmlConverter.FromXML();
-
-            CollectionAssert.AreEqual(data[i].AllBoughtProducts, deserializedData.AllBoughtProducts);
-            CollectionAssert.AreEqual(data[i].AllProductCategories, deserializedData.AllProductCategories);
-            CollectionAssert.AreEqual(data[i].AllProducts, deserializedData.AllProducts);
-            CollectionAssert.AreEqual(data[i].AllRecipeCategories, deserializedData.AllRecipeCategories);
-            CollectionAssert.AreEqual(data[i].AllRecipes, deserializedData.AllRecipes);
-            CollectionAssert.AreEqual(data[i].AllSortingMethods, deserializedData.AllSortingMethods);
+            Assert.AreEqual(data[i].GetValueHashCode(), deserializedData.GetValueHashCode());
         }
     }
 }
