@@ -78,14 +78,23 @@
     <Compile Include="View\AddBoughtProductPage.xaml.cs">
       <DependentUpon>AddBoughtProductPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddCategoriesPage.xaml.cs">
+      <DependentUpon>AddCategoriesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddStoreProductPage.xaml.cs">
+      <DependentUpon>AddStoreProductPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AllStoreProductsPage.xaml.cs">
       <DependentUpon>AllStoreProductsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CategoriesPage.xaml.cs">
+      <DependentUpon>CategoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditRecipePage.xaml.cs">
       <DependentUpon>EditRecipePage.xaml</DependentUpon>
@@ -115,7 +124,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddCategoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddRecipePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddStoreProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AllStoreProductsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -192,12 +192,12 @@ namespace RecipeSelectHelper.View
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
         {
-
+            _parent.SetPage(new AddCategoriesPage(AddCategoriesPage.CategoryMode.RecipeCategory));
         }
 
         private void Button_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
-
+            _parent.SetPage(new AddStoreProductPage());
         }
     }
 }
