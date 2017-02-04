@@ -112,6 +112,7 @@ namespace RecipeSelectHelper
         private void Button_AllCategories_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new CategoriesPage(this));
+            HighlightButtonBackground(sender as Button);
         }
     }
 }

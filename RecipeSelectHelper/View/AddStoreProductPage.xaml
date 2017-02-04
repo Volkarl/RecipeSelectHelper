@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700"
+      d:DesignHeight="360" d:DesignWidth="680"
       Title="AddStoreProductPage">
 
-    <Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         
-    </Grid>
+    </ScrollViewer>
+
 </Page>

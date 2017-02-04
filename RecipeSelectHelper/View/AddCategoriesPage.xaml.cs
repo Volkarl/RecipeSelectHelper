@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for AddCategoriesPage.xaml
     /// </summary>
-    public partial class AddCategoriesPage : Page
+    public partial class AddCategoriesPage : Page, IAddElement
     {
         public enum CategoryMode
         {
@@ -30,6 +31,11 @@ namespace RecipeSelectHelper.View
         {
             _mode = mode;
             InitializeComponent();
+        }
+
+        public void AddItem(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

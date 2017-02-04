@@ -36,5 +36,35 @@ namespace RecipeSelectHelper.View
             DataContext = this;
             InitializeComponent();
         }
+
+        private void Button_AddProductCategory_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
+        }
+
+        private void Button_EditProductCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_RemoveProductCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AddRecipeCategory_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent);
+        }
+
+        private void Button_EditRecipeCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_RemoveRecipeCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

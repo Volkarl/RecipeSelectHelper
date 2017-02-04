@@ -8,7 +8,36 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="CategoriesPage">
 
-    <Grid>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Product Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Column="2" Text="Recipe Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+        <ListView Grid.Row="2"></ListView>
+        <ListView Grid.Column="2" Grid.Row="2"></ListView>
         
+        <UniformGrid Grid.Column="0" Grid.Row="4" Rows="1">
+            <Button Name="Button_AddProductCategory" Content="Add" Click="Button_AddProductCategory_Click"></Button>
+            <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_Click"></Button>
+            <Button Name="Button_RemoveProductCategory" Content="Remove" Click="Button_RemoveProductCategory_Click"></Button>
+        </UniformGrid>
+        <UniformGrid Grid.Column="2" Grid.Row="4" Rows="1">
+            <Button Name="Button_AddRecipeCategory" Content="Add" Click="Button_AddRecipeCategory_Click"></Button>
+            <Button Name="Button_EditRecipeCategory" Content="Edit" Click="Button_EditRecipeCategory_Click"></Button>
+            <Button Name="Button_RemoveRecipeCategory" Content="Remove" Click="Button_RemoveRecipeCategory_Click"></Button>
+        </UniformGrid>
     </Grid>
 </Page>
