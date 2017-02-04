@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for AddBoughtProductPage.xaml
     /// </summary>
-    public partial class AddBoughtProductPage : Page
+    public partial class AddBoughtProductPage : Page, IAddElement
     {
         public AddBoughtProductPage()
         {
@@ -41,6 +42,13 @@ namespace RecipeSelectHelper.View
             {
                 StackPanel_ExpirationInfo.Visibility = Visibility.Collapsed;
             }
+        }
+
+
+
+        public void AddItem(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Success");
         }
     }
 }

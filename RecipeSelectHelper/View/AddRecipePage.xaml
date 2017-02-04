@@ -5,98 +5,68 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700"
+      d:DesignHeight="360" d:DesignWidth="680"
       Title="AddRecipePage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="10"></RowDefinition>
-            </Grid.RowDefinitions>
+        <StackPanel>
+            <DockPanel Name="DockPanel_RecipeName" LastChildFill="True" Margin="1">
+                <Label Content="Recipe Name: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
+                <Button Width="30" DockPanel.Dock="Right"></Button>
+                <TextBox Name="TextBox_RecipeName" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+            </DockPanel>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="90"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="160"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="30"></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+            <DockPanel Name="DockPanel_RecipeDescription" Margin="1">
+                <Label Content="Recipe Description: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
+                <TextBox Name="TextBox_RecipeDescription" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+            </DockPanel>
 
-            <Button Name="Button_Back" Content="(--- Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold"></Button>
-            <TextBlock Text="Add New Recipe" Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="1" TextAlignment="Center" FontSize="30" FontWeight="DemiBold"></TextBlock>
-            <Button Name="Button_AddRecipe" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" FontSize="15" FontWeight="DemiBold" Click="Button_AddRecipe_Click"></Button>
+            <DockPanel Name="DockPanel_CookingInstruction" Margin="1">
+                <Label Content="Cooking Instructions: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
+                <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+            </DockPanel>
 
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="9" Grid.Row="3">
-                <DockPanel Name="DockPanel_RecipeName" LastChildFill="True" Margin="1">
-                    <Label Content="Recipe Name: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
-                    <Button Width="30" DockPanel.Dock="Right"></Button>
-                    <TextBox Name="TextBox_RecipeName" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
-                </DockPanel>
+            <DockPanel Name="DockPanel_Categories" Margin="1">
+                <Label Content="Categories: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"  DockPanel.Dock="Left"></Label>
+                <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
+                    <StackPanel>
+                        <ItemsControl Name="ItemsControl_Categories">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Name="WrapPanel_Categories" Margin="-2,2,0,0" Orientation="Horizontal">
+                                        <WrapPanel.Background>
+                                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                        </WrapPanel.Background>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
 
-                <DockPanel Name="DockPanel_RecipeDescription" Margin="1">
-                    <Label Content="Recipe Description: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
-                    <TextBox Name="TextBox_RecipeDescription" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
-                </DockPanel>
+                        <Button Name="Button_AddCategory" Content="Add New Category..." Height="30" Click="Button_AddCategory_Click"></Button>
+                    </StackPanel>
+                </Expander>
+            </DockPanel>
 
-                <DockPanel Name="DockPanel_CookingInstruction" Margin="1">
-                    <Label Content="Cooking Instructions: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
-                    <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
-                </DockPanel>
+            <DockPanel Name="DockPanel_Ingredients" Margin="1">
+                <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top" DockPanel.Dock="Left"></Label>
+                <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">
+                    <StackPanel>
+                        <ItemsControl Name="ItemsControl_Ingredients">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,2,0,0" Orientation="Horizontal">
+                                        <WrapPanel.Background>
+                                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                        </WrapPanel.Background>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
 
-                <DockPanel Name="DockPanel_Categories" Margin="1">
-                    <Label Content="Categories: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"  DockPanel.Dock="Left"></Label>
-                    <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
-                        <StackPanel>
-                            <ItemsControl Name="ItemsControl_Categories">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Name="WrapPanel_Categories" Margin="-2,2,0,0" Orientation="Horizontal">
-                                            <WrapPanel.Background>
-                                                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                                            </WrapPanel.Background>
-                                        </WrapPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-
-                            <Button Name="Button_AddCategory" Content="Add New Category..." Height="30" Click="Button_AddCategory_Click"></Button>
-                        </StackPanel>
-                    </Expander>
-                </DockPanel>
-
-                <DockPanel Name="DockPanel_Ingredients" Margin="1">
-                    <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top" DockPanel.Dock="Left"></Label>
-                    <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">
-                        <StackPanel>
-                            <ItemsControl Name="ItemsControl_Ingredients">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,2,0,0" Orientation="Horizontal">
-                                            <WrapPanel.Background>
-                                                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                                            </WrapPanel.Background>
-                                        </WrapPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-
-                            <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
-                        </StackPanel>
-                    </Expander>
-                </DockPanel>
-            </StackPanel>
-        </Grid>
+                        <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
+                    </StackPanel>
+                </Expander>
+            </DockPanel>
+        </StackPanel>
     </ScrollViewer>
 </Page>

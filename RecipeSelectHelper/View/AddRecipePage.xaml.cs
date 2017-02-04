@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for AddRecipePage.xaml
     /// </summary>
-    public partial class AddRecipePage : Page
+    public partial class AddRecipePage : Page, IAddElement
     {
         private MainWindow _parent;
         public AddRecipePage(MainWindow parent)
@@ -95,38 +95,6 @@ namespace RecipeSelectHelper.View
             {
                 checkedContent.Visibility = Visibility.Collapsed;
             }
-
-            // Figure out how to do it horizontally? Its not pretty as it looks right now.
-        }
-
-        private void Button_Back_Click(object sender, RoutedEventArgs e)
-        {
-            if (_parent.ContentControl.NavigationService.CanGoBack)
-            {
-                _parent.ContentControl.NavigationService.GoBack();
-            }
-        }
-
-        private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            string name = TextBox_RecipeName.Text;
-            string description = TextBox_RecipeDescription.Text;
-            string instruction = TextBox_RecipeInstruction.Text;
-            List<RecipeCategory> categories = GetCheckedCategories();
-            List<Ingredient> ingredients = GetCheckedIngredients();
-
-            try
-            {
-                var recipe = new Recipe(name, description, instruction, ingredients, categories);
-                _parent.Data.AllRecipes.Add(recipe);
-                ClearUIElements();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null) (Need to be unique)
         }
 
         // REPLACE WITH A LISTVIEW AND A SEARCH BAR AT SOME POINT!
@@ -198,6 +166,28 @@ namespace RecipeSelectHelper.View
         private void Button_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
             _parent.SetPage(new AddStoreProductPage());
+        }
+
+        public void AddItem(object sender, RoutedEventArgs e)
+        {
+            string name = TextBox_RecipeName.Text;
+            string description = TextBox_RecipeDescription.Text;
+            string instruction = TextBox_RecipeInstruction.Text;
+            List<RecipeCategory> categories = GetCheckedCategories();
+            List<Ingredient> ingredients = GetCheckedIngredients();
+
+            try
+            {
+                var recipe = new Recipe(name, description, instruction, ingredients, categories);
+                _parent.Data.AllRecipes.Add(recipe);
+                ClearUIElements();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null) (Need to be unique)
         }
     }
 }

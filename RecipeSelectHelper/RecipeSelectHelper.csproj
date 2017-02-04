@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\BoughtProduct.cs" />
+    <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductCategory.cs" />
@@ -80,6 +81,9 @@
     </Compile>
     <Compile Include="View\AddCategoriesPage.xaml.cs">
       <DependentUpon>AddCategoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddElementBasePage.xaml.cs">
+      <DependentUpon>AddElementBasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddCategoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddElementBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

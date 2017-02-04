@@ -36,5 +36,10 @@ namespace RecipeSelectHelper.View
             DataContext = this;
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(new AddBoughtProductPage(), "Add New Bought Product", _parent));
+        }
     }
 }

@@ -15,5 +15,6 @@
                 <TextBox Width="50"></TextBox>
             </StackPanel>
         </CheckBox>
+        <Button Height="50" Content="Add Bought Product" Click="Button_Click"></Button>
     </Grid>
 </Page>

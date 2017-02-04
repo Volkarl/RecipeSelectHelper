@@ -20,6 +20,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Button Name="Button_RankRecipes" Content="Rank Recipes" Grid.Row="0" Click="Button_RankRecipes_Click"></Button>
@@ -39,8 +40,10 @@
         <Button Name="Button_AllSortingMethods" Grid.Row="4" Click="Button_AllSortingMethods_Click">
             <TextBlock TextAlignment="Center" TextWrapping="Wrap">Edit Sorting Methods</TextBlock>
         </Button>
+
+        <Button Name="Button_AllCategories" Grid.Row="5" Click="Button_AllCategories_Click" Content="Edit Categories"></Button>
         
-        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="5" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="6" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
     
 </Window>

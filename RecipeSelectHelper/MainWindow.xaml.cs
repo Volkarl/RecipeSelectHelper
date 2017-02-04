@@ -37,8 +37,6 @@ namespace RecipeSelectHelper
             Loaded += MainWindow_Loaded1;
             DataContext = this;
             InitializeComponent();
-            SetPage(new RankingsViewPage(this));
-            HighlightButtonBackground(Button_RankRecipes);
         }
 
         public ProgramData Data { get; set; }
@@ -48,6 +46,8 @@ namespace RecipeSelectHelper
             var xmlReader = new XMLDataHandler();
             Data = xmlReader.FromXML();
 
+            SetPage(new RankingsViewPage(this));
+            HighlightButtonBackground(Button_RankRecipes);
 
             //Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
         }
@@ -107,6 +107,11 @@ namespace RecipeSelectHelper
         {
             var xmlReader = new XMLDataHandler();
             xmlReader.SaveToXML(this.Data);
+        }
+
+        private void Button_AllCategories_Click(object sender, RoutedEventArgs e)
+        {
+            SetPage(new CategoriesPage(this));
         }
     }
 }
