@@ -39,7 +39,7 @@ namespace RecipeSelectHelper.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AddElementBasePage(new AddBoughtProductPage(), "Add New Bought Product", _parent));
+            _parent.SetPage(new AddElementBasePage(new AddBoughtProductPage(_parent), "Add New Bought Product", _parent));
         }
     }
 }

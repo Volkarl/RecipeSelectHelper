@@ -21,8 +21,11 @@ namespace RecipeSelectHelper.View
     /// </summary>
     public partial class AddStoreProductPage : Page, IAddElement
     {
-        public AddStoreProductPage()
+        private MainWindow _parent;
+
+        public AddStoreProductPage(MainWindow parent)
         {
+            _parent = parent;
             InitializeComponent();
         }
 

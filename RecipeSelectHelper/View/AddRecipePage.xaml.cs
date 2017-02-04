@@ -160,12 +160,12 @@ namespace RecipeSelectHelper.View
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AddCategoriesPage(AddCategoriesPage.CategoryMode.RecipeCategory));
+            _parent.SetPage(new AddElementBasePage(new AddCategoriesPage(_parent, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
         }
 
         private void Button_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AddStoreProductPage());
+            _parent.SetPage(new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent));
         }
 
         public void AddItem(object sender, RoutedEventArgs e)
@@ -187,7 +187,7 @@ namespace RecipeSelectHelper.View
                 MessageBox.Show(ex.Message);
             }
 
-            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null) (Need to be unique)
+            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null or empty) (Need to be unique)
         }
     }
 }
