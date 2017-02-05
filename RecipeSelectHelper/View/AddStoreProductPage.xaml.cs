@@ -31,7 +31,13 @@ namespace RecipeSelectHelper.View
 
         public void AddItem(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var categories = new List<ProductCategory>();
+            var substituteProducts = new List<Product>();
+
+            throw new NotImplementedException(); // HERE!!
+
+            var product = new Product(TextBox_ProductName.Text, categories, substituteProducts);
+            _parent.Data.AllProducts.Add(product);
         }
 
         private void Button_AddNewProduct_Click(object sender, RoutedEventArgs e)
