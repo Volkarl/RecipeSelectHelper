@@ -173,7 +173,7 @@ namespace RecipeSelectHelper.View
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ListViewItem item = sender as ListViewItem;
+            var item = sender as ListViewItem;
             Recipe rec = (Recipe)item.Content;
 
             DisplayRecipeInfo(rec);
