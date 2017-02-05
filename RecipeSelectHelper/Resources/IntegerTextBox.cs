@@ -17,6 +17,4 @@ namespace RecipeSelectHelper.Resources
             this.SelectionStart = Text.Length;
         }
     }
-
-
 }

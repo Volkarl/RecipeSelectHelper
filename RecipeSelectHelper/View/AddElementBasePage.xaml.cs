@@ -40,6 +40,8 @@ namespace RecipeSelectHelper.View
             var addItemPage = _content as IAddElement;
             if (addItemPage != null)
             {
+                this.Button_Add.Click -= addItemPage.AddItem; 
+                // This is done to remove old (duplicate) subscriptions caused by clicking the BACK-button and navigating to a new version of the page.
                 this.Button_Add.Click += addItemPage.AddItem;
             }
 

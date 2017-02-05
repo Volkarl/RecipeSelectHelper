@@ -170,6 +170,8 @@ namespace RecipeSelectHelper.View
 
         public void AddItem(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Here");
+
             string name = TextBox_RecipeName.Text;
             string description = TextBox_RecipeDescription.Text;
             string instruction = TextBox_RecipeInstruction.Text;
