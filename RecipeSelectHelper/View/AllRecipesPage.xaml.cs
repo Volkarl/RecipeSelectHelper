@@ -1,4 +1,5 @@
 ﻿using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -53,11 +54,6 @@ namespace RecipeSelectHelper.View
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
         {
             ListView_SizeChanged(ListView_Recipes, null);
-            _parent.ContentControl.NavigationService.LoadCompleted += NavigationService_LoadCompleted;
-        }
-
-        private void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
-        {
             FilterRecipesByName(TextBox_SearchRecipes.Text);
         }
 
@@ -128,20 +124,15 @@ namespace RecipeSelectHelper.View
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
         {
-            Recipe recipeToBeRemoved = SelectedRecipe;
-            int indexOfSelection = Recipes.IndexOf(recipeToBeRemoved);
-            if (indexOfSelection > 0)
-            {
-                SelectedRecipe = Recipes[indexOfSelection - 1];
-            }
-            else
-            {
-                SelectedRecipe = null;
-            }
-            ListView_Recipes.Focus();
+            _parent.Data.AllRecipes.Remove(SelectedRecipe);
 
-            Recipes.Remove(recipeToBeRemoved);
-            _parent.Data.AllRecipes.Remove(recipeToBeRemoved);
+            Recipe selectedR = SelectedRecipe;
+            ObservableCollection<Recipe> R = Recipes;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref R);
+            SelectedRecipe = selectedR;
+            Recipes = R;
+
+            ListView_Recipes.Focus();
         }
 
         #region ObservableObjects

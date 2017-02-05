@@ -1,4 +1,5 @@
 ﻿using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -119,27 +120,15 @@ namespace RecipeSelectHelper.View
 
         private void Button_RemoveProductCategory_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedProductCategory != null)
-            {
-                RemoveElementAndSelectPrevious(SelectedProductCategory, ProductCategories);
-                ListView_PC.Focus();
-                _parent.Data.AllProductCategories.Remove(SelectedProductCategory);
-            }
-        }
+            _parent.Data.AllProductCategories.Remove(SelectedProductCategory);
 
-        public void RemoveElementAndSelectPrevious<T>(T selectedElement, ObservableCollection<T> collection)
-        {
+            ProductCategory selectedPC = SelectedProductCategory;
+            ObservableCollection<ProductCategory> PC = ProductCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedPC, ref PC);
+            SelectedProductCategory = selectedPC;
+            ProductCategories = PC;
 
-            int indexOfSelection = collection.IndexOf(selectedElement);
-            if (indexOfSelection > 0)
-            {
-                selectedElement = collection[indexOfSelection - 1];
-            }
-            else
-            {
-                selectedElement = default(T);
-            }
-            collection.RemoveAt(indexOfSelection);
+            ListView_PC.Focus();
         }
 
         private void Button_AddRecipeCategory_Click(object sender, RoutedEventArgs e)
@@ -157,12 +146,15 @@ namespace RecipeSelectHelper.View
 
         private void Button_RemoveRecipeCategory_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedRecipeCategory != null)
-            {
-                RemoveElementAndSelectPrevious(SelectedRecipeCategory, RecipeCategories);
-                ListView_RC.Focus();
-                _parent.Data.AllRecipeCategories.Remove(SelectedRecipeCategory);
-            }
+            _parent.Data.AllRecipeCategories.Remove(SelectedRecipeCategory);
+
+            RecipeCategory selectedRC = SelectedRecipeCategory;
+            ObservableCollection<RecipeCategory> RC = RecipeCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRC, ref RC);
+            SelectedRecipeCategory = selectedRC;
+            RecipeCategories = RC;
+
+            ListView_RC.Focus();
         }
     }
 }
