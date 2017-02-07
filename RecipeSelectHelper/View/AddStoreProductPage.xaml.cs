@@ -22,10 +22,14 @@ namespace RecipeSelectHelper.View
     public partial class AddStoreProductPage : Page, IAddElement
     {
         private MainWindow _parent;
+        private List<ProductCategory> _selectedPC;
+        private List<Product> _selectedSub;
 
         public AddStoreProductPage(MainWindow parent)
         {
             _parent = parent;
+            _selectedPC = new List<ProductCategory>();
+            _selectedSub = new List<Product>();
             InitializeComponent();
         }
 
@@ -33,6 +37,12 @@ namespace RecipeSelectHelper.View
         {
             var categories = new List<ProductCategory>();
             var substituteProducts = new List<Product>();
+
+//            foreach (UIElement item in StackPanel_ChosenCategories.Children)
+//            {
+//                var stack = item as StackPanel;
+//                var label = stack.Children[0] as Label;
+//            }
 
             throw new NotImplementedException(); // HERE!!
 
@@ -55,18 +65,22 @@ namespace RecipeSelectHelper.View
 
         private void SelectSubstitute(Product product)
         {
+            _selectedSub.Add(product);
             var content = new StackPanel { Orientation = Orientation.Horizontal };
             content.Children.Add(new Label { Content = product.Name });
 
-            content.Children.Add(new Button { Content = "X" });
+            var btn = new Button();
+            btn.Content = "X";
+            btn.Click += RemoveElementFromStackPanel;
+            btn.Click += (x, y) => _selectedSub.Remove(product);
+            content.Children.Add(btn);
 
             StackPanel_ChosenSubstituteProducts.Children.Add(content);
         }
 
         private void Button_SelectSubsituteProduct_Click(object sender, RoutedEventArgs e)
         {
-            SelectSubstitute(_parent.Data.AllProducts.First());
-            //SelectItemAsSubstitute(SelectedSubstituteProduct);
+            //SelectSubstitute(SelectedSubstituteProducts);
             throw new NotImplementedException();
         }
 
@@ -100,16 +114,25 @@ namespace RecipeSelectHelper.View
 
         private void SelectCategory(ProductCategory pc)
         {
+            _selectedPC.Add(pc);
             var content = new StackPanel { Orientation = Orientation.Horizontal };
             content.Children.Add(new Label { Content = pc.Name });
-            content.Children.Add(new Button { Content = "X" });
 
-
-            // I AM MISSING A BUTTONCLICKEVENT THAT REMOVES THE ENTIRE STACKPANEL FROM THE CHOSENCATEGORIES STACKPANEL
-
-
+            var btn = new Button();
+            btn.Content = "X";
+            btn.Click += RemoveElementFromStackPanel;
+            btn.Click += (x, y) => _selectedPC.Remove(pc);
+            content.Children.Add(btn);
 
             StackPanel_ChosenCategories.Children.Add(content);
+        }
+
+        private void RemoveElementFromStackPanel(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var stack = btn.Parent as StackPanel;
+            var parentStack = stack.Parent as StackPanel;
+            parentStack.Children.Remove(stack);
         }
     }
 }
