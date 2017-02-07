@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecipeSelectHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,27 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for EditRecipePage.xaml
     /// </summary>
-    public partial class EditRecipePage : Page
+    public partial class EditRecipePage : Page, IAddElement //rename the interface and its method
     {
-        public EditRecipePage()
+        private Recipe _recipeToEdit;
+
+        public EditRecipePage(Recipe recipeToEdit)
         {
+            _recipeToEdit = recipeToEdit;
+            this.Loaded += EditRecipePage_Loaded;
             InitializeComponent();
+        }
+
+        private void EditRecipePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+            // Same as from addstoreproductpage
+        }
+
+        public void AddItem(object sender, RoutedEventArgs e)
+        {
+            //_recipeToEdit.Categories = 
+            // And so on...
         }
     }
 }
