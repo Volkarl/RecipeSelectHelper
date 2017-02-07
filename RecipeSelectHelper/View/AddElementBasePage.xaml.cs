@@ -24,12 +24,16 @@ namespace RecipeSelectHelper.View
         private Page _content;
         private string _title;
         private MainWindow _parent;
+        private object _finalizeButtonContent;
 
-        public AddElementBasePage(Page content, string title, MainWindow parent)
+        // Rename this class maybe. Its no longer only for adding elements, but also for editing elements. 
+        // Anything with a back button and a finalize button!
+        public AddElementBasePage(Page content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")
         {
             _content = content;
             _title = title;
             _parent = parent;
+            _finalizeButtonContent = contentOfFinalizeButton;
 
             Loaded += AddElementBasePage_Loaded;
             InitializeComponent();
@@ -46,6 +50,7 @@ namespace RecipeSelectHelper.View
             }
 
             this.TextBlock_PageTitle.Text = _title;
+            this.Button_Add.Content = _finalizeButtonContent;
             this.ContentControl_AddNewItem.Content = _content;
         }
 
