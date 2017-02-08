@@ -5,10 +5,43 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="500" d:DesignWidth="700"
       Title="SortingMethodsPage">
 
     <Grid>
-        
+        <ScrollViewer Margin="10">
+            <StackPanel>
+                <StackPanel Name="StackPanel_SelectedPreferences" Margin="1"></StackPanel>
+                
+                <StackPanel Name="StackPanel_CurrentPreference" Margin="1">
+                    <StackPanel>
+                        <DockPanel Height="40">
+                            <Label Width="40" Background="Gray"></Label>
+                            <Label Content="Configure Preference" VerticalContentAlignment="Center" Background="LightGray"></Label>
+                        </DockPanel>
+                        <UniformGrid Rows="1" Columns="3">
+                            <ComboBox Name="ComboBox_Pref1" Margin="0,1,0.5,1"></ComboBox>
+                            <ComboBox Name="ComboBox_Pref2" Margin="0.5,1,0.5,1"></ComboBox>
+                            <ComboBox Name="ComboBox_Pref3" Margin="0.5,1,0,1"></ComboBox>
+                        </UniformGrid>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </StackPanel>
+
+                <DockPanel Name="StackPanel_AddNewPreference" Margin="1">
+                    <Button Name="Button_AddNewPreference" Height="40" Width="40" Background="LightBlue" Click="Button_AddNewPreference_Click">
+                        <!--<Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <DockPanel>
+                                    <Label Width="40" Background="LightBlue"></Label>
+                                    <Label Content="Add Preference" VerticalContentAlignment="Center" Background="AliceBlue"></Label>
+                                </DockPanel>
+                            </ControlTemplate>
+                        </Button.Template>-->
+                    </Button>
+                    <Label Content="Add Preference" VerticalContentAlignment="Center" Background="AliceBlue"></Label>
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

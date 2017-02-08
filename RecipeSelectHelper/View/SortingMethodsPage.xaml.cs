@@ -37,5 +37,10 @@ namespace RecipeSelectHelper.View
             DataContext = this;
             InitializeComponent();
         }
+
+        private void Button_AddNewPreference_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
