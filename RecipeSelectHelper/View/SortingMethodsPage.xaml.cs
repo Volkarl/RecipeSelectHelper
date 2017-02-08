@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -35,12 +36,21 @@ namespace RecipeSelectHelper.View
         {
             this._parent = parent;
             DataContext = this;
+            this.Loaded += SortingMethodsPage_Loaded;
             InitializeComponent();
+        }
+
+        private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         private void Button_AddNewPreference_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void Button_FinalizePreference_Click(object sender, RoutedEventArgs e)
+        {
+//            StackPanel_SelectedPreferences.Children.Add(sortingMethod);
         }
     }
 }
