@@ -72,6 +72,7 @@ namespace RecipeSelectHelper
             Button_AllStoreProducts.Background = defaultColor;
             Button_AllSortingMethods.Background = defaultColor;
             Button_AllCategories.Background = defaultColor;
+            Button_Settings.Background = defaultColor;
         }
 
         private void Button_RankRecipes_Click(object sender, RoutedEventArgs e)
@@ -113,6 +114,12 @@ namespace RecipeSelectHelper
         private void Button_AllCategories_Click(object sender, RoutedEventArgs e)
         {
             SetPage(new AllCategoriesPage(this));
+            HighlightButtonBackground(sender as Button);
+        }
+
+        private void Button_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SetPage(new SettingsPage());
             HighlightButtonBackground(sender as Button);
         }
     }

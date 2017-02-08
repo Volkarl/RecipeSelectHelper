@@ -38,22 +38,10 @@
         <DockPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="8" LastChildFill="True">
             <Grid DockPanel.Dock="Top">
                 <Expander Header="Filter Recipes" ExpandDirection="Down">
-                    <WrapPanel Margin="-2,10,0,0" Orientation="Horizontal">
+                    <WrapPanel Name="WrapPanel_RecipeCategories" Margin="-2,10,0,0" Orientation="Horizontal">
                         <WrapPanel.Background>
                             <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
                         </WrapPanel.Background>
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
-                        <CheckBox Margin="4" Content="Option 1" />
-                        <CheckBox Margin="4" Content="Option 2" />
-                        <CheckBox Margin="4" Content="Option 3" />
                     </WrapPanel>
                 </Expander>
             </Grid>

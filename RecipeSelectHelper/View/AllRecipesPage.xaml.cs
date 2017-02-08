@@ -29,6 +29,7 @@ namespace RecipeSelectHelper.View
     public partial class AllRecipesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
+        private List<RecipeCategory> _selectedCategories;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -53,8 +54,59 @@ namespace RecipeSelectHelper.View
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
         {
+            SetUpWrapPanel();
             ListView_SizeChanged(ListView_Recipes, null);
             FilterRecipesByName(TextBox_SearchRecipes.Text);
+            Recipes = new ObservableCollection<Recipe>(SortByName(Recipes));
+            _selectedCategories = new List<RecipeCategory>();
+        }
+
+        private IEnumerable<Recipe> SortByName(IEnumerable<Recipe> recipes)
+        {
+            return recipes.OrderBy(x => x.Name);
+        }
+
+        private void SetUpWrapPanel()
+        {
+            foreach (RecipeCategory rc in _parent.Data.AllRecipeCategories)
+            {
+                var check = new CheckBox { Content = rc.Name };
+                check.Checked += (sender, e) => CategorySelected(rc);
+                check.Unchecked += (sender, e) => CategoryDeselected(rc);
+                WrapPanel_RecipeCategories.Children.Add(check);
+            }
+        }
+
+        private void CategoryDeselected(RecipeCategory rc)
+        {
+            if (_selectedCategories.Remove(rc))
+            {
+                IEnumerable<Recipe> filteredRecipes = FilterBySelectedCategories(_parent.Data.AllRecipes);
+                filteredRecipes = SortByName(filteredRecipes);
+                Recipes = new ObservableCollection<Recipe>(filteredRecipes);
+            }
+        }
+
+        private void CategorySelected(RecipeCategory rc)
+        {
+            _selectedCategories.Add(rc);
+            Recipes = new ObservableCollection<Recipe>(FilterBySelectedCategories(Recipes.ToList()));
+        }
+
+        private List<Recipe> FilterBySelectedCategories(List<Recipe> recipesToFilter)
+        {
+            var filteredRecipes = recipesToFilter.ToList();
+            foreach (RecipeCategory cat in _selectedCategories)
+            {
+                foreach (Recipe rec in recipesToFilter)
+                {
+                    if (rec.Categories.All(x => !x.Equals(cat)))
+                    {
+                        filteredRecipes.Remove(rec);
+                    }
+                }
+            }
+            return filteredRecipes;
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

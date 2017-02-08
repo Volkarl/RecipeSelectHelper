@@ -77,10 +77,10 @@ namespace RecipeSelectHelper.View
         private void AllCategoriesPage_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeObservableObjects();
-            SortCategory();
+            OrderCategoriesAlphabetically();
         }
 
-        private void SortCategory()
+        private void OrderCategoriesAlphabetically()
         {
             SortCategory(AddCategoriesPage.CategoryMode.ProductCategory);
             SortCategory(AddCategoriesPage.CategoryMode.RecipeCategory);
@@ -89,11 +89,11 @@ namespace RecipeSelectHelper.View
         {
             if (mode == AddCategoriesPage.CategoryMode.ProductCategory)
             {
-                ProductCategories.OrderBy(x => x.Name);
+                ProductCategories = new ObservableCollection<ProductCategory>(ProductCategories.OrderBy(x => x.Name));
             }
             if (mode == AddCategoriesPage.CategoryMode.RecipeCategory)
             {
-                RecipeCategories.OrderBy(x => x.Name);
+                RecipeCategories = new ObservableCollection<RecipeCategory>(RecipeCategories.OrderBy(x => x.Name));
             }
         }
 
