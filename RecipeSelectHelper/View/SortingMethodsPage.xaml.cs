@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -134,14 +135,22 @@ namespace RecipeSelectHelper.View
             switch (value)
             {
                 case Pref1Choices.ByProductCategory:
+                    SetPref2Display(new ComboBox(),
+                        new List<string>(_parent.Data.AllProductCategories.Select(x => x.Name)));
+                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllProductCategories.Select(x => x.Name));
                     break;
                 case Pref1Choices.ByRecipeCategory:
+                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllRecipeCategories.Select(x => x.Name));
                     break;
                 case Pref1Choices.BySpecificIngredients:
+                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllProducts.Select(x => x.Name));
                     break;
                 case Pref1Choices.ByIngredientsOwned:
+                    ComboBox_Pref2.Visibility = Visibility.Hidden;
+                    UniformGrid_SelectedPreference.Children[1]
                     break;
                 case Pref1Choices.ByExpirationDate:
+                    ComboBox_Pref2.Visibility = Visibility.Hidden;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);

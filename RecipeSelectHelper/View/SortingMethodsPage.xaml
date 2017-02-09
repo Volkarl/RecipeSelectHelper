@@ -9,11 +9,11 @@
       Title="SortingMethodsPage">
 
     <Grid>
-        <ScrollViewer Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
             <StackPanel>
                 <StackPanel Name="StackPanel_SelectedPreferences" Margin="1"></StackPanel>
                 
-                <StackPanel Name="StackPanel_CurrentPreference" Margin="1">
+                <StackPanel Name="StackPanel_CurrentPreference">
                     <StackPanel>
                         <DockPanel Height="40">
                             <Label Width="40" Background="Gray"></Label>
