@@ -20,9 +20,9 @@
                             <Label Content="Configure Preference" VerticalContentAlignment="Center" Background="LightGray"></Label>
                         </DockPanel>
                         <UniformGrid Name="UniformGrid_SelectedPreference" Rows="1" Columns="3">
-                            <ComboBox Name="ComboBox_Pref1" Margin="0,1,0.5,1"></ComboBox>
-                            <ComboBox Name="ComboBox_Pref2" Margin="0.5,1,0.5,1"></ComboBox>
-                            <ComboBox Name="ComboBox_Pref3" Margin="0.5,1,0,1"></ComboBox>
+                            <ComboBox Name="ComboBox_Pref1" ItemsSource="{Binding Pref1Settings}" SelectedValue="{Binding Pref1Value}" SelectionChanged="ComboBox_Pref1_OnSelectionChanged" Margin="0,1,0.5,1"></ComboBox>
+                            <ComboBox Name="ComboBox_Pref2" ItemsSource="{Binding Pref2Settings}" SelectedValue="{Binding Pref2Value}" SelectionChanged="ComboBox_Pref2_OnSelectionChanged" Margin="0.5,1,0.5,1"></ComboBox>
+                            <ComboBox Name="ComboBox_Pref3" ItemsSource="{Binding Pref3Settings}" SelectedValue="{Binding Pref3Value}" SelectionChanged="ComboBox_Pref3_OnSelectionChanged" Margin="0.5,1,0,1"></ComboBox>
                         </UniformGrid>
                         <Button Name="Button_FinalizePreference" Content="Select Preference" Click="Button_FinalizePreference_Click"></Button>
                     </StackPanel>
