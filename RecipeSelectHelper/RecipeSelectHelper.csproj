@@ -60,7 +60,8 @@
     <Compile Include="Model\BoughtProduct.cs" />
     <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
-    <Compile Include="Model\Preference.cs" />
+    <Compile Include="Model\SortingMethods\IPreference.cs" />
+    <Compile Include="Model\SortingMethods\Preference.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductCategory.cs" />
     <Compile Include="Model\ExpirationInfo.cs" />
@@ -70,12 +71,12 @@
     <Compile Include="Model\IProduct.cs" />
     <Compile Include="Model\IRecipe.cs" />
     <Compile Include="Model\IRecipeCategory.cs" />
-    <Compile Include="Model\ISortingMethod.cs" />
+    <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
-    <Compile Include="Model\XMLDataHandler.cs" />
+    <Compile Include="Model\Misc\XMLDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
-    <Compile Include="Model\SortingMethod.cs" />
+    <Compile Include="Model\SortingMethods\SortingMethod.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
     <Compile Include="Resources\IntegerTextBox.cs" />
     <Compile Include="Resources\ListViewTools.cs" />
@@ -213,6 +214,7 @@
   <ItemGroup>
     <Resource Include="Resources\Search.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

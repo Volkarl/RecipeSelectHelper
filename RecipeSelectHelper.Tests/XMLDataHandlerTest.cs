@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Model.Misc;
+using RecipeSelectHelper.Model.SortingMethods;
 
 namespace RecipeSelectHelper.Tests
 {
