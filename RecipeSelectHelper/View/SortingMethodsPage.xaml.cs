@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View
@@ -35,11 +36,11 @@ namespace RecipeSelectHelper.View
         private void LoadObservableObjects()
         {
             LoadPref1Settings();
-            Pref2Settings = new ObservableCollection<string>();
-            Pref3Settings = new ObservableCollection<string>();
             Pref1Value = String.Empty;
-            Pref2Value = String.Empty;
-            Pref3Value = String.Empty;
+        }
+
+        private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         #region ObservableObjects
@@ -56,34 +57,6 @@ namespace RecipeSelectHelper.View
         {
             get { return _pref1Value; }
             set { _pref1Value = value; OnPropertyChanged(nameof(Pref1Value)); }
-        }
-
-        private ObservableCollection<string> _pref2Settings;
-        public ObservableCollection<string> Pref2Settings
-        {
-            get { return _pref2Settings; }
-            set { _pref2Settings = value; OnPropertyChanged(nameof(Pref2Settings)); }
-        }
-
-        private string _pref2Value;
-        public string Pref2Value
-        {
-            get { return _pref2Value; }
-            set { _pref2Value = value; OnPropertyChanged(nameof(Pref2Value)); }
-        }
-
-        private ObservableCollection<string> _pref3Settings;
-        public ObservableCollection<string> Pref3Settings
-        {
-            get { return _pref3Settings; }
-            set { _pref3Settings = value; OnPropertyChanged(nameof(Pref3Settings)); }
-        }
-
-        private string _pref3Value;
-        public string Pref3Value
-        {
-            get { return _pref3Value; }
-            set { _pref3Value = value; OnPropertyChanged(nameof(Pref3Value)); }
         }
 
         #endregion
@@ -109,10 +82,10 @@ namespace RecipeSelectHelper.View
         {
             get { return _pref1Choice; }
             set { _pref1Choice = value;
+                UniformGrid_SelectedPreference.Children.RemoveRange(1, 2);
                 LoadPref2Settings(value);
             }
         }
-        // Missing two here and so and so forth
         #endregion
 
         #region LoadPreferenceChoices
@@ -132,59 +105,83 @@ namespace RecipeSelectHelper.View
 
         private void LoadPref2Settings(Pref1Choices value)
         {
+            var ui1 = new UIElement();
+            var ui2 = new UIElement();
             switch (value)
             {
                 case Pref1Choices.ByProductCategory:
-                    SetPref2Display(new ComboBox(),
-                        new List<string>(_parent.Data.AllProductCategories.Select(x => x.Name)));
-                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllProductCategories.Select(x => x.Name));
+                    ui1 = CreateComboBox(_parent.Data.AllProductCategories.ConvertAll(x => x.Name));
+                    ui2 = new IntegerTextBox();
                     break;
                 case Pref1Choices.ByRecipeCategory:
-                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllRecipeCategories.Select(x => x.Name));
+                    ui1 = CreateComboBox(_parent.Data.AllRecipeCategories.ConvertAll(x => x.Name));
+                    ui2 = new IntegerTextBox();
                     break;
                 case Pref1Choices.BySpecificIngredients:
-                    Pref2Settings = new ObservableCollection<string>(_parent.Data.AllProducts.Select(x => x.Name));
+                    ui1 = CreateComboBox(_parent.Data.AllProducts.ConvertAll(x => x.Name));
+                    ui2 = new IntegerTextBox();
                     break;
                 case Pref1Choices.ByIngredientsOwned:
-                    ComboBox_Pref2.Visibility = Visibility.Hidden;
-                    UniformGrid_SelectedPreference.Children[1]
+                    ui1 = new IntegerTextBox();
                     break;
                 case Pref1Choices.ByExpirationDate:
-                    ComboBox_Pref2.Visibility = Visibility.Hidden;
+                    ui1 = new IntegerTextBox();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
             }
+
+            UniformGrid_SelectedPreference.Children.Add(ui1);
+            UniformGrid_SelectedPreference.Children.Add(ui2);
+        }
+
+        private ComboBox CreateComboBox(IEnumerable<String> items)
+        {
+            var cbx = new ComboBox
+            {
+                ItemsSource = new ObservableCollection<string>(items)
+            };
+            return cbx;
         }
 
         #endregion
 
-        private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void Button_AddNewPreference_Click(object sender, RoutedEventArgs e)
         {
+            UniformGrid_SelectedPreference.UpdateLayout();
         }
 
         private void Button_FinalizePreference_Click(object sender, RoutedEventArgs e)
         {
-//            StackPanel_SelectedPreferences.Children.Add(sortingMethod);
+            Preference pref = null;
+            try
+            {
+                pref = new Preference();
+                AddPreference(pref);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+            var label = new Label();
+            label.Content = pref.ToString();
+            var button = new Button();
+            button.Content = "x";
+            var stack = new StackPanel();
+            stack.Orientation = Orientation.Horizontal;
+            stack.Children.Add(label);
+            stack.Children.Add(button);
+            StackPanel_SelectedPreferences.Children.Add(stack);
+        }
+
+        private void AddPreference(Preference preference)
+        {
         }
 
         private void ComboBox_Pref1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _pref1Choice = ExtensionMethods.GetEnumValueFromDescription<Pref1Choices>(Pref1Value);
-        }
-
-        private void ComboBox_Pref2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ComboBox_Pref3_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
+            Pref1Choice = ExtensionMethods.GetEnumValueFromDescription<Pref1Choices>(Pref1Value);
         }
     }
 }

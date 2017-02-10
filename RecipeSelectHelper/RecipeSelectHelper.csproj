@@ -60,6 +60,7 @@
     <Compile Include="Model\BoughtProduct.cs" />
     <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
+    <Compile Include="Model\Preference.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductCategory.cs" />
     <Compile Include="Model\ExpirationInfo.cs" />
