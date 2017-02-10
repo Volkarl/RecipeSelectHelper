@@ -27,19 +27,6 @@
                     <StackPanel Orientation="Horizontal"></StackPanel>
                 </StackPanel>
 
-                <DockPanel Name="StackPanel_AddNewPreference" Margin="1">
-                    <Button Name="Button_AddNewPreference" Height="40" Width="40" Background="LightBlue" Click="Button_AddNewPreference_Click">
-                        <!--<Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <DockPanel>
-                                    <Label Width="40" Background="LightBlue"></Label>
-                                    <Label Content="Add Preference" VerticalContentAlignment="Center" Background="AliceBlue"></Label>
-                                </DockPanel>
-                            </ControlTemplate>
-                        </Button.Template>-->
-                    </Button>
-                    <Label Content="Add Preference" VerticalContentAlignment="Center" Background="AliceBlue"></Label>
-                </DockPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

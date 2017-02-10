@@ -63,7 +63,7 @@ namespace RecipeSelectHelper.View
 
         #region PreferenceChoices
 
-        private enum Pref1Choices
+        private enum PreferenceTopic
         {
             [Description("Product Category")]
             ByProductCategory,
@@ -77,8 +77,8 @@ namespace RecipeSelectHelper.View
             ByExpirationDate,
         }
 
-        private Pref1Choices _pref1Choice;
-        private Pref1Choices Pref1Choice
+        private PreferenceTopic _pref1Choice;
+        private PreferenceTopic Pref1Choice
         {
             get { return _pref1Choice; }
             set { _pref1Choice = value;
@@ -86,6 +86,7 @@ namespace RecipeSelectHelper.View
                 LoadPref2Settings(value);
             }
         }
+
         #endregion
 
         #region LoadPreferenceChoices
@@ -94,37 +95,37 @@ namespace RecipeSelectHelper.View
         {
             var s = new List<string>
             {
-                Pref1Choices.ByProductCategory.GetDescription(),
-                Pref1Choices.ByRecipeCategory.GetDescription(),
-                Pref1Choices.BySpecificIngredients.GetDescription(),
-                Pref1Choices.ByIngredientsOwned.GetDescription(),
-                Pref1Choices.ByExpirationDate.GetDescription()
+                PreferenceTopic.ByProductCategory.GetDescription(),
+                PreferenceTopic.ByRecipeCategory.GetDescription(),
+                PreferenceTopic.BySpecificIngredients.GetDescription(),
+                PreferenceTopic.ByIngredientsOwned.GetDescription(),
+                PreferenceTopic.ByExpirationDate.GetDescription()
             };
             Pref1Settings = new ObservableCollection<string>(s);
         }
 
-        private void LoadPref2Settings(Pref1Choices value)
+        private void LoadPref2Settings(PreferenceTopic value)
         {
             var ui1 = new UIElement();
             var ui2 = new UIElement();
             switch (value)
             {
-                case Pref1Choices.ByProductCategory:
+                case PreferenceTopic.ByProductCategory:
                     ui1 = CreateComboBox(_parent.Data.AllProductCategories.ConvertAll(x => x.Name));
                     ui2 = new IntegerTextBox();
                     break;
-                case Pref1Choices.ByRecipeCategory:
+                case PreferenceTopic.ByRecipeCategory:
                     ui1 = CreateComboBox(_parent.Data.AllRecipeCategories.ConvertAll(x => x.Name));
                     ui2 = new IntegerTextBox();
                     break;
-                case Pref1Choices.BySpecificIngredients:
+                case PreferenceTopic.BySpecificIngredients:
                     ui1 = CreateComboBox(_parent.Data.AllProducts.ConvertAll(x => x.Name));
                     ui2 = new IntegerTextBox();
                     break;
-                case Pref1Choices.ByIngredientsOwned:
+                case PreferenceTopic.ByIngredientsOwned:
                     ui1 = new IntegerTextBox();
                     break;
-                case Pref1Choices.ByExpirationDate:
+                case PreferenceTopic.ByExpirationDate:
                     ui1 = new IntegerTextBox();
                     break;
                 default:
@@ -145,11 +146,6 @@ namespace RecipeSelectHelper.View
         }
 
         #endregion
-
-        private void Button_AddNewPreference_Click(object sender, RoutedEventArgs e)
-        {
-            UniformGrid_SelectedPreference.UpdateLayout();
-        }
 
         private void Button_FinalizePreference_Click(object sender, RoutedEventArgs e)
         {
@@ -181,7 +177,7 @@ namespace RecipeSelectHelper.View
 
         private void ComboBox_Pref1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Pref1Choice = ExtensionMethods.GetEnumValueFromDescription<Pref1Choices>(Pref1Value);
+            Pref1Choice = ExtensionMethods.GetEnumValueFromDescription<PreferenceTopic>(Pref1Value);
         }
     }
 }
