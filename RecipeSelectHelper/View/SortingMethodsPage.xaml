@@ -11,7 +11,23 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
             <StackPanel>
-                <StackPanel Name="StackPanel_SelectedPreferences" Margin="1"></StackPanel>
+                <StackPanel Name="StackPanel_SelectedPreferences" Margin="1">
+                    <ItemsControl Name="ItemsControl_SelectedPreferences" ItemsSource="{Binding SelectedPreferences}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Description}"></TextBlock>
+                                    <Button Margin="1" Content="x" Click="Button_Click_RemovePreference"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
                 
                 <StackPanel>
                     <StackPanel>

@@ -46,6 +46,7 @@ namespace RecipeSelectHelper.View
         {
             LoadPref1Settings();
             Pref1Value = String.Empty;
+            SelectedPreferences = new ObservableCollection<Preference>();
         }
 
         private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
@@ -68,6 +69,13 @@ namespace RecipeSelectHelper.View
             set { _pref1Value = value; OnPropertyChanged(nameof(Pref1Value)); }
         }
 
+        private ObservableCollection<Preference> _selectedPreferences;
+        public ObservableCollection<Preference> SelectedPreferences
+        {
+            get { return _selectedPreferences; }
+            set { _selectedPreferences = value; OnPropertyChanged(nameof(SelectedPreferences)); }
+        }
+
         #endregion
 
         #region PreferenceChoices
@@ -87,6 +95,7 @@ namespace RecipeSelectHelper.View
         }
 
         private PreferenceTopic _pref1Choice;
+
         private PreferenceTopic Pref1Choice
         {
             get { return _pref1Choice; }
@@ -160,26 +169,6 @@ namespace RecipeSelectHelper.View
             }
         }
 
-        private DockPanel CreateDockPanelWithLabel(object labelContent, UIElement secondElement)
-        {
-            var dockPanel = new DockPanel();
-            dockPanel.Children.Add(new Label {Content = labelContent, Width = 200});
-            dockPanel.Children.Add(secondElement);
-            return dockPanel;
-        }
-
-        private UniformGrid CreateUniformGridWithLabel(object labelContent, UIElement secondElement)
-        {
-            var uniformGrid = new UniformGrid
-            {
-                Rows = 1,
-                Columns = 2
-            };
-            uniformGrid.Children.Add(new Label {Content = labelContent});
-            uniformGrid.Children.Add(secondElement);
-            return uniformGrid;
-        }
-
         private ComboBox CreateComboBoxToDisplayName<T>(IEnumerable<T> items)
         {
             var cbx = new ComboBox
@@ -194,26 +183,15 @@ namespace RecipeSelectHelper.View
 
         private void Button_FinalizePreference_Click(object sender, RoutedEventArgs e)
         {
-            Preference pref = null;
             try
             {
-                pref = InterpretPreference(Pref1Choice);
-                AddPreference(pref);
+                Preference pref = InterpretPreference(Pref1Choice);
+                SelectedPreferences.Add(pref);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show("Invalid Selection, Error: \n\n" + exception.Message);
             }
-
-            var label = new Label();
-            label.Content = pref.ToString();
-            var button = new Button();
-            button.Content = "x";
-            var stack = new StackPanel();
-            stack.Orientation = Orientation.Horizontal;
-            stack.Children.Add(label);
-            stack.Children.Add(button);
-            StackPanel_SelectedPreferences.Children.Add(stack);
         }
 
         private Preference InterpretPreference(PreferenceTopic choice)
@@ -233,19 +211,6 @@ namespace RecipeSelectHelper.View
                     {
                         throw new NullReferenceException("Invalid input");
                     }
-                        //var dp = StackPanel_CurrentPreference.Children[1] as DockPanelWithLabel;
-                        //var cbx = dp.SecondElement as ComboBox;
-                        //var pc = cbx.SelectedValue as ProductCategory;
-                        //var itxt = StackPanel_CurrentPreference.Children[2] as IntegerTextBox;
-                        //int value;
-                        //if (int.TryParse(itxt.Text, out value))
-                        //{
-                        //    preferenceMethod = SortByProductCategory(pc, value);
-                        //}
-                        //else
-                        //{
-                        //    throw new NullReferenceException("Invalid input");
-                        //}
                     break;
                 }
                 case PreferenceTopic.ByRecipeCategory:
@@ -271,7 +236,10 @@ namespace RecipeSelectHelper.View
                 case PreferenceTopic.ByIngredientsOwned:
                 {
                     int value;
-                    GetValuesFromUI(out value, StackPanel_CurrentPreference, 1);
+                    if (GetValuesFromUI(out value, StackPanel_CurrentPreference, 1))
+                    {
+                        preferenceMethod = SortByIngredientsOwned(value);
+                    }
                     break;
                 }
                 case PreferenceTopic.ByExpirationDate:
@@ -296,47 +264,53 @@ namespace RecipeSelectHelper.View
             var dp = stackPanel.Children[1] as DockPanelWithLabel;
             var cbx = dp.SecondElement as ComboBox;
             selectedItem = cbx.SelectedValue as T;
-            var itxt = StackPanel_CurrentPreference.Children[2] as IntegerTextBox;
+            var dp2 = stackPanel.Children[2] as DockPanelWithLabel;
+            var itxt = dp2.SecondElement as IntegerTextBox;
             return int.TryParse(itxt.Text, out value);   //what happens if its empty? Will it raise an exception regardless?
         }
 
         private Preference SortByExpirationDate()
         {
             var method = new Action<ProgramData>(x => MessageBox.Show("No one knows"));
-            return new Preference(method);
+            return new Preference(method, "SortByExpirationDate");
         }
 
         private Preference SortByIngredientsOwned(int val)
         {
             var method = new Action<ProgramData>(x => x.AllBoughtProducts.ForEach(y => y.Value += val));
-            return new Preference(method);
+            return new Preference(method, "Add " + val + " to every owned ingredient");
         }
 
         private Preference SortBySingleIngredient(Product p, int val)
         {
             var method = new Action<ProgramData>(x => x.AllProducts.Find(y => y.Equals(p)).Value += val);
-            return new Preference(method);
+            return new Preference(method, "Add " + val + " to product: " + p.Name);
         }
 
         private Preference SortByRecipeCategory(RecipeCategory rc, int val)
         {
             var method = new Action<ProgramData>(x => x.AllRecipeCategories.Find(y => y.Equals(rc)).Value += val);
-            return new Preference(method);
+            return new Preference(method, "Add " + val + " to all recipes of category: " + rc.Name);
         }
 
         private Preference SortByProductCategory(ProductCategory pc, int val)
         {
             var method = new Action<ProgramData>(x => x.AllProductCategories.Find(y => y.Equals(pc)).Value += val);
-            return new Preference(method);
-        }
-
-        private void AddPreference(Preference preference)
-        {
+            return new Preference(method, "Add " + val + " to all recipes of category: " + pc.Name);
         }
 
         private void ComboBox_Pref1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Pref1Choice = ExtensionMethods.GetEnumValueFromDescription<PreferenceTopic>(Pref1Value);
+        }
+
+        private void Button_Click_RemovePreference(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var stackPanel = button.Parent as StackPanel;
+            var textBlock = stackPanel.Children[0] as TextBlock;
+            var itemToRemove = textBlock.DataContext as Preference;
+            SelectedPreferences.Remove(itemToRemove);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
@@ -15,6 +16,8 @@ namespace RecipeSelectHelper.Resources
 
             Text = new String(Text.Where(c => Char.IsDigit(c)).ToArray());
             this.SelectionStart = Text.Length;
+
+            VerticalContentAlignment = VerticalAlignment.Center;
         }
     }
 }
