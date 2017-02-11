@@ -13,15 +13,18 @@
             <StackPanel>
                 <StackPanel Name="StackPanel_SelectedPreferences" Margin="1"></StackPanel>
                 
-                <StackPanel Name="StackPanel_CurrentPreference">
+                <StackPanel>
                     <StackPanel>
                         <DockPanel Height="40">
                             <Label Width="40" Background="Gray"></Label>
                             <Label Content="Configure Preference" VerticalContentAlignment="Center" Background="LightGray"></Label>
                         </DockPanel>
-                        <UniformGrid Name="UniformGrid_SelectedPreference" Rows="1" Columns="3">
-                            <ComboBox Name="ComboBox_Pref1" ItemsSource="{Binding Pref1Settings}" SelectedValue="{Binding Pref1Value}" SelectionChanged="ComboBox_Pref1_OnSelectionChanged"></ComboBox>
-                        </UniformGrid>
+                        <StackPanel Name="StackPanel_CurrentPreference">
+                            <DockPanel>
+                                <Label Content="Sort by: " Width="125"></Label>
+                                <ComboBox Name="ComboBox_Pref1" ItemsSource="{Binding Pref1Settings}" SelectedValue="{Binding Pref1Value}" SelectionChanged="ComboBox_Pref1_OnSelectionChanged"></ComboBox>
+                            </DockPanel>
+                        </StackPanel>
                         <Button Name="Button_FinalizePreference" Content="Select Preference" Click="Button_FinalizePreference_Click"></Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"></StackPanel>

@@ -77,6 +77,7 @@
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\SortingMethod.cs" />
+    <Compile Include="Resources\DockPanelWithLabel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
     <Compile Include="Resources\IntegerTextBox.cs" />
     <Compile Include="Resources\ListViewTools.cs" />
