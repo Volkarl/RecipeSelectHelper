@@ -153,7 +153,7 @@ namespace RecipeSelectHelper.View
             Preference pref = null;
             try
             {
-                pref = new Preference();
+                pref = InterpretPreference(Pref1Choice);
                 AddPreference(pref);
             }
             catch (Exception exception)
@@ -170,6 +170,57 @@ namespace RecipeSelectHelper.View
             stack.Children.Add(label);
             stack.Children.Add(button);
             StackPanel_SelectedPreferences.Children.Add(stack);
+        }
+
+        private Preference InterpretPreference(PreferenceTopic choice)
+        {
+            Preference preferenceMethod = null;
+            switch (choice)
+            {
+                case PreferenceTopic.ByProductCategory:
+                    preferenceMethod = SortByProductCategory();
+                    break;
+                case PreferenceTopic.ByRecipeCategory:
+                    preferenceMethod = SortByRecipeCategory();
+                    break;
+                case PreferenceTopic.BySpecificIngredients:
+                    preferenceMethod = SortBySingleIngredient();
+                    break;
+                case PreferenceTopic.ByIngredientsOwned:
+                    preferenceMethod = SortByIngredientsOwned();
+                    break;
+                case PreferenceTopic.ByExpirationDate:
+                    preferenceMethod = SortByExpirationDate();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(choice), choice, null);
+            }
+            throw new NotImplementedException();
+        }
+
+        private Preference SortByExpirationDate()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Preference SortByIngredientsOwned()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Preference SortBySingleIngredient()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Preference SortByRecipeCategory()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Preference SortByProductCategory()
+        {
+            throw new NotImplementedException();
         }
 
         private void AddPreference(Preference preference)
