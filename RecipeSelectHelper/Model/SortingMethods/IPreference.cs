@@ -2,7 +2,7 @@
 {
     public interface IPreference
     {
-        string Description { get; }
+        string Description { get; set; }
         void Calculate(ProgramData data);
     }
 }

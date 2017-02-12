@@ -3,24 +3,23 @@ using System.Runtime.Serialization;
 
 namespace RecipeSelectHelper.Model.SortingMethods
 {
-    [KnownType(typeof(Preference))]
+    //[KnownType(typeof(Preference))]    // Try removing this!
+    [KnownType(typeof(ExpirationDatePreference))]
+    [KnownType(typeof(IngredientsOwnedPreference))]
+    [KnownType(typeof(ProductCategoryPreference))]
+    [KnownType(typeof(RecipeCategoryPreference))]
+    [KnownType(typeof(SingleIngredientPreference))]
     [DataContract(Name = "Preference")]
-    public class Preference : IPreference
+    public abstract class Preference : IPreference
     {
         [DataMember]
-        public Action<ProgramData> CalculationMethod { get; private set; }
-        [DataMember]
-        public string Description { get; private set; }
+        public string Description { get; set; }
 
-        public Preference(Action<ProgramData> calculationMethod, string description = null)
+        protected Preference(string description = null)
         {
-            this.CalculationMethod = calculationMethod;
-            Description = description;
+            Description = description ?? string.Empty;
         }
 
-        public void Calculate(ProgramData pd)
-        {
-            CalculationMethod(pd);
-        }
+        public abstract void Calculate(ProgramData pd);
     }
 }

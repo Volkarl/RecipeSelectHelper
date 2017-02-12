@@ -46,7 +46,7 @@ namespace RecipeSelectHelper.View
         {
             LoadPref1Settings();
             Pref1Value = String.Empty;
-            SelectedPreferences = new ObservableCollection<IPreference>();
+            SelectedPreferences = new ObservableCollection<Preference>();
         }
 
         private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
@@ -69,8 +69,8 @@ namespace RecipeSelectHelper.View
             set { _pref1Value = value; OnPropertyChanged(nameof(Pref1Value)); }
         }
 
-        private ObservableCollection<IPreference> _selectedPreferences;
-        public ObservableCollection<IPreference> SelectedPreferences
+        private ObservableCollection<Preference> _selectedPreferences;
+        public ObservableCollection<Preference> SelectedPreferences
         {
             get { return _selectedPreferences; }
             set { _selectedPreferences = value; OnPropertyChanged(nameof(SelectedPreferences)); }
@@ -272,32 +272,27 @@ namespace RecipeSelectHelper.View
 
         private Preference SortByExpirationDate()
         {
-            var method = new Action<ProgramData>(x => MessageBox.Show("No one knows"));
-            return new Preference(method, "SortByExpirationDate");
+            return new ExpirationDatePreference();
         }
 
         private Preference SortByIngredientsOwned(int val)
         {
-            var method = new Action<ProgramData>(x => x.AllBoughtProducts.ForEach(y => y.Value += val));
-            return new Preference(method, "Add " + val + " to every owned ingredient");
+            return new IngredientsOwnedPreference(val);
         }
 
         private Preference SortBySingleIngredient(Product p, int val)
         {
-            var method = new Action<ProgramData>(x => x.AllProducts.Find(y => y.Equals(p)).Value += val);
-            return new Preference(method, "Add " + val + " to product: " + p.Name);
+            return new SingleIngredientPreference(val, p);
         }
 
         private Preference SortByRecipeCategory(RecipeCategory rc, int val)
         {
-            var method = new Action<ProgramData>(x => x.AllRecipeCategories.Find(y => y.Equals(rc)).Value += val);
-            return new Preference(method, "Add " + val + " to all recipes of category: " + rc.Name);
+            return new RecipeCategoryPreference(val, rc);
         }
 
         private Preference SortByProductCategory(ProductCategory pc, int val)
         {
-            var method = new Action<ProgramData>(x => x.AllProductCategories.Find(y => y.Equals(pc)).Value += val);
-            return new Preference(method, "Add " + val + " to all recipes of category: " + pc.Name);
+            return new ProductCategoryPreference(val, pc);
         }
 
         private void ComboBox_Pref1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -330,7 +325,7 @@ namespace RecipeSelectHelper.View
 
         private void ClearUI()
         {
-            SelectedPreferences = new ObservableCollection<IPreference>();
+            SelectedPreferences = new ObservableCollection<Preference>();
             TextBox_SortingMethodName.Text = String.Empty;
         }
     }

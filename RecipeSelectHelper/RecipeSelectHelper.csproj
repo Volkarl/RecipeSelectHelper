@@ -76,6 +76,9 @@
     <Compile Include="Model\Misc\XMLDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
+    <Compile Include="Model\SortingMethods\ProductCategoryPreference.cs" />
+    <Compile Include="Model\SortingMethods\RecipeCategoryPreference.cs" />
+    <Compile Include="Model\SortingMethods\SingleIngredientPreference.cs" />
     <Compile Include="Model\SortingMethods\SortingMethod.cs" />
     <Compile Include="Resources\DockPanelWithLabel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
@@ -111,9 +114,11 @@
     <Compile Include="View\EditRecipePage.xaml.cs">
       <DependentUpon>EditRecipePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\SortingMethods\ExpirationDatePreference.cs" />
     <Compile Include="View\FridgePage.xaml.cs">
       <DependentUpon>FridgePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\SortingMethods\IngredientsOwnedPreference.cs" />
     <Compile Include="View\RankingsViewPage.xaml.cs">
       <DependentUpon>RankingsViewPage.xaml</DependentUpon>
     </Compile>

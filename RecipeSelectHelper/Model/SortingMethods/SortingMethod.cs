@@ -10,9 +10,9 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public List<IPreference> Preferences { get; }
+        public List<Preference> Preferences { get; set; }
 
-        public SortingMethod(string name, List<IPreference> preferences)
+        public SortingMethod(string name, List<Preference> preferences)
         {
             Name = name;
             Preferences = preferences;
@@ -21,7 +21,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public void Execute(ProgramData data)
         {
             if (Preferences == null || data == null) return;
-            foreach (IPreference preference in Preferences)
+            foreach (Preference preference in Preferences)
             {
                 preference.Calculate(data);
             }
