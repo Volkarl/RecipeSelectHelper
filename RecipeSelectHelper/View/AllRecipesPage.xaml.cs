@@ -31,12 +31,6 @@ namespace RecipeSelectHelper.View
         private MainWindow _parent;
         private List<RecipeCategory> _selectedCategories;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public AllRecipesPage(MainWindow parent)
         {
             this._parent = parent;
@@ -179,15 +173,22 @@ namespace RecipeSelectHelper.View
             _parent.Data.AllRecipes.Remove(SelectedRecipe);
 
             Recipe selectedR = SelectedRecipe;
-            ObservableCollection<Recipe> R = Recipes;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref R);
+            ObservableCollection<Recipe> newRecipeCollection = Recipes;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref newRecipeCollection);
             SelectedRecipe = selectedR;
-            Recipes = R;
+            Recipes = newRecipeCollection;
+            // This appears like it does things twice?
 
             ListView_Recipes.Focus();
         }
 
         #region ObservableObjects
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         private ObservableCollection<Recipe> _recipes;
         public ObservableCollection<Recipe> Recipes

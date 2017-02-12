@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RecipeSelectHelper.Model.SortingMethods
 {
+    [DataContract(Name = "Preference")]
     public class Preference : IPreference
     {
-        private Action<ProgramData> _calculationMethod;
+        [DataMember]
+        public Action<ProgramData> CalculationMethod { get; private set; }
+        [DataMember]
         public string Description { get; private set; }
 
         public Preference(Action<ProgramData> calculationMethod, string description = null)
         {
-            this._calculationMethod = calculationMethod;
+            this.CalculationMethod = calculationMethod;
             Description = description;
         }
 
         public void Calculate(ProgramData pd)
         {
-            _calculationMethod(pd);
+            CalculationMethod(pd);
         }
     }
 }

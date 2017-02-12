@@ -23,7 +23,7 @@ namespace RecipeSelectHelper.View
     /// <summary>
     /// Interaction logic for SortingMethodsPage.xaml
     /// </summary>
-    public partial class SortingMethodsPage : Page, INotifyPropertyChanged
+    public partial class AddSortingMethodPage : Page, INotifyPropertyChanged, IAddElement
     {
         private MainWindow _parent;
 
@@ -33,7 +33,7 @@ namespace RecipeSelectHelper.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public SortingMethodsPage(MainWindow parent)
+        public AddSortingMethodPage(MainWindow parent)
         {
             _parent = parent;
             DataContext = this;
@@ -46,7 +46,7 @@ namespace RecipeSelectHelper.View
         {
             LoadPref1Settings();
             Pref1Value = String.Empty;
-            SelectedPreferences = new ObservableCollection<Preference>();
+            SelectedPreferences = new ObservableCollection<IPreference>();
         }
 
         private void SortingMethodsPage_Loaded(object sender, RoutedEventArgs e)
@@ -69,8 +69,8 @@ namespace RecipeSelectHelper.View
             set { _pref1Value = value; OnPropertyChanged(nameof(Pref1Value)); }
         }
 
-        private ObservableCollection<Preference> _selectedPreferences;
-        public ObservableCollection<Preference> SelectedPreferences
+        private ObservableCollection<IPreference> _selectedPreferences;
+        public ObservableCollection<IPreference> SelectedPreferences
         {
             get { return _selectedPreferences; }
             set { _selectedPreferences = value; OnPropertyChanged(nameof(SelectedPreferences)); }
@@ -126,6 +126,7 @@ namespace RecipeSelectHelper.View
         {
             UIElement ui1 = null;
             UIElement ui2 = null;
+
             switch (value)
             {
                 case PreferenceTopic.ByProductCategory:
@@ -147,13 +148,13 @@ namespace RecipeSelectHelper.View
                         new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByIngredientsOwned:
-                    ui1 = new Label {Content = "If recipe contains any ingredient from fridge"};
+                    ui1 = new Label {Content = "If recipe contains any ingredient from fridge", Height = 30};
                     ui2 = new DockPanelWithLabel("Then add value: ", 
                         new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByExpirationDate:
-                    ui1 = new Label {Content = "LOTS OF WEIRD STUFF AND CONFIGURATIONS SHOULD BE HERE!"};
-                    ui2 = new IntegerTextBox();
+                    ui1 = new Label {Content = "LOTS OF WEIRD STUFF AND CONFIGURATIONS SHOULD BE HERE!", Height = 30};
+                    ui2 = new IntegerTextBox {Height = 30};
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -312,5 +313,30 @@ namespace RecipeSelectHelper.View
             var itemToRemove = textBlock.DataContext as Preference;
             SelectedPreferences.Remove(itemToRemove);
         }
+
+        public void AddItem(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var sm = new SortingMethod(TextBox_SortingMethodName.Text, SelectedPreferences.ToList());
+                _parent.Data.AllSortingMethods.Add(sm);
+                ClearUI();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void ClearUI()
+        {
+            SelectedPreferences = new ObservableCollection<IPreference>();
+            TextBox_SortingMethodName.Text = String.Empty;
+        }
     }
 }
+
+
+
+// ADD TOOLTIPS
+// ADD Error when sorting method has no members, mm.

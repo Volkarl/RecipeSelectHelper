@@ -98,5 +98,9 @@ namespace RecipeSelectHelper.View
 
         #endregion
 
+        private void Button_SortRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

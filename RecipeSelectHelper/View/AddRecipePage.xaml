@@ -10,24 +10,24 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <DockPanel Name="DockPanel_RecipeName" LastChildFill="True" Margin="1">
-                <Label Content="Recipe Name: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
+            <DockPanel Name="DockPanel_RecipeName" Margin="1">
+                <Label Content="Recipe Name: " Height="30" Width="125"></Label>
                 <Button Width="30" DockPanel.Dock="Right"></Button>
                 <TextBox Name="TextBox_RecipeName" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
             </DockPanel>
 
             <DockPanel Name="DockPanel_RecipeDescription" Margin="1">
-                <Label Content="Recipe Description: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
-                <TextBox Name="TextBox_RecipeDescription" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+                <Label Content="Recipe Description: " Height="30" Width="125"></Label>
+                <TextBox Name="TextBox_RecipeDescription" Height="30" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
 
             <DockPanel Name="DockPanel_CookingInstruction" Margin="1">
-                <Label Content="Cooking Instructions: " Height="30" Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
-                <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+                <Label Content="Cooking Instructions: " Height="30" Width="125"></Label>
+                <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
 
             <DockPanel Name="DockPanel_Categories" Margin="1">
-                <Label Content="Categories: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"  DockPanel.Dock="Left"></Label>
+                <Label Content="Categories: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">
                     <StackPanel>
                         <ItemsControl Name="ItemsControl_Categories">
@@ -48,7 +48,7 @@
             </DockPanel>
 
             <DockPanel Name="DockPanel_Ingredients" Margin="1">
-                <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top" DockPanel.Dock="Left"></Label>
+                <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">
                     <StackPanel>
                         <ItemsControl Name="ItemsControl_Ingredients">

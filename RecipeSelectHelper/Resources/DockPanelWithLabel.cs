@@ -14,7 +14,7 @@ namespace RecipeSelectHelper.Resources
         public DockPanelWithLabel(object labelContents, UIElement secondElement)
         {
             SecondElement = secondElement;
-            Children.Add(new Label {Content = labelContents, Width = 200});
+            Children.Add(new Label {Content = labelContents, Height = 30, Width = 200});
             Children.Add(secondElement);
         }
     }

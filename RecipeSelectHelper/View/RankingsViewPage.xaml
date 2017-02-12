@@ -42,7 +42,7 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes"></Button>
+        <Button Name="Button_SortRecipes" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes" Click="Button_SortRecipes_Click"></Button>
         <ProgressBar Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
         <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8"></ComboBox>
         <!--ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedItem}"-->

@@ -21,10 +21,8 @@ namespace RecipeSelectHelper.Model
         public List<ProductCategory> AllProductCategories { get; set; }
         [DataMember]
         public List<RecipeCategory> AllRecipeCategories { get; set; }
-
         [DataMember]
         public List<SortingMethod> AllSortingMethods { get; set; }
-        // ?? How?
 
         public ProgramData()
         {
@@ -33,7 +31,6 @@ namespace RecipeSelectHelper.Model
             AllRecipes = new List<Recipe>();
             AllProductCategories = new List<ProductCategory>();
             AllRecipeCategories = new List<RecipeCategory>();
-
             AllSortingMethods = new List<SortingMethod>();
         }
 

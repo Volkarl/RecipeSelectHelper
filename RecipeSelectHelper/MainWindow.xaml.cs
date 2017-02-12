@@ -102,14 +102,8 @@ namespace RecipeSelectHelper
 
         private void Button_AllSortingMethods_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new SortingMethodsPage(this));
+            SetPage(new AllSortingMethodsPage(this));
             HighlightButtonBackground(sender as Button);
-        }
-
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            var xmlReader = new XMLDataHandler();
-            xmlReader.SaveToXML(this.Data);
         }
 
         private void Button_AllCategories_Click(object sender, RoutedEventArgs e)
@@ -122,6 +116,13 @@ namespace RecipeSelectHelper
         {
             SetPage(new SettingsPage());
             HighlightButtonBackground(sender as Button);
+        }
+
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            var xmlReader = new XMLDataHandler();
+            xmlReader.SaveToXML(this.Data);
         }
     }
 }

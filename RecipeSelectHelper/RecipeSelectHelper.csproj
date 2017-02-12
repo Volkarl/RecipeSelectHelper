@@ -99,6 +99,9 @@
     <Compile Include="View\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AllSortingMethodsPage.xaml.cs">
+      <DependentUpon>AllSortingMethodsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AllStoreProductsPage.xaml.cs">
       <DependentUpon>AllStoreProductsPage.xaml</DependentUpon>
     </Compile>
@@ -117,8 +120,8 @@
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SortingMethodsPage.xaml.cs">
-      <DependentUpon>SortingMethodsPage.xaml</DependentUpon>
+    <Compile Include="View\AddSortingMethodPage.xaml.cs">
+      <DependentUpon>AddSortingMethodPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +159,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AllSortingMethodsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AllStoreProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,7 +187,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SortingMethodsPage.xaml">
+    <Page Include="View\AddSortingMethodPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
