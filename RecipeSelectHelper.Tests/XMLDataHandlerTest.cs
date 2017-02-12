@@ -30,7 +30,7 @@ namespace RecipeSelectHelper.Tests
             List<Product> products = AddP(productCategories);
             List<BoughtProduct> boughtProducts = AddBP(products);
             List<Recipe> recipes = AddR(recipeCategories, products);
-            List<SortingMethod> sortingMethods = AddSM();
+            List<SortingMethod> sortingMethods = AddSM(productCategories);
 
             ProgramData dataLowComplexity = addProgramData(0, productCategories, recipeCategories, products, boughtProducts, recipes, sortingMethods);
             ProgramData dataMediumComplexity = addProgramData(1, productCategories, recipeCategories, products, boughtProducts, recipes, sortingMethods);
@@ -59,12 +59,12 @@ namespace RecipeSelectHelper.Tests
             return data;
         }
 
-        private List<SortingMethod> AddSM()
+        private List<SortingMethod> AddSM(List<ProductCategory> productCategories)
         {
             var sm = new List<SortingMethod>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
-                sm.Add(new SortingMethod("SM" + i.ToString()));
+                sm.Add(new SortingMethod("SM" + i, new List<Preference> {new ProductCategoryPreference(i, productCategories[i])}));
             }
             return sm;
         }
@@ -80,9 +80,9 @@ namespace RecipeSelectHelper.Tests
             }
 
             int i = 0;
-            recipes.Add(new Recipe("RLowComplexity", "D" + i.ToString(), "I" + i++.ToString()));
-            recipes.Add(new Recipe("RMediumComplexity", "D" + i.ToString(), "I" + i++.ToString(), categories:recipeCategories));
-            recipes.Add(new Recipe("RHighComplexity", "D" + i.ToString(), "I" + i.ToString(), ingredients, recipeCategories));
+            recipes.Add(new Recipe("RLowComplexity", "D" + i, "I" + i++));
+            recipes.Add(new Recipe("RMediumComplexity", "D" + i, "I" + i++, categories:recipeCategories));
+            recipes.Add(new Recipe("RHighComplexity", "D" + i, "I" + i, ingredients, recipeCategories));
 
             return recipes;
         }

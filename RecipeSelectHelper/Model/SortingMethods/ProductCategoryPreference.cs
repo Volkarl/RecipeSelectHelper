@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 namespace RecipeSelectHelper.Model.SortingMethods
 {
     [DataContract(Name = "ProductCategoryPreference")]
-    class ProductCategoryPreference : Preference
+    public class ProductCategoryPreference : Preference
     {
         [DataMember]
         public int Val { get; set; }
