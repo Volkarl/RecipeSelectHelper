@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace RecipeSelectHelper.Model.SortingMethods
 {
+    [KnownType(typeof(Preference))]
     [DataContract(Name = "Preference")]
     public class Preference : IPreference
     {
