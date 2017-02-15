@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeSelectHelper.Model.SortingMethods;
 
 namespace RecipeSelectHelper.View
 {
@@ -36,16 +37,18 @@ namespace RecipeSelectHelper.View
         {
             this._parent = parent;
             DataContext = this;
-            InitiaalizeObservableObjects();
+            InitializeObservableObjects();
 
             InitializeComponent();
             this.Loaded += RankingsViewPageLoaded;
         }
 
-        private void InitiaalizeObservableObjects()
+        private void InitializeObservableObjects()
         {
-            //SortingMethods = new ObservableCollection<string>(_parent.Data.AllSortingMethods.ConvertAll(x => x.Name));
-            //SelectedSortingMethod = SortingMethods.FirstOrDefault();
+            SortingMethods = new ObservableCollection<SortingMethod>(_parent.Data.AllSortingMethods.OrderBy(x => x.Name));
+            SelectedSortingMethod = null;
+            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Name)); // SHOULD BE EMPTY??
+            SelectedRecipe = null;
         }
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
@@ -68,29 +71,29 @@ namespace RecipeSelectHelper.View
 
         #region ObservableObjects
 
-        private ObservableCollection<string> _sortingMethods;
-        public ObservableCollection<string> SortingMethods
+        private ObservableCollection<SortingMethod> _sortingMethods;
+        public ObservableCollection<SortingMethod> SortingMethods
         {
             get { return _sortingMethods; }
             set { _sortingMethods = value; OnPropertyChanged(nameof(SortingMethods)); }
         }
 
-        private static string _selectedSortingMethod = string.Empty;
-        public string SelectedSortingMethod
+        private SortingMethod _selectedSortingMethod;
+        public SortingMethod SelectedSortingMethod
         {
             get { return _selectedSortingMethod; }
             set { _selectedSortingMethod = value; OnPropertyChanged(nameof(SelectedSortingMethod)); }
         }
 
-        private ObservableCollection<IRecipe> _recipes;
-        public ObservableCollection<IRecipe> Recipes
+        private ObservableCollection<Recipe> _recipes;
+        public ObservableCollection<Recipe> Recipes
         {
             get { return _recipes; }
             set { _recipes = value; OnPropertyChanged(nameof(Recipes)); }
         }
 
-        private IRecipe _selectedRecipe;
-        public IRecipe SelectedRecipe
+        private Recipe _selectedRecipe;
+        public Recipe SelectedRecipe
         {
             get { return _selectedRecipe; }
             set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
@@ -100,7 +103,19 @@ namespace RecipeSelectHelper.View
 
         private void Button_SortRecipes_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (SelectedSortingMethod == null) return;
+
+            SelectedSortingMethod.Execute(_parent.Data);
+            
+
+            // ADD AN EVENT INTO SORTING METHOD THAT IS THROWN EACH TIME A NEW PREFERENCE IS RUN.
+
+            //double decimalPercentage = 1 / (double)SelectedSortingMethod.Preferences.Count;
+            //foreach (Preference pref in SelectedSortingMethod.Preferences)
+            //{
+            //    ProgressBar_Sorting.Value += decimalPercentage;
+            //}
+            _recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Value));
         }
     }
 }

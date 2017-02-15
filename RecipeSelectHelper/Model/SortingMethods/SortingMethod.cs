@@ -14,8 +14,9 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
         public SortingMethod(string name, List<Preference> preferences)
         {
+            if(String.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();
             Name = name;
-            Preferences = preferences;
+            Preferences = preferences ?? new List<Preference>();
         }
 
         public void Execute(ProgramData data)

@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
-      Title="RankingsViewPage">
+      Title="RankingsViewPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,19 +34,18 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <ListView Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Recipes}" SelectedItem="{Binding SelectedRecipe}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Recipe"></GridViewColumn>
-                    <GridViewColumn Header="Score %" Width="Auto"></GridViewColumn>
+                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                     <GridViewColumn Width="{x:Static SystemParameters.VerticalScrollBarWidth}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
 
         <Button Name="Button_SortRecipes" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes" Click="Button_SortRecipes_Click"></Button>
-        <ProgressBar Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
-        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8"></ComboBox>
-        <!--ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedItem}"-->
+        <ProgressBar Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
+        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8" ItemsSource="{Binding SortingMethods}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSortingMethod}"></ComboBox>
     </Grid>
 </Page>
