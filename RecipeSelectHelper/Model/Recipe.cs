@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RecipeSelectHelper.Model
 {
@@ -17,9 +18,12 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Instruction { get; set; }
         [DataMember]
-        public int ID { get; private set; }
-        [DataMember]
+        public int ID { get; private set; } // Refactor-remove this? 
+        [DataMember]                            // Value really shouldn't be a data member!
         public int Value { get; set; } = 0;
+
+        public int OwnValue { get; set; } = 0;
+
         [DataMember]
         public List<Ingredient> Ingredients { get; set; }
         [DataMember]
@@ -52,6 +56,20 @@ namespace RecipeSelectHelper.Model
             this.Ingredients = ingredients ?? new List<Ingredient>();
             this.Categories = categories ?? new List<RecipeCategory>();
             this.Value = 0;
+        }
+
+        public void AggregateValue()
+        {
+            int val = OwnValue;
+            foreach (RecipeCategory recipeCategory in Categories)
+            {
+                val += recipeCategory.Value;
+            }
+            foreach (Ingredient ingredient in Ingredients)
+            {
+                val += ingredient.Value;
+            }
+            this.Value = val;
         }
     }
 }

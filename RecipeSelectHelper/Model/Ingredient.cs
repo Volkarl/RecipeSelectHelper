@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RecipeSelectHelper.Model
 {
@@ -14,8 +15,11 @@ namespace RecipeSelectHelper.Model
         public int AmountNeeded { get; set; }
         [DataMember]
         public Product CorrespondingProduct { get; set; }
-        [DataMember]
-        public int Value { get; set; }
+
+        [DataMember] //remove datamember
+        public int Value => OwnValue + CorrespondingProduct.AggregatedValue;
+
+        public int OwnValue { get; set; } = 0;
 
         public Ingredient(int amountNeeded, Product correspondingProduct)
         {

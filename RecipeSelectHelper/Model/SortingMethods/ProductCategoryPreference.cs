@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 
 namespace RecipeSelectHelper.Model.SortingMethods
@@ -26,7 +27,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public override void Calculate(ProgramData pd)
         {
             if (ProductCategory == null) return;
-            pd.AllProductCategories.Find(y => y.Equals(ProductCategory)).Value += Val;
+            pd.AllProductCategories.Find(y => y.Equals(ProductCategory)).Value += Val;   //this definitely works
         }
     }
 }

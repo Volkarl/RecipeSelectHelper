@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -103,19 +104,26 @@ namespace RecipeSelectHelper.View
 
         private void Button_SortRecipes_Click(object sender, RoutedEventArgs e)
         {
+            ProgressBar_Sorting.Value = 0;
+
             if (SelectedSortingMethod == null) return;
-
+            SelectedSortingMethod.ProgressChanged += ChangeProgressBarValue;
             SelectedSortingMethod.Execute(_parent.Data);
-            
 
-            // ADD AN EVENT INTO SORTING METHOD THAT IS THROWN EACH TIME A NEW PREFERENCE IS RUN.
+            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Value));
+            MessageBox.Show("Successfully Sorted");
+        }
 
-            //double decimalPercentage = 1 / (double)SelectedSortingMethod.Preferences.Count;
-            //foreach (Preference pref in SelectedSortingMethod.Preferences)
-            //{
-            //    ProgressBar_Sorting.Value += decimalPercentage;
-            //}
-            _recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Value));
+        private void ChangeProgressBarValue(object sender, double e)
+        {
+            if ((ProgressBar_Sorting.Value + e) > 100)
+            {
+                ProgressBar_Sorting.Value = 100;
+            }
+            else
+            {
+                ProgressBar_Sorting.Value += e;
+            }
         }
     }
 }

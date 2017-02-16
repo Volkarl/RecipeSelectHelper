@@ -61,7 +61,7 @@ namespace RecipeSelectHelper.Model
             {
                 hash += p.ID.GetHashCode();
                 hash += p.Name.GetHashCode();
-                hash += p.Value.GetHashCode();
+                hash += p.OwnValue.GetHashCode();
                 foreach (ProductCategory s in p.Categories)
                 {
                     hash += s.Name.GetHashCode();
