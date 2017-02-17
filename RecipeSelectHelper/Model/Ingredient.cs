@@ -16,7 +16,6 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public Product CorrespondingProduct { get; set; }
 
-        [DataMember] //remove datamember
         public int Value => OwnValue + CorrespondingProduct.AggregatedValue;
 
         public int OwnValue { get; set; } = 0;

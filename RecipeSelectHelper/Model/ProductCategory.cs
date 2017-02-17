@@ -12,7 +12,7 @@ namespace RecipeSelectHelper.Model
     {
         [DataMember]
         public string Name { get; set; }
-        [DataMember]
+
         public int Value { get; set; }
 
         public ProductCategory(string name)

@@ -13,16 +13,16 @@ namespace RecipeSelectHelper.Model
     {
         [DataMember]
         public List<ProductCategory> Categories { get; set; }
-        [DataMember]
-        public int ID { get; set; }
+        //[DataMember]
+        //public int ID { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]
         public List<Product> SubstituteProducts { get; set; }
-        [DataMember]
+
         public int OwnValue { get; set; } = 0; //Should this be set-only? //Aggregated value get only then.
 
-        private static int _productCreatedNumber = 0;
+        //private static int _productCreatedNumber = 0;
         // Counter starts at 0 at every new program execution, it needs to get this from settings.settings? 
 
         public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null)
@@ -30,7 +30,7 @@ namespace RecipeSelectHelper.Model
             Name = name;
             Categories = categories ?? new List<ProductCategory>();
             SubstituteProducts = substituteProducts ?? new List<Product>();
-            ID = _productCreatedNumber++;
+            //ID = _productCreatedNumber++;
         }
 
         public int AggregatedValue => CalculateValue();

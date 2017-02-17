@@ -46,9 +46,9 @@ namespace RecipeSelectHelper.Model
 
             foreach (BoughtProduct bp in this.AllBoughtProducts)
             {
-                hash += bp.ID.GetHashCode();
+                //hash += bp.ID.GetHashCode();
                 hash += bp.Value.GetHashCode();
-                hash += bp.CorrespondingProduct.ID.GetHashCode();
+                //hash += bp.CorrespondingProduct.ID.GetHashCode();
             }
 
             foreach (ProductCategory pc in this.AllProductCategories)
@@ -59,7 +59,7 @@ namespace RecipeSelectHelper.Model
 
             foreach (Product p in this.AllProducts)
             {
-                hash += p.ID.GetHashCode();
+                //hash += p.ID.GetHashCode();
                 hash += p.Name.GetHashCode();
                 hash += p.OwnValue.GetHashCode();
                 foreach (ProductCategory s in p.Categories)
@@ -69,7 +69,7 @@ namespace RecipeSelectHelper.Model
                 }
                 foreach (Product b in p.SubstituteProducts)
                 {
-                    hash += b.ID.GetHashCode();
+                    //hash += b.ID.GetHashCode();
                 }
             }
 
@@ -83,13 +83,13 @@ namespace RecipeSelectHelper.Model
             {
                 hash += r.CategoriesAsString.GetHashCode();
                 hash += r.Description.GetHashCode();
-                hash += r.ID.GetHashCode();
+                //hash += r.ID.GetHashCode();
                 hash += r.Value.GetHashCode();
                 foreach (Ingredient i in r.Ingredients)
                 {
                     hash += i.AmountNeeded.GetHashCode();
                     hash += i.Value.GetHashCode();
-                    hash += i.CorrespondingProduct.ID.GetHashCode();
+                    //hash += i.CorrespondingProduct.ID.GetHashCode();
                 }
             }
 

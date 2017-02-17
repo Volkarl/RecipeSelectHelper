@@ -235,7 +235,7 @@ namespace RecipeSelectHelper.View
         private void DisplayRecipeInfo(Recipe rec)
         {
             string s = "Name: " + rec.Name + "\n";
-            s += "ID: " + rec.ID + "\n";
+            //s += "ID: " + rec.ID + "\n";
             s += "Categories: " + rec.CategoriesAsString + "\n";
             s += "Description: " + rec.Description + "\n";
             s += "Instruction: " + rec.Instruction + "\n";

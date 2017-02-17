@@ -11,7 +11,7 @@ namespace RecipeSelectHelper.Model
         string Name { get; set; }
         int OwnValue { get; set; }
         int AggregatedValue { get; }
-        int ID { get; }
+        //int ID { get; }
         List<ProductCategory> Categories { get; set; }
         List<Product> SubstituteProducts { get; set; }
     }
