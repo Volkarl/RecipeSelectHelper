@@ -34,12 +34,11 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Recipes}" SelectedItem="{Binding SelectedRecipe}">
+        <ListView Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                    <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
-                    <GridViewColumn Width="{x:Static SystemParameters.VerticalScrollBarWidth}"></GridViewColumn>
+                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondinRecipe.Name}"></GridViewColumn>
+                    <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

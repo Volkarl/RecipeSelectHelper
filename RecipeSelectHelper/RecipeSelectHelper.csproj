@@ -60,6 +60,7 @@
     <Compile Include="Model\BoughtProduct.cs" />
     <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
+    <Compile Include="Model\Misc\RecipeWithPercentageScore.cs" />
     <Compile Include="Model\SortingMethods\IPreference.cs" />
     <Compile Include="Model\SortingMethods\Preference.cs" />
     <Compile Include="Model\Product.cs" />

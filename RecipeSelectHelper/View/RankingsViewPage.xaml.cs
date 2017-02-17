@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeSelectHelper.Model.Misc;
 using RecipeSelectHelper.Model.SortingMethods;
 
 namespace RecipeSelectHelper.View
@@ -28,16 +30,9 @@ namespace RecipeSelectHelper.View
     {
         private MainWindow _parent;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public RankingsViewPage(MainWindow parent)
         {
             this._parent = parent;
-            DataContext = this;
             InitializeObservableObjects();
 
             InitializeComponent();
@@ -48,13 +43,19 @@ namespace RecipeSelectHelper.View
         {
             SortingMethods = new ObservableCollection<SortingMethod>(_parent.Data.AllSortingMethods.OrderBy(x => x.Name));
             SelectedSortingMethod = null;
-            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Name)); // SHOULD BE EMPTY??
             SelectedRecipe = null;
+
+            var withPercentageScores = new List<RecipeWithPercentageScore>();
+            foreach (Recipe rec in _parent.Data.AllRecipes)
+            {
+                withPercentageScores.Add(new RecipeWithPercentageScore(rec));
+            }
+            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondinRecipe.Name)); // SHOULD BE EMPTY??
         }
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
         {
-            ListView_SizeChanged(ListView_Recipes, null);
+            ListView_SizeChanged(ListView_Recipes, null);    // for getting the listviewcolumns to fill the entire listview
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -72,6 +73,12 @@ namespace RecipeSelectHelper.View
 
         #region ObservableObjects
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private ObservableCollection<SortingMethod> _sortingMethods;
         public ObservableCollection<SortingMethod> SortingMethods
         {
@@ -86,15 +93,15 @@ namespace RecipeSelectHelper.View
             set { _selectedSortingMethod = value; OnPropertyChanged(nameof(SelectedSortingMethod)); }
         }
 
-        private ObservableCollection<Recipe> _recipes;
-        public ObservableCollection<Recipe> Recipes
+        private ObservableCollection<RecipeWithPercentageScore> _recipes;
+        public ObservableCollection<RecipeWithPercentageScore> Recipes
         {
             get { return _recipes; }
             set { _recipes = value; OnPropertyChanged(nameof(Recipes)); }
         }
 
-        private Recipe _selectedRecipe;
-        public Recipe SelectedRecipe
+        private RecipeWithPercentageScore _selectedRecipe;
+        public RecipeWithPercentageScore SelectedRecipe
         {
             get { return _selectedRecipe; }
             set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
@@ -110,7 +117,15 @@ namespace RecipeSelectHelper.View
             SelectedSortingMethod.ProgressChanged += ChangeProgressBarValue;
             SelectedSortingMethod.Execute(_parent.Data);
 
-            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.OrderBy(x => x.Value));
+            // Use recipe values to assign percentage scores to the recipes.
+            List<Recipe> allRecipes = _parent.Data.AllRecipes;
+            int maxValue = allRecipes.Max(x => x.Value);
+            var withPercentageScores = new ObservableCollection<RecipeWithPercentageScore>();
+            foreach (Recipe recipe in allRecipes)
+            {
+                withPercentageScores.Add(new RecipeWithPercentageScore(recipe, maxValue));
+            }
+            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.PercentageValue).Reverse());
             MessageBox.Show("Successfully Sorted");
         }
 
