@@ -17,10 +17,8 @@ namespace RecipeSelectHelper.Model
         public string Description { get; set; }
         [DataMember]
         public string Instruction { get; set; }
-        //[DataMember]
-        //public int ID { get; private set; } 
 
-        public int Value { get; set; } = 0;
+        public int Value { get; private set; } = 0;
 
         public int OwnValue { get; set; } = 0;
 
@@ -44,13 +42,9 @@ namespace RecipeSelectHelper.Model
             }
         }
 
-        //private static int _recipeCreatedNumber = 0;
-        // Counter starts at 0 at every new program execution, it needs to get this from settings.settings? 
-
         public Recipe(string name, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null)
         {
             this.Name = name;
-            //this.ID = _recipeCreatedNumber++;
             this.Description = description ?? String.Empty;
             this.Instruction = instruction ?? String.Empty;
             this.Ingredients = ingredients ?? new List<Ingredient>();

@@ -111,6 +111,7 @@ namespace RecipeSelectHelper.View
 
         private void Button_SortRecipes_Click(object sender, RoutedEventArgs e)
         {
+            _parent.Data.ResetAllValues();
             ProgressBar_Sorting.Value = 0;
 
             if (SelectedSortingMethod == null) return;

@@ -34,6 +34,15 @@ namespace RecipeSelectHelper.Model
             AllSortingMethods = new List<SortingMethod>();
         }
 
+        public void ResetAllValues()
+        {
+            AllProductCategories.ForEach(x => x.Value = 0);
+            AllBoughtProducts.ForEach(x => x.Value = 0);
+            AllProducts.ForEach(x => x.OwnValue = 0);
+            AllRecipeCategories.ForEach(x => x.Value = 0);
+            AllRecipes.ForEach(x => x.OwnValue = 0);
+        }
+
         public int GetValueHashCode()
         {
             int hash = 0;
