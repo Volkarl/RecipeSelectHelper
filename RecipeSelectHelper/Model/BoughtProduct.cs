@@ -13,7 +13,7 @@ namespace RecipeSelectHelper.Model
 
         public int Value { get; set; } = 0;
 
-        public BoughtProduct(Product correspondingProduct, ExpirationInfo expirationData)
+        public BoughtProduct(Product correspondingProduct, ExpirationInfo expirationData = null)
         {
             CorrespondingProduct = correspondingProduct;
             ExpirationData = expirationData;
