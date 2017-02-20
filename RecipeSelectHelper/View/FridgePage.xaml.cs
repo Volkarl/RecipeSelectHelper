@@ -37,9 +37,39 @@ namespace RecipeSelectHelper.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_SearchBoughtProducts_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AddElementBasePage(new AddBoughtProductPage(_parent), "Add New Bought Product", _parent));
+            throw new NotImplementedException();
+        }
+
+        private void TextBox_SearchBoughtProducts_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Button_AddBoughtProduct_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(new AddBoughtProductPage(_parent), "Add New Product to Fridge", _parent));
+        }
+
+        private void Button_EditBoughtProduct_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Button_RemoveBoughtProduct_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ListView_BoughtProducts_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

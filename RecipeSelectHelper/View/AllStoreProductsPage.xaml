@@ -8,7 +8,48 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="AllStoreProductsPage">
 
-    <Grid>
-        
-    </Grid>
+    <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" MinHeight="30">
+                <Expander Header="Filter Store Products" VerticalAlignment="Center" ExpandDirection="Down">
+                    <WrapPanel Name="WrapPanel_ProductCategories" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </Expander>
+
+                <Button DockPanel.Dock="Right" Width="100" Height="30" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick"  Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image Source="/Resources/Search.png" Margin="0"></Image>
+                        <TextBlock Text="  Search" Margin="2" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <TextBox Margin="10,0,0,0" DockPanel.Dock="Left" Name="TextBox_SearchStoreProducts" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchStoreProducts_OnKeyDown"></TextBox>
+            </DockPanel>
+
+            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="30">
+                <Button Name="Button_AddStoreProduct" Click="Button_AddStoreProduct_OnClick" Content="Add"></Button>
+                <Button Name="Button_EditStoreProduct" Click="Button_EditStoreProduct_OnClick" Content="Edit"></Button>
+                <Button Name="Button_RemoveStoreProduct" Click="Button_RemoveStoreProduct_OnClick" Content="Remove"></Button>
+            </UniformGrid>
+            
+            <ListView Margin="0,10,0,10" DockPanel.Dock="Top" Name="ListView_StoreProducts" SelectedItem="{Binding SelectedStoreProduct, Mode=TwoWay}" ItemsSource="{Binding Path=StoreProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_StoreProducts_OnSizeChanged"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
+                        <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </DockPanel>
+    </ScrollViewer>
 </Page>

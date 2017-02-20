@@ -7,14 +7,48 @@
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       Title="FridgePage">
+    <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" MinHeight="30">
+                <Expander Header="Filter Products in Fridge" VerticalAlignment="Center" ExpandDirection="Down">
+                    <WrapPanel Name="WrapPanel_ProductCategories" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </Expander>
 
-    <Grid>
-        <CheckBox>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Hello" Margin="1"></TextBlock>
-                <TextBox Width="50"></TextBox>
-            </StackPanel>
-        </CheckBox>
-        <Button Height="50" Content="Add Bought Product" Click="Button_Click"></Button>
-    </Grid>
+                <Button DockPanel.Dock="Right" Width="100" Height="30" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick"  Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image Source="/Resources/Search.png" Margin="0"></Image>
+                        <TextBlock Text="  Search" Margin="2" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <TextBox Margin="10,0,0,0" DockPanel.Dock="Left" Name="TextBox_SearchBoughtProducts" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchBoughtProducts_OnKeyDown"></TextBox>
+            </DockPanel>
+
+            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="30">
+                <Button Name="Button_AddBoughtProduct" Click="Button_AddBoughtProduct_OnClick"  Content="Add"></Button>
+                <Button Name="Button_EditBoughtProduct" Click="Button_EditBoughtProduct_OnClick"  Content="Edit"></Button>
+                <Button Name="Button_RemoveBoughtProduct" Click="Button_RemoveBoughtProduct_OnClick"  Content="Remove"></Button>
+            </UniformGrid>
+
+            <ListView Margin="0,10,0,10" DockPanel.Dock="Top" Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_BoughtProducts_OnSizeChanged"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
+                        <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </DockPanel>
+    </ScrollViewer>
 </Page>
