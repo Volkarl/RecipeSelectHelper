@@ -30,7 +30,22 @@ namespace RecipeSelectHelper.View
             _parent = parent;
             _selectedPC = new List<ProductCategory>();
             _selectedSub = new List<Product>();
+            Loaded += AddStoreProductPage_Loaded;
             InitializeComponent();
+        }
+
+        private void AddStoreProductPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchableListView_SubstituteProducts.InitializeSearchableListView(
+                (x,y) => ShowProductInformation(x), 
+                () => _parent.Data.AllProducts, 
+                (text, list) => list.Where(x => x.Name.Contains(text)).ToList(), 
+                "Name");
+        }
+
+        private void ShowProductInformation(Product product)
+        {
+            MessageBox.Show(product.Name);
         }
 
         public void AddItem(object sender, RoutedEventArgs e)
@@ -45,6 +60,10 @@ namespace RecipeSelectHelper.View
 //            }
 
             throw new NotImplementedException(); // HERE!!
+
+            // Add another content control inheriting from searchableListView, one implementing multiselect, 
+            // which can return all the objects
+
 
             var product = new Product(TextBox_ProductName.Text, categories, substituteProducts);
             _parent.Data.AllProducts.Add(product);
