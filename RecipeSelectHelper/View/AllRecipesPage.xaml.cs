@@ -53,6 +53,7 @@ namespace RecipeSelectHelper.View
             FilterRecipesByName(TextBox_SearchRecipes.Text);
             Recipes = new ObservableCollection<Recipe>(SortByName(Recipes));
             _selectedCategories = new List<RecipeCategory>();
+            TextBox_SearchRecipes.Focus();
         }
 
         private IEnumerable<Recipe> SortByName(IEnumerable<Recipe> recipes)
@@ -211,8 +212,8 @@ namespace RecipeSelectHelper.View
             if (e.Key == Key.Enter)
             {
                 FilterRecipesByName(TextBox_SearchRecipes.Text);
+                ListView_Recipes.Focus();
             }
-            TextBox_SearchRecipes.Focus();
         }
 
         private void FilterRecipesByName(string searchParameter)

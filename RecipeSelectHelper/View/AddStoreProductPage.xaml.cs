@@ -41,13 +41,16 @@ namespace RecipeSelectHelper.View
                 (x,y) => ShowProductInformation(x), 
                 () => _parent.Data.AllProducts, 
                 (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(), 
-                "Name");
+                "Name", 
+                (sp, searchParameter) => sp.Name.ToLower().Contains(searchParameter.ToLower()));
+
 
             SearchableListView_ProductCategories.InitializeSearchableListView(
                 (x, y) => ShowPCInformation(x),
                 () => _parent.Data.AllProductCategories,
                 (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(),
-                "Name");
+                "Name",
+                (pc, searchParameter) => pc.Name.ToLower().Contains(searchParameter.ToLower()));
         }
 
         private void ShowPCInformation(ProductCategory productCategory)

@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel Margin="1">
-            <TextBox Name="TextBox_SearchParameter" Height="30" Margin="1"></TextBox>
+            <TextBox Name="TextBox_SearchParameter" Height="30" Margin="1" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
             <ListView Name="ListView_Items" Height="100" Margin="1" SelectionMode="Extended">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

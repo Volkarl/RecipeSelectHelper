@@ -62,6 +62,7 @@ namespace RecipeSelectHelper.View
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
             ListView_StoreProducts_OnSizeChanged(ListView_StoreProducts, null);
+            TextBox_SearchStoreProducts.Focus();
         }
 
         private IEnumerable<Product> OrderByName(IEnumerable<Product> products)
@@ -100,8 +101,8 @@ namespace RecipeSelectHelper.View
             if (e.Key == Key.Enter)
             {
                 FilterProductsByName(TextBox_SearchStoreProducts.Text);
+                ListView_StoreProducts.Focus();
             }
-            TextBox_SearchStoreProducts.Focus();
         }
 
         private void FilterProductsByName(string searchParameter)
