@@ -114,7 +114,7 @@ namespace RecipeSelectHelper
 
         private void Button_Settings_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new SettingsPage());
+            SetPage(new SettingsPage(this));
             HighlightButtonBackground(sender as Button);
         }
 

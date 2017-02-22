@@ -8,7 +8,12 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="SettingsPage">
 
-    <Grid>
-        
-    </Grid>
+    <UniformGrid>
+        <Button Name="Button_AddPC" Content="Add PC" Click="Button_AddPC_OnClick"></Button>
+        <Button Name="Button_AddRC" Content="Add RC" Click="Button_AddRC_OnClick"></Button>
+        <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
+        <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
+        <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
+        <Button></Button>
+    </UniformGrid>
 </Page>
