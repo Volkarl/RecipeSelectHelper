@@ -64,7 +64,6 @@ namespace RecipeSelectHelper.View
 
         private void ListView_BoughtProducts_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            throw new NotImplementedException();
         }
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)

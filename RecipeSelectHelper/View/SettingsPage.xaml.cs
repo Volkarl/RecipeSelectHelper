@@ -85,5 +85,14 @@ namespace RecipeSelectHelper.View
             var r = new Recipe("Recipe" + _rClicks++, "Lorem", "Ipsum", iList, rcList);
             _parent.Data.AllRecipes.Add(r);
         }
+
+        private void Button_All_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button_AddPC_OnClick(null, null);
+            Button_AddRC_OnClick(null, null);
+            Button_AddP_OnClick(null, null);
+            Button_AddBP_OnClick(null, null);
+            Button_AddR_OnClick(null, null);
+        }
     }
 }

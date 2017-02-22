@@ -14,6 +14,6 @@
         <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
         <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
         <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
-        <Button></Button>
+        <Button Name="Button_All" Content="Add One of Each" Click="Button_All_OnClick"></Button>
     </UniformGrid>
 </Page>
