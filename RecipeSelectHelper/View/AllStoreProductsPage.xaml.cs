@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.View
 {
@@ -24,17 +26,53 @@ namespace RecipeSelectHelper.View
     {
         private MainWindow _parent;
 
+        #region ObservableObjects
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private ObservableCollection<Product> _storeProducts;
+        public ObservableCollection<Product> StoreProducts
+        {
+            get { return _storeProducts; }
+            set { _storeProducts = value; OnPropertyChanged(nameof(StoreProducts)); }
+        }
+
+        private Product _selectedStoreProduct;
+        public Product SelectedStoreProduct
+        {
+            get { return _selectedStoreProduct; }
+            set { _selectedStoreProduct = value; OnPropertyChanged(nameof(SelectedStoreProduct)); }
+        }
+
+        #endregion
+
         public AllStoreProductsPage(MainWindow parent)
         {
             this._parent = parent;
-            DataContext = this;
+            InitializeObservableObjects();
+
+            Loaded += AllStoreProductsPage_Loaded;
             InitializeComponent();
+        }
+
+        private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ListView_StoreProducts_OnSizeChanged(ListView_StoreProducts, null);
+        }
+
+        private IEnumerable<Product> OrderByName(IEnumerable<Product> products)
+        {
+            return products.OrderBy(x => x.Name);
+        }
+
+        private void InitializeObservableObjects()
+        {
+            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
+            SelectedStoreProduct = null;
         }
 
         private void Button_RemoveStoreProduct_OnClick(object sender, RoutedEventArgs e)
@@ -59,7 +97,16 @@ namespace RecipeSelectHelper.View
 
         private void TextBox_SearchStoreProducts_OnKeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Key == Key.Enter)
+            {
+                FilterProductsByName(TextBox_SearchStoreProducts.Text);
+            }
+            TextBox_SearchStoreProducts.Focus();
+        }
+
+        private void FilterProductsByName(string searchParameter)
+        {
+            StoreProducts = new ObservableCollection<Product>(_parent.Data.AllProducts.Where(x => x.Name.Contains(searchParameter)));
         }
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)

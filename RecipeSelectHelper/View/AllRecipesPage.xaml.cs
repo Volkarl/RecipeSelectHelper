@@ -212,6 +212,7 @@ namespace RecipeSelectHelper.View
             {
                 FilterRecipesByName(TextBox_SearchRecipes.Text);
             }
+            TextBox_SearchRecipes.Focus();
         }
 
         private void FilterRecipesByName(string searchParameter)

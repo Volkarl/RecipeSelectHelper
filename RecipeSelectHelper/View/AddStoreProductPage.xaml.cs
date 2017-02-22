@@ -40,13 +40,13 @@ namespace RecipeSelectHelper.View
             SearchableListView_SubstituteProducts.InitializeSearchableListView(
                 (x,y) => ShowProductInformation(x), 
                 () => _parent.Data.AllProducts, 
-                (text, list) => list.Where(x => x.Name.Contains(text)).ToList(), 
+                (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(), 
                 "Name");
 
             SearchableListView_ProductCategories.InitializeSearchableListView(
                 (x, y) => ShowPCInformation(x),
                 () => _parent.Data.AllProductCategories,
-                (text, list) => list.Where(x => x.Name.Contains(text)).ToList(),
+                (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(),
                 "Name");
         }
 

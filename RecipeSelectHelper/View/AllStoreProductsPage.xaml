@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
-      Title="AllStoreProductsPage">
+      Title="AllStoreProductsPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      >
 
     <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
         <DockPanel>
@@ -26,7 +28,7 @@
                     </StackPanel>
                 </Button>
 
-                <TextBox Margin="10,0,0,0" DockPanel.Dock="Left" Name="TextBox_SearchStoreProducts" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchStoreProducts_OnKeyDown"></TextBox>
+                <TextBox Margin="10,0,0,0" DockPanel.Dock="Left" Name="TextBox_SearchStoreProducts" TextWrapping="Wrap" KeyDown="TextBox_SearchStoreProducts_OnKeyDown"></TextBox>
             </DockPanel>
 
             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="30">

@@ -51,7 +51,7 @@ namespace RecipeSelectHelper.Resources
         {
             if (e.Key != Key.Enter) return;
 
-            IList selectedItems = ListView_Items.SelectedItems; //Saves the currently selected items 
+            IList selectedItems = ListView_Items.SelectedItems ?? new List<T>(); //Saves the currently selected items 
 
             List<T> itemsList = getNewItemsSource();
             itemsList = sortItemsSource(TextBox_SearchParameter.Text, itemsList);
@@ -67,6 +67,7 @@ namespace RecipeSelectHelper.Resources
 
         private List<T> AddMissingMembers<T>(List<T> collection1, List<T> collection2)
         {
+            collection2 = collection2 ?? new List<T>();
             List<T> missingMembers = new List<T>();
             foreach (T item in collection2)
             {
