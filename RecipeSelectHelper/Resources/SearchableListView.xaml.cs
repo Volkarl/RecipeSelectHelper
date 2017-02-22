@@ -42,19 +42,41 @@ namespace RecipeSelectHelper.Resources
             Func<List<T>> getNewItemsSource, Func<string, List<T>, List<T>> sortItemsSource, string displayMemberPath) where T : class
         {
             _onMouseDoubleClick = (x,y) => onMouseDoubleClick(x as T, y);
-            ListView_Items.ItemsSource = getNewItemsSource();
-            ListView_Items.KeyDown += (x,e) => { RefillItemsSource(e, getNewItemsSource, sortItemsSource); };
             ListView_Items.DisplayMemberPath = displayMemberPath;
+            ListView_Items.ItemsSource = getNewItemsSource();
+            TextBox_SearchParameter.KeyDown += (x,e) => { RefillItemsSource(e, getNewItemsSource, sortItemsSource); };
         }
 
         private void RefillItemsSource<T>(KeyEventArgs e, Func<List<T>> getNewItemsSource, Func<string, List<T>, List<T>> sortItemsSource)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key != Key.Enter) return;
+
+            IList selectedItems = ListView_Items.SelectedItems; //Saves the currently selected items 
+
+            List<T> itemsList = getNewItemsSource();
+            itemsList = sortItemsSource(TextBox_SearchParameter.Text, itemsList);
+            itemsList = AddMissingMembers(itemsList, selectedItems as List<T>); //Adds the old selected items onto the back of the now sorted list of items 
+
+            ListView_Items.ItemsSource = itemsList;
+
+            foreach (object item in selectedItems)
             {
-                var itemsList = getNewItemsSource();
-                itemsList = sortItemsSource(TextBox_SearchParameter.Text, itemsList);
-                ListView_Items.ItemsSource = itemsList;
+                ListView_Items.SelectedItems.Add(item); //Marks all selected items as being selected
             }
+        }
+
+        private List<T> AddMissingMembers<T>(List<T> collection1, List<T> collection2)
+        {
+            List<T> missingMembers = new List<T>();
+            foreach (T item in collection2)
+            {
+                if (!collection2.Contains(item))
+                {
+                    missingMembers.Add(item);
+                }
+            }
+            collection1.AddRange(missingMembers);
+            return collection1;
         }
 
         //if (!HasProperty(typeT, propertyToFilterBy)) throw new ArgumentException("Property to sort by is not contained in " + typeT);

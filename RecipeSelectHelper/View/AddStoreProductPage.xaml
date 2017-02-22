@@ -21,10 +21,7 @@
                 <Expander MinHeight="30" DockPanel.Dock="Left">
                     <StackPanel Margin="1">
                         <custom:SearchableListView x:Name="SearchableListView_SubstituteProducts"></custom:SearchableListView>
-                        <UniformGrid Height="30" Rows="1" Columns="2">
-                            <Button Name="Button_SelectSubsituteProduct" Click="Button_SelectSubsituteProduct_Click" Content="Select" Margin="1,0,0.5,0"></Button>
-                            <Button Name="Button_ViewSubstituteProduct" Content="More Information" Click="Button_ViewSubstituteProduct_Click" Margin="0.5,0,0,0"></Button>
-                        </UniformGrid>
+                        <Button Height="30" Name="Button_ViewSelectedSubstituteProducts" Content="More Information" Click="Button_ViewSelectedSubstituteProducts_OnClick"  Margin="1" ></Button>
                         <StackPanel Name="StackPanel_ChosenSubstituteProducts" Margin="0"></StackPanel>
                         <Button Name="Button_AddNewProduct" Height="30" Margin="1" Content="Add New Product..." Click="Button_AddNewProduct_Click"></Button>
                     </StackPanel>
@@ -35,18 +32,8 @@
                 <Label Content="Categories:" Height="30" Width="125" DockPanel.Dock="Left" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" DockPanel.Dock="Left">
                     <StackPanel Margin="1">
-                        <TextBox Height="30" Margin="1"></TextBox>
-                        <ListView Height="100" Margin="1">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <EventSetter Event="MouseDoubleClick" Handler="listViewItem_Categories_MouseDoubleClick" />
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
-                        <UniformGrid Height="30" Rows="1" Columns="2">
-                            <Button Name="Button_SelectCategory" Click="Button_SelectCategory_Click" Content="Select" Margin="1,0,0.5,0"></Button>
-                            <Button Name="Button_ViewCategory" Content="More Information" Click="Button_ViewCategory_Click" Margin="0.5,0,0,0"></Button>
-                        </UniformGrid>
+                        <custom:SearchableListView x:Name="SearchableListView_ProductCategories"></custom:SearchableListView>
+                        <Button Name="Button_ViewSelectedCategories" Height="30" Content="More Information" Click="Button_ViewSelectedCategories_OnClick"  Margin="1"></Button>
                         <StackPanel Name="StackPanel_ChosenCategories" Margin="0"></StackPanel>
                         <Button Name="Button_AddNewCategory" Height="30" Margin="1" Content="Add New Category..." Click="Button_AddNewCategory_Click"></Button>
                     </StackPanel>
