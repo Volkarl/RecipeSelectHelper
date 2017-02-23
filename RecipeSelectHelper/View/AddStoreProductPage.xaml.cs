@@ -38,40 +38,45 @@ namespace RecipeSelectHelper.View
         private void AddStoreProductPage_Loaded(object sender, RoutedEventArgs e)
         {
             SearchableListView_SubstituteProducts.InitializeSearchableListView(
-                (x,y) => ShowProductInformation(x), 
-                () => _parent.Data.AllProducts, 
-                (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(), 
+                _parent.Data.AllProducts, 
                 "Name", 
                 (sp, searchParameter) => sp.Name.ToLower().Contains(searchParameter.ToLower()));
 
 
             SearchableListView_ProductCategories.InitializeSearchableListView(
-                (x, y) => ShowPCInformation(x),
-                () => _parent.Data.AllProductCategories,
-                (text, list) => list.Where(x => x.Name.ToLower().Contains(text.ToLower())).ToList(),
+                _parent.Data.AllProductCategories,
                 "Name",
                 (pc, searchParameter) => pc.Name.ToLower().Contains(searchParameter.ToLower()));
         }
 
-        private void ShowPCInformation(ProductCategory productCategory)
-        {
-            MessageBox.Show(productCategory.Name);
-        }
-
-        private void ShowProductInformation(Product product)
-        {
-            MessageBox.Show(product.Name);
-        }
-
         public void AddItem(object sender, RoutedEventArgs e)
         {
-            var categories = SearchableListView_ProductCategories.InnerListView.SelectedItems as List<ProductCategory> ??
-                      new List<ProductCategory>();
-            var substituteProducts = SearchableListView_SubstituteProducts.InnerListView.SelectedItems as List<Product> ??
-                new List<Product>();
+            List<ProductCategory> categories = new List<ProductCategory>();
+            foreach (object item in SearchableListView_ProductCategories.InnerListView.SelectedItems)
+            {
+                categories.Add(item as ProductCategory);
+            }
+
+            List<Product> substituteProducts = new List<Product>();
+            foreach (object item in SearchableListView_SubstituteProducts.InnerListView.SelectedItems)
+            {
+                substituteProducts.Add(item as Product);
+            }
 
             var product = new Product(TextBox_ProductName.Text, categories, substituteProducts);
             _parent.Data.AllProducts.Add(product);
+
+            ClearUI();
+        }
+
+        private void ClearUI()
+        {
+            TextBox_ProductName.Text = String.Empty;
+            SearchableListView_ProductCategories.ClearSelection();
+            SearchableListView_SubstituteProducts.ClearSelection();
+            Expander_ProductCategories.IsExpanded = false;
+            Expander_SubstituteProducts.IsExpanded = false;
+            // Perhaps I should think about adding a clear button and leaving it all intact usually.
         }
 
         private void Button_AddNewProduct_Click(object sender, RoutedEventArgs e)
@@ -124,12 +129,14 @@ namespace RecipeSelectHelper.View
 
         private void Button_ViewSelectedSubstituteProducts_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            SearchableListView_SubstituteProducts.DisplaySelectedItems();
         }
 
         private void Button_ViewSelectedCategories_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            SearchableListView_ProductCategories.DisplaySelectedItems();
         }
+
+
     }
 }

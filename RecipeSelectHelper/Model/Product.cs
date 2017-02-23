@@ -38,5 +38,21 @@ namespace RecipeSelectHelper.Model
             }
             return val;
         }
+
+        public override string ToString()
+        {
+            string str = "|Product: " + Name + "\n";
+            str += "|Categories: \n";
+            foreach (ProductCategory pc in Categories)
+            {
+                str += "  " + pc.Name + "\n";
+            }
+            str += "|Substitutes: \n";
+            foreach (Product substitute in SubstituteProducts)
+            {
+                str += "  " + substitute.Name + "\n";
+            }
+            return str;
+        }
     }
 }

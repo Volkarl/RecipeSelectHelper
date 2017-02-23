@@ -9,10 +9,10 @@
     <Grid>
         <StackPanel Margin="1">
             <TextBox Name="TextBox_SearchParameter" Height="30" Margin="1" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
-            <ListView Name="ListView_Items" Height="100" Margin="1" SelectionMode="Extended">
+            <ListView Name="ListView_Items" Height="100" Margin="1" SelectionMode="Multiple">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick" />
+                        <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick"/>
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>

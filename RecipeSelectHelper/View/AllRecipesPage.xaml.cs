@@ -117,6 +117,7 @@ namespace RecipeSelectHelper.View
 
 
             // ADD LOGIC HERE TO CONTROL THE MIN WIDTH OF THE COLUMNS
+            // ADD IT TO THE LISTVIEW TOOLS CLASS
 
 
             gridView.Columns[0].Width = remainingWidth;
@@ -178,7 +179,6 @@ namespace RecipeSelectHelper.View
             ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref newRecipeCollection);
             SelectedRecipe = selectedR;
             Recipes = newRecipeCollection;
-            // This appears like it does things twice?
 
             ListView_Recipes.Focus();
         }

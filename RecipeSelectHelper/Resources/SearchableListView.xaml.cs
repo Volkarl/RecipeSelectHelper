@@ -43,18 +43,35 @@ namespace RecipeSelectHelper.Resources
             return ListView_Items.SelectedItems.Contains(item);
         }
 
-        public void InitializeSearchableListView<T>(Action<T, MouseButtonEventArgs> onMouseDoubleClick, 
-            Func<List<T>> getNewItemsSource, Func<string, List<T>, List<T>> sortItemsSource, string displayMemberPath, Func<T, string, bool> filterFunc) where T : class
+        public void InitializeSearchableListView<T>(List<T> itemsSource, string displayMemberPath, 
+            Func<T, string, bool> filterFunc, Action<T> onMouseDoubleClick = null) where T : class
         {
-            _onMouseDoubleClick = (x,y) => onMouseDoubleClick(x as T, y);
+            if (onMouseDoubleClick == null)
+            {
+                _onMouseDoubleClick = (sender,e) => DisplayContent<T>(sender as ListViewItem);
+            }
+            else
+            {
+                _onMouseDoubleClick = (sender,e) => DisplayContent(sender as ListViewItem, onMouseDoubleClick);
+            }
             ListView_Items.DisplayMemberPath = displayMemberPath;
-            ListView_Items.ItemsSource = getNewItemsSource();
+            ListView_Items.ItemsSource = itemsSource;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListView_Items.ItemsSource);
             view.Filter = o => ItemIsSelected(o) || filterFunc(o as T, TextBox_SearchParameter.Text);
             //TextBox_SearchParameter.KeyDown += (x,e) => { RefillItemsSource(e, getNewItemsSource, sortItemsSource); };
         }
-        
+
+        private void DisplayContent<T>(ListViewItem sender, Action<T> onMouseDoubleClick) where T : class 
+        {
+            if (sender == null || onMouseDoubleClick == null) return;
+            onMouseDoubleClick(sender.Content as T);
+        }
+
+        private void DisplayContent<T>(ListViewItem sender) where T : class 
+        {
+            DisplayContent<T>(sender, x => MessageBox.Show(x.ToString()));
+        }
 
         //private void RefillItemsSource<T>(KeyEventArgs e, Func<List<T>> getNewItemsSource, Func<string, List<T>, List<T>> sortItemsSource)
         //{
@@ -111,6 +128,22 @@ namespace RecipeSelectHelper.Resources
             //{
             //    ListView_Items.SelectedItems.Add(selectedItem);
             //}
+        }
+
+        public void ClearSelection()
+        {
+            InnerListView.UnselectAll();
+        }
+
+        public void DisplaySelectedItems()
+        {
+            string str = String.Empty;
+            foreach (object item in InnerListView.SelectedItems)
+            {
+                str += item + "\n";
+            }
+            str = str.TrimEnd('\n');
+            MessageBox.Show(str);
         }
     }
 }

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View
 {
@@ -61,6 +62,7 @@ namespace RecipeSelectHelper.View
 
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
             ListView_StoreProducts_OnSizeChanged(ListView_StoreProducts, null);
             TextBox_SearchStoreProducts.Focus();
         }
@@ -72,18 +74,26 @@ namespace RecipeSelectHelper.View
 
         private void InitializeObservableObjects()
         {
-            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
+            StoreProducts = new ObservableCollection<Product>();
             SelectedStoreProduct = null;
         }
 
         private void Button_RemoveStoreProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _parent.Data.AllProducts.Remove(SelectedStoreProduct);
+
+            Product selected = SelectedStoreProduct;
+            ObservableCollection<Product> newProductCollection = StoreProducts;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selected, ref newProductCollection);
+            SelectedStoreProduct = selected;
+            StoreProducts = newProductCollection;
+
+            ListView_StoreProducts.Focus();
         }
 
         private void Button_EditStoreProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            DisplayProductInfo(SelectedStoreProduct);
         }
 
         private void Button_AddStoreProduct_OnClick(object sender, RoutedEventArgs e)
@@ -112,7 +122,15 @@ namespace RecipeSelectHelper.View
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            DisplayProductInfo(SelectedStoreProduct);
+        }
+
+        public void DisplayProductInfo(Product product)
+        {
+            if (product != null)
+            {
+                MessageBox.Show(product.ToString());
+            }
         }
 
         private void ListView_StoreProducts_OnSizeChanged(object sender, SizeChangedEventArgs e)
