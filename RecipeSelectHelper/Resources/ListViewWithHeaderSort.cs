@@ -20,15 +20,22 @@ namespace RecipeSelectHelper.Resources
     {
         public ListViewWithHeaderSort()
         {
-            string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
-            this.Resources.Source = new Uri(path);
+            Loaded += ListViewWithHeaderSort_Loaded;
             this.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(SecondResultDataViewClick));
         }
-        
+
+        private void ListViewWithHeaderSort_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
         private ListSortDirection _sortDirection;
         private GridViewColumnHeader _sortColumn;
+        private bool _resourcesNotLoaded = true;
+
         private void SecondResultDataViewClick(object sender, RoutedEventArgs e)
         {
+            if (_resourcesNotLoaded) LoadResources();
+
             GridViewColumnHeader column = e.OriginalSource as GridViewColumnHeader;
             if (column == null)
             {
@@ -74,9 +81,17 @@ namespace RecipeSelectHelper.Resources
                 header = b.Path.Path;
             }
 
+            // NULLREFERENCEEXCEPTION HERE? TRY FRIDGEPAGE!
             ICollectionView resultDataView = CollectionViewSource.GetDefaultView(ItemsSource);
             resultDataView.SortDescriptions.Clear();
             resultDataView.SortDescriptions.Add(new SortDescription(header, _sortDirection));
+        }
+
+        private void LoadResources()
+        {
+            string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
+            this.Resources.Source = new Uri(path);
+            _resourcesNotLoaded = false;
         }
     }
 }

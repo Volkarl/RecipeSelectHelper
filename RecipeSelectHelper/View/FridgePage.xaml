@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       Title="FridgePage">
@@ -34,7 +35,7 @@
                 <Button Name="Button_RemoveBoughtProduct" Click="Button_RemoveBoughtProduct_OnClick"  Content="Remove"></Button>
             </UniformGrid>
 
-            <ListView Margin="0,10,0,10" DockPanel.Dock="Top" Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_BoughtProducts_OnSizeChanged"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:ListViewWithHeaderSort Margin="0,10,0,10" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_BoughtProducts_OnSizeChanged"  ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
@@ -47,7 +48,7 @@
                         <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </ListView>
+            </custom:ListViewWithHeaderSort>
 
         </DockPanel>
     </ScrollViewer>
