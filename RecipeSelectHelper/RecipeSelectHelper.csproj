@@ -85,6 +85,7 @@
     <Compile Include="Resources\ExtensionMethods.cs" />
     <Compile Include="Resources\IntegerTextBox.cs" />
     <Compile Include="Resources\ListViewTools.cs" />
+    <Compile Include="Resources\ListViewWithHeaderSort.cs" />
     <Compile Include="Resources\SearchableListView.xaml.cs">
       <DependentUpon>SearchableListView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +149,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <EmbeddedResource Include="Resources\XamlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="View\AddBoughtProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
