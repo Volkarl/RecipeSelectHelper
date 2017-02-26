@@ -63,7 +63,6 @@ namespace RecipeSelectHelper.View
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
             StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
-            ListView_StoreProducts_OnSizeChanged(ListView_StoreProducts, null);
             TextBox_SearchStoreProducts.Focus();
         }
 
@@ -101,18 +100,20 @@ namespace RecipeSelectHelper.View
             _parent.SetPage(new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent));
         }
 
-        private void Button_SearchStoreProducts_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void Button_SearchStoreProducts_OnClick(object sender, RoutedEventArgs e) => SortListView();
 
         private void TextBox_SearchStoreProducts_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                FilterProductsByName(TextBox_SearchStoreProducts.Text);
-                ListView_StoreProducts.Focus();
+                SortListView();
+                TextBox_SearchStoreProducts.Focus();
             }
+        }
+
+        private void SortListView()
+        {
+            FilterProductsByName(TextBox_SearchStoreProducts.Text);
         }
 
         private void FilterProductsByName(string searchParameter)
@@ -131,10 +132,6 @@ namespace RecipeSelectHelper.View
             {
                 MessageBox.Show(product.ToString());
             }
-        }
-
-        private void ListView_StoreProducts_OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -25,6 +26,25 @@ namespace RecipeSelectHelper.Resources
                 }
                 collection.RemoveAt(indexOfSelection);
             }
+        }
+
+        public static void HeaderFillRemainingSpace(ListView listView, int headerIndex)
+        {
+            if(listView == null) throw new ArgumentException(nameof(listView) + " Invalid");
+            GridView gridView = listView.View as GridView;
+            if (gridView == null) throw new ArgumentException("Inner " + nameof(gridView) + " Invalid");
+            if (headerIndex > gridView.Columns.Count) throw new ArgumentException(nameof(headerIndex) + " Invalid");
+            
+            var remainingWidth = listView.ActualWidth - 5;
+
+            for (Int32 i = 1; i < gridView.Columns.Count; i++)
+            {
+                remainingWidth -= gridView.Columns[i].ActualWidth;
+            }
+
+            // Make new static method with logic for setting the intial size?
+
+            gridView.Columns[headerIndex].Width = remainingWidth;
         }
     }
 }

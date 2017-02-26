@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
       mc:Ignorable="d" 
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="500" d:DesignWidth="700"
       Title="FridgePage">
     <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
@@ -29,13 +30,22 @@
                 <TextBox Margin="10,0,0,0" DockPanel.Dock="Left" Name="TextBox_SearchBoughtProducts" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchBoughtProducts_OnKeyDown"></TextBox>
             </DockPanel>
 
+            <UniformGrid Rows="1" DockPanel.Dock="Bottom" Height="30">
+                <Button Name="Button_ReviewExpiredItems" Click="Button_ReviewExpiredItems_OnClick">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ExpiredProducts.Count}" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock Text="Review Expired Products"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
+
             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="30">
                 <Button Name="Button_AddBoughtProduct" Click="Button_AddBoughtProduct_OnClick"  Content="Add"></Button>
                 <Button Name="Button_EditBoughtProduct" Click="Button_EditBoughtProduct_OnClick"  Content="Edit"></Button>
                 <Button Name="Button_RemoveBoughtProduct" Click="Button_RemoveBoughtProduct_OnClick"  Content="Remove"></Button>
             </UniformGrid>
 
-            <custom:ListViewWithHeaderSort Margin="0,10,0,10" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_BoughtProducts_OnSizeChanged"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:ListViewWithHeaderSort Margin="0,10,0,10" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
@@ -43,9 +53,10 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
-                        <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
+                        <GridViewColumn Header="Product" DisplayMemberBinding="{Binding CorrespondingProduct.Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.CategoriesAsString}"></GridViewColumn>
+                        <GridViewColumn Header="Manifactured Date" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductCreatedTime.Value.Date}"></GridViewColumn>
+                        <GridViewColumn Header="Expiration Date" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductExpirationTime.Value.Date}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </custom:ListViewWithHeaderSort>

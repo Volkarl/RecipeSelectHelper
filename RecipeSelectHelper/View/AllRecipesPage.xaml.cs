@@ -36,7 +36,7 @@ namespace RecipeSelectHelper.View
             this._parent = parent;
             InitializeObservableObjects();
 
-            this.Loaded += RankingsViewPageLoaded;
+            this.Loaded += AllRecipesPageLoaded;
             InitializeComponent();
         }
 
@@ -46,10 +46,9 @@ namespace RecipeSelectHelper.View
             SelectedRecipe = null;
         }
 
-        private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
+        private void AllRecipesPageLoaded(object sender, RoutedEventArgs e)
         {
             SetUpWrapPanel();
-            ListView_SizeChanged(ListView_Recipes, null);
             FilterRecipesByName(TextBox_SearchRecipes.Text);
             Recipes = new ObservableCollection<Recipe>(SortByName(Recipes));
             _selectedCategories = new List<RecipeCategory>();
@@ -104,25 +103,6 @@ namespace RecipeSelectHelper.View
             return filteredRecipes;
         }
 
-        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            ListView listView = sender as ListView;
-            GridView gridView = listView.View as GridView;
-            var remainingWidth = listView.ActualWidth - 5;
-
-            for (Int32 i = 1; i < gridView.Columns.Count; i++)
-            {
-                remainingWidth -= gridView.Columns[i].ActualWidth;
-            }
-
-
-            // ADD LOGIC HERE TO CONTROL THE MIN WIDTH OF THE COLUMNS
-            // ADD IT TO THE LISTVIEW TOOLS CLASS
-
-
-            gridView.Columns[0].Width = remainingWidth;
-        }
-
         //private static int _addRecipeCounter = 1;
         private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
         {
@@ -175,10 +155,10 @@ namespace RecipeSelectHelper.View
             _parent.Data.AllRecipes.Remove(SelectedRecipe);
 
             Recipe selectedR = SelectedRecipe;
-            ObservableCollection<Recipe> newRecipeCollection = Recipes;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref newRecipeCollection);
+            ObservableCollection<Recipe> tempRecipeCollection = Recipes;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref tempRecipeCollection);
             SelectedRecipe = selectedR;
-            Recipes = newRecipeCollection;
+            Recipes = tempRecipeCollection;
 
             ListView_Recipes.Focus();
         }
@@ -212,7 +192,7 @@ namespace RecipeSelectHelper.View
             if (e.Key == Key.Enter)
             {
                 FilterRecipesByName(TextBox_SearchRecipes.Text);
-                ListView_Recipes.Focus();
+                TextBox_SearchRecipes.Focus();
             }
         }
 
@@ -224,6 +204,7 @@ namespace RecipeSelectHelper.View
         private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e)
         {
             FilterRecipesByName(TextBox_SearchRecipes.Text);
+            TextBox_SearchRecipes.Focus();
         }
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

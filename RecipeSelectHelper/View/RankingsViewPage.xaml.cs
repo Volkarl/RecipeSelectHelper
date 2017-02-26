@@ -55,20 +55,6 @@ namespace RecipeSelectHelper.View
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
         {
-            ListView_SizeChanged(ListView_Recipes, null);    // for getting the listviewcolumns to fill the entire listview
-        }
-
-        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            ListView listView = sender as ListView;
-            GridView gridView = listView.View as GridView;
-            var remainingWidth = listView.ActualWidth - 5;
-
-            for (Int32 i = 1; i < gridView.Columns.Count; i++)
-            {
-                remainingWidth -= gridView.Columns[i].ActualWidth;
-            }
-            gridView.Columns[0].Width = remainingWidth;
         }
 
         #region ObservableObjects

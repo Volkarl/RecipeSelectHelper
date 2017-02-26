@@ -49,7 +49,7 @@
             
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
 
-            <custom:ListViewWithHeaderSort x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ListView_SizeChanged" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:ListViewWithHeaderSort x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />

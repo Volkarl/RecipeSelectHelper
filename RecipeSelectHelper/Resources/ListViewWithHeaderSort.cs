@@ -21,11 +21,14 @@ namespace RecipeSelectHelper.Resources
         public ListViewWithHeaderSort()
         {
             Loaded += ListViewWithHeaderSort_Loaded;
+            SizeChanged += ListViewWithHeaderSort_SizeChanged;
             this.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(SecondResultDataViewClick));
         }
 
         private void ListViewWithHeaderSort_Loaded(object sender, RoutedEventArgs e)
         {
+            FillingHeader = 0;
+            HeaderFillRemainingSpace();
         }
 
         private ListSortDirection _sortDirection;
@@ -93,5 +96,18 @@ namespace RecipeSelectHelper.Resources
             this.Resources.Source = new Uri(path);
             _resourcesNotLoaded = false;
         }
+
+        public void HeaderFillRemainingSpace()
+        {
+            if(!FillingHeader.HasValue) return;
+            ListViewTools.HeaderFillRemainingSpace(this, FillingHeader.Value);
+        }
+
+        private void ListViewWithHeaderSort_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            HeaderFillRemainingSpace();
+        }
+
+        public int? FillingHeader { get; set; }
     }
 }

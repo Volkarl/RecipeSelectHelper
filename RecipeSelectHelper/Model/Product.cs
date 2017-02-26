@@ -54,5 +54,20 @@ namespace RecipeSelectHelper.Model
             }
             return str;
         }
+
+        public string CategoriesAsString
+        {
+            get
+            {
+                if (Categories == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return string.Join(", ", Categories.ConvertAll(x => x.Name));
+                }
+            }
+        }
     }
 }
