@@ -49,7 +49,7 @@
             
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
 
-            <custom:ListViewWithHeaderSort x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:ExtendedListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
@@ -62,7 +62,7 @@
                         <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </custom:ListViewWithHeaderSort>
+            </custom:ExtendedListView>
         </DockPanel>
         
         <Button Name="Button_SearchRecipes" Grid.Row="1" Grid.Column="8" Click="Button_SearchRecipes_Click">
@@ -78,3 +78,4 @@
         <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Grid.Row="6" Grid.Column="8" Click="Button_RemoveRecipe_Click"></Button>
     </Grid>
 </Page>
+

@@ -45,7 +45,7 @@
                 <Button Name="Button_RemoveBoughtProduct" Click="Button_RemoveBoughtProduct_OnClick"  Content="Remove"></Button>
             </UniformGrid>
 
-            <custom:ListViewWithHeaderSort Margin="0,10,0,10" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:ExtendedListView Margin="0,10,0,10" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
@@ -59,7 +59,7 @@
                         <GridViewColumn Header="Expiration Date" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductExpirationTime.Value.Date}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </custom:ListViewWithHeaderSort>
+            </custom:ExtendedListView>
 
         </DockPanel>
     </ScrollViewer>

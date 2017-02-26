@@ -35,17 +35,18 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <custom:ListViewWithHeaderSort x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
+        <custom:ExtendedListView x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondinRecipe.Name}"></GridViewColumn>
                     <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
                 </GridView>
             </ListView.View>
-        </custom:ListViewWithHeaderSort>
+        </custom:ExtendedListView>
 
         <Button Name="Button_SortRecipes" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes" Click="Button_SortRecipes_Click"></Button>
         <ProgressBar Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
         <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8" ItemsSource="{Binding SortingMethods}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSortingMethod}"></ComboBox>
     </Grid>
 </Page>
+

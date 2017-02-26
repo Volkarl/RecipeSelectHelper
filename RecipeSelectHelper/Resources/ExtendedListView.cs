@@ -16,34 +16,43 @@ using Path = System.Windows.Shapes.Path;
 
 namespace RecipeSelectHelper.Resources
 {
-    public class ListViewWithHeaderSort : ListView
+    public class ExtendedListView : ListView
     {
-        public ListViewWithHeaderSort()
+        public ExtendedListView()
         {
             Loaded += ListViewWithHeaderSort_Loaded;
             SizeChanged += ListViewWithHeaderSort_SizeChanged;
-            this.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(SecondResultDataViewClick));
+            this.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(GridViewColumnHeaderClick));
         }
 
         private void ListViewWithHeaderSort_Loaded(object sender, RoutedEventArgs e)
         {
+            IncreaseAllColumnSizes(20); //To make room for the ascending/descending arrow
             FillingHeader = 0;
             HeaderFillRemainingSpace();
+        }
+
+        private void IncreaseAllColumnSizes(int pixels)
+        {
+            var gridView = this.View as GridView;
+            if(gridView == null) return;
+
+            foreach (GridViewColumn column in gridView.Columns)
+            {
+                column.Width = column.ActualWidth + pixels;
+            }
         }
 
         private ListSortDirection _sortDirection;
         private GridViewColumnHeader _sortColumn;
         private bool _resourcesNotLoaded = true;
 
-        private void SecondResultDataViewClick(object sender, RoutedEventArgs e)
+        private void GridViewColumnHeaderClick(object sender, RoutedEventArgs e)
         {
             if (_resourcesNotLoaded) LoadResources();
 
             GridViewColumnHeader column = e.OriginalSource as GridViewColumnHeader;
-            if (column == null)
-            {
-                return;
-            }
+            if (column == null) return;
 
             if (_sortColumn == column)
             {
@@ -58,12 +67,12 @@ namespace RecipeSelectHelper.Resources
                 if (_sortColumn != null)
                 {
                     _sortColumn.Column.HeaderTemplate = null;
-                    _sortColumn.Column.Width = _sortColumn.ActualWidth - 20;
+                    //_sortColumn.Column.Width = _sortColumn.ActualWidth - 20;
                 }
 
                 _sortColumn = column;
                 _sortDirection = ListSortDirection.Ascending;
-                column.Column.Width = column.ActualWidth + 20;
+                //column.Column.Width = column.ActualWidth + 20;
             }
 
             if (_sortDirection == ListSortDirection.Ascending)
