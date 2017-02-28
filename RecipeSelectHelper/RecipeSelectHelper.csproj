@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\BoughtProduct.cs" />
+    <Compile Include="Model\GroupedSelection.cs" />
     <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Model\Misc\RecipeWithPercentageScore.cs" />
@@ -97,6 +98,12 @@
     </Compile>
     <Compile Include="View\AddElementBasePage.xaml.cs">
       <DependentUpon>AddElementBasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddGroupedProductCategories.xaml.cs">
+      <DependentUpon>AddGroupedProductCategories.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddGroupedRecipeCategoryPage.xaml.cs">
+      <DependentUpon>AddGroupedRecipeCategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
@@ -163,6 +170,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddElementBasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddGroupedProductCategories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddGroupedRecipeCategoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
