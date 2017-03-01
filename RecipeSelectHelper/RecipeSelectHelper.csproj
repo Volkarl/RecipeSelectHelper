@@ -90,54 +90,54 @@
     <Compile Include="Resources\SearchableListView.xaml.cs">
       <DependentUpon>SearchableListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddBoughtProductPage.xaml.cs">
+    <Compile Include="View\BoughtProducts\AddBoughtProductPage.xaml.cs">
       <DependentUpon>AddBoughtProductPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddCategoriesPage.xaml.cs">
+    <Compile Include="View\Categories\AddCategoriesPage.xaml.cs">
       <DependentUpon>AddCategoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddElementBasePage.xaml.cs">
+    <Compile Include="Resources\AddElementBasePage.xaml.cs">
       <DependentUpon>AddElementBasePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddGroupedProductCategories.xaml.cs">
+    <Compile Include="View\Categories\AddGroupedProductCategories.xaml.cs">
       <DependentUpon>AddGroupedProductCategories.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddGroupedRecipeCategoryPage.xaml.cs">
+    <Compile Include="View\Categories\AddGroupedRecipeCategoryPage.xaml.cs">
       <DependentUpon>AddGroupedRecipeCategoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddRecipePage.xaml.cs">
+    <Compile Include="View\Recipes\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddStoreProductPage.xaml.cs">
+    <Compile Include="View\Products\AddStoreProductPage.xaml.cs">
       <DependentUpon>AddStoreProductPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AllRecipesPage.xaml.cs">
+    <Compile Include="View\Recipes\AllRecipesPage.xaml.cs">
       <DependentUpon>AllRecipesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AllSortingMethodsPage.xaml.cs">
+    <Compile Include="View\SortingMethods\AllSortingMethodsPage.xaml.cs">
       <DependentUpon>AllSortingMethodsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AllStoreProductsPage.xaml.cs">
+    <Compile Include="View\Products\AllStoreProductsPage.xaml.cs">
       <DependentUpon>AllStoreProductsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AllCategoriesPage.xaml.cs">
+    <Compile Include="View\Categories\AllCategoriesPage.xaml.cs">
       <DependentUpon>AllCategoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditRecipePage.xaml.cs">
+    <Compile Include="View\Recipes\EditRecipePage.xaml.cs">
       <DependentUpon>EditRecipePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\SortingMethods\ExpirationDatePreference.cs" />
-    <Compile Include="View\FridgePage.xaml.cs">
-      <DependentUpon>FridgePage.xaml</DependentUpon>
+    <Compile Include="View\BoughtProducts\AllBoughtProductsPage.xaml.cs">
+      <DependentUpon>AllBoughtProductsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\SortingMethods\IngredientsOwnedPreference.cs" />
-    <Compile Include="View\RankingsViewPage.xaml.cs">
+    <Compile Include="View\Miscellaneous\RankingsViewPage.xaml.cs">
       <DependentUpon>RankingsViewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingsPage.xaml.cs">
+    <Compile Include="View\Miscellaneous\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddSortingMethodPage.xaml.cs">
+    <Compile Include="View\SortingMethods\AddSortingMethodPage.xaml.cs">
       <DependentUpon>AddSortingMethodPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -161,67 +161,67 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Page Include="View\AddBoughtProductPage.xaml">
+    <Page Include="View\BoughtProducts\AddBoughtProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddCategoriesPage.xaml">
+    <Page Include="View\Categories\AddCategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddElementBasePage.xaml">
+    <Page Include="Resources\AddElementBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddGroupedProductCategories.xaml">
+    <Page Include="View\Categories\AddGroupedProductCategories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddGroupedRecipeCategoryPage.xaml">
+    <Page Include="View\Categories\AddGroupedRecipeCategoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddRecipePage.xaml">
+    <Page Include="View\Recipes\AddRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddStoreProductPage.xaml">
+    <Page Include="View\Products\AddStoreProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AllRecipesPage.xaml">
+    <Page Include="View\Recipes\AllRecipesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AllSortingMethodsPage.xaml">
+    <Page Include="View\SortingMethods\AllSortingMethodsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AllStoreProductsPage.xaml">
+    <Page Include="View\Products\AllStoreProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AllCategoriesPage.xaml">
+    <Page Include="View\Categories\AllCategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EditRecipePage.xaml">
+    <Page Include="View\Recipes\EditRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FridgePage.xaml">
+    <Page Include="View\BoughtProducts\AllBoughtProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RankingsViewPage.xaml">
+    <Page Include="View\Miscellaneous\RankingsViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SettingsPage.xaml">
+    <Page Include="View\Miscellaneous\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddSortingMethodPage.xaml">
+    <Page Include="View\SortingMethods\AddSortingMethodPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

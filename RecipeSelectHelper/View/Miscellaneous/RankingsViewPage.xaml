@@ -1,0 +1,52 @@
+﻿<Page x:Class="RecipeSelectHelper.View.Miscellaneous.RankingsViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700"
+      Title="RankingsViewPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <custom:ExtendedListView x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondinRecipe.Name}"></GridViewColumn>
+                    <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </custom:ExtendedListView>
+
+        <Button Name="Button_SortRecipes" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Sort Recipes" Click="Button_SortRecipes_Click"></Button>
+        <ProgressBar Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
+        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8" ItemsSource="{Binding SortingMethods}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSortingMethod}"></ComboBox>
+    </Grid>
+</Page>
+

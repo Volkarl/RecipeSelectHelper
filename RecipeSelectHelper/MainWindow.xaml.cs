@@ -19,6 +19,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RecipeSelectHelper.Model.Misc;
+using RecipeSelectHelper.View.BoughtProducts;
+using AllCategoriesPage = RecipeSelectHelper.View.Categories.AllCategoriesPage;
+using AllRecipesPage = RecipeSelectHelper.View.Recipes.AllRecipesPage;
+using AllSortingMethodsPage = RecipeSelectHelper.View.SortingMethods.AllSortingMethodsPage;
+using AllStoreProductsPage = RecipeSelectHelper.View.Products.AllStoreProductsPage;
+using RankingsViewPage = RecipeSelectHelper.View.Miscellaneous.RankingsViewPage;
+using SettingsPage = RecipeSelectHelper.View.Miscellaneous.SettingsPage;
 
 namespace RecipeSelectHelper
 {
@@ -84,7 +91,7 @@ namespace RecipeSelectHelper
 
         private void Button_FridgeIngredients_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new FridgePage(this));
+            SetPage(new AllBoughtProductsPage(this));
             HighlightButtonBackground(sender as Button);
         }
 

@@ -1,0 +1,81 @@
+﻿<Page x:Class="RecipeSelectHelper.View.Recipes.AllRecipesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700"
+      Title="AllRecipesPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="8" LastChildFill="True">
+            <Grid DockPanel.Dock="Top">
+                <Expander Header="Filter Recipes" ExpandDirection="Down">
+                    <WrapPanel Name="WrapPanel_RecipeCategories" Margin="-2,10,0,0" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </Expander>
+            </Grid>
+            
+            <Grid Height="10" DockPanel.Dock="Top"></Grid>
+
+            <custom:ExtendedListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
+                        <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </custom:ExtendedListView>
+        </DockPanel>
+        
+        <Button Name="Button_SearchRecipes" Grid.Row="1" Grid.Column="8" Click="Button_SearchRecipes_Click">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Image Source="/Resources/Search.png" Margin="0"></Image>
+                <TextBlock Text="  Search" Margin="2"></TextBlock>
+            </StackPanel>
+        </Button>
+        <TextBox Name="TextBox_SearchRecipes" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>
+        
+        <Button Name="Button_AddRecipe" Content="Add Recipes" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_AddRecipe_Click"></Button>
+        <Button Name="Button_EditRecipe" Content="Edit Recipe" Grid.Row="6" Grid.Column="4" Click="Button_EditRecipe_Click"></Button>
+        <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Grid.Row="6" Grid.Column="8" Click="Button_RemoveRecipe_Click"></Button>
+    </Grid>
+</Page>
+
