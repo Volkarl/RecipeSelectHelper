@@ -11,7 +11,6 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel>
-                <Label Content="Product Expiration: " Height="30" HorizontalAlignment="Right"></Label>
                 <CheckBox x:Name="CheckBox_ProductCanExpire" Content="Product can expire" Height="20" Margin="6" Checked="CheckBox_ProductCanExpire_Toggled" Unchecked="CheckBox_ProductCanExpire_Toggled"/>
                 <StackPanel Name="StackPanel_ExpirationInfo">
                     <DockPanel>

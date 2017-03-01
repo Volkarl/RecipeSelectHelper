@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="680"
@@ -20,7 +21,7 @@
                 <Label Content="Categories:" Height="30" Width="125" DockPanel.Dock="Left" VerticalAlignment="Top"></Label>
                 <Expander Name="Expander_ProductCategories" MinHeight="30" DockPanel.Dock="Left">
                     <StackPanel Margin="1">
-                        <custom:SearchableListView x:Name="SearchableListView_ProductCategories"></custom:SearchableListView>
+                        <custom:SearchableListView x:Name="SearchableListView_ProductCategories" Height="150"></custom:SearchableListView>
                         <Button Name="Button_ViewSelectedCategories" Height="30" Content="More Information" Click="Button_ViewSelectedCategories_OnClick"  Margin="1"></Button>
                         <StackPanel Name="StackPanel_ChosenCategories" Margin="0"></StackPanel>
                         <Button Name="Button_AddNewCategory" Height="30" Margin="1" Content="Add New Category..." Click="Button_AddNewCategory_Click"></Button>
@@ -32,7 +33,7 @@
                 <Label Content="Substitute Products:" Height="30" Width="125" DockPanel.Dock="Left" VerticalAlignment="Top"></Label>
                 <Expander Name="Expander_SubstituteProducts" MinHeight="30" DockPanel.Dock="Left">
                     <StackPanel Margin="1">
-                        <custom:SearchableListView x:Name="SearchableListView_SubstituteProducts"></custom:SearchableListView>
+                        <custom:SearchableListView x:Name="SearchableListView_SubstituteProducts" Height="150"></custom:SearchableListView>
                         <Button Height="30" Name="Button_ViewSelectedSubstituteProducts" Content="More Information" Click="Button_ViewSelectedSubstituteProducts_OnClick"  Margin="1" ></Button>
                         <StackPanel Name="StackPanel_ChosenSubstituteProducts" Margin="0"></StackPanel>
                         <Button Name="Button_AddNewProduct" Height="30" Margin="1" Content="Add New Product..." Click="Button_AddNewProduct_Click"></Button>

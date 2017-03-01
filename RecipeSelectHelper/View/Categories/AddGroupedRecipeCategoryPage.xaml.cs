@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -18,7 +19,16 @@ namespace RecipeSelectHelper.View.Categories
         {
             _parent = parent;
             LoadObservableObjects();
+            Loaded += AddGroupedRecipeCategoryPage_Loaded;
             InitializeComponent();
+        }
+
+        private void AddGroupedRecipeCategoryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchableListView_RecipeCategories.InitializeSearchableListView(
+                _parent.Data.AllRecipeCategories, 
+                "Name",
+                (sp, searchParameter) => sp.Name.ToLower().Contains(searchParameter.ToLower()));
         }
 
         private void LoadObservableObjects()
@@ -43,7 +53,6 @@ namespace RecipeSelectHelper.View.Categories
         }
 
         private int _maxSelectionAmount;
-        private IAddElement _addElementImplementation;
 
         public int MaxSelectionAmount
         {
@@ -51,11 +60,26 @@ namespace RecipeSelectHelper.View.Categories
             set { _maxSelectionAmount = value; OnPropertyChanged(nameof(MaxSelectionAmount)); }
         }
 
+        #endregion
+
         public void AddItem(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            List<RecipeCategory> categories = new List<RecipeCategory>();
+            foreach (object item in SearchableListView_RecipeCategories.InnerListView.SelectedItems)
+            {
+                categories.Add(item as RecipeCategory);
+            }
+
+            var groupedCategories = new GroupedSelection<RecipeCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
+
+            //_parent.Data.AllProducts.Add(product);
+
+            ClearUI();
         }
 
-        #endregion
+        private void ClearUI()
+        {
+            SearchableListView_RecipeCategories.ClearSelection();
+        }
     }
 }
