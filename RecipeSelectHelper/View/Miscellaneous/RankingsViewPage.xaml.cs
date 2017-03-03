@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
-using RecipeSelectHelper.Model.Misc;
 using RecipeSelectHelper.Model.SortingMethods;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {

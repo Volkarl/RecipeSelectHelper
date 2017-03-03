@@ -2,8 +2,9 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+using RecipeSelectHelper.Model;
 
-namespace RecipeSelectHelper.Model.Misc
+namespace RecipeSelectHelper.Resources
 {
     public class XMLDataHandler
     {

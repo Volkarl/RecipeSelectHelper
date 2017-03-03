@@ -71,9 +71,7 @@ namespace RecipeSelectHelper.View.Categories
             }
 
             var groupedCategories = new GroupedSelection<RecipeCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
-
-            //_parent.Data.AllProducts.Add(product);
-
+            _parent.Data.AllGroupedRecipeCategories.Add(groupedCategories);
             ClearUI();
         }
 

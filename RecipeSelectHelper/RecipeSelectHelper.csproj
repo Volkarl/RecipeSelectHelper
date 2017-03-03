@@ -61,7 +61,7 @@
     <Compile Include="Model\GroupedSelection.cs" />
     <Compile Include="Model\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
-    <Compile Include="Model\Misc\RecipeWithPercentageScore.cs" />
+    <Compile Include="Resources\RecipeWithPercentageScore.cs" />
     <Compile Include="Model\SortingMethods\IPreference.cs" />
     <Compile Include="Model\SortingMethods\Preference.cs" />
     <Compile Include="Model\Product.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
-    <Compile Include="Model\Misc\XMLDataHandler.cs" />
+    <Compile Include="Resources\XMLDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ProductCategoryPreference.cs" />
@@ -104,6 +104,9 @@
     </Compile>
     <Compile Include="View\Categories\AddGroupedRecipeCategoryPage.xaml.cs">
       <DependentUpon>AddGroupedRecipeCategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Categories\AllGroupedCategoriesPage.xaml.cs">
+      <DependentUpon>AllGroupedCategoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Recipes\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Categories\AddGroupedRecipeCategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Categories\AllGroupedCategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

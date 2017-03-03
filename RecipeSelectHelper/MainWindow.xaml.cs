@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using RecipeSelectHelper.Model.Misc;
+using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.BoughtProducts;
 using AllCategoriesPage = RecipeSelectHelper.View.Categories.AllCategoriesPage;
 using AllRecipesPage = RecipeSelectHelper.View.Recipes.AllRecipesPage;

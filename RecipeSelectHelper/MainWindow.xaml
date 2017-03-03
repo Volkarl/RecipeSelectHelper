@@ -46,7 +46,7 @@
 
         <Button Name="Button_Settings" Grid.Row="6" Click="Button_Settings_Click" Content="Settings"></Button>
         
-        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="7" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="7" NavigationUIVisibility="Hidden" Margin="10"></Frame>
     </Grid>
     
 </Window>

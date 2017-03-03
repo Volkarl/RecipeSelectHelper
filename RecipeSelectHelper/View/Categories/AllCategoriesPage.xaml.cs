@@ -18,6 +18,12 @@ namespace RecipeSelectHelper.View.Categories
 
         #region ObservableObjects
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private ObservableCollection<ProductCategory> _productCategories;
         public ObservableCollection<ProductCategory> ProductCategories
         {
@@ -48,17 +54,9 @@ namespace RecipeSelectHelper.View.Categories
 
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public AllCategoriesPage(MainWindow parent)
         {
             this._parent = parent;
-            DataContext = this;
-
             this.Loaded += AllCategoriesPage_Loaded;
             InitializeComponent();
         }
@@ -144,6 +142,11 @@ namespace RecipeSelectHelper.View.Categories
             RecipeCategories = RC;
 
             ListView_RC.Focus();
+        }
+
+        private void Button_ViewGroupedCategories_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.ContentControl.Content = new AllGroupedCategoriesPage(_parent);
         }
     }
 }

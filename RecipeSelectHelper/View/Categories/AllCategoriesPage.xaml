@@ -9,36 +9,40 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="CategoriesPage">
 
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="10"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <DockPanel>
+        <Button Name="Button_ViewGroupedCategories" DockPanel.Dock="Bottom" Height="30" Content="View Grouped Categories" Click="Button_ViewGroupedCategories_OnClick"></Button>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-        </Grid.RowDefinitions>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Product Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Column="2" Text="Recipe Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <ListView Name="ListView_PC" Grid.Row="2" SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}" ItemsSource="{Binding Path=ProductCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
-        <ListView Name="ListView_RC" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding SelectedRecipeCategory, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
-        
-        <UniformGrid Grid.Column="0" Grid.Row="4" Rows="1">
-            <Button Name="Button_AddProductCategory" Content="Add" Click="Button_AddProductCategory_Click"></Button>
-            <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_Click"></Button>
-            <Button Name="Button_RemoveProductCategory" Content="Remove" Click="Button_RemoveProductCategory_Click"></Button>
-        </UniformGrid>
-        <UniformGrid Grid.Column="2" Grid.Row="4" Rows="1">
-            <Button Name="Button_AddRecipeCategory" Content="Add" Click="Button_AddRecipeCategory_Click"></Button>
-            <Button Name="Button_EditRecipeCategory" Content="Edit" Click="Button_EditRecipeCategory_Click"></Button>
-            <Button Name="Button_RemoveRecipeCategory" Content="Remove" Click="Button_RemoveRecipeCategory_Click"></Button>
-        </UniformGrid>
-    </Grid>
+            <TextBlock Text="Product Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="2" Text="Recipe Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+            <ListView Name="ListView_PC" Grid.Row="2" SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}" ItemsSource="{Binding Path=ProductCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
+            <ListView Name="ListView_RC" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding SelectedRecipeCategory, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
+
+            <UniformGrid Grid.Column="0" Grid.Row="4" Rows="1">
+                <Button Name="Button_AddProductCategory" Content="Add" Click="Button_AddProductCategory_Click"></Button>
+                <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_Click"></Button>
+                <Button Name="Button_RemoveProductCategory" Content="Remove" Click="Button_RemoveProductCategory_Click"></Button>
+            </UniformGrid>
+            <UniformGrid Grid.Column="2" Grid.Row="4" Rows="1">
+                <Button Name="Button_AddRecipeCategory" Content="Add" Click="Button_AddRecipeCategory_Click"></Button>
+                <Button Name="Button_EditRecipeCategory" Content="Edit" Click="Button_EditRecipeCategory_Click"></Button>
+                <Button Name="Button_RemoveRecipeCategory" Content="Remove" Click="Button_RemoveRecipeCategory_Click"></Button>
+            </UniformGrid>
+        </Grid>
+    </DockPanel>
 </Page>

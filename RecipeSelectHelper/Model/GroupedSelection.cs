@@ -12,7 +12,6 @@ namespace RecipeSelectHelper.Model
     {
         [DataMember]
         public List<T> GroupedItems { get; set; }
-        [DataMember]
         public List<int> SelectedIndex { get; set; }
         [DataMember]
         public int MinSelect { get; set; }
@@ -57,6 +56,17 @@ namespace RecipeSelectHelper.Model
                 selectedItems.Add(GroupedItems[i]);
             }
             return selectedItems;
+        }
+
+        public override string ToString()
+        {
+            string s = String.Empty;
+            foreach (T item in GroupedItems)
+            {
+                s += item + " ";
+            }
+            s += " | ";
+            return s + $"{MinSelect}-{MaxSelect}";
         }
     }
 }

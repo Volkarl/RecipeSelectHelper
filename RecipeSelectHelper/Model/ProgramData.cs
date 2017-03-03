@@ -23,6 +23,10 @@ namespace RecipeSelectHelper.Model
         public List<RecipeCategory> AllRecipeCategories { get; set; }
         [DataMember]
         public List<SortingMethod> AllSortingMethods { get; set; }
+        [DataMember]
+        public List<GroupedSelection<ProductCategory>> AllGroupedProductCategories { get; set; }
+        [DataMember]
+        public List<GroupedSelection<RecipeCategory>> AllGroupedRecipeCategories { get; set; }
 
         public ProgramData()
         {
@@ -32,6 +36,8 @@ namespace RecipeSelectHelper.Model
             AllProductCategories = new List<ProductCategory>();
             AllRecipeCategories = new List<RecipeCategory>();
             AllSortingMethods = new List<SortingMethod>();
+            AllGroupedProductCategories = new List<GroupedSelection<ProductCategory>>();
+            AllGroupedRecipeCategories = new List<GroupedSelection<RecipeCategory>>();
         }
 
         public void ResetAllValues()

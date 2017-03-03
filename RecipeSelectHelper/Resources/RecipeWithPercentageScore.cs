@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using RecipeSelectHelper.Model;
 
-namespace RecipeSelectHelper.Model.Misc
+namespace RecipeSelectHelper.Resources
 {
     public class RecipeWithPercentageScore
     {
