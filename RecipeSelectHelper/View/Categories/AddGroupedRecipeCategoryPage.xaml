@@ -14,14 +14,20 @@
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Max. Selection Amount: " ToolTip="The maximum amount of items the user is allowed to select to create a recipe." Width="200"></Label>
             <custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MaxSelectionAmount}"></custom:IntegerTextBox>
-            <Slider Name="Slider_MaxAmount" Value="{Binding MaxSelectionAmount}"></Slider>
+            <Slider VerticalAlignment="Center" Name="Slider_MaxAmount" Value="{Binding MaxSelectionAmount}"></Slider>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Min. Selection Amount: " ToolTip="The minimum amount of items the user is required to select before he can create a recipe." Width="200"></Label>
-            <custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MaxSelectionAmount}"></custom:IntegerTextBox>
-            <Slider Name="Slider_MinAmount" Value="{Binding MaxSelectionAmount}"></Slider>
+            <custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MinSelectionAmount}"></custom:IntegerTextBox>
+            <Slider VerticalAlignment="Center" Name="Slider_MinAmount" Value="{Binding MinSelectionAmount}"></Slider>
         </DockPanel>
 
-        <custom:SearchableListView x:Name="SearchableListView_RecipeCategories" DockPanel.Dock="Top"></custom:SearchableListView>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
+            <Button Name="Button_AddNewRecipeCategory" Height="30" Content="Add" Click="Button_AddNewRecipeCategory_OnClick"></Button>
+            <Button Name="Button_EditRecipeCategory" Content="Edit"></Button>
+            <Button Name="ButtonRemoveRecipeCategory" Content="Remove"></Button>
+        </UniformGrid>
+
+        <ListView DockPanel.Dock="Top" Name="ListView_RecipeCategories" SelectedItem="{Binding SelectedRC, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
     </DockPanel>
 </Page>

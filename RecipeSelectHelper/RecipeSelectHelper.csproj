@@ -59,7 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\BoughtProduct.cs" />
     <Compile Include="Model\GroupedSelection.cs" />
-    <Compile Include="Model\IAddElement.cs" />
+    <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
     <Compile Include="Model\SortingMethods\IPreference.cs" />

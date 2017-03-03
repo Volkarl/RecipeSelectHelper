@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Products
 {
@@ -75,7 +76,7 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_AddNewCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
+            _parent.ContentControl.Content = new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
         }
 
         //private void SelectSubstitute(Product product)

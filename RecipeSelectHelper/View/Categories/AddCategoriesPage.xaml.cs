@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Categories
 {
@@ -14,11 +16,11 @@ namespace RecipeSelectHelper.View.Categories
             ProductCategory, RecipeCategory
         }
         private CategoryMode _mode;
-        private MainWindow _parent;
+        private ProgramData _data;
 
-        public AddCategoriesPage(MainWindow parent, CategoryMode mode)
+        public AddCategoriesPage(ProgramData data, CategoryMode mode)
         {
-            _parent = parent;
+            _data = data;
             _mode = mode;
             InitializeComponent();
         }
@@ -27,11 +29,11 @@ namespace RecipeSelectHelper.View.Categories
         {
             if (_mode == CategoryMode.ProductCategory)
             {
-                _parent.Data.AllProductCategories.Add(new ProductCategory(TextBox_CategoryName.Text));
+                _data.AllProductCategories.Add(new ProductCategory(TextBox_CategoryName.Text));
             }
             if (_mode == CategoryMode.RecipeCategory)
             {
-                _parent.Data.AllRecipeCategories.Add(new RecipeCategory(TextBox_CategoryName.Text));
+                _data.AllRecipeCategories.Add(new RecipeCategory(TextBox_CategoryName.Text));
             }
             // Add error handling in the ctor of recipe and product category. For instance, null and string.empty is not allowed.
 

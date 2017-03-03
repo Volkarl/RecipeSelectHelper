@@ -25,7 +25,6 @@ namespace RecipeSelectHelper.Model
 
             if(minSelect > groupedItems.Count ||
                 minSelect < 0 ||
-                maxSelect > groupedItems.Count ||
                 maxSelect < 0 ||
                 maxSelect < minSelect) throw new ArgumentException("MinSelect: " + minSelect + " & MaxSelect: " + maxSelect);
 
@@ -63,8 +62,9 @@ namespace RecipeSelectHelper.Model
             string s = String.Empty;
             foreach (T item in GroupedItems)
             {
-                s += item + " ";
+                s += item + ", ";
             }
+            s = s.TrimEnd(' ', ',');
             s += " | ";
             return s + $"{MinSelect}-{MaxSelect}";
         }

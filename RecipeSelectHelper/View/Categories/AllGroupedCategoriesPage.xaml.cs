@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Categories
 {
@@ -85,7 +86,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddGroupedPC_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedProductCategories(_parent), "Add New Grouped Product Categories", _parent);
         }
 
         private void Button_EditGroupedPC_OnClick(object sender, RoutedEventArgs e)
@@ -99,7 +100,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedRecipeCategoryPage(_parent), "Add New Grouped Recipe Categories", _parent);
         }
 
         private void Button_EditGroupedRC_OnClick(object sender, RoutedEventArgs e)

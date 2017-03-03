@@ -150,7 +150,7 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent, Categories.AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
+            _parent.SetPage(new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
         }
 
         private void Button_AddIngredient_Click(object sender, RoutedEventArgs e)

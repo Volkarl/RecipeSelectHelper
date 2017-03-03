@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.BoughtProducts
 {
