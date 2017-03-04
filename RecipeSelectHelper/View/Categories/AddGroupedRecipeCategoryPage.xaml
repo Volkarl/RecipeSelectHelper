@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
-      xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="580"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -24,10 +23,11 @@
 
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
             <Button Name="Button_AddNewRecipeCategory" Height="30" Content="Add" Click="Button_AddNewRecipeCategory_OnClick"></Button>
-            <Button Name="Button_EditRecipeCategory" Content="Edit"></Button>
-            <Button Name="ButtonRemoveRecipeCategory" Content="Remove"></Button>
+            <Button Name="Button_EditRecipeCategory" Content="Edit" Click="Button_EditRecipeCategory_OnClick"></Button>
+            <Button Name="ButtonRemoveRecipeCategory" Content="Remove" Click="ButtonRemoveRecipeCategory_OnClick"></Button>
         </UniformGrid>
 
+        <Label DockPanel.Dock="Top" Height="30" Content="List of categories to group: " VerticalAlignment="Center"></Label>
         <ListView DockPanel.Dock="Top" Name="ListView_RecipeCategories" SelectedItem="{Binding SelectedRC, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
     </DockPanel>
 </Page>

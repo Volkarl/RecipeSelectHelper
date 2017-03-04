@@ -17,15 +17,17 @@ namespace RecipeSelectHelper.Model
         public string Name { get; set; }
         [DataMember]
         public List<Product> SubstituteProducts { get; set; }
+        [DataMember]
+        public List<GroupedProductCategory> GroupedCategories { get; set; }
 
-        public int OwnValue { get; set; } = 0; //Should this be set-only? //Aggregated value get only then.
+        public int OwnValue { get; set; } = 0; 
 
-        public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null)
+        public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null, List<GroupedProductCategory> groupedCategories = null)
         {
             Name = name;
             Categories = categories ?? new List<ProductCategory>();
             SubstituteProducts = substituteProducts ?? new List<Product>();
-            //ID = _productCreatedNumber++;
+            GroupedCategories = groupedCategories ?? new List<GroupedProductCategory>();
         }
 
         public int AggregatedValue => CalculateValue();

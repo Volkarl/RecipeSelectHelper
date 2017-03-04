@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace RecipeSelectHelper.Model
 {
-    [DataContract(Name = "Recipe")]
+    [DataContract(Name = "GroupedSelection")]
     public class GroupedSelection<T>
     {
         [DataMember]
         public List<T> GroupedItems { get; set; }
-        public List<int> SelectedIndex { get; set; }
         [DataMember]
         public int MinSelect { get; set; }
         [DataMember]
@@ -21,7 +20,9 @@ namespace RecipeSelectHelper.Model
         public GroupedSelection(List<T> groupedItems, int minSelect, int maxSelect)
         {
             GroupedItems = groupedItems;
-            SelectedIndex = new List<int>(groupedItems.Count);
+
+            if(groupedItems == null ||
+                groupedItems.Count == 0) throw new ArgumentException("No items selected.");
 
             if(minSelect > groupedItems.Count ||
                 minSelect < 0 ||
@@ -30,31 +31,6 @@ namespace RecipeSelectHelper.Model
 
             MinSelect = minSelect;
             MaxSelect = maxSelect;
-        }
-
-        public void SelectItem(int index)
-        {
-            if (SelectedIndex.Contains(index)) return;
-            SelectedIndex.Add(index);
-        }
-
-        public void DeselectItem(int index)
-        {
-            SelectedIndex.Remove(index);
-        }
-
-        public List<T> GetSelectedItems()
-        {
-            if(SelectedIndex.Count < MinSelect ||
-                SelectedIndex.Count > MaxSelect) throw new ArgumentException("Selected Items: " + 
-                    SelectedIndex.Count + "MinSelect: " + MinSelect +  "MaxSelect: " + MaxSelect);
-            
-            var selectedItems = new List<T>();
-            foreach (int i in SelectedIndex)
-            {
-                selectedItems.Add(GroupedItems[i]);
-            }
-            return selectedItems;
         }
 
         public override string ToString()

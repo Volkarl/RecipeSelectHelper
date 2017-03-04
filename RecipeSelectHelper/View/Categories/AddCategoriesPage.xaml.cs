@@ -38,6 +38,7 @@ namespace RecipeSelectHelper.View.Categories
             // Add error handling in the ctor of recipe and product category. For instance, null and string.empty is not allowed.
 
             ClearUIElements();
+            TextBox_CategoryName.Focus();
         }
 
         private void ClearUIElements()

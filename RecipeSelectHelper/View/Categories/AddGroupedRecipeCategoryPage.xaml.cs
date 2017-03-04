@@ -35,6 +35,7 @@ namespace RecipeSelectHelper.View.Categories
         private void LoadObservableObjects()
         {
             RecipeCategories = new ObservableCollection<RecipeCategory>(_data.AllRecipeCategories.OrderBy(x => x.Name));
+            // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
             SelectedRC = null;
         }
 
@@ -84,19 +85,40 @@ namespace RecipeSelectHelper.View.Categories
                 categories.Add(rc);
             }
 
-            var groupedCategories = new GroupedSelection<RecipeCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
-            _parent.Data.AllGroupedRecipeCategories.Add(groupedCategories);
+            var selection = new GroupedSelection<RecipeCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
+            _parent.Data.AllGroupedRecipeCategories.Add(selection);
             ClearPage();
         }
 
         private void ClearPage()
         {
             _data = new ProgramData();
+            RecipeCategories = new ObservableCollection<RecipeCategory>();
+            MinSelectionAmount = 0;
+            MaxSelectionAmount = 3;
         }
 
         private void Button_AddNewRecipeCategory_OnClick(object sender, RoutedEventArgs e)
         {
             _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category To Group", _parent);
+        }
+
+        private void Button_EditRecipeCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonRemoveRecipeCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            _data.AllRecipeCategories.Remove(SelectedRC);
+
+            RecipeCategory selectedRc = SelectedRC;
+            ObservableCollection<RecipeCategory> RC = RecipeCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRc, ref RC);
+            SelectedRC = selectedRc;
+            RecipeCategories = RC;
+
+            ListView_RecipeCategories.Focus();
         }
     }
 }

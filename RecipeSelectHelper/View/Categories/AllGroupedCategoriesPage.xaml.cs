@@ -56,17 +56,17 @@ namespace RecipeSelectHelper.View.Categories
         }
 
         private ObservableCollection<GroupedSelection<RecipeCategory>> _groupedRc;
-        public ObservableCollection<GroupedSelection<RecipeCategory>> GroupedRC
+        public ObservableCollection<GroupedSelection<RecipeCategory>> GroupedRc
         {
             get { return _groupedRc; }
-            set { _groupedRc = value; OnPropertyChanged(nameof(GroupedRC)); }
+            set { _groupedRc = value; OnPropertyChanged(nameof(GroupedRc)); }
         }
 
         private GroupedSelection<RecipeCategory> _selectedGroupedRc;
-        public GroupedSelection<RecipeCategory> SelectedGroupedRC
+        public GroupedSelection<RecipeCategory> SelectedGroupedRc
         {
             get { return _selectedGroupedRc; }
-            set { _selectedGroupedRc = value; OnPropertyChanged(nameof(SelectedGroupedRC)); }
+            set { _selectedGroupedRc = value; OnPropertyChanged(nameof(SelectedGroupedRc)); }
         }
 
         #endregion
@@ -79,9 +79,9 @@ namespace RecipeSelectHelper.View.Categories
         private void InitializeObservableObjects()
         {
             GroupedPC = new ObservableCollection<GroupedSelection<ProductCategory>>(_parent.Data.AllGroupedProductCategories.OrderBy(x => x.MinSelect));
-            GroupedRC = new ObservableCollection<GroupedSelection<RecipeCategory>>(_parent.Data.AllGroupedRecipeCategories.OrderBy(x => x.MinSelect));
+            GroupedRc = new ObservableCollection<GroupedSelection<RecipeCategory>>(_parent.Data.AllGroupedRecipeCategories.OrderBy(x => x.MinSelect));
             SelectedGroupedPC = null;
-            SelectedGroupedRC = null;
+            SelectedGroupedRc = null;
         }
 
         private void Button_AddGroupedPC_OnClick(object sender, RoutedEventArgs e)
@@ -116,6 +116,16 @@ namespace RecipeSelectHelper.View.Categories
         private void Button_ViewCategories_OnClick(object sender, RoutedEventArgs e)
         {
             _parent.ContentControl.Content = new AllCategoriesPage(_parent);
+        }
+
+        private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Button_EvaluateMissingProducts_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
