@@ -44,6 +44,21 @@ namespace RecipeSelectHelper.Model
             }
         }
 
+        public string GroupedCategoriesAsString
+        {
+            get
+            {
+                if (GroupedCategories == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return string.Empty; //Join(", ", GroupedCategories.ConvertAll(x => x.GetSelectedItems().ConvertAll(y => y.Name)));
+                }
+            }
+        }
+
         public Recipe(string name, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
         {
             this.Name = name;
