@@ -25,6 +25,8 @@ namespace RecipeSelectHelper.Model
         public void SelectItem(int index)
         {
             if (SelectedIndex.Contains(index)) return;
+            if(index >= CorrespondingGroupedSelection.GroupedItems.Count ||
+               index < 0) throw new ArgumentException("Invalid index");
             SelectedIndex.Add(index);
         }
 
@@ -35,16 +37,20 @@ namespace RecipeSelectHelper.Model
 
         public List<RecipeCategory> GetSelectedItems()
         {
-            if (SelectedIndex.Count < CorrespondingGroupedSelection.MinSelect ||
-                SelectedIndex.Count > CorrespondingGroupedSelection.MaxSelect) throw new ArgumentException("Selected Items: " +
-                    SelectedIndex.Count + " | MinSelect: " + CorrespondingGroupedSelection.MinSelect + " | MaxSelect: " + CorrespondingGroupedSelection.MaxSelect);
-
+            SelectionIsValid();
             List<RecipeCategory> selectedItems = new List<RecipeCategory>();
             foreach (int i in SelectedIndex)
             {
                 selectedItems.Add(CorrespondingGroupedSelection.GroupedItems[i]);
             }
             return selectedItems;
+        }
+
+        public void SelectionIsValid()
+        {
+            if (SelectedIndex.Count < CorrespondingGroupedSelection.MinSelect ||
+                SelectedIndex.Count > CorrespondingGroupedSelection.MaxSelect) throw new ArgumentException("Selected Items: " +
+                SelectedIndex.Count + " | MinSelect: " + CorrespondingGroupedSelection.MinSelect + " | MaxSelect: " + CorrespondingGroupedSelection.MaxSelect);
         }
 
         public override string ToString()

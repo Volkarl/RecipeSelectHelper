@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Categories;
+using RecipeSelectHelper.View.Products;
 
 namespace RecipeSelectHelper.View.Recipes
 {
@@ -16,7 +18,7 @@ namespace RecipeSelectHelper.View.Recipes
         public AddRecipePage(MainWindow parent)
         {
             _parent = parent;
-            this.Loaded += AddRecipePage_Loaded;
+            Loaded += AddRecipePage_Loaded;
             InitializeComponent();
         }
 
@@ -25,10 +27,34 @@ namespace RecipeSelectHelper.View.Recipes
             AddChildrenToWrapPanels();
         }
 
+        private List<GroupedRecipeCategory> _displayedGroupedRc = new List<GroupedRecipeCategory>();
         private void AddChildrenToWrapPanels()
         {
+            StackPanel_GroupedCategories.Children.Clear();
             ItemsControl_Categories.Items.Clear();
             ItemsControl_Ingredients.Items.Clear();
+
+            foreach (GroupedSelection<RecipeCategory> groupedSelection in _parent.Data.AllGroupedRecipeCategories)
+            {
+                var groupedRc = new GroupedRecipeCategory(groupedSelection);
+                var wrapPanel = new WrapPanel();
+                var label = new Label {Content = 
+                    $"Select {groupedRc.CorrespondingGroupedSelection.MinSelect} to {groupedRc.CorrespondingGroupedSelection.MaxSelect} types: "};
+                wrapPanel.Children.Add(label);
+                for (int i = 0; i < groupedRc.CorrespondingGroupedSelection.GroupedItems.Count; i++)
+                {
+                    RecipeCategory rc = groupedRc.CorrespondingGroupedSelection.GroupedItems[i];
+                    var checkBox = new CheckBox();
+                    checkBox.Content = rc.Name;
+                    checkBox.Margin = new Thickness(4);
+                    var i1 = i;
+                    checkBox.Checked += (sender, args) => groupedRc.SelectItem(i1);
+                    checkBox.Unchecked += (sender, args) => groupedRc.DeselectItem(i1);
+                    wrapPanel.Children.Add(checkBox);
+                }
+                _displayedGroupedRc.Add(groupedRc);
+                StackPanel_GroupedCategories.Children.Add(wrapPanel);
+            }
 
             foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
             {
@@ -150,12 +176,12 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
+            _parent.SetPage(new AddElementBasePage(new AddCategoriesPage(_parent.Data, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
         }
 
         private void Button_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new Resources.AddElementBasePage(new Products.AddStoreProductPage(_parent), "Add New Store Product", _parent));
+            _parent.SetPage(new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent));
         }
 
         public void AddItem(object sender, RoutedEventArgs e)
@@ -163,12 +189,13 @@ namespace RecipeSelectHelper.View.Recipes
             string name = TextBox_RecipeName.Text;
             string description = TextBox_RecipeDescription.Text;
             string instruction = TextBox_RecipeInstruction.Text;
+            List<GroupedRecipeCategory> groupedRc = GetCheckedGroupedRc();
             List<RecipeCategory> categories = GetCheckedCategories();
             List<Ingredient> ingredients = GetCheckedIngredients();
 
             try
             {
-                var recipe = new Recipe(name, description, instruction, ingredients, categories);
+                var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
                 _parent.Data.AllRecipes.Add(recipe);
                 ClearUIElements();
             }
@@ -178,6 +205,16 @@ namespace RecipeSelectHelper.View.Recipes
             }
 
             // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null or empty) (Need to be unique)
+        }
+
+        private List<GroupedRecipeCategory> GetCheckedGroupedRc()
+        {
+            return _displayedGroupedRc;
+        }
+
+        private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(new AddGroupedRecipeCategoryPage(_parent), "Add New Recipe Types", _parent));
         }
     }
 }

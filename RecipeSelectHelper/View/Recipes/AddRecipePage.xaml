@@ -26,6 +26,20 @@
                 <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
 
+            <DockPanel Name="DockPanel_GroupedCategories" Margin="1">
+                <Label Content="Type: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
+                <Expander MinHeight="30" Header="Chose Type: " ExpandDirection="Down" IsExpanded="True">
+                    <StackPanel>
+                        <StackPanel Name="StackPanel_GroupedCategories" Margin="-2,2,0,0" Orientation="Vertical">
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                            </StackPanel.Background>
+                        </StackPanel>
+                        <Button Name="Button_AddGroupedCategory" Content="Add New Grouped Category..." Height="30" Click="Button_AddGroupedCategory_OnClick"></Button>
+                    </StackPanel>
+                </Expander>
+            </DockPanel>
+            
             <DockPanel Name="DockPanel_Categories" Margin="1">
                 <Label Content="Categories: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" Header="Chose Categories: " ExpandDirection="Down">

@@ -44,7 +44,6 @@ namespace RecipeSelectHelper.View.Categories
         }
 
         private int _maxSelectionAmount;
-        private IAddElement _addElementImplementation;
 
         public int MaxSelectionAmount
         {

@@ -53,6 +53,9 @@ namespace RecipeSelectHelper.Model
             this.Categories = categories ?? new List<RecipeCategory>();
             this.GroupedCategories = groupedCategories ?? new List<GroupedRecipeCategory>();
             this.Value = 0;
+
+
+            // Lots of exceptins here if something is wrong. Check also if selections are correct in groupedcategories.
         }
 
         public void AggregateValue()    //combine this with value prop
