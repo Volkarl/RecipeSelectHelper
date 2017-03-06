@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -11,58 +12,77 @@ namespace RecipeSelectHelper.Model
     public class GroupedRecipeCategory
     {
         [DataMember]
-        public List<int> SelectedIndex { get; set; }
+        public int MinSelect { get; set; }
         [DataMember]
-        public GroupedSelection<RecipeCategory> CorrespondingGroupedSelection { get; set; }
+        public int MaxSelect { get; set; }
+        [DataMember]
+        public List<Boolable<RecipeCategory>> GroupedRc { get; set; }
 
-        public GroupedRecipeCategory(GroupedSelection<RecipeCategory> correspondingGroupedRC)
+        public GroupedRecipeCategory(GroupedSelection<RecipeCategory> correspondingGroupedRC) : this(correspondingGroupedRC.GroupedItems, correspondingGroupedRC.MinSelect, correspondingGroupedRC.MaxSelect)
         {
-            SelectedIndex = new List<int>();
             if(correspondingGroupedRC == null) throw new ArgumentException();
-            CorrespondingGroupedSelection = correspondingGroupedRC;
         }
 
-        public void SelectItem(int index)
+        private GroupedRecipeCategory(List<RecipeCategory> correspondingGroupedRc, int minSelect, int maxSelect)
         {
-            if (SelectedIndex.Contains(index)) return;
-            if(index >= CorrespondingGroupedSelection.GroupedItems.Count ||
-               index < 0) throw new ArgumentException("Invalid index");
-            SelectedIndex.Add(index);
-        }
-
-        public void DeselectItem(int index)
-        {
-            SelectedIndex.Remove(index);
-        }
-
-        public List<RecipeCategory> GetSelectedItems()
-        {
-            SelectionIsValid();
-            List<RecipeCategory> selectedItems = new List<RecipeCategory>();
-            foreach (int i in SelectedIndex)
+            if(correspondingGroupedRc == null) throw new ArgumentException();
+            MinSelect = minSelect;
+            MaxSelect = maxSelect;
+            GroupedRc = new List<Boolable<RecipeCategory>>();
+            foreach (RecipeCategory rc in correspondingGroupedRc)
             {
-                selectedItems.Add(CorrespondingGroupedSelection.GroupedItems[i]);
+                GroupedRc.Add(new Boolable<RecipeCategory>(rc));
             }
+        }
+
+        public List<RecipeCategory> GetCurrentSelectedItems()
+        {
+            List<RecipeCategory> selectedItems = new List<RecipeCategory>();
+            foreach (Boolable<RecipeCategory> rcBoolable in GroupedRc)
+            {
+                if(rcBoolable.Bool) selectedItems.Add(rcBoolable.Instance);
+            }
+
             return selectedItems;
         }
 
-        public void SelectionIsValid()
+        public bool SelectionIsValid(out string error)
         {
-            if (SelectedIndex.Count < CorrespondingGroupedSelection.MinSelect ||
-                SelectedIndex.Count > CorrespondingGroupedSelection.MaxSelect) throw new ArgumentException("Selected Items: " +
-                SelectedIndex.Count + " | MinSelect: " + CorrespondingGroupedSelection.MinSelect + " | MaxSelect: " + CorrespondingGroupedSelection.MaxSelect);
+            List<RecipeCategory> selectedItems = GetCurrentSelectedItems();
+
+            bool tooMany = selectedItems.Count > MaxSelect;
+            bool tooFew = selectedItems.Count < MinSelect;
+
+            error = null;
+            if (!tooFew && !tooMany) return true;
+            if (tooMany)
+            {
+                error = $"Too many items selected, only {MaxSelect} are allowed";
+            }
+            else if(tooFew)
+            {
+                error = $"Too few items selected, {MaxSelect} are required";
+            }
+            return false;
+        }
+
+        public List<RecipeCategory> GetFinalizedSelection()
+        {
+            string error;
+            if(!SelectionIsValid(out error)) throw new ArgumentException(error);
+            return GetCurrentSelectedItems();
         }
 
         public override string ToString()
         {
             string s = String.Empty;
-            foreach (int i in SelectedIndex)
+            foreach (RecipeCategory selectedRc in GetCurrentSelectedItems())
             {
-                s += CorrespondingGroupedSelection.GroupedItems[i] + ", ";
+                s += selectedRc.Name + ", ";
             }
             s = s.TrimEnd(' ', ',');
             s += " | ";
-            return s + $"{CorrespondingGroupedSelection.MinSelect}-{CorrespondingGroupedSelection.MaxSelect}";
+            return s + $"{MinSelect}-{MaxSelect}";
         }
     }
 }

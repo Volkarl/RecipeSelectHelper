@@ -61,6 +61,7 @@
     <Compile Include="Model\GroupedProductCategory.cs" />
     <Compile Include="Model\GroupedRecipeCategory.cs" />
     <Compile Include="Model\GroupedSelection.cs" />
+    <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Resources\ValidityChecker.cs" />
     <Compile Include="Resources\XMLDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,31 +59,34 @@ namespace RecipeSelectHelper.View.Recipes
         private List<GroupedRecipeCategory> _displayedGroupedRc = new List<GroupedRecipeCategory>();
         private void AddChildrenToWrapPanels()
         {
-            StackPanel_GroupedCategories.Children.Clear();
+            //StackPanel_GroupedCategories.Children.Clear();
             ItemsControl_Categories.Items.Clear();
             ItemsControl_Ingredients.Items.Clear();
 
-            foreach (GroupedSelection<RecipeCategory> groupedSelection in _parent.Data.AllGroupedRecipeCategories)
-            {
-                var groupedRc = new GroupedRecipeCategory(groupedSelection);
-                var wrapPanel = new WrapPanel();
-                var label = new Label {Content = 
-                    $"Select {groupedRc.CorrespondingGroupedSelection.MinSelect} to {groupedRc.CorrespondingGroupedSelection.MaxSelect} types: "};
-                wrapPanel.Children.Add(label);
-                for (int i = 0; i < groupedRc.CorrespondingGroupedSelection.GroupedItems.Count; i++)
-                {
-                    RecipeCategory rc = groupedRc.CorrespondingGroupedSelection.GroupedItems[i];
-                    var checkBox = new CheckBox();
-                    checkBox.Content = rc.Name;
-                    checkBox.Margin = new Thickness(4);
-                    var i1 = i;
-                    checkBox.Checked += (sender, args) => groupedRc.SelectItem(i1);
-                    checkBox.Unchecked += (sender, args) => groupedRc.DeselectItem(i1);
-                    wrapPanel.Children.Add(checkBox);
-                }
-                _displayedGroupedRc.Add(groupedRc);
-                StackPanel_GroupedCategories.Children.Add(wrapPanel);
-            }
+            //foreach (GroupedSelection<RecipeCategory> groupedSelection in _parent.Data.AllGroupedRecipeCategories)
+            //{
+            //    var groupedRc = new GroupedRecipeCategory(groupedSelection);
+            //    var wrapPanel = new WrapPanel();
+            //    var label = new Label
+            //    {
+            //        Content =
+            //        $"Select {groupedRc.CorrespondingGroupedSelection.MinSelect} to {groupedRc.CorrespondingGroupedSelection.MaxSelect} types: "
+            //    };
+            //    wrapPanel.Children.Add(label);
+            //    for (int i = 0; i < groupedRc.CorrespondingGroupedSelection.GroupedItems.Count; i++)
+            //    {
+            //        RecipeCategory rc = groupedRc.CorrespondingGroupedSelection.GroupedItems[i];
+            //        var checkBox = new CheckBox();
+            //        checkBox.Content = rc.Name;
+            //        checkBox.Margin = new Thickness(4);
+            //        var i1 = i;
+            //        checkBox.Checked += (sender, args) => groupedRc.SelectItem(i1);
+            //        checkBox.Unchecked += (sender, args) => groupedRc.DeselectItem(i1);
+            //        wrapPanel.Children.Add(checkBox);
+            //    }
+            //    _displayedGroupedRc.Add(groupedRc);
+            //    StackPanel_GroupedCategories.Children.Add(wrapPanel);
+            //}
 
             foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
             {
@@ -217,27 +221,37 @@ namespace RecipeSelectHelper.View.Recipes
             string name = TextBox_RecipeName.Text;
             string description = TextBox_RecipeDescription.Text;
             string instruction = TextBox_RecipeInstruction.Text;
-            List<GroupedRecipeCategory> groupedRc = GetCheckedGroupedRc();
+            List<GroupedRecipeCategory> groupedRc = GroupedRecipeCategories.ToList();
+
+
+
             List<RecipeCategory> categories = GetCheckedCategories();
             List<Ingredient> ingredients = GetCheckedIngredients();
 
-            try
+            string error;
+            var valid = new ValidityChecker(_parent.Data);
+            if (valid.NameIsValid(name, out error) &&
+                valid.DescriptionIsValid(name, out error) &&
+                valid.InstructionIsValid(name, out error) &&
+                valid.GroupedRcAreValid(groupedRc, out error) &&
+                valid.CategoriesAreValid(categories, out error) &&
+                valid.IngredientsAreValid(ingredients, out error))
             {
-                var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
-                _parent.Data.AllRecipes.Add(recipe);
+                try
+                {
+                    var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
+                    _parent.Data.AllRecipes.Add(recipe);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 ClearUIElements();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(error);
             }
-
-            // ADD ERROR HANDLING IN RECIPE AND OTHER (Name != null or empty) (Need to be unique)
-        }
-
-        private List<GroupedRecipeCategory> GetCheckedGroupedRc()
-        {
-            return _displayedGroupedRc;
         }
 
         private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
