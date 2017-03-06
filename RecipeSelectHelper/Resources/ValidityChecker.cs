@@ -16,33 +16,44 @@ namespace RecipeSelectHelper.Resources
             _programData = programData;
         }
 
-        public bool NameIsValid(string name, out string error)
+        public bool RecipeNameIsValid(string name, out string error)
         {
-            return NameSpellingIsValid(name, out error) && NameIsUnique(name);
+            bool nameUnique = RecipeNameIsUnique(name);
+            bool spellingValid = RecipeNameSpellingIsValid(name, out error);
+            if (!nameUnique) error = "Recipe name is already taken";
+            return nameUnique && spellingValid;
         }
 
-        private bool NameIsUnique(string name)
+        private bool RecipeNameIsUnique(string name)
         {
-            throw new NotImplementedException();
+            return !_programData.AllRecipes.Any(x => x.Name.Equals(name));
         }
 
-        private bool NameSpellingIsValid(string name, out string error)
+        private bool RecipeNameSpellingIsValid(string name, out string error)
         {
+            error = String.Empty;
+            return true;
             throw new NotImplementedException();
         }
 
         public bool DescriptionIsValid(string name, out string error)
         {
+            error = String.Empty;
+            return true;
             throw new NotImplementedException();
         }
 
         public bool InstructionIsValid(string name, out string error)
         {
+            error = String.Empty;
+            return true;
             throw new NotImplementedException();
         }
 
         public bool CategoriesAreValid(List<RecipeCategory> categories, out string error)
         {
+            error = String.Empty;
+            return true;
             throw new NotImplementedException();
         }
 
@@ -61,6 +72,8 @@ namespace RecipeSelectHelper.Resources
 
         public bool IngredientsAreValid(List<Ingredient> ingredients, out string error)
         {
+            error = String.Empty;
+            return true;
             throw new NotImplementedException();
         }
     }

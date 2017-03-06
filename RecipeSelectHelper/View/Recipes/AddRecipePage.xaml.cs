@@ -56,7 +56,6 @@ namespace RecipeSelectHelper.View.Recipes
             GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new GroupedRecipeCategory(x)));
         }
 
-        private List<GroupedRecipeCategory> _displayedGroupedRc = new List<GroupedRecipeCategory>();
         private void AddChildrenToWrapPanels()
         {
             //StackPanel_GroupedCategories.Children.Clear();
@@ -204,6 +203,7 @@ namespace RecipeSelectHelper.View.Recipes
             TextBox_RecipeDescription.Text = string.Empty;
             TextBox_RecipeInstruction.Text = string.Empty;
             AddChildrenToWrapPanels();
+            InitializeObservableObjects();
         }
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
@@ -230,7 +230,7 @@ namespace RecipeSelectHelper.View.Recipes
 
             string error;
             var valid = new ValidityChecker(_parent.Data);
-            if (valid.NameIsValid(name, out error) &&
+            if (valid.RecipeNameIsValid(name, out error) &&
                 valid.DescriptionIsValid(name, out error) &&
                 valid.InstructionIsValid(name, out error) &&
                 valid.GroupedRcAreValid(groupedRc, out error) &&

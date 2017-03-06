@@ -70,11 +70,6 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         
-                        <!--<StackPanel Name="StackPanel_GroupedCategories" Margin="-2,2,0,0" Orientation="Vertical">
-                            <StackPanel.Background>
-                                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                            </StackPanel.Background>
-                        </StackPanel>-->
                         <Button Name="Button_AddGroupedCategory" Content="Add New Grouped Category..." Height="30" Click="Button_AddGroupedCategory_OnClick"></Button>
                     </StackPanel>
                 </Expander>
