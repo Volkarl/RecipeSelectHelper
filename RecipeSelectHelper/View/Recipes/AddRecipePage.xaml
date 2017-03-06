@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="680"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="AddRecipePage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -30,6 +31,40 @@
                 <Label Content="Type: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" Header="Chose Type: " ExpandDirection="Down" IsExpanded="True">
                     <StackPanel>
+                        <ItemsControl Name="ItemsControl_GroupedCategories" ItemsSource="{Binding GroupedRecipeCategories}">
+                            <ItemsControl.ItemTemplate><DataTemplate>
+                                <StackPanel Margin="1">
+                                    <StackPanel.Background>
+                                        <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                    </StackPanel.Background>
+
+                                    <TextBlock Margin="1">
+                                        <Run Text="Select"></Run>
+                                        <Run Text="{Binding CorrespondingGroupedSelection.MinSelect}"></Run>
+                                        <Run Text="to"></Run>
+                                        <Run Text="{Binding CorrespondingGroupedSelection.MaxSelect}"></Run>
+                                        <Run Text="types:"></Run>
+                                    </TextBlock>
+                                    
+                                    <ItemsControl ItemsSource="{Binding CorrespondingGroupedSelection.GroupedItems}">
+                                        <ItemsControl.ItemTemplate><DataTemplate>
+                                            <CheckBox Content="{Binding Name}"></CheckBox>
+                                        </DataTemplate></ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel><ItemsPanelTemplate>
+                                            <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
+                                        </ItemsPanelTemplate></ItemsControl.ItemsPanel>
+
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate></ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        
                         <StackPanel Name="StackPanel_GroupedCategories" Margin="-2,2,0,0" Orientation="Vertical">
                             <StackPanel.Background>
                                 <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>

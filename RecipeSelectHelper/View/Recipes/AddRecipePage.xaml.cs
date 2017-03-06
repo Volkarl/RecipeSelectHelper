@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
@@ -12,7 +15,7 @@ namespace RecipeSelectHelper.View.Recipes
     /// <summary>
     /// Interaction logic for AddRecipePage.xaml
     /// </summary>
-    public partial class AddRecipePage : Page, IAddElement
+    public partial class AddRecipePage : Page, IAddElement, INotifyPropertyChanged
     {
         private MainWindow _parent;
         public AddRecipePage(MainWindow parent)
@@ -22,9 +25,34 @@ namespace RecipeSelectHelper.View.Recipes
             InitializeComponent();
         }
 
+        #region ObservableObjects
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<GroupedRecipeCategory> _groupedRecipeCategories;
+        public ObservableCollection<GroupedRecipeCategory> GroupedRecipeCategories
+        {
+            get { return _groupedRecipeCategories; }
+            set { _groupedRecipeCategories = value; OnPropertyChanged(nameof(GroupedRecipeCategories)); }
+        }
+
+        #endregion
+
+
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
             AddChildrenToWrapPanels();
+
+            InitializeObservableObjects();
+        }
+
+        private void InitializeObservableObjects()
+        {
+            GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new GroupedRecipeCategory(x)));
         }
 
         private List<GroupedRecipeCategory> _displayedGroupedRc = new List<GroupedRecipeCategory>();
