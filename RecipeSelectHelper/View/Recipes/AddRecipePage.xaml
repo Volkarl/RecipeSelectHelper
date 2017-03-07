@@ -40,14 +40,8 @@
                 </ItemsControl>
             </StackPanel>
         </DataTemplate>
-
-        <DataTemplate x:Key="DataTemplate_Category" DataType="{x:Type model:RecipeCategory}">
-            <StackPanel Margin="1">
-                <StackPanel.Background>
-                    <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                </StackPanel.Background>
-            </StackPanel>
-        </DataTemplate>
+    
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
     </Page.Resources>
     
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -92,7 +86,17 @@
                         <ItemsControl Name="ItemsControl_Categories" ItemsSource="{Binding RecipeCategories}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
+                                    <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <!--<WrapPanel.Resources>
+                                            <Style TargetType="{x:Type CheckBox}">
+                                                <Setter Property="Margin" Value="0,0,4,0" />
+                                            </Style>
+                                        </WrapPanel.Resources>-->
+                                            <WrapPanel.Background>
+                                                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                            </WrapPanel.Background>
+
+                                    </WrapPanel>
                                     <!--<WrapPanel Name="WrapPanel_Categories" Margin="-2,2,0,0" Orientation="Horizontal">
                                         <WrapPanel.Background>
                                             <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
@@ -102,7 +106,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
+                                    <CheckBox MinWidth="70" Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -132,6 +136,40 @@
                     </StackPanel>
                 </Expander>
             </DockPanel>
+
+            <DockPanel Margin="1">
+                <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
+                <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding Ingredients}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Margin="-2,2,0,0" Orientation="Horizontal">
+                                        <WrapPanel.Background>
+                                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                                        </WrapPanel.Background>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox MinWidth="70" IsChecked="{Binding Bool, Mode=TwoWay}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Instance.Name}"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding Bool, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <TextBox Width="100"></TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button Name="Button_AddIngredient2" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
+                    </StackPanel>
+                </Expander>
+            </DockPanel>
+
         </StackPanel>
     </ScrollViewer>
 </Page>
