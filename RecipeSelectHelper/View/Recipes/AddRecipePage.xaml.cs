@@ -41,6 +41,20 @@ namespace RecipeSelectHelper.View.Recipes
             set { _groupedRecipeCategories = value; OnPropertyChanged(nameof(GroupedRecipeCategories)); }
         }
 
+        private ObservableCollection<Boolable<RecipeCategory>> _recipeCategories;
+        public ObservableCollection<Boolable<RecipeCategory>> RecipeCategories
+        {
+            get { return _recipeCategories; }
+            set { _recipeCategories = value; OnPropertyChanged(nameof(RecipeCategories)); }
+        }
+
+        private ObservableCollection<Boolable<Product>> _ingredients;
+        public ObservableCollection<Boolable<Product>> Ingredients
+        {
+            get { return _ingredients; }
+            set { _ingredients = value; OnPropertyChanged(nameof(Ingredients)); }
+        }
+
         #endregion
 
 
@@ -54,13 +68,15 @@ namespace RecipeSelectHelper.View.Recipes
         private void InitializeObservableObjects()
         {
             GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new GroupedRecipeCategory(x)));
+            RecipeCategories = new ObservableCollection<Boolable<RecipeCategory>>(_parent.Data.AllRecipeCategories.ConvertAll(x => new Boolable<RecipeCategory>(x)));
+            Ingredients = new ObservableCollection<Boolable<Product>>(_parent.Data.AllProducts.ConvertAll(x => new Boolable<Product>(x)));
         }
 
         private void AddChildrenToWrapPanels()
         {
             //StackPanel_GroupedCategories.Children.Clear();
-            ItemsControl_Categories.Items.Clear();
-            ItemsControl_Ingredients.Items.Clear();
+            //ItemsControl_Categories.Items.Clear();
+            //ItemsControl_Ingredients.Items.Clear();
 
             //foreach (GroupedSelection<RecipeCategory> groupedSelection in _parent.Data.AllGroupedRecipeCategories)
             //{
@@ -87,13 +103,13 @@ namespace RecipeSelectHelper.View.Recipes
             //    StackPanel_GroupedCategories.Children.Add(wrapPanel);
             //}
 
-            foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
-            {
-                var checkBox = new CheckBox();
-                checkBox.Content = category.Name;
-                checkBox.Margin = new Thickness(4);
-                ItemsControl_Categories.Items.Add(checkBox);
-            }
+            //foreach (RecipeCategory category in _parent.Data.AllRecipeCategories)
+            //{
+            //    var checkBox = new CheckBox();
+            //    checkBox.Content = category.Name;
+            //    checkBox.Margin = new Thickness(4);
+            //    ItemsControl_Categories.Items.Add(checkBox);
+            //}
 
             foreach (Product ingredients in _parent.Data.AllProducts)
             {
@@ -225,7 +241,7 @@ namespace RecipeSelectHelper.View.Recipes
 
 
 
-            List<RecipeCategory> categories = GetCheckedCategories();
+            List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance); //GetCheckedCategories();
             List<Ingredient> ingredients = GetCheckedIngredients();
 
             string error;
