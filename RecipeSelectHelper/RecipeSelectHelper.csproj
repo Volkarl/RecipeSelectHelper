@@ -62,6 +62,7 @@
     <Compile Include="Model\GroupedRecipeCategory.cs" />
     <Compile Include="Model\GroupedSelection.cs" />
     <Compile Include="Resources\Boolable.cs" />
+    <Compile Include="Resources\BoolableWithValue.cs" />
     <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
@@ -163,11 +164,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <EmbeddedResource Include="Resources\XamlResources.xaml">
+    <Resource Include="Resources\XamlResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Page Include="View\BoughtProducts\AddBoughtProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

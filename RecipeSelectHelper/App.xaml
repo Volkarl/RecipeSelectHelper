@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:RecipeSelectHelper"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Resources/XamlResources.xaml"></ResourceDictionary>
     </Application.Resources>
 </Application>

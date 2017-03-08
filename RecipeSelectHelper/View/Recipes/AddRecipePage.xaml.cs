@@ -48,8 +48,8 @@ namespace RecipeSelectHelper.View.Recipes
             set { _recipeCategories = value; OnPropertyChanged(nameof(RecipeCategories)); }
         }
 
-        private ObservableCollection<Boolable<Product>> _ingredients;
-        public ObservableCollection<Boolable<Product>> Ingredients
+        private ObservableCollection<BoolableWithValue<Product, int>> _ingredients;
+        public ObservableCollection<BoolableWithValue<Product, int>> Ingredients
         {
             get { return _ingredients; }
             set { _ingredients = value; OnPropertyChanged(nameof(Ingredients)); }
@@ -69,7 +69,7 @@ namespace RecipeSelectHelper.View.Recipes
         {
             GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new GroupedRecipeCategory(x)));
             RecipeCategories = new ObservableCollection<Boolable<RecipeCategory>>(_parent.Data.AllRecipeCategories.ConvertAll(x => new Boolable<RecipeCategory>(x)));
-            Ingredients = new ObservableCollection<Boolable<Product>>(_parent.Data.AllProducts.ConvertAll(x => new Boolable<Product>(x)));
+            Ingredients = new ObservableCollection<BoolableWithValue<Product, int>>(_parent.Data.AllProducts.ConvertAll(x => new BoolableWithValue<Product, int>(x)));
         }
 
         private void AddChildrenToWrapPanels()
