@@ -58,7 +58,9 @@ namespace RecipeSelectHelper.View.Categories
         public int MaxSelectionAmount
         {
             get { return _maxSelectionAmount; }
-            set { _maxSelectionAmount = value; OnPropertyChanged(nameof(MaxSelectionAmount)); }
+            set { _maxSelectionAmount = value; 
+                //value > RecipeCategories.Count ? RecipeCategories.Count : value;
+                OnPropertyChanged(nameof(MaxSelectionAmount)); }
         }
 
         private ObservableCollection<RecipeCategory> _recipeCategories;

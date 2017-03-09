@@ -45,11 +45,11 @@ namespace RecipeSelectHelper.Resources
 
         private ListSortDirection _sortDirection;
         private GridViewColumnHeader _sortColumn;
-        private bool _resourcesNotLoaded = true;
+        //private bool _resourcesNotLoaded = true;
 
         private void GridViewColumnHeaderClick(object sender, RoutedEventArgs e)
         {
-            if (_resourcesNotLoaded) LoadResources();
+            //if (_resourcesNotLoaded) LoadResources();
 
             GridViewColumnHeader column = e.OriginalSource as GridViewColumnHeader;
             if (column == null) return;
@@ -77,11 +77,11 @@ namespace RecipeSelectHelper.Resources
 
             if (_sortDirection == ListSortDirection.Ascending)
             {
-                column.Column.HeaderTemplate = Resources["ArrowUp"] as DataTemplate;
+                column.Column.HeaderTemplate = Application.Current.Resources["ArrowUp"] as DataTemplate;
             }
             else
             {
-                column.Column.HeaderTemplate = Resources["ArrowDown"] as DataTemplate;
+                column.Column.HeaderTemplate = Application.Current.Resources["ArrowDown"] as DataTemplate;
             }
 
             string header = string.Empty;
@@ -101,9 +101,9 @@ namespace RecipeSelectHelper.Resources
 
         private void LoadResources()
         {
-            string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
-            this.Resources.Source = new Uri(path);
-            _resourcesNotLoaded = false;
+            //string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
+            //this.Resources.Source = new Uri(path);
+            //_resourcesNotLoaded = false;
         }
 
         public void HeaderFillRemainingSpace()

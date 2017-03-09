@@ -87,6 +87,7 @@ namespace RecipeSelectHelper.View.Recipes
             TextBox_RecipeDescription.Text = string.Empty;
             TextBox_RecipeInstruction.Text = string.Empty;
             InitializeObservableObjects();
+            TextBox_RecipeName.Focus(); //ClearValue(Border.BorderBrushProperty);
         }
 
         private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
