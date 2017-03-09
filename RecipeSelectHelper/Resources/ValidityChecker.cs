@@ -31,9 +31,8 @@ namespace RecipeSelectHelper.Resources
 
         private bool RecipeNameSpellingIsValid(string name, out string error)
         {
-            error = String.Empty;
-            return true;
-            throw new NotImplementedException();
+            error = String.Empty;    //error should be null if nothing is wrong!
+            return !string.IsNullOrWhiteSpace(name);
         }
 
         public bool DescriptionIsValid(string name, out string error)

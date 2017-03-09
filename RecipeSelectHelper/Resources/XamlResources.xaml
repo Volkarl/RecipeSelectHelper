@@ -25,4 +25,38 @@
     <Style TargetType="ListViewItem" x:Key="Style_ListViewItemStretch">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+
+    <Style x:Key="ImageCheckmark" TargetType="{x:Type Image}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding DisplayCheckmark}" Value="Null">
+                <Setter Property="Source" Value="{x:Null}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DisplayCheckmark}" Value="True">
+                <Setter Property="Image.Source" Value="check.png" ></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DisplayCheckmark}" Value="False">
+                <Setter Property="Image.Source" Value="close.png" ></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StyleBorderColorOnBool" TargetType="{x:Type Control}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="Null">
+                <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"  Value="True">
+                <Setter Property="BorderBrush" Value="LawnGreen"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="BorderBrush" Value="Red"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
+    <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
+    
 </ResourceDictionary>
