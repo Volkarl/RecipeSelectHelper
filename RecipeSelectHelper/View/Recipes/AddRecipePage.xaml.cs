@@ -24,6 +24,7 @@ namespace RecipeSelectHelper.View.Recipes
         public AddRecipePage(MainWindow parent)
         {
             _parent = parent;
+            InitializeObservableObjects();
             Loaded += AddRecipePage_Loaded;
             InitializeComponent();
         }
@@ -70,15 +71,41 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeObservableObjects();
+            UpdateObservableObjects();
             _valid = new ValidityChecker(_parent.Data);
         }
 
-        private void InitializeObservableObjects()
+        private static List<GroupedSelection<RecipeCategory>> _addedGrc;
+        private static List<RecipeCategory> _addedRc;
+        private static List<Product> _addedIng;
+        private void UpdateObservableObjects() 
         {
-            GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new GroupedRecipeCategory(x)));
-            RecipeCategories = new ObservableCollection<Boolable<RecipeCategory>>(_parent.Data.AllRecipeCategories.ConvertAll(x => new Boolable<RecipeCategory>(x)));
-            Ingredients = new ObservableCollection<BoolableWithValue<Product, int>>(_parent.Data.AllProducts.ConvertAll(x => new BoolableWithValue<Product, int>(x)));
+            foreach (GroupedSelection<RecipeCategory> grc in _parent.Data.AllGroupedRecipeCategories)
+            {
+                if (!_addedGrc.Contains(grc)) GroupedRecipeCategories.Add(new GroupedRecipeCategory(grc));
+            }
+            foreach (RecipeCategory rc in _parent.Data.AllRecipeCategories)
+            {
+                if (!_addedRc.Contains(rc)) RecipeCategories.Add(new Boolable<RecipeCategory>(rc));
+            }
+            foreach (Product ingredient in _parent.Data.AllProducts)
+            {
+                if (!_addedIng.Contains(ingredient)) Ingredients.Add(new BoolableWithValue<Product, int>(ingredient));
+            }
+        }
+
+        private void InitializeObservableObjects()
+        // This method only is invoked on proper instantiation of the page (ie. new()), and not on navigation-events
+        {
+            // This is done to save the items that are added to the page's observable objects. When we then reload the page, we do
+            // not to reload already loaded objects. As such, checkmarks and input is preserved upon switching pages.
+            _addedGrc = new List<GroupedSelection<RecipeCategory>>(_parent.Data.AllGroupedRecipeCategories);
+            _addedRc = new List<RecipeCategory>(_parent.Data.AllRecipeCategories);
+            _addedIng = new List<Product>(_parent.Data.AllProducts);
+
+            GroupedRecipeCategories = new ObservableCollection<GroupedRecipeCategory>(_addedGrc.ConvertAll(x => new GroupedRecipeCategory(x)));
+            RecipeCategories = new ObservableCollection<Boolable<RecipeCategory>>(_addedRc.ConvertAll(x => new Boolable<RecipeCategory>(x)));
+            Ingredients = new ObservableCollection<BoolableWithValue<Product, int>>(_addedIng.ConvertAll(x => new BoolableWithValue<Product, int>(x)));
         }
 
         private void ClearUIElements()

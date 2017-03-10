@@ -18,9 +18,9 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<Boolable<RecipeCategory>> GroupedRc { get; set; }
 
-        public GroupedRecipeCategory(GroupedSelection<RecipeCategory> correspondingGroupedRC) : this(correspondingGroupedRC.GroupedItems, correspondingGroupedRC.MinSelect, correspondingGroupedRC.MaxSelect)
+        public GroupedRecipeCategory(GroupedSelection<RecipeCategory> correspondingGroupedRc) : this(correspondingGroupedRc.GroupedItems, correspondingGroupedRc.MinSelect, correspondingGroupedRc.MaxSelect)
         {
-            if(correspondingGroupedRC == null) throw new ArgumentException();
+            if(correspondingGroupedRc == null) throw new ArgumentException();
         }
 
         private GroupedRecipeCategory(List<RecipeCategory> correspondingGroupedRc, int minSelect, int maxSelect)
