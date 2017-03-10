@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -11,52 +12,77 @@ namespace RecipeSelectHelper.Model
     public class GroupedProductCategory
     {
         [DataMember]
-        public List<int> SelectedIndex { get; set; }
+        public int MinSelect { get; set; }
         [DataMember]
-        public GroupedSelection<ProductCategory> CorrespondingGroupedSelection { get; set; }
+        public int MaxSelect { get; set; }
+        [DataMember]
+        public List<Boolable<ProductCategory>> GroupedPc { get; set; }
 
-        public GroupedProductCategory(GroupedSelection<ProductCategory> correspondingGroupedPC)
+        public GroupedProductCategory(GroupedSelection<ProductCategory> correspondingGroupedPc) : this(correspondingGroupedPc.GroupedItems, correspondingGroupedPc.MinSelect, correspondingGroupedPc.MaxSelect)
         {
-            SelectedIndex = new List<int>();
-            if (correspondingGroupedPC == null) throw new ArgumentException();
-            CorrespondingGroupedSelection = correspondingGroupedPC;
+            if (correspondingGroupedPc == null) throw new ArgumentException();
         }
 
-        public void SelectItem(int index)
+        private GroupedProductCategory(List<ProductCategory> correspondingGroupedRc, int minSelect, int maxSelect)
         {
-            if (SelectedIndex.Contains(index)) return;
-            SelectedIndex.Add(index);
-        }
-
-        public void DeselectItem(int index)
-        {
-            SelectedIndex.Remove(index);
-        }
-
-        public List<ProductCategory> GetSelectedItems()
-        {
-            if (SelectedIndex.Count < CorrespondingGroupedSelection.MinSelect ||
-                SelectedIndex.Count > CorrespondingGroupedSelection.MaxSelect) throw new ArgumentException("Selected Items: " +
-                    SelectedIndex.Count + " | MinSelect: " + CorrespondingGroupedSelection.MinSelect + " | MaxSelect: " + CorrespondingGroupedSelection.MaxSelect);
-
-            var selectedItems = new List<ProductCategory>();
-            foreach (int i in SelectedIndex)
+            if (correspondingGroupedRc == null) throw new ArgumentException();
+            MinSelect = minSelect;
+            MaxSelect = maxSelect;
+            GroupedPc = new List<Boolable<ProductCategory>>();
+            foreach (ProductCategory pc in correspondingGroupedRc)
             {
-                selectedItems.Add(CorrespondingGroupedSelection.GroupedItems[i]);
+                GroupedPc.Add(new Boolable<ProductCategory>(pc));
             }
+        }
+
+        public List<ProductCategory> GetCurrentSelectedItems()
+        {
+            List<ProductCategory> selectedItems = new List<ProductCategory>();
+            foreach (Boolable<ProductCategory> pcBoolable in GroupedPc)
+            {
+                if (pcBoolable.Bool) selectedItems.Add(pcBoolable.Instance);
+            }
+
             return selectedItems;
+        }
+
+        public bool SelectionIsValid(out string error)
+        {
+            List<ProductCategory> selectedItems = GetCurrentSelectedItems();
+
+            bool tooMany = selectedItems.Count > MaxSelect;
+            bool tooFew = selectedItems.Count < MinSelect;
+
+            error = null;
+            if (!tooFew && !tooMany) return true;
+            if (tooMany)
+            {
+                error = $"Too many items selected, only {MaxSelect} are allowed";
+            }
+            else if (tooFew)
+            {
+                error = $"Too few items selected, {MaxSelect} are required";
+            }
+            return false;
+        }
+
+        public List<ProductCategory> GetFinalizedSelection()
+        {
+            string error;
+            if (!SelectionIsValid(out error)) throw new ArgumentException(error);
+            return GetCurrentSelectedItems();
         }
 
         public override string ToString()
         {
             string s = String.Empty;
-            foreach (int i in SelectedIndex)
+            foreach (ProductCategory selectedPc in GetCurrentSelectedItems())
             {
-                s += CorrespondingGroupedSelection.GroupedItems[i] + ", ";
+                s += selectedPc.Name + ", ";
             }
             s = s.TrimEnd(' ', ',');
             s += " | ";
-            return s + $"{CorrespondingGroupedSelection.MinSelect}-{CorrespondingGroupedSelection.MaxSelect}";
+            return s + $"{MinSelect}-{MaxSelect}";
         }
     }
 }

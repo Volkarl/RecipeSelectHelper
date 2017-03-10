@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Categories;
 
 namespace RecipeSelectHelper.View.Products
 {
@@ -13,30 +18,64 @@ namespace RecipeSelectHelper.View.Products
     public partial class AddStoreProductPage : Page, IAddElement
     {
         private MainWindow _parent;
-        //private List<ProductCategory> _selectedPC;
-        //private List<Product> _selectedSub;
+        private ValidityChecker _valid;
 
         public AddStoreProductPage(MainWindow parent)
         {
             _parent = parent;
-            //_selectedPC = new List<ProductCategory>();
-            //_selectedSub = new List<Product>();
+            InitializeObservableObjects();
             Loaded += AddStoreProductPage_Loaded;
             InitializeComponent();
         }
 
+        private void InitializeObservableObjects()
+        {
+            _addedGpc = new List<GroupedSelection<ProductCategory>>(_parent.Data.AllGroupedProductCategories);
+            GroupedProductCategories = new ObservableCollection<GroupedProductCategory>(_addedGpc.ConvertAll(x => new GroupedProductCategory(x)));
+        }
+
+        private static List<GroupedSelection<ProductCategory>> _addedGpc;
+        private void UpdateObservableObjects()
+        {
+            foreach (GroupedSelection<ProductCategory> gpc in _parent.Data.AllGroupedProductCategories)
+            {
+                if (!_addedGpc.Contains(gpc)) GroupedProductCategories.Add(new GroupedProductCategory(gpc));
+            }
+        }
+
+        #region ObservableObjects
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<GroupedProductCategory> _groupedProductCategories;
+        public ObservableCollection<GroupedProductCategory> GroupedProductCategories
+        {
+            get { return _groupedProductCategories; }
+            set { _groupedProductCategories = value; OnPropertyChanged(nameof(GroupedProductCategories)); }
+        }
+
+        #endregion
+
         private void AddStoreProductPage_Loaded(object sender, RoutedEventArgs e)
         {
+            _valid = new ValidityChecker(_parent.Data);
+            UpdateObservableObjects();
+
             SearchableListView_SubstituteProducts.InitializeSearchableListView(
                 _parent.Data.AllProducts, 
                 "Name", 
                 (sp, searchParameter) => sp.Name.ToLower().Contains(searchParameter.ToLower()));
 
-
             SearchableListView_ProductCategories.InitializeSearchableListView(
                 _parent.Data.AllProductCategories,
                 "Name",
                 (pc, searchParameter) => pc.Name.ToLower().Contains(searchParameter.ToLower()));
+
+            TextBox_ProductName.Focus();
         }
 
         public void AddItem(object sender, RoutedEventArgs e)
@@ -53,7 +92,9 @@ namespace RecipeSelectHelper.View.Products
                 substituteProducts.Add(item as Product);
             }
 
-            var product = new Product(TextBox_ProductName.Text, categories, substituteProducts);
+            List<GroupedProductCategory> groupedProductCategories = GroupedProductCategories.ToList();
+
+            var product = new Product(TextBox_ProductName.Text, categories, substituteProducts, groupedProductCategories);
             _parent.Data.AllProducts.Add(product);
 
             ClearUI();
@@ -79,44 +120,6 @@ namespace RecipeSelectHelper.View.Products
             _parent.ContentControl.Content = new Resources.AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
         }
 
-        //private void SelectSubstitute(Product product)
-        //{
-        //    _selectedSub.Add(product);
-        //    var content = new StackPanel { Orientation = Orientation.Horizontal };
-        //    content.Children.Add(new Label { Content = product.Name });
-
-        //    var btn = new Button();
-        //    btn.Content = "X";
-        //    btn.Click += RemoveElementFromStackPanel;
-        //    btn.Click += (x, y) => _selectedSub.Remove(product);
-        //    content.Children.Add(btn);
-
-        //    StackPanel_ChosenSubstituteProducts.Children.Add(content);
-        //}
-
-        //private void SelectCategory(ProductCategory pc)
-        //{
-        //    _selectedPC.Add(pc);
-        //    var content = new StackPanel { Orientation = Orientation.Horizontal };
-        //    content.Children.Add(new Label { Content = pc.Name });
-
-        //    var btn = new Button();
-        //    btn.Content = "X";
-        //    btn.Click += RemoveElementFromStackPanel;
-        //    btn.Click += (x, y) => _selectedPC.Remove(pc);
-        //    content.Children.Add(btn);
-
-        //    StackPanel_ChosenCategories.Children.Add(content);
-        //}
-
-        //private void RemoveElementFromStackPanel(object sender, RoutedEventArgs e)
-        //{
-        //    var btn = sender as Button;
-        //    var stack = btn.Parent as StackPanel;
-        //    var parentStack = stack.Parent as StackPanel;
-        //    parentStack.Children.Remove(stack);
-        //}
-
         private void Button_ViewSelectedSubstituteProducts_OnClick(object sender, RoutedEventArgs e)
         {
             SearchableListView_SubstituteProducts.DisplaySelectedItems();
@@ -128,5 +131,9 @@ namespace RecipeSelectHelper.View.Products
         }
 
 
+        private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(new AddGroupedProductCategories(_parent), "Add New Product Types", _parent));
+        }
     }
 }

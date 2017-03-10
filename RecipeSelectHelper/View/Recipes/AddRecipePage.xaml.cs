@@ -71,8 +71,8 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateObservableObjects();
             _valid = new ValidityChecker(_parent.Data);
+            UpdateObservableObjects();
         }
 
         private static List<GroupedSelection<RecipeCategory>> _addedGrc;

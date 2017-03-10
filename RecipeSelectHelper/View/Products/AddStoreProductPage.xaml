@@ -14,7 +14,24 @@
         <StackPanel>
             <DockPanel Margin="1">
                 <Label Height="30" Width="125" Content="Name:"></Label>
-                <TextBox Name="TextBox_ProductName" Height="30"></TextBox>
+                <TextBox Name="TextBox_ProductName" VerticalContentAlignment="Center" Height="30"></TextBox>
+            </DockPanel>
+
+            <DockPanel Name="DockPanel_GroupedCategories" Margin="1">
+                <Label Content="Type: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
+                <Expander MinHeight="30" Header="Chose Type: " ExpandDirection="Down" IsExpanded="True">
+                    <StackPanel>
+                        <ItemsControl ItemTemplate="{StaticResource DataTemplateGroupedRecipeCategory}" Name="ItemsControl_GroupedCategories" ItemsSource="{Binding GroupedProductCategories}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                        <Button Name="Button_AddGroupedCategory" Content="Add New Grouped Category..." Height="30" Click="Button_AddGroupedCategory_OnClick"></Button>
+                    </StackPanel>
+                </Expander>
             </DockPanel>
 
             <DockPanel Margin="1">

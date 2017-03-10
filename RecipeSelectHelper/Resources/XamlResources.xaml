@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:RecipeSelectHelper.Resources">
+                    xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
+                    xmlns:model="clr-namespace:RecipeSelectHelper.Model;assembly=RecipeSelectHelper">
 
     <DataTemplate x:Key="ArrowUp">
         <DockPanel>
@@ -55,6 +56,67 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <DataTemplate x:Key="DataTemplateGroupedRecipeCategory" DataType="{x:Type model:GroupedRecipeCategory}">
+        <StackPanel Margin="1">
+            <StackPanel.Background>
+                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+            </StackPanel.Background>
+
+            <TextBlock Margin="1">
+                    <Run Text="Select"></Run>
+                    <Run Text="{Binding MinSelect}"></Run>
+                    <Run Text="to"></Run>
+                    <Run Text="{Binding MaxSelect}"></Run>
+                    <Run Text="types:"></Run>
+            </TextBlock>
+
+            <ItemsControl ItemsSource="{Binding GroupedRc}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateGroupedProductCategory" DataType="{x:Type model:GroupedProductCategory}">
+        <StackPanel Margin="1">
+            <StackPanel.Background>
+                <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+            </StackPanel.Background>
+
+            <TextBlock Margin="1">
+                    <Run Text="Select"></Run>
+                    <Run Text="{Binding MinSelect}"></Run>
+                    <Run Text="to"></Run>
+                    <Run Text="{Binding MaxSelect}"></Run>
+                    <Run Text="types:"></Run>
+            </TextBlock>
+
+            <ItemsControl ItemsSource="{Binding GroupedPc}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+
 
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->

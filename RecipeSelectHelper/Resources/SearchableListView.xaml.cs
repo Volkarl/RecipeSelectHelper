@@ -59,7 +59,6 @@ namespace RecipeSelectHelper.Resources
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListView_Items.ItemsSource);
             view.Filter = o => ItemIsSelected(o) || filterFunc(o as T, TextBox_SearchParameter.Text);
-            //TextBox_SearchParameter.KeyDown += (x,e) => { RefillItemsSource(e, getNewItemsSource, sortItemsSource); };
         }
 
         private void DisplayContent<T>(ListViewItem sender, Action<T> onMouseDoubleClick) where T : class 
@@ -73,45 +72,6 @@ namespace RecipeSelectHelper.Resources
             DisplayContent<T>(sender, x => MessageBox.Show(x.ToString()));
         }
 
-        //private void RefillItemsSource<T>(KeyEventArgs e, Func<List<T>> getNewItemsSource, Func<string, List<T>, List<T>> sortItemsSource)
-        //{
-        //    if (e.Key != Key.Enter) return;
-
-        //    IList selectedItems = ListView_Items.SelectedItems ?? new List<T>(); //Saves the currently selected items 
-
-        //    List<T> itemsList = getNewItemsSource();
-        //    itemsList = sortItemsSource(TextBox_SearchParameter.Text, itemsList);
-        //    itemsList = AddMissingMembers(itemsList, selectedItems as List<T>); //Adds the old selected items onto the back of the now sorted list of items 
-
-        //    ListView_Items.ItemsSource = itemsList;
-
-        //    foreach (object item in selectedItems)
-        //    {
-        //        ListView_Items.SelectedItems.Add(item); //Marks all selected items as being selected
-        //    }
-        //}
-
-        //private List<T> AddMissingMembers<T>(List<T> collection1, List<T> collection2)
-        //{
-        //    collection2 = collection2 ?? new List<T>();
-        //    List<T> missingMembers = new List<T>();
-        //    foreach (T item in collection2)
-        //    {
-        //        if (!collection2.Contains(item))
-        //        {
-        //            missingMembers.Add(item);
-        //        }
-        //    }
-        //    collection1.AddRange(missingMembers);
-        //    return collection1;
-        //}
-
-        //if (!HasProperty(typeT, propertyToFilterBy)) throw new ArgumentException("Property to sort by is not contained in " + typeT);
-        //private bool HasProperty(Type obj, string propertyName)
-        //{
-        //    return obj.GetProperty(propertyName) != null;
-        //}
-
         private void ListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             _onMouseDoubleClick(sender, e); 
@@ -122,12 +82,9 @@ namespace RecipeSelectHelper.Resources
             if (e.Key != Key.Enter) return;
             CollectionViewSource.GetDefaultView(ListView_Items.ItemsSource).Refresh();
 
-            //var selectedItems = ListView_Items.SelectedItems;
-            //ListView_Items.SelectedItems.Clear();
-            //foreach (var selectedItem in selectedItems)
-            //{
-            //    ListView_Items.SelectedItems.Add(selectedItem);
-            //}
+            // Do I want to do something akin putting the selected itmes to the bottom?
+            // If so, then I need the user to give the sort functions to the listview too.
+            // Atm. it is dependant on the order of items never changing. 
         }
 
         public void ClearSelection()

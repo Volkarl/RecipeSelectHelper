@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <DockPanel>
-        <TextBox DockPanel.Dock="Top" Name="TextBox_SearchParameter" Height="30" Margin="1" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
+        <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" Margin="1" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
         <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="1" SelectionMode="Multiple">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
