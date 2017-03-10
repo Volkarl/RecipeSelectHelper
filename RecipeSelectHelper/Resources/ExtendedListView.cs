@@ -99,12 +99,12 @@ namespace RecipeSelectHelper.Resources
             resultDataView.SortDescriptions.Add(new SortDescription(header, _sortDirection));
         }
 
-        private void LoadResources()
-        {
-            //string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
-            //this.Resources.Source = new Uri(path);
-            //_resourcesNotLoaded = false;
-        }
+        //private void LoadResources()
+        //{
+        //    //string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources/XamlResources.xaml");
+        //    //this.Resources.Source = new Uri(path);
+        //    //_resourcesNotLoaded = false;
+        //}
 
         public void HeaderFillRemainingSpace()
         {

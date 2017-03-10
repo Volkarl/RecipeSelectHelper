@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.Resources
@@ -10,14 +11,14 @@ namespace RecipeSelectHelper.Resources
     /// </summary>
     public partial class AddElementBasePage : Page
     {
-        private Page _content;
+        private IAddElement _content;
         private string _title;
         private MainWindow _parent;
         private object _finalizeButtonContent;
 
         // Rename this class maybe. Its no longer only for adding elements, but also for editing elements. 
         // Anything with a back button and a finalize button!
-        public AddElementBasePage(Page content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")
+        public AddElementBasePage(IAddElement content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")
         {
             _content = content;
             _title = title;

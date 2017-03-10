@@ -9,7 +9,7 @@
       Title="AddRecipeCategoriesPage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
+        <StackPanel KeyDown="EnterPressed">
             <DockPanel Height="30" LastChildFill="True" Margin="1">
                 <Label Content="Category Name: " Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
                 <Button Name="Button_IsNameValid" Width="30" DockPanel.Dock="Right"></Button> <!--Probably shouldnt be a button-->

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 
@@ -44,6 +45,11 @@ namespace RecipeSelectHelper.View.Categories
         private void ClearUIElements()
         {
             TextBox_CategoryName.Text = string.Empty;
+        }
+
+        private void EnterPressed(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter) AddItem(sender, e);
         }
     }
 }

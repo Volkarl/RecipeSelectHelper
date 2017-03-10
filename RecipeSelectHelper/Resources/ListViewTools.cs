@@ -35,7 +35,7 @@ namespace RecipeSelectHelper.Resources
             if (gridView == null) throw new ArgumentException("Inner " + nameof(gridView) + " Invalid");
             if (headerIndex > gridView.Columns.Count) throw new ArgumentException(nameof(headerIndex) + " Invalid");
             
-            var remainingWidth = listView.ActualWidth - 5;
+            var remainingWidth = listView.ActualWidth - 10;
 
             for (Int32 i = 1; i < gridView.Columns.Count; i++)
             {
