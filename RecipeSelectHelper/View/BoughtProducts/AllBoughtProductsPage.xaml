@@ -53,6 +53,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Product" DisplayMemberBinding="{Binding CorrespondingProduct.Name}"></GridViewColumn>
+                        <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.GroupedCategoriesToString}"></GridViewColumn>
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.CategoriesAsString}"></GridViewColumn>
                         <GridViewColumn Header="Manifactured Date" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductCreatedTime.Value.Date}"></GridViewColumn>
                         <GridViewColumn Header="Expiration Date" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductExpirationTime.Value.Date}"></GridViewColumn>

@@ -79,8 +79,7 @@ namespace RecipeSelectHelper.Resources
 
         private void TextBox_SearchParameter_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Enter) return;
-            CollectionViewSource.GetDefaultView(ListView_Items.ItemsSource).Refresh();
+            if (e.Key == Key.Enter) CollectionViewSource.GetDefaultView(ListView_Items.ItemsSource).Refresh();
 
             // Do I want to do something akin putting the selected itmes to the bottom?
             // If so, then I need the user to give the sort functions to the listview too.

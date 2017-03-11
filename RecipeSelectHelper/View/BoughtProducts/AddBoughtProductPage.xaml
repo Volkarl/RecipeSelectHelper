@@ -4,25 +4,50 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="360" d:DesignWidth="680"
       Title="AddBoughtProductPage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
-            <StackPanel>
-                <CheckBox x:Name="CheckBox_ProductCanExpire" Content="Product can expire" Height="20" Margin="6" Checked="CheckBox_ProductCanExpire_Toggled" Unchecked="CheckBox_ProductCanExpire_Toggled"/>
-                <StackPanel Name="StackPanel_ExpirationInfo">
-                    <DockPanel>
-                        <Label Content="Product Bought Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
-                        <DatePicker DockPanel.Dock="Right"></DatePicker>
-                    </DockPanel>
-                    <DockPanel>
-                        <Label Content="Expiration Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
-                        <DatePicker DockPanel.Dock="Right"></DatePicker>
-                    </DockPanel>
-                </StackPanel>
-            </StackPanel>
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Bottom" Margin="0,1,0,0">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Can Expire"></TextBlock>
+
+                        <CheckBox HorizontalAlignment="Center" DockPanel.Dock="left" IsChecked="{Binding ProductExpiration.Bool}">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="3" ScaleY="3"></ScaleTransform>
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+                    </StackPanel>
+                    
+                    <UniformGrid Rows="2" Visibility="{Binding ProductExpiration.Bool, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <DockPanel>
+                            <Label VerticalContentAlignment="Center" Content="Product Bought Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
+                            <DatePicker VerticalContentAlignment="Center" DockPanel.Dock="Right" SelectedDate="{Binding ProductExpiration.Instance.ProductCreatedTime, TargetNullValue={x:Static System:DateTime.Now}}"></DatePicker>
+                        </DockPanel>
+                        <DockPanel Margin="0,1,0,0">
+                            <Label VerticalContentAlignment="Center" Content="Expiration Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
+                            <DatePicker VerticalContentAlignment="Center" DockPanel.Dock="Right" SelectedDate="{Binding ProductExpiration.Instance.ProductExpirationTime}"></DatePicker>
+                        </DockPanel>
+                    </UniformGrid>
+                </DockPanel>
+                
+                <DockPanel DockPanel.Dock="Top">
+                    <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
+                    <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </DockPanel>
+
+            </DockPanel>
         </Grid>
     </ScrollViewer>
 </Page>

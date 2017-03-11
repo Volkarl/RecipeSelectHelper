@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -69,6 +70,27 @@ namespace RecipeSelectHelper.Model
                 {
                     return string.Join(", ", Categories.ConvertAll(x => x.Name));
                 }
+            }
+        }
+
+        public string GroupedCategoriesToString
+        {
+            get
+            {
+                if (GroupedCategories == null || GroupedCategories.Count == 0)
+                {
+                    return string.Empty;
+                }
+                var s = GroupedCategories.ConvertAll(x => x.GroupedPc);
+                var b = new List<String>();
+                foreach (List<Boolable<ProductCategory>> groupedPc in s)
+                {
+                    foreach (Boolable<ProductCategory> boolablePc in groupedPc)
+                    {
+                        if(boolablePc.Bool) b.Add(boolablePc.Instance.Name);
+                    }
+                }
+                return string.Join(", ", b);
             }
         }
     }
