@@ -15,7 +15,7 @@
             <DockPanel>
                 <DockPanel DockPanel.Dock="Bottom" Margin="0,1,0,0">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Can Expire"></TextBlock>
+                        <TextBlock Text="Will Expire"></TextBlock>
 
                         <CheckBox HorizontalAlignment="Center" DockPanel.Dock="left" IsChecked="{Binding ProductExpiration.Bool}">
                             <CheckBox.LayoutTransform>
@@ -26,11 +26,21 @@
                     
                     <UniformGrid Rows="2" Visibility="{Binding ProductExpiration.Bool, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <DockPanel>
-                            <Label VerticalContentAlignment="Center" Content="Product Bought Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
-                            <DatePicker VerticalContentAlignment="Center" DockPanel.Dock="Right" SelectedDate="{Binding ProductExpiration.Instance.ProductCreatedTime, TargetNullValue={x:Static System:DateTime.Now}}"></DatePicker>
+                            <Label VerticalContentAlignment="Center" Name="LabelProducedDate" Content="Produced Ago: " DockPanel.Dock="Left" HorizontalContentAlignment="Right"></Label>
+                            <UniformGrid Name="UniformGridProducedDateButtons" Rows="1">
+                                <Button Content="Today" Tag="0"  Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="1 Day" Tag="1" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="3 Days" Tag="3" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="7 Days" Tag="7" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="14 Days" Tag="14" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="1 Month" Tag="30" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="6 Months" Tag="180" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Content="1 Year" Tag="360" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                            </UniformGrid>
+                            <!--<DatePicker VerticalContentAlignment="Center" DockPanel.Dock="Right" SelectedDate="{Binding ProductExpiration.Instance.ProductCreatedTime, TargetNullValue={x:Static System:DateTime.Now}}"></DatePicker>-->
                         </DockPanel>
                         <DockPanel Margin="0,1,0,0">
-                            <Label VerticalContentAlignment="Center" Content="Expiration Date: " DockPanel.Dock="Left" HorizontalContentAlignment="Right" Width="125"></Label>
+                            <Label VerticalContentAlignment="Center" Content="Expires Date: " Width="{Binding Path=ActualWidth, ElementName=LabelProducedDate}" DockPanel.Dock="Left" HorizontalContentAlignment="Right"></Label>
                             <DatePicker VerticalContentAlignment="Center" DockPanel.Dock="Right" SelectedDate="{Binding ProductExpiration.Instance.ProductExpirationTime}"></DatePicker>
                         </DockPanel>
                     </UniformGrid>

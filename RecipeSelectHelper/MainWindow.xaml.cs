@@ -56,8 +56,6 @@ namespace RecipeSelectHelper
 
             SetPage(new RankingsViewPage(this));
             HighlightButtonBackground(Button_RankRecipes);
-
-            //Data.AllRecipes = new List<Recipe> { new Recipe("Antipasta", categories: (new List<RecipeCategory> { new RecipeCategory("Tomatoes"), new RecipeCategory("Fish") })) };
         }
 
         public void SetPage(Page newpage)

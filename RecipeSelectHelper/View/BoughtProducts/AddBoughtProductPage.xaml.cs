@@ -1,10 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 
@@ -70,5 +72,34 @@ namespace RecipeSelectHelper.View.BoughtProducts
             var s = sender as ListViewItem;
             if (s != null) MessageBox.Show(s.Content.ToString());
         }
+
+        private void Button_OnClick_ChangeProductCreatedTime(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if(btn == null) return;
+            var daysAgo = Convert.ToInt32(btn.Tag);
+
+            var now = DateTime.Now;
+            ProductExpiration.Instance.ProductCreatedTime = now.Subtract(new TimeSpan(daysAgo, 0, 0, 0));
+
+            HighlightButtonBackground(btn);
+        }
+
+        private void HighlightButtonBackground(Button button)
+        {
+            ClearOtherButtons();
+            button.Background = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        private void ClearOtherButtons()
+        {
+            foreach (UIElement child in UniformGridProducedDateButtons.Children)
+            {
+                var btn = child as Button;
+                if (btn != null) btn.Background = _defaultButtonColor;
+            }
+        }
+
+        private readonly SolidColorBrush _defaultButtonColor = new SolidColorBrush(Colors.LightGray);
     }
 }
