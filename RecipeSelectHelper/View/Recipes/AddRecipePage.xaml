@@ -76,27 +76,6 @@
                 </Expander>
             </DockPanel>
 
-            <!--<DockPanel Name="DockPanel_Ingredients" Margin="1">
-                <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
-                <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">
-                    <StackPanel>
-                        <ItemsControl Name="ItemsControl_Ingredients">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Name="WrapPanel_Ingredients" Margin="-2,2,0,0" Orientation="Horizontal">
-                                        <WrapPanel.Background>
-                                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
-                                        </WrapPanel.Background>
-                                    </WrapPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-
-                        <Button Name="Button_AddIngredient" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
-                    </StackPanel>
-                </Expander>
-            </DockPanel>-->
-
             <DockPanel Margin="1">
                 <Label Content="Ingredients: " Height="30" Width="125" HorizontalAlignment="Right" VerticalAlignment="Top"></Label>
                 <Expander MinHeight="30" Header="Chose Ingredients: " ExpandDirection="Down" DockPanel.Dock="Left">

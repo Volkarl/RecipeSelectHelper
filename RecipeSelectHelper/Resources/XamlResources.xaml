@@ -117,7 +117,35 @@
         </StackPanel>
     </DataTemplate>
 
+    <Style x:Key="StyleItemsControlWrapPanel" TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
+    <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="model:ProductCategory">
+        <StackPanel>
+            <CheckBox Content="{Binding Name}"></CheckBox>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="model:ProductCategory">
+        <StackPanel>
+            <CheckBox></CheckBox>
+            
+            <!--NOT YET DONE. NOT QUITE WHAT I WANT!-->
+            
+        </StackPanel>
+    </DataTemplate>
+    
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
     
