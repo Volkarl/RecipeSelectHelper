@@ -7,17 +7,31 @@ using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.Resources
 {
-    public class FilterGroupedProductCategories
+    public class FilterGroupedProductCategories : List<Boolable<ProductCategory>>
     {
-        public List<Boolable<ProductCategory>> GroupedSelection { get; set; }
+        //public List<Boolable<ProductCategory>> GroupedSelection { get; set; }
 
-        public FilterGroupedProductCategories(GroupedSelection<ProductCategory> groupedSelection)
+        public FilterGroupedProductCategories(GroupedSelection<ProductCategory> groupedSelection) : base(new List<Boolable<ProductCategory>>())
         {
-            GroupedSelection = new List<Boolable<ProductCategory>>();
-            foreach (var pc in groupedSelection.GroupedItems)
+            if(groupedSelection == null) throw new ArgumentException();
+            Parent = groupedSelection;
+            //GroupedSelection = new List<Boolable<ProductCategory>>();
+            foreach (ProductCategory pc in groupedSelection.GroupedItems)
             {
-                GroupedSelection.Add(new Boolable<ProductCategory>(pc));
+                this.Add(new Boolable<ProductCategory>(pc));
             }
+        }
+
+        public readonly GroupedSelection<ProductCategory> Parent;
+
+        public List<ProductCategory> GetCheckedCategories()
+        {
+            List<ProductCategory> list = new List<ProductCategory>();
+            foreach (Boolable<ProductCategory> bp in this)
+            {
+                if(bp.Bool) list.Add(bp.Instance);
+            }
+            return list;
         }
     }
 }

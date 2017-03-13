@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace RecipeSelectHelper.View.Products
 
         public AllStoreProductsPage(MainWindow parent)
         {
-            this._parent = parent;
+            _parent = parent;
             InitializeObservableObjects();
 
             Loaded += AllStoreProductsPage_Loaded;
@@ -57,7 +58,7 @@ namespace RecipeSelectHelper.View.Products
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
             StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
-            FilterPc = _parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(new Boolable<ProductCategory>(x)));
+            FilterPc = _parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(x));
             FilterGpc = _parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x));
             TextBox_SearchStoreProducts.Focus();
         }
@@ -93,7 +94,7 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_AddStoreProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new Resources.AddElementBasePage(new Products.AddStoreProductPage(_parent), "Add New Store Product", _parent));
+            _parent.SetPage(new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent));
         }
 
         private void Button_SearchStoreProducts_OnClick(object sender, RoutedEventArgs e) => SortListView();
@@ -109,7 +110,55 @@ namespace RecipeSelectHelper.View.Products
 
         private void SortListView()
         {
-            FilterProductsByName(TextBox_SearchStoreProducts.Text);
+            AddSearchTextFilter();
+            AddCategoryFilters();
+            ListView_StoreProducts.ApplyFilter();
+            //FilterProductsByName(TextBox_SearchStoreProducts.Text);
+        }
+
+        private void AddCategoryFilters()
+        {
+            foreach (FilterProductCategory pc in FilterPc)
+            {
+                if(pc.Bool) ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.Categories.Any(y => y.Equals(pc.Instance)));
+            }
+
+            var pcsToCheckFor = new List<ProductCategory>();
+            foreach (FilterGroupedProductCategories gpc in FilterGpc)
+            {
+                pcsToCheckFor.AddRange(gpc.GetCheckedCategories());
+            }
+
+
+
+
+            ListView_StoreProducts.AddAdditionalFilter<Product>(x => pcsToCheckFor.Except<ProductCategory>(x.GroupedCategories.ConvertAll(y => y.GetCurrentSelectedItems())));
+
+
+
+            foreach (Boolable<ProductCategory> gpc in FilterGpc.)
+            {
+                foreach (Boolable<ProductCategory> pc in gpc)
+                {
+                    if (pc.Bool)
+                    {
+                        
+                        Predicate<Product> s = x => x.GroupedCategories.Any(y => y.GroupedPc.Any(z => z.Instance.Equals()))
+                    }
+                }
+            }
+            ListView_StoreProducts.AddAdditionalFilter<Product>();
+        }
+
+        private bool PcContainsAllBpcs(Product p, Boolable<ProductCategory> bpc)
+        {
+            var s = p.GroupedCategories.ConvertAll(x => x.GroupedPc);
+            var f = s.ConvertAll(x => x.get)
+        }
+
+        private void AddSearchTextFilter()
+        {
+            ListView_StoreProducts.SetFilter<Product>(x => x.Name.Contains(TextBox_SearchStoreProducts.Text));
         }
 
         private void FilterProductsByName(string searchParameter)

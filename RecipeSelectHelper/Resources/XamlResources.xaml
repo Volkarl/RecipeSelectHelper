@@ -132,12 +132,12 @@
 
     <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="local:FilterProductCategory">
         <StackPanel>
-            <CheckBox Content="{Binding Boolable.Instance.Name}" IsChecked="{Binding Boolable.Bool}"></CheckBox>
+            <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">
-        <ItemsControl ItemsSource="{Binding GroupedSelection}">
+        <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></StackPanel>

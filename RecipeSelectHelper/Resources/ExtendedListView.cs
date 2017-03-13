@@ -45,12 +45,9 @@ namespace RecipeSelectHelper.Resources
 
         private ListSortDirection _sortDirection;
         private GridViewColumnHeader _sortColumn;
-        //private bool _resourcesNotLoaded = true;
 
         private void GridViewColumnHeaderClick(object sender, RoutedEventArgs e)
         {
-            //if (_resourcesNotLoaded) LoadResources();
-
             GridViewColumnHeader column = e.OriginalSource as GridViewColumnHeader;
             if (column == null) return;
 
