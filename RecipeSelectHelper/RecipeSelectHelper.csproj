@@ -63,6 +63,8 @@
     <Compile Include="Model\GroupedSelection.cs" />
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
+    <Compile Include="Resources\FilterGroupedProductCategories.cs" />
+    <Compile Include="Resources\FilterProductCategory.cs" />
     <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />

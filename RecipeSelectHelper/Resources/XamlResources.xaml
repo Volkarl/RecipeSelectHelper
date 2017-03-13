@@ -112,7 +112,6 @@
                         <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
             </ItemsControl>
         </StackPanel>
     </DataTemplate>
@@ -131,21 +130,27 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="model:ProductCategory">
+    <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="local:FilterProductCategory">
         <StackPanel>
-            <CheckBox Content="{Binding Name}"></CheckBox>
+            <CheckBox Content="{Binding Boolable.Instance.Name}" IsChecked="{Binding Boolable.Bool}"></CheckBox>
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="model:ProductCategory">
-        <StackPanel>
-            <CheckBox></CheckBox>
-            
-            <!--NOT YET DONE. NOT QUITE WHAT I WANT!-->
-            
-        </StackPanel>
+    <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">
+        <ItemsControl ItemsSource="{Binding GroupedSelection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
-    
+
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
     

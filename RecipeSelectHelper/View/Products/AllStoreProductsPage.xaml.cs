@@ -42,6 +42,9 @@ namespace RecipeSelectHelper.View.Products
 
         #endregion
 
+        public List<FilterProductCategory> FilterPc { get; set; }
+        public List<FilterGroupedProductCategories> FilterGpc { get; set; }
+
         public AllStoreProductsPage(MainWindow parent)
         {
             this._parent = parent;
@@ -54,6 +57,8 @@ namespace RecipeSelectHelper.View.Products
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
             StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
+            FilterPc = _parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(new Boolable<ProductCategory>(x)));
+            FilterGpc = _parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x));
             TextBox_SearchStoreProducts.Focus();
         }
 

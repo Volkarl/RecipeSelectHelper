@@ -15,15 +15,16 @@
     <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
         <DockPanel>
             <DockPanel DockPanel.Dock="Top" MinHeight="30">
-                <Expander Header="Filter Products" VerticalAlignment="Center" ExpandDirection="Down">
+                <Expander VerticalAlignment="Center" ExpandDirection="Down">
+                    <Expander.Header>
+                        <Label Content="Filter Products" Height="30"></Label>
+                    </Expander.Header>
                     <StackPanel>
                         <TextBlock Text="Product Type: "></TextBlock>
-                        <ItemsControl Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByGroupedProductCategory}"></ItemsControl>
+                        <ItemsControl ItemsSource="{Binding FilterGpc}" Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByGroupedProductCategory}"></ItemsControl>
                         <TextBlock Text="Product Attributes: "></TextBlock>
-                        <ItemsControl Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByProductCategory}"></ItemsControl>
+                        <ItemsControl ItemsSource="{Binding FilterPc}" Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByProductCategory}"></ItemsControl>
                     </StackPanel>
-
-
                 </Expander>
 
                 <Button DockPanel.Dock="Right" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick"  Margin="0,0,0,0">
