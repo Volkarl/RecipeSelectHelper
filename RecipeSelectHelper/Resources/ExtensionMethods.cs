@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +11,14 @@ namespace RecipeSelectHelper.Resources
 {
     public static class ExtensionMethods
     {
+        public static bool ContainsCaseInsensitive(this string str1, string str2) => str1.ToLower().Contains(str2.ToLower());
+
+        public static bool ContainsAll<T>(this ICollection<T> collection1, ICollection<T> collection2)
+        {
+            if (collection1.Count < collection2.Count) return false;
+            return !collection1.Except(collection2).Any();
+        }
+
         public static string GetDescription(this Enum value)
         {
             Type type = value.GetType();

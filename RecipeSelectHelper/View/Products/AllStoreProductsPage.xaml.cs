@@ -120,7 +120,10 @@ namespace RecipeSelectHelper.View.Products
         {
             foreach (FilterProductCategory pc in FilterPc)
             {
-                if(pc.Bool) ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.Categories.Any(y => y.Equals(pc.Instance)));
+                if (pc.Bool)
+                {
+                    ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.Categories.Any(y => y.Equals(pc.Instance)));
+                }
             }
 
             var pcsToCheckFor = new List<ProductCategory>();
@@ -129,42 +132,18 @@ namespace RecipeSelectHelper.View.Products
                 pcsToCheckFor.AddRange(gpc.GetCheckedCategories());
             }
 
-
-
-
-            ListView_StoreProducts.AddAdditionalFilter<Product>(x => pcsToCheckFor.Except<ProductCategory>(x.GroupedCategories.ConvertAll(y => y.GetCurrentSelectedItems())));
-
-
-
-            foreach (Boolable<ProductCategory> gpc in FilterGpc.)
-            {
-                foreach (Boolable<ProductCategory> pc in gpc)
-                {
-                    if (pc.Bool)
-                    {
-                        
-                        Predicate<Product> s = x => x.GroupedCategories.Any(y => y.GroupedPc.Any(z => z.Instance.Equals()))
-                    }
-                }
-            }
-            ListView_StoreProducts.AddAdditionalFilter<Product>();
-        }
-
-        private bool PcContainsAllBpcs(Product p, Boolable<ProductCategory> bpc)
-        {
-            var s = p.GroupedCategories.ConvertAll(x => x.GroupedPc);
-            var f = s.ConvertAll(x => x.get)
+            ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.GetCheckedGroupedCategories().ContainsAll(pcsToCheckFor));
         }
 
         private void AddSearchTextFilter()
         {
-            ListView_StoreProducts.SetFilter<Product>(x => x.Name.Contains(TextBox_SearchStoreProducts.Text));
+            ListView_StoreProducts.SetFilter<Product>(x => x.Name.ContainsCaseInsensitive(TextBox_SearchStoreProducts.Text));
         }
 
-        private void FilterProductsByName(string searchParameter)
-        {
-            StoreProducts = new ObservableCollection<Product>(_parent.Data.AllProducts.Where(x => x.Name.Contains(searchParameter)));
-        }
+        //private void FilterProductsByName(string searchParameter)
+        //{
+        //    StoreProducts = new ObservableCollection<Product>(_parent.Data.AllProducts.Where(x => x.Name.Contains(searchParameter)));
+        //}
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
         {

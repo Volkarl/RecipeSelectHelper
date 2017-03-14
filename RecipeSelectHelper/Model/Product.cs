@@ -42,6 +42,19 @@ namespace RecipeSelectHelper.Model
             return val;
         }
 
+        public List<ProductCategory> GetCheckedGroupedCategories()
+        {
+            var s = new List<ProductCategory>();
+            foreach (GroupedProductCategory gpc in GroupedCategories)
+            {
+                foreach (Boolable<ProductCategory> pcBoolable in gpc.GroupedPc)
+                {
+                    if(pcBoolable.Bool) s.Add(pcBoolable.Instance);
+                }
+            }
+            return s;
+        }
+
         public override string ToString()
         {
             string str = "|Product: " + Name + "\n";
