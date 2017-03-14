@@ -41,25 +41,35 @@ namespace RecipeSelectHelper.View.Products
             set { _selectedStoreProduct = value; OnPropertyChanged(nameof(SelectedStoreProduct)); }
         }
 
+        private ObservableCollection<FilterProductCategory> _filterPc;
+        public ObservableCollection<FilterProductCategory> FilterPc
+        {
+            get { return _filterPc; }
+            set { _filterPc = value; OnPropertyChanged(nameof(FilterPc)); }
+        }
+
+        private ObservableCollection<FilterGroupedProductCategories> _filterGpc;
+        public ObservableCollection<FilterGroupedProductCategories> FilterGpc
+        {
+            get { return _filterGpc; }
+            set { _filterGpc = value; OnPropertyChanged(nameof(FilterGpc)); }
+        }
+
         #endregion
 
-        public List<FilterProductCategory> FilterPc { get; set; }
-        public List<FilterGroupedProductCategories> FilterGpc { get; set; }
+        //public List<FilterProductCategory> FilterPc { get; set; }
+        //public List<FilterGroupedProductCategories> FilterGpc { get; set; }
 
         public AllStoreProductsPage(MainWindow parent)
         {
             _parent = parent;
-            InitializeObservableObjects();
-
             Loaded += AllStoreProductsPage_Loaded;
             InitializeComponent();
         }
 
         private void AllStoreProductsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
-            FilterPc = _parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(x));
-            FilterGpc = _parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x));
+            InitializeObservableObjects();
             TextBox_SearchStoreProducts.Focus();
         }
 
@@ -70,7 +80,9 @@ namespace RecipeSelectHelper.View.Products
 
         private void InitializeObservableObjects()
         {
-            StoreProducts = new ObservableCollection<Product>();
+            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
+            FilterPc = new ObservableCollection<FilterProductCategory>(_parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(x)));
+            FilterGpc = new ObservableCollection<FilterGroupedProductCategories>(_parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x)));
             SelectedStoreProduct = null;
         }
 
@@ -110,45 +122,68 @@ namespace RecipeSelectHelper.View.Products
 
         private void SortListView()
         {
-            AddSearchTextFilter();
-            AddCategoryFilters();
+            List<ProductCategory> containsPc = GetSelectedPc(FilterPc);
+            List<ProductCategory> containsGpc = GetSelectedGpc(FilterGpc);
+            ListView_StoreProducts.SetProductFilter(TextBox_SearchStoreProducts.Text, containsPc, containsGpc);
+            //AddSearchTextFilter();
+            //AddCategoryFilters();
             ListView_StoreProducts.ApplyFilter();
             //FilterProductsByName(TextBox_SearchStoreProducts.Text);
         }
 
-        private void AddCategoryFilters()
+        private List<ProductCategory> GetSelectedGpc(ObservableCollection<FilterGroupedProductCategories> filterGpc)
         {
-            foreach (FilterProductCategory pc in FilterPc)
-            {
-                if (pc.Bool)
-                {
-                    ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.Categories.Any(y => y.Equals(pc.Instance)));
-                }
-            }
-
-            var pcsToCheckFor = new List<ProductCategory>();
+            List<ProductCategory> selected = new List<ProductCategory>();
             foreach (FilterGroupedProductCategories gpc in FilterGpc)
             {
-                pcsToCheckFor.AddRange(gpc.GetCheckedCategories());
+                selected.AddRange(gpc.GetCheckedCategories());
             }
-
-            ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.GetCheckedGroupedCategories().ContainsAll(pcsToCheckFor));
+            return selected;
         }
 
-        private void AddSearchTextFilter()
+        private List<ProductCategory> GetSelectedPc(ObservableCollection<FilterProductCategory> filterPc)
         {
-            ListView_StoreProducts.SetFilter<Product>(x => x.Name.ContainsCaseInsensitive(TextBox_SearchStoreProducts.Text));
+            List<ProductCategory> selected = new List<ProductCategory>();
+            foreach (FilterProductCategory pc in FilterPc)
+            {
+                if(pc.Bool) selected.Add(pc.Instance);
+            }
+            return selected;
         }
+
+        // This method can be rewritten to be quite a bit more readable and efficient!
+        // At the moment it reapplies ALL filters every time it is run, and doesn't "just" apply the changes.
+        //private void AddCategoryFilters()
+        //{
+        //    foreach (FilterProductCategory pc in FilterPc)
+        //    {
+        //        if (pc.Bool)
+        //        {
+        //            ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.Categories.Any(y => y.Equals(pc.Instance)));
+        //        }
+        //    }
+
+        //    var pcsToCheckFor = new List<ProductCategory>();
+        //    foreach (FilterGroupedProductCategories gpc in FilterGpc)
+        //    {
+        //        pcsToCheckFor.AddRange(gpc.GetCheckedCategories());
+        //    }
+
+        //    ListView_StoreProducts.AddAdditionalFilter<Product>(x => x.GetCheckedGroupedCategories().ContainsAll(pcsToCheckFor));
+        //}
+
+        //private void AddSearchTextFilter()
+        //{
+        //    ListView_StoreProducts.SetFilter<Product>(x => x.Name.ContainsCaseInsensitive(TextBox_SearchStoreProducts.Text));
+        //}
 
         //private void FilterProductsByName(string searchParameter)
         //{
         //    StoreProducts = new ObservableCollection<Product>(_parent.Data.AllProducts.Where(x => x.Name.Contains(searchParameter)));
         //}
 
-        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
-        {
-            DisplayProductInfo(SelectedStoreProduct);
-        }
+        private void ListViewItem_OnDoubleClick(object sender, MouseButtonEventArgs e)
+            => DisplayProductInfo(SelectedStoreProduct);
 
         public void DisplayProductInfo(Product product)
         {

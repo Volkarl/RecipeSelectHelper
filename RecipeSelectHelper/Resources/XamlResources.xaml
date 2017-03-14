@@ -131,9 +131,7 @@
     </Style>
 
     <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="local:FilterProductCategory">
-        <StackPanel>
-            <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
-        </StackPanel>
+        <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
     </DataTemplate>
 
     <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">

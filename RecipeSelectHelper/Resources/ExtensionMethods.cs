@@ -11,7 +11,17 @@ namespace RecipeSelectHelper.Resources
 {
     public static class ExtensionMethods
     {
+        //public static Predicate<T> Add<T>(this Predicate<T> predicate1, Predicate<T> predicate2)
+        //{
+        //    return x => predicate1(x) && predicate2(x);
+        //}
+
         public static bool ContainsCaseInsensitive(this string str1, string str2) => str1.ToLower().Contains(str2.ToLower());
+
+        public static bool IsEmpty<T>(this ICollection<T> collection)
+        {
+            return !collection.Any();
+        }
 
         public static bool ContainsAll<T>(this ICollection<T> collection1, ICollection<T> collection2)
         {
