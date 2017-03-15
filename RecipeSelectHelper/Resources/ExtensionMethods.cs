@@ -16,6 +16,11 @@ namespace RecipeSelectHelper.Resources
         //    return x => predicate1(x) && predicate2(x);
         //}
 
+        public static int ToInt(this char c)
+        {
+            return (int)(c - '0');
+        }
+
         public static bool ContainsCaseInsensitive(this string str1, string str2) => str1.ToLower().Contains(str2.ToLower());
 
         public static bool IsEmpty<T>(this ICollection<T> collection)

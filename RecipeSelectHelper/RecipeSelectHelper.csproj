@@ -68,6 +68,7 @@
     <Compile Include="Resources\FilterProductCategory.cs" />
     <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
+    <Compile Include="Resources\InputLimitedIntegerTextBox.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
     <Compile Include="Model\SortingMethods\IPreference.cs" />
     <Compile Include="Model\SortingMethods\Preference.cs" />

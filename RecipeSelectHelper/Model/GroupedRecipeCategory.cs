@@ -59,7 +59,7 @@ namespace RecipeSelectHelper.Model
             {
                 error = $"Too many items selected, only {MaxSelect} are allowed";
             }
-            else if(tooFew)
+            else if (tooFew)
             {
                 error = $"Too few items selected, {MaxSelect} are required";
             }

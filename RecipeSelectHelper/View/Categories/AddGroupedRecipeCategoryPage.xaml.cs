@@ -37,6 +37,8 @@ namespace RecipeSelectHelper.View.Categories
             RecipeCategories = new ObservableCollection<RecipeCategory>(_data.AllRecipeCategories.OrderBy(x => x.Name));
             // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
             SelectedRC = null;
+            MinSelectionAmount = 0;
+            MaxSelectionAmount = 3;
         }
 
         #region ObservableObjects
@@ -47,14 +49,14 @@ namespace RecipeSelectHelper.View.Categories
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private static int _minSelectionAmount = 0;
+        private static int _minSelectionAmount;
         public int MinSelectionAmount
         {
             get { return _minSelectionAmount; }
             set { _minSelectionAmount = value; OnPropertyChanged(nameof(MinSelectionAmount)); }
         }
 
-        private static int _maxSelectionAmount = 3;
+        private static int _maxSelectionAmount;
         public int MaxSelectionAmount
         {
             get { return _maxSelectionAmount; }
@@ -115,10 +117,10 @@ namespace RecipeSelectHelper.View.Categories
             _data.AllRecipeCategories.Remove(SelectedRC);
 
             RecipeCategory selectedRc = SelectedRC;
-            ObservableCollection<RecipeCategory> RC = RecipeCategories;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRc, ref RC);
+            ObservableCollection<RecipeCategory> rc = RecipeCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRc, ref rc);
             SelectedRC = selectedRc;
-            RecipeCategories = RC;
+            RecipeCategories = rc;
 
             ListView_RecipeCategories.Focus();
         }
