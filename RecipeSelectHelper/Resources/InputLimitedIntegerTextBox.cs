@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
 {
     public class InputLimitedIntegerTextBox : IntegerTextBox
     {
-        public int MinInput { get; set; }
-        public int MaxInput { get; set; }
+        public static readonly DependencyProperty MaxInputProperty = DependencyProperty.Register(nameof(MaxInput), typeof(int?), typeof(InputLimitedIntegerTextBox), new FrameworkPropertyMetadata(new int?()));
+        public int? MaxInput
+        {
+            get { return GetValue(MaxInputProperty) as int?; }
+            set { SetValue(MaxInputProperty, value); }
+        }
+
+        public static readonly DependencyProperty MinInputProperty = DependencyProperty.Register(nameof(MinInput), typeof(int?), typeof(InputLimitedIntegerTextBox), new FrameworkPropertyMetadata(new int?()));
+        public int? MinInput
+        {
+            get { return GetValue(MinInputProperty) as int?; }
+            set { SetValue(MinInputProperty, value); }
+        }
+
         public InputLimitedIntegerTextBox()
         {
-            MinInput = 0;
+            MaxInput = 0;
             MaxInput = 0;
         }
 
@@ -24,7 +37,7 @@ namespace RecipeSelectHelper.Resources
             foreach (char c in Text)
             {
                 int i = c.ToInt();
-                if (!(i > MinInput || i < MaxInput))
+                if (!(i > MaxInput || i < MaxInput))
                 {
                     integers.Add(c.ToInt());
                 }
