@@ -21,7 +21,7 @@
 
                 <Button DockPanel.Dock="Right" Width="100" Height="30" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <Viewbox Child="{StaticResource IconSearch}"></Viewbox>
+                        <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
                         <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>
@@ -32,7 +32,7 @@
             <UniformGrid Rows="1" DockPanel.Dock="Bottom" Height="30">
                 <Button Name="Button_ReviewExpiredItems" Click="Button_ReviewExpiredItems_OnClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding ExpiredProducts.Count}" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock Text="{Binding ExpiredProducts.Count, StringFormat=({0})}" Margin="0,2,0,0"></TextBlock>
                         <TextBlock Text="Review Expired Products"></TextBlock>
                     </StackPanel>
                 </Button>

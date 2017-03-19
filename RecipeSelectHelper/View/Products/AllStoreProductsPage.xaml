@@ -34,7 +34,7 @@
 
                 <Button Grid.Column="2" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick">
                     <StackPanel Orientation="Horizontal">
-                        <Viewbox Child="{StaticResource IconSearch}" Height="30" Width="30"></Viewbox>
+                        <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
                         <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>

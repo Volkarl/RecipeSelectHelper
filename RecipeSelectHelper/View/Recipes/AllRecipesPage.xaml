@@ -63,7 +63,7 @@
         
         <Button Name="Button_SearchRecipes" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Click="Button_SearchRecipes_Click">
             <StackPanel Orientation="Horizontal">
-                <Viewbox Child="{StaticResource IconSearch}" Height="30" Width="30"></Viewbox>
+                <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
                 <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Button>
