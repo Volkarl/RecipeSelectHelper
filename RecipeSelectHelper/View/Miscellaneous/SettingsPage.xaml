@@ -8,12 +8,25 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="SettingsPage">
 
-    <UniformGrid>
-        <Button Name="Button_AddPC" Content="Add PC" Click="Button_AddPC_OnClick"></Button>
-        <Button Name="Button_AddRC" Content="Add RC" Click="Button_AddRC_OnClick"></Button>
-        <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
-        <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
-        <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
-        <Button Name="Button_All" Content="Add One of Each" Click="Button_All_OnClick"></Button>
-    </UniformGrid>
+    <StackPanel>
+        <DockPanel>
+            <UniformGrid Height="30" Rows="1" DockPanel.Dock="Top">
+                <Label Content="Save Location:" DockPanel.Dock="Left"></Label>
+                <Button Content="Configure" DockPanel.Dock="Left"></Button>
+            </UniformGrid>
+            <TextBox DockPanel.Dock="Bottom" Height="30"></TextBox>
+        </DockPanel>
+        
+        <DockPanel>
+            <Label DockPanel.Dock="Top" Content="Testing" Background="White"></Label>
+            <UniformGrid DockPanel.Dock="Top" Rows="2">
+                <Button Name="Button_AddPC" Content="Add PC" Click="Button_AddPC_OnClick"></Button>
+                <Button Name="Button_AddRC" Content="Add RC" Click="Button_AddRC_OnClick"></Button>
+                <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
+                <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
+                <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
+                <Button Name="Button_All" Content="Add One of Each" Click="Button_All_OnClick"></Button>
+            </UniformGrid>
+        </DockPanel>
+    </StackPanel>
 </Page>
