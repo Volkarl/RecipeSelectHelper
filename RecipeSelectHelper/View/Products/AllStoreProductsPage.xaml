@@ -14,10 +14,15 @@
 
     <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
         <DockPanel>
-            <DockPanel DockPanel.Dock="Top" MinHeight="30">
-                <Expander VerticalAlignment="Center" ExpandDirection="Down">
+            <Grid DockPanel.Dock="Top" MinHeight="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Expander Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" ExpandDirection="Down">
                     <Expander.Header>
-                        <Label Content="Filter Products" Height="30"></Label>
+                        <Label Grid.Column="0" Content="Filter Products" Height="30"></Label>
                     </Expander.Header>
                     <StackPanel>
                         <TextBlock Text="Product Type: "></TextBlock>
@@ -27,15 +32,15 @@
                     </StackPanel>
                 </Expander>
 
-                <Button DockPanel.Dock="Right" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick"  Margin="0,0,0,0">
+                <Button Grid.Column="2" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick"  Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Image Source="/Resources/Search.png" Margin="0"></Image>
                         <TextBlock Text="  Search" Margin="2" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>
 
-                <TextBox Margin="10,0,0,0" MaxHeight="30" MinHeight="30" VerticalAlignment="Top"  DockPanel.Dock="Left" Name="TextBox_SearchStoreProducts" TextWrapping="Wrap" KeyDown="TextBox_SearchStoreProducts_OnKeyDown"></TextBox>
-            </DockPanel>
+                <TextBox Grid.Column="1" VerticalContentAlignment="Center" Margin="10,0,0,0" MaxHeight="30" MinHeight="30" VerticalAlignment="Top" Name="TextBox_SearchStoreProducts" TextWrapping="Wrap" KeyDown="TextBox_SearchStoreProducts_OnKeyDown"></TextBox>
+            </Grid>
 
             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="30">
                 <Button Name="Button_AddStoreProduct" Click="Button_AddStoreProduct_OnClick" Content="Add"></Button>

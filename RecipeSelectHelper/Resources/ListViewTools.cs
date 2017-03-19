@@ -42,7 +42,7 @@ namespace RecipeSelectHelper.Resources
                 remainingWidth -= gridView.Columns[i].ActualWidth;
             }
 
-            // Make new static method with logic for setting the intial size?
+            remainingWidth = remainingWidth >= 0 ? remainingWidth : 0;
 
             gridView.Columns[headerIndex].Width = remainingWidth;
         }
