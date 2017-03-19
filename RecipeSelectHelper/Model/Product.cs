@@ -75,10 +75,7 @@ namespace RecipeSelectHelper.Model
         {
             get
             {
-                if (Categories == null)
-                {
-                    return string.Empty;
-                }
+                if (Categories == null || Categories.IsEmpty()) return String.Empty;
                 else
                 {
                     return string.Join(", ", Categories.ConvertAll(x => x.Name));
@@ -90,20 +87,26 @@ namespace RecipeSelectHelper.Model
         {
             get
             {
-                if (GroupedCategories == null || GroupedCategories.Count == 0)
-                {
-                    return string.Empty;
-                }
-                var s = GroupedCategories.ConvertAll(x => x.GroupedPc);
-                var b = new List<String>();
-                foreach (List<Boolable<ProductCategory>> groupedPc in s)
+                if (GroupedCategories == null || GroupedCategories.IsEmpty()) return String.Empty;
+                List<List<Boolable<ProductCategory>>> gpcs = GroupedCategories.ConvertAll(x => x.GroupedPc);
+                var gpcNames = new List<String>();
+                foreach (List<Boolable<ProductCategory>> groupedPc in gpcs)
                 {
                     foreach (Boolable<ProductCategory> boolablePc in groupedPc)
                     {
-                        if(boolablePc.Bool) b.Add(boolablePc.Instance.Name);
+                        if(boolablePc.Bool) gpcNames.Add(boolablePc.Instance.Name);
                     }
                 }
-                return string.Join(", ", b);
+                return string.Join(", ", gpcNames);
+            }
+        }
+
+        public string SubstitutesToString
+        {
+            get
+            {
+                if(SubstituteProducts == null || SubstituteProducts.IsEmpty()) return String.Empty;
+                return string.Join(", ", SubstituteProducts.ConvertAll(x => x.Name));
             }
         }
     }

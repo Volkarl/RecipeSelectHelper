@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -48,14 +49,17 @@ namespace RecipeSelectHelper.Model
         {
             get
             {
-                if (GroupedCategories == null)
+                if (GroupedCategories == null || GroupedCategories.IsEmpty()) return String.Empty;
+                List<List<Boolable<RecipeCategory>>> grcs = GroupedCategories.ConvertAll(x => x.GroupedRc);
+                var grcNames = new List<String>();
+                foreach (List<Boolable<RecipeCategory>> groupedRc in grcs)
                 {
-                    return string.Empty;
+                    foreach (Boolable<RecipeCategory> boolableRc in groupedRc)
+                    {
+                        if (boolableRc.Bool) grcNames.Add(boolableRc.Instance.Name);
+                    }
                 }
-                else
-                {
-                    return string.Empty; //Join(", ", GroupedCategories.ConvertAll(x => x.GetCurrentSelectedItems().ConvertAll(y => y.Name)));
-                }
+                return string.Join(", ", grcNames);
             }
         }
 
