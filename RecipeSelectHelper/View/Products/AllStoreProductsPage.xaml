@@ -20,9 +20,9 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Expander Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" ExpandDirection="Down">
+                <Expander Grid.Column="0" Grid.ColumnSpan="3" ExpandDirection="Down">
                     <Expander.Header>
-                        <Label Grid.Column="0" Content="Filter Products" Height="30"></Label>
+                        <Label Grid.Column="0" Content="Filter Products" Height="30" VerticalContentAlignment="Center"></Label>
                     </Expander.Header>
                     <StackPanel>
                         <TextBlock Text="Product Type: "></TextBlock>
@@ -32,10 +32,10 @@
                     </StackPanel>
                 </Expander>
 
-                <Button Grid.Column="2" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick"  Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Image Source="/Resources/Search.png" Margin="0"></Image>
-                        <TextBlock Text="  Search" Margin="2" VerticalAlignment="Center"></TextBlock>
+                <Button Grid.Column="2" Width="100" Height="30" VerticalAlignment="Top" Name="Button_SearchStoreProducts" Click="Button_SearchStoreProducts_OnClick">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Child="{StaticResource IconSearch}" Height="30" Width="30"></Viewbox>
+                        <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>
 

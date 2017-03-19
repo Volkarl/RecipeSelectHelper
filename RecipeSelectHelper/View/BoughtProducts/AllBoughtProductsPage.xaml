@@ -19,10 +19,10 @@
                     </WrapPanel>
                 </Expander>
 
-                <Button DockPanel.Dock="Right" Width="100" Height="30" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick"  Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Image Source="/Resources/Search.png" Margin="0"></Image>
-                        <TextBlock Text="  Search" Margin="2" VerticalAlignment="Center"></TextBlock>
+                <Button DockPanel.Dock="Right" Width="100" Height="30" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Child="{StaticResource IconSearch}"></Viewbox>
+                        <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Button>
 
