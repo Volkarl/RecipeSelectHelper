@@ -8,13 +8,20 @@
 
     <Style TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="TextAlignment"  Value="Center"></Setter>
     </Style>
 
     <Style TargetType="TextBox">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="MinHeight" Value="30"></Setter>
     </Style>
 
     <Style TargetType="Button">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="MinHeight" Value="30"></Setter>
+    </Style>
+
+    <Style TargetType="Expander">
+        <Setter Property="MinHeight" Value="30"></Setter>
     </Style>
 </ResourceDictionary>

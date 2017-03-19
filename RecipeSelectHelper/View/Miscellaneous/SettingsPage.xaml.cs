@@ -84,5 +84,60 @@ namespace RecipeSelectHelper.View.Miscellaneous
             Button_AddBP_OnClick(null, null);
             Button_AddR_OnClick(null, null);
         }
+
+        private void ButtonExportAll_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportAllRecipes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportAllProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportAllBoughtProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportAllSortingMethods_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportSelectedRecipes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportSelectedProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportSelectedBoughtProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonExportSelectedSortingMethods_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonImportFromFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonImportPasteData_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

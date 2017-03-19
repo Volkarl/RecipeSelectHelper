@@ -117,6 +117,9 @@
     <Compile Include="View\Categories\AllGroupedCategoriesPage.xaml.cs">
       <DependentUpon>AllGroupedCategoriesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Miscellaneous\ExportDataOutputSelector.xaml.cs">
+      <DependentUpon>ExportDataOutputSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Recipes\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Categories\AllGroupedCategoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Miscellaneous\ExportDataOutputSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

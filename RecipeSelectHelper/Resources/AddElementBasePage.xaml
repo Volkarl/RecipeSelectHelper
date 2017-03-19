@@ -33,7 +33,7 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Name="Button_Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold" Content="{StaticResource IconBack}"></Button>
+        <Button Name="Button_Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold" ContentTemplate="{StaticResource IconBack}"></Button>
         <TextBlock Name="TextBlock_PageTitle" Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="1" TextAlignment="Center" FontSize="30" FontWeight="DemiBold"></TextBlock>
         <Button Name="Button_Add" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" FontSize="15" FontWeight="DemiBold" Click="Button_Add_Click"></Button>
 
