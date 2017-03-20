@@ -51,8 +51,8 @@ namespace RecipeSelectHelper
 
         private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
         {
-            var xmlReader = new XMLDataHandler();
-            Data = xmlReader.FromXML();
+            var xmlReader = new XmlDataHandler();
+            Data = xmlReader.FromXml();
 
             SetPage(new RankingsViewPage(this));
             HighlightButtonBackground(Button_RankRecipes);
@@ -126,8 +126,8 @@ namespace RecipeSelectHelper
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            var xmlReader = new XMLDataHandler();
-            xmlReader.SaveToXML(this.Data);
+            var xmlReader = new XmlDataHandler();
+            xmlReader.SaveToXml(this.Data);
         }
     }
 }

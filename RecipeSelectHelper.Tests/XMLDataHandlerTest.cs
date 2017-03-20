@@ -14,7 +14,7 @@ namespace RecipeSelectHelper.Tests
     [TestFixture]
     public class XMLDataHandlerTest
     {
-        XMLDataHandler _xmlConverter;
+        XmlDataHandler _xmlConverter;
         string _testFilePath;
         List<ProgramData> data;
 
@@ -23,7 +23,7 @@ namespace RecipeSelectHelper.Tests
         {
             data = new List<ProgramData>();
             _testFilePath = "testData.xml";
-            _xmlConverter = new XMLDataHandler(_testFilePath);
+            _xmlConverter = new XmlDataHandler(_testFilePath);
 
             List<ProductCategory> productCategories = AddPC();
             List<RecipeCategory> recipeCategories = AddRC();
@@ -144,8 +144,8 @@ namespace RecipeSelectHelper.Tests
         [TestCase(2)]
         public void ToXMLAndFromXML_ValidProgramData_Works(int i)
         {
-            _xmlConverter.SaveToXML(data[i]);
-            ProgramData deserializedData = _xmlConverter.FromXML();
+            _xmlConverter.SaveToXml(data[i]);
+            ProgramData deserializedData = _xmlConverter.FromXml();
             Assert.AreEqual(data[i].GetValueHashCode(), deserializedData.GetValueHashCode());
         }
     }

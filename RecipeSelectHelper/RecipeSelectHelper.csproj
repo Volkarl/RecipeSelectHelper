@@ -84,7 +84,7 @@
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
-    <Compile Include="Resources\XMLDataHandler.cs" />
+    <Compile Include="Resources\XmlDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ProductCategoryPreference.cs" />
@@ -117,8 +117,8 @@
     <Compile Include="View\Categories\AllGroupedCategoriesPage.xaml.cs">
       <DependentUpon>AllGroupedCategoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Miscellaneous\ExportDataOutputSelector.xaml.cs">
-      <DependentUpon>ExportDataOutputSelector.xaml</DependentUpon>
+    <Compile Include="View\Miscellaneous\CopyableTextWindow.xaml.cs">
+      <DependentUpon>CopyableTextWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Recipes\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
@@ -204,7 +204,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Miscellaneous\ExportDataOutputSelector.xaml">
+    <Page Include="View\Miscellaneous\CopyableTextWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

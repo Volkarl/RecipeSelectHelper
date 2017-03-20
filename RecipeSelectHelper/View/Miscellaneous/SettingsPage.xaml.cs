@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {
@@ -136,6 +138,29 @@ namespace RecipeSelectHelper.View.Miscellaneous
         }
 
         private void ButtonImportPasteData_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ExpanderExport_OnExpanded(object sender, RoutedEventArgs e)
+        {
+            ListViewExportOptions.Focus();
+        }
+
+        private void ButtonExportAsText_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProgramData data = GetSelectedData();
+            string dataAsXml = XmlDataHandler.XmlAsString(data);
+            var popup = new CopyableTextWindow(dataAsXml);
+            popup.ShowDialog();
+        }
+
+        private ProgramData GetSelectedData()
+        {
+            return _parent.Data;
+        }
+
+        private void ButtonExportSaveAsFile_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }

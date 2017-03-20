@@ -10,19 +10,28 @@
 
     <StackPanel>
 
-        <Expander Header="Export...">
+        <Expander Name="ExpanderExport" Header="Export..." Expanded="ExpanderExport_OnExpanded">
             <StackPanel>
-                <Button Name="ButtonExportAll" Content="Export All" Click="ButtonExportAll_Click"></Button>
-                <UniformGrid Columns="2">
-                    <Button Name="ButtonExportAllRecipes" Content="All Recipes" ToolTip="Will export all related data, which also includes all data related to the ingredients." Click="ButtonExportAllRecipes_Click"></Button>
-                    <Button Name="ButtonExportSelectedRecipes" Content="Select Recipes..." ToolTip="Will export all related data, which also includes all data related to the ingredients." Click="ButtonExportSelectedRecipes_Click"></Button>
-                    <Button Name="ButtonExportAllProducts" Content="All Store Products" ToolTip="Will export all related data, including contained attributes and types." Click="ButtonExportAllProducts_Click"></Button>
-                    <Button Name="ButtonExportSelectedProducts" Content="Select Store Products..." ToolTip="Will export all related data, including contained attributes and types." Click="ButtonExportSelectedProducts_Click"></Button>
-                    <Button Name="ButtonExportAllBoughtProducts" Content="All Bought Products" ToolTip="Will export all related data, including amounts, contained attributes and types." Click="ButtonExportAllBoughtProducts_Click"></Button>
-                    <Button Name="ButtonExportSelectedBoughtProducts" Content="Select Bought Products..." ToolTip="Will export all related data, including amounts, contained attributes and types." Click="ButtonExportSelectedBoughtProducts_Click"></Button>
-                    <Button Name="ButtonExportAllSortingMethods" Content="All Sorting Methods" ToolTip="Will export all data referenced by the methods as well." Click="ButtonExportAllSortingMethods_Click"></Button>
-                    <Button Name="ButtonExportSelectedSortingMethods" Content="Select Sorting Methods..." ToolTip="Will export all data referenced by the methods as well." Click="ButtonExportSelectedSortingMethods_Click"></Button>
-                </UniformGrid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ListView Name="ListViewExportOptions" SelectedIndex="0">
+                        <TextBlock Text="Export All"></TextBlock>
+                        <TextBlock Text="All Recipes"></TextBlock>
+                        <TextBlock Text="All Store Products"></TextBlock>
+                        <TextBlock Text="All Bought Products"></TextBlock>
+                        <TextBlock Text="All Sorting Methods"></TextBlock>
+                    </ListView>
+                    
+                    <UniformGrid Grid.Column="1" Rows="2">
+                        <Button Name="ButtonExportAsText" Click="ButtonExportAsText_OnClick" Content="Export as Text"></Button>
+                        <Button Name="ButtonExportSaveAsFile" Click="ButtonExportSaveAsFile_OnClick" Content="Save at Location..."></Button>
+                    </UniformGrid>
+                </Grid>
+    
             </StackPanel>
         </Expander>
         
