@@ -6,16 +6,18 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
+using Application = System.Windows.Application;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsPage : Page
+    public partial class SettingsPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
 
@@ -41,12 +43,12 @@ namespace RecipeSelectHelper.View.Miscellaneous
         
         public string SaveFilePath
         {
-            get { return Settings.Default.DataFilePath; }
+            get { return Settings.Default.DataDirectoryPath; }
             set
             {
-                if (UtilityMethods.PathIsValid(value))
+                if (UtilityMethods.DirectoryPathIsValid(value))
                 {
-                    Settings.Default.DataFilePath = value;
+                    Settings.Default.DataDirectoryPath = value;
                     OnPropertyChanged(nameof(SaveFilePath));
                 }
             }
@@ -54,6 +56,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         #endregion
 
+        #region Testing
 
         private static int _pcClicks = 0;
         private void Button_AddPC_OnClick(object sender, RoutedEventArgs e)
@@ -122,6 +125,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             Button_AddR_OnClick(null, null);
         }
 
+        #endregion
+
         private void ButtonImportFromFile_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
@@ -163,8 +168,13 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ButtonChangeSaveLocation_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-            //Open find directory dialog
+            var browser = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.Desktop,
+                ShowNewFolderButton = true
+            };
+            var result = browser.ShowDialog();
+            if (result == DialogResult.OK) SaveFilePath = browser.SelectedPath;
         }
     }
 }

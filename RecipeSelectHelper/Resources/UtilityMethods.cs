@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -18,9 +20,23 @@ namespace RecipeSelectHelper.Resources
             return System.IO.Path.GetDirectoryName(GetExePath());
         }
 
-        public static bool PathIsValid(string path)
+        public static bool DirectoryPathIsValid(string path)
         {
-            throw new NotImplementedException();
+            if (Directory.Exists(path))
+            {
+                try
+                {
+                    string temp = Path.Combine(path, Path.GetRandomFileName());
+                    File.Create(temp).Dispose();
+                    File.Delete(temp);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+            return false;
         }
     }
 }

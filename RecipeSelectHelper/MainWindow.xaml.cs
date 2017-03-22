@@ -63,12 +63,12 @@ namespace RecipeSelectHelper
 
         private string GetSettingsFilePath()
         {
-            if (string.IsNullOrWhiteSpace(Settings.Default.DataFilePath))
+            if (!UtilityMethods.DirectoryPathIsValid(Settings.Default.DataDirectoryPath))
             {
-                Settings.Default.DataFilePath = UtilityMethods.GetExeDirectoryPath();
+                Settings.Default.DataDirectoryPath = UtilityMethods.GetExeDirectoryPath();
                 Settings.Default.Save();
             }
-            return Settings.Default.DataFilePath;
+            return Path.Combine(Settings.Default.DataDirectoryPath, "data.xml");
         }
 
         public void SetPage(Page newpage)
@@ -141,13 +141,8 @@ namespace RecipeSelectHelper
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if(!SaveChangesOnExit) return;
+            string path = Path.Combine(Settings.Default.DataDirectoryPath, "data.xml");
             Settings.Default.Save();
-            string path = Settings.Default.DataFilePath;
-            if (String.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException("Savefile path invalid");
-            }
-            // Path.Combine(UtilityMethods.GetExeDirectoryPath(), "data.xml");
             XmlDataHandler.SaveToXml(path, Data);
         }
     }

@@ -68,7 +68,7 @@
                         <Label Content="Default Save Location:" DockPanel.Dock="Left"></Label>
                         <Button Name="ButtonChangeSaveLocation" Click="ButtonChangeSaveLocation_OnClick" Content="Configure..." DockPanel.Dock="Left"></Button>
                     </UniformGrid>
-                    <TextBox Name="TextBoxSaveFileLocation" Text="{Binding SaveFilePath}" IsEnabled="False" DockPanel.Dock="Bottom" Height="30"></TextBox>
+                    <TextBox Name="TextBoxSaveFileLocation" Text="{Binding SaveFilePath, Mode=TwoWay}" IsEnabled="False" DockPanel.Dock="Bottom" Height="30"></TextBox>
                 </DockPanel>
             </Expander>
         </StackPanel>
