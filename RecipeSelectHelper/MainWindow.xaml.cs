@@ -3,6 +3,7 @@ using RecipeSelectHelper.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -18,12 +19,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.BoughtProducts;
 using AllCategoriesPage = RecipeSelectHelper.View.Categories.AllCategoriesPage;
 using AllRecipesPage = RecipeSelectHelper.View.Recipes.AllRecipesPage;
 using AllSortingMethodsPage = RecipeSelectHelper.View.SortingMethods.AllSortingMethodsPage;
 using AllStoreProductsPage = RecipeSelectHelper.View.Products.AllStoreProductsPage;
+using Path = System.IO.Path;
 using RankingsViewPage = RecipeSelectHelper.View.Miscellaneous.RankingsViewPage;
 using SettingsPage = RecipeSelectHelper.View.Miscellaneous.SettingsPage;
 
@@ -51,11 +54,21 @@ namespace RecipeSelectHelper
 
         private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
         {
-            var xmlReader = new XmlDataHandler();
-            Data = xmlReader.FromXml();
+            string path = GetSettingsFilePath();
+            Data = File.Exists(path) ? XmlDataHandler.FromXml(path) : new ProgramData();
 
             SetPage(new RankingsViewPage(this));
             HighlightButtonBackground(Button_RankRecipes);
+        }
+
+        private string GetSettingsFilePath()
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.DataFilePath))
+            {
+                Settings.Default.DataFilePath = UtilityMethods.GetExeDirectoryPath();
+                Settings.Default.Save();
+            }
+            return Settings.Default.DataFilePath;
         }
 
         public void SetPage(Page newpage)
@@ -123,11 +136,19 @@ namespace RecipeSelectHelper
             HighlightButtonBackground(sender as Button);
         }
 
+        public bool SaveChangesOnExit = true;
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            var xmlReader = new XmlDataHandler();
-            xmlReader.SaveToXml(this.Data);
+            if(!SaveChangesOnExit) return;
+            Settings.Default.Save();
+            string path = Settings.Default.DataFilePath;
+            if (String.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("Savefile path invalid");
+            }
+            // Path.Combine(UtilityMethods.GetExeDirectoryPath(), "data.xml");
+            XmlDataHandler.SaveToXml(path, Data);
         }
     }
 }

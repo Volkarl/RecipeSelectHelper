@@ -83,6 +83,7 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
     <Compile Include="Resources\XmlDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />

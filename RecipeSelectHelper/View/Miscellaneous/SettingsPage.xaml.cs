@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Miscellaneous
@@ -14,11 +18,42 @@ namespace RecipeSelectHelper.View.Miscellaneous
     public partial class SettingsPage : Page
     {
         private MainWindow _parent;
+
         public SettingsPage(MainWindow parent)
         {
             _parent = parent;
+            Loaded += SettingsPage_Loaded;
             InitializeComponent();
         }
+
+        private void SettingsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #region ObservableObjects
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
+        public string SaveFilePath
+        {
+            get { return Settings.Default.DataFilePath; }
+            set
+            {
+                if (UtilityMethods.PathIsValid(value))
+                {
+                    Settings.Default.DataFilePath = value;
+                    OnPropertyChanged(nameof(SaveFilePath));
+                }
+            }
+        }
+
+        #endregion
+
 
         private static int _pcClicks = 0;
         private void Button_AddPC_OnClick(object sender, RoutedEventArgs e)
@@ -87,51 +122,6 @@ namespace RecipeSelectHelper.View.Miscellaneous
             Button_AddR_OnClick(null, null);
         }
 
-        private void ButtonExportAll_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportAllRecipes_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportAllProducts_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportAllBoughtProducts_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportAllSortingMethods_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportSelectedRecipes_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportSelectedProducts_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportSelectedBoughtProducts_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonExportSelectedSortingMethods_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ButtonImportFromFile_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
@@ -163,6 +153,18 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private void ButtonExportSaveAsFile_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void ButtonExitWithoutSaving_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.SaveChangesOnExit = false;
+            Application.Current.Shutdown();
+        }
+
+        private void ButtonChangeSaveLocation_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+            //Open find directory dialog
         }
     }
 }

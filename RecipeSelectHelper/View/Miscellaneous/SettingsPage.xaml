@@ -6,61 +6,73 @@
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="SettingsPage">
 
-    <StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
+            <Expander Name="ExpanderExport" Header="Export..." Expanded="ExpanderExport_OnExpanded">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-        <Expander Name="ExpanderExport" Header="Export..." Expanded="ExpanderExport_OnExpanded">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    
-                    <ListView Name="ListViewExportOptions" SelectedIndex="0">
-                        <TextBlock Text="Export All"></TextBlock>
-                        <TextBlock Text="All Recipes"></TextBlock>
-                        <TextBlock Text="All Store Products"></TextBlock>
-                        <TextBlock Text="All Bought Products"></TextBlock>
-                        <TextBlock Text="All Sorting Methods"></TextBlock>
-                    </ListView>
-                    
-                    <UniformGrid Grid.Column="1" Rows="2">
-                        <Button Name="ButtonExportAsText" Click="ButtonExportAsText_OnClick" Content="Export as Text"></Button>
-                        <Button Name="ButtonExportSaveAsFile" Click="ButtonExportSaveAsFile_OnClick" Content="Save at Location..."></Button>
-                    </UniformGrid>
-                </Grid>
-    
-            </StackPanel>
-        </Expander>
-        
-        <Expander Header="Import...">
-            <UniformGrid Rows="1">
-                <Button Name="ButtonImportPasteData" Click="ButtonImportPasteData_OnClick" Content="Paste Data"></Button>
-                <Button Name="ButtonImportFromFile" Click="ButtonImportFromFile_OnClick" Content="From File..."></Button>
-            </UniformGrid>
-        </Expander>
-        
-        <Expander Header="Testing">
-            <UniformGrid DockPanel.Dock="Top" Rows="2">
-                <Button Name="Button_AddPC" Content="Add PC" Click="Button_AddPC_OnClick"></Button>
-                <Button Name="Button_AddRC" Content="Add RC" Click="Button_AddRC_OnClick"></Button>
-                <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
-                <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
-                <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
-                <Button Name="Button_All" Content="Add One of Each" Click="Button_All_OnClick"></Button>
-            </UniformGrid>
-        </Expander>
+                        <ListView Name="ListViewExportOptions" SelectedIndex="0">
+                            <TextBlock Text="Export All"></TextBlock>
+                            <TextBlock Text="All Recipes"></TextBlock>
+                            <TextBlock Text="All Store Products"></TextBlock>
+                            <TextBlock Text="All Bought Products"></TextBlock>
+                            <TextBlock Text="All Sorting Methods"></TextBlock>
+                        </ListView>
 
-        <Expander Header="Advanced Options">
-            <DockPanel>
-                <UniformGrid Height="30" Rows="1" DockPanel.Dock="Top">
-                    <Label Content="Default Save Location:" DockPanel.Dock="Left"></Label>
-                    <Button Name="ButtonChangeSaveLocation" Content="Configure" DockPanel.Dock="Left"></Button>
+                        <UniformGrid Grid.Column="1" Rows="2">
+                            <Button Name="ButtonExportAsText" Click="ButtonExportAsText_OnClick" Content="Export as Text"></Button>
+                            <Button Name="ButtonExportSaveAsFile" Click="ButtonExportSaveAsFile_OnClick" Content="Save at Location..."></Button>
+                        </UniformGrid>
+                    </Grid>
+
+                </StackPanel>
+            </Expander>
+
+            <Expander Header="Import...">
+                <UniformGrid Rows="1">
+                    <Button Name="ButtonImportPasteData" Click="ButtonImportPasteData_OnClick" Content="Paste Data"></Button>
+                    <Button Name="ButtonImportFromFile" Click="ButtonImportFromFile_OnClick" Content="From File..."></Button>
                 </UniformGrid>
-                <TextBox DockPanel.Dock="Bottom" Height="30"></TextBox>
-            </DockPanel>
-        </Expander>
-    </StackPanel>
+            </Expander>
+
+            <Expander Header="Testing">
+                <UniformGrid DockPanel.Dock="Top" Rows="2">
+                    <Button Name="Button_AddPC" Content="Add PC" Click="Button_AddPC_OnClick"></Button>
+                    <Button Name="Button_AddRC" Content="Add RC" Click="Button_AddRC_OnClick"></Button>
+                    <Button Name="Button_AddP" Content="Add P" Click="Button_AddP_OnClick"></Button>
+                    <Button Name="Button_AddBP" Content="Add BP" Click="Button_AddBP_OnClick"></Button>
+                    <Button Name="Button_AddR" Content="Add R" Click="Button_AddR_OnClick"></Button>
+                    <Button Name="Button_All" Content="Add One of Each" Click="Button_All_OnClick"></Button>
+                </UniformGrid>
+            </Expander>
+
+            <Expander Header="Advanced Options">
+                <DockPanel>
+                    <UniformGrid Height="30" Rows="1" DockPanel.Dock="Top">
+                        <Label Content="Default Save Location:" DockPanel.Dock="Left"></Label>
+                        <Button Name="ButtonChangeSaveLocation" Click="ButtonChangeSaveLocation_OnClick" Content="Configure..." DockPanel.Dock="Left"></Button>
+                    </UniformGrid>
+                    <TextBox Name="TextBoxSaveFileLocation" Text="{Binding SaveFilePath}" IsEnabled="False" DockPanel.Dock="Bottom" Height="30"></TextBox>
+                </DockPanel>
+            </Expander>
+        </StackPanel>
+        
+        <Button Grid.Row="1" Grid.Column="1" Name="ButtonExitWithoutSaving" Click="ButtonExitWithoutSaving_OnClick" Content="Exit Application Without Saving" ToolTip="Per default, the application saves changes when it is closed. Click here if you do not wish to preserve changes at this time."></Button>
+    </Grid>
 </Page>
