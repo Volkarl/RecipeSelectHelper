@@ -28,9 +28,37 @@ namespace RecipeSelectHelper.Resources
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex)  // What happens if a file is only able to be read halfway through? Is a halfcompleted object returned?
             {
                 MessageBox.Show(ex.Message);
+                // throw; //Resharper tells me that if this exists then the new ProgramData is never used, which must mean that it either completes
+                // the readthrough or returns an empty object.
+            }
+
+            return deserializedData;
+        }
+
+        public static ProgramData FromXmlString(string xmlData)
+        {
+            var data = new ProgramData();
+            var deserializer = new DataContractSerializer(data.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
+            var deserializedData = new ProgramData();
+
+            try
+            {
+                using (var sr = new StringReader(xmlData))
+                {
+                    using (var xmlr = XmlReader.Create(sr))
+                    {
+                        deserializedData = (ProgramData)deserializer.ReadObject(xmlr, true);
+                    }
+                }
+            }
+            catch (Exception ex)  // What happens if a file is only able to be read halfway through? Is a halfcompleted object returned?
+            {
+                MessageBox.Show(ex.Message);
+                // throw; //Resharper tells me that if this exists then the new ProgramData is never used, which must mean that it either completes
+                // the readthrough or returns an empty object.
             }
 
             return deserializedData;

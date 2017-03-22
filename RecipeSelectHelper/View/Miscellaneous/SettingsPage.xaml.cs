@@ -11,6 +11,7 @@ using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 using Application = System.Windows.Application;
+using Clipboard = System.Windows.Forms.Clipboard;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {
@@ -30,7 +31,6 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void SettingsPage_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         #region ObservableObjects
@@ -134,7 +134,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ButtonImportPasteData_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            string dataAsString = Clipboard.GetText();
+            ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
+            _parent.Data.Import(importedData);
         }
 
         private void ExpanderExport_OnExpanded(object sender, RoutedEventArgs e)
