@@ -134,10 +134,10 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ButtonImportPasteData_OnClick(object sender, RoutedEventArgs e)
         {
-            //string dataAsString = Clipboard.GetText();
-            //ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
-            //var merge = MergePage.TryMerge(_parent.Data, importedData);
-            //_parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
+            string dataAsString = Clipboard.GetText();
+            ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
+            var merge = MergePage.TryMerge(_parent.Data, importedData);
+            _parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
         }
 
         private void ExpanderExport_OnExpanded(object sender, RoutedEventArgs e)

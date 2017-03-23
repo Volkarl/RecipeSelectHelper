@@ -54,21 +54,23 @@ namespace RecipeSelectHelper.View.Miscellaneous
         #endregion
 
 
-        //public static IEnumerable<MergePage> TryMerge(ProgramData target, ProgramData mergeData)
-        //{
-        //    ImportPc(target, mergeData.AllProductCategories);
-        //    ImportRc(target, mergeData.AllRecipeCategories);
-        //    ImportGpc(target, mergeData.AllGroupedProductCategories);
-        //    ImportPc(target, mergeData.AllProductCategories);
-        //    ImportPc(target, mergeData.AllProductCategories);
-        //    ImportPc(target, mergeData.AllProductCategories);
-        //    ImportPc(target, mergeData.AllProductCategories);
+        public ProgramData Merge(ProgramData target, ProgramData mergeData)
+        {
+            List<ProductCategory> pcConflicts = ImportPc(target, mergeData.AllProductCategories);
+            if (pcConflicts.Any())
+            {
+                
+            }
+            
+            ImportRc(target, mergeData.AllRecipeCategories);
+            ImportGpc(target, mergeData.AllGroupedProductCategories);
+            ImportPc(target, mergeData.AllGroupedRecipeCategories);
+            ImportPc(target, mergeData.AllProductCategories);
+            ImportPc(target, mergeData.AllProductCategories);
+            ImportPc(target, mergeData.AllProductCategories);
 
 
-        //    ProgramData conflicts;
-
-        //    target.Import(mergeData, out conflicts);
-        //    yield return new MergePage();
-        //}
+            ProgramData conflicts;
+        }
     }
 }
