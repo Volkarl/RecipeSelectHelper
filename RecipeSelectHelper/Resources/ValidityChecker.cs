@@ -16,6 +16,24 @@ namespace RecipeSelectHelper.Resources
             _programData = programData;
         }
 
+        public bool RecipeIsValid(Recipe recipe, out List<string> errors)
+        {
+            var errorArray = new string[6];
+            int i = 0;
+            if (RecipeNameIsValid(recipe.Name, out errorArray[i++]) &&
+                DescriptionIsValid(recipe.Description, out errorArray[i++]) &&
+                InstructionIsValid(recipe.Instruction, out errorArray[i++]) &&
+                GroupedRcAreValid(recipe.GroupedCategories, out errorArray[i++]) &&
+                CategoriesAreValid(recipe.Categories, out errorArray[i++]) &&
+                IngredientsAreValid(recipe.Ingredients, out errorArray[i]))
+            {
+                errors = null;
+                return true;
+            }
+            errors = errorArray.SkipWhile(string.IsNullOrWhiteSpace).ToList();
+            return false;
+        }
+
         public bool RecipeNameIsValid(string name, out string error)
         {
             bool nameUnique = RecipeNameIsUnique(name);

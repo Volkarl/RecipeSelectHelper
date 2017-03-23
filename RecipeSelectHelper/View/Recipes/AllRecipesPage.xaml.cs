@@ -106,7 +106,7 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllRecipes.Remove(SelectedRecipe);
+            _parent.Data.RemoveElement(SelectedRecipe); //.AllRecipes.Remove(SelectedRecipe);
 
             Recipe selectedR = SelectedRecipe;
             ObservableCollection<Recipe> tempRecipeCollection = Recipes;

@@ -17,10 +17,13 @@ namespace RecipeSelectHelper.Model
         public int MaxSelect { get; set; }
         [DataMember]
         public List<Boolable<RecipeCategory>> GroupedRc { get; set; }
+        [DataMember]
+        public GroupedSelection<RecipeCategory> CorrespondingGroupedSelection { get; set; }
 
         public GroupedRecipeCategory(GroupedSelection<RecipeCategory> correspondingGroupedRc) : this(correspondingGroupedRc.GroupedItems, correspondingGroupedRc.MinSelect, correspondingGroupedRc.MaxSelect)
         {
             if(correspondingGroupedRc == null) throw new ArgumentException();
+            CorrespondingGroupedSelection = correspondingGroupedRc;
         }
 
         private GroupedRecipeCategory(List<RecipeCategory> correspondingGroupedRc, int minSelect, int maxSelect)

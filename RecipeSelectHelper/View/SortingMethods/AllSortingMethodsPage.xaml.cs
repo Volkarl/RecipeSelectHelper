@@ -78,7 +78,7 @@ namespace RecipeSelectHelper.View.SortingMethods
         private void Button_RemoveSortingMethod_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedSortingMethod == null) return;
-            _parent.Data.AllSortingMethods.Remove(SelectedSortingMethod);
+            _parent.Data.RemoveElement(SelectedSortingMethod); //AllSortingMethods.Remove(SelectedSortingMethod);
 
             SortingMethod sortingMethodToRemove = SelectedSortingMethod;
             ObservableCollection<SortingMethod> newSortingMethodCollection = SortingMethods;

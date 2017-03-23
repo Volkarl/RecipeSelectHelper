@@ -121,6 +121,9 @@
     <Compile Include="View\Miscellaneous\CopyableTextWindow.xaml.cs">
       <DependentUpon>CopyableTextWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Miscellaneous\MergePage.xaml.cs">
+      <DependentUpon>MergePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Recipes\AddRecipePage.xaml.cs">
       <DependentUpon>AddRecipePage.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Miscellaneous\CopyableTextWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Miscellaneous\MergePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

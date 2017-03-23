@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using RecipeSelectHelper.Model.SortingMethods;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -115,5 +116,85 @@ namespace RecipeSelectHelper.Model
 
             return hash;
         }
+
+        #region SafeRemoveItems
+
+        public void RemoveElement(ProductCategory pc)
+        {
+            AllProductCategories.Remove(pc);
+            foreach (Product product in AllProducts)
+            {
+                product.Categories.Remove(pc);
+            }
+        }
+
+        public void RemoveElement(RecipeCategory rc)
+        {
+            AllRecipeCategories.Remove(rc);
+            foreach (Recipe recipe in AllRecipes)
+            {
+                recipe.Categories.Remove(rc);
+            }
+        }
+
+        public void RemoveElement(GroupedSelection<ProductCategory> gpc)
+        {
+            AllGroupedProductCategories.Remove(gpc);
+            foreach (Product product in AllProducts)
+            {
+                product.GroupedCategories.RemoveAll(x => x.CorrespondingGroupedSelection.Equals(gpc));
+            }
+        }
+
+        public void RemoveElement(GroupedSelection<RecipeCategory> grc)
+        {
+            AllGroupedRecipeCategories.Remove(grc);
+            foreach (Recipe recipe in AllRecipes)
+            {
+                recipe.GroupedCategories.RemoveAll(x => x.CorrespondingGroupedSelection.Equals(grc));
+            }
+        }
+
+        public void RemoveElement(Product p)
+        {
+            AllProducts.Remove(p);
+            AllBoughtProducts.RemoveAll(x => x.CorrespondingProduct.Equals(p));
+            foreach (Product allP in AllProducts)
+            {
+                allP.SubstituteProducts.Remove(p);
+            }
+            foreach (Recipe r in AllRecipes)
+            {
+                r.Ingredients.RemoveAll(x => x.CorrespondingProduct.Equals(p));
+            }
+        }
+
+        public void RemoveElement(BoughtProduct bp)
+        {
+            AllBoughtProducts.Remove(bp);
+        }
+
+        public void RemoveElement(Recipe r)
+        {
+            AllRecipes.Remove(r);
+        }
+
+        public void RemoveElement(SortingMethod sm)
+        {
+            AllSortingMethods.Remove(sm);
+        }
+
+        #endregion
+
+        //public void Import(List<RecipeCategory> importedData, out List<RecipeCategory> conflicts)
+        //{
+        //    conflicts = new ProgramData();
+        //    var s = new ValidityChecker(importedData);
+
+        //    ImportRc(im);
+
+        //    if(s.RecipeIsValid())
+        //    return;
+        //}
     }
 }

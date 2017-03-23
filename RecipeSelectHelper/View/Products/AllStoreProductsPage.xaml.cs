@@ -88,7 +88,7 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_RemoveStoreProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllProducts.Remove(SelectedStoreProduct);
+            _parent.Data.RemoveElement(SelectedStoreProduct); //.AllProducts.Remove(SelectedStoreProduct);
 
             Product selected = SelectedStoreProduct;
             ObservableCollection<Product> newProductCollection = StoreProducts;

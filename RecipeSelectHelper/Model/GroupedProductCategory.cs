@@ -17,19 +17,22 @@ namespace RecipeSelectHelper.Model
         public int MaxSelect { get; set; }
         [DataMember]
         public List<Boolable<ProductCategory>> GroupedPc { get; set; }
+        [DataMember]
+        public GroupedSelection<ProductCategory> CorrespondingGroupedSelection { get; set; }
 
         public GroupedProductCategory(GroupedSelection<ProductCategory> correspondingGroupedPc) : this(correspondingGroupedPc.GroupedItems, correspondingGroupedPc.MinSelect, correspondingGroupedPc.MaxSelect)
         {
             if (correspondingGroupedPc == null) throw new ArgumentException();
+            CorrespondingGroupedSelection = correspondingGroupedPc;
         }
 
-        private GroupedProductCategory(List<ProductCategory> correspondingGroupedRc, int minSelect, int maxSelect)
+        private GroupedProductCategory(List<ProductCategory> correspondingGroupedPc, int minSelect, int maxSelect)
         {
-            if (correspondingGroupedRc == null) throw new ArgumentException();
+            if (correspondingGroupedPc == null) throw new ArgumentException();
             MinSelect = minSelect;
             MaxSelect = maxSelect;
             GroupedPc = new List<Boolable<ProductCategory>>();
-            foreach (ProductCategory pc in correspondingGroupedRc)
+            foreach (ProductCategory pc in correspondingGroupedPc)
             {
                 GroupedPc.Add(new Boolable<ProductCategory>(pc));
             }

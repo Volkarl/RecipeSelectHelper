@@ -107,7 +107,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_RemoveProductCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllProductCategories.Remove(SelectedProductCategory);
+            _parent.Data.RemoveElement(SelectedProductCategory); //.AllProductCategories.Remove(SelectedProductCategory);
 
             ProductCategory selectedPC = SelectedProductCategory;
             ObservableCollection<ProductCategory> PC = ProductCategories;
@@ -133,7 +133,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_RemoveRecipeCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllRecipeCategories.Remove(SelectedRecipeCategory);
+            _parent.Data.RemoveElement(SelectedRecipeCategory); //AllRecipeCategories.Remove(SelectedRecipeCategory);
 
             RecipeCategory selectedRC = SelectedRecipeCategory;
             ObservableCollection<RecipeCategory> RC = RecipeCategories;

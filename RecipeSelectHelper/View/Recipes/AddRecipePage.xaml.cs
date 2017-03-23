@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
@@ -136,31 +137,38 @@ namespace RecipeSelectHelper.View.Recipes
             List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance);
             List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(y.Value, y.Instance));
 
-            string error;
-            if (_valid.RecipeNameIsValid(name, out error) &&
-                _valid.DescriptionIsValid(name, out error) &&
-                _valid.InstructionIsValid(name, out error) &&
-                _valid.GroupedRcAreValid(groupedRc, out error) &&
-                _valid.CategoriesAreValid(categories, out error) &&
-                _valid.IngredientsAreValid(ingredients, out error))
+            var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
+            List<string> errors;
+            if (_valid.RecipeIsValid(recipe, out errors))
             {
-                bool innerErrorOccured = false;
-                try
-                {
-                    var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
-                    _parent.Data.AllRecipes.Add(recipe);
-                }
-                catch (Exception ex)
-                {
-                    innerErrorOccured = true;
-                    MessageBox.Show(ex.Message);
-                }
-                if(!innerErrorOccured) ClearUIElements();
+                _parent.Data.AllRecipes.Add(recipe);
+                ClearUIElements();
             }
             else
             {
-                MessageBox.Show(error);
+                MessageBox.Show(string.Join("\n", errors));
             }
+
+            //string error;
+            //if (_valid.RecipeIsValid)
+            //{
+            //    bool innerErrorOccured = false;
+            //    try
+            //    {
+            //        var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
+            //        _parent.Data.AllRecipes.Add(recipe);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        innerErrorOccured = true;
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //    if(!innerErrorOccured) ClearUIElements();
+            //}
+            //else
+            //{
+            //    MessageBox.Show(error);
+            //}
         }
 
         private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
