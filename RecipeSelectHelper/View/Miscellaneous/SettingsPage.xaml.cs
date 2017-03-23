@@ -138,6 +138,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
             var merge = MergePage.TryMerge(_parent.Data, importedData);
             _parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
+
+            // when showdialog returns -> check property on window
         }
 
         private void ExpanderExport_OnExpanded(object sender, RoutedEventArgs e)
