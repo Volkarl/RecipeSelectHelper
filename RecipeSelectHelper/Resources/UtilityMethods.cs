@@ -10,6 +10,11 @@ namespace RecipeSelectHelper.Resources
 {
     public static class UtilityMethods
     {
+        public static string AddDefaultFileName(string directoryPath)
+        {
+            return Path.Combine(directoryPath, "data.xml");
+        }
+
         public static string GetExePath()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().CodeBase;

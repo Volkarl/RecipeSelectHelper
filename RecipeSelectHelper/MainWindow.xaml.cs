@@ -68,7 +68,7 @@ namespace RecipeSelectHelper
                 Settings.Default.DataDirectoryPath = UtilityMethods.GetExeDirectoryPath();
                 Settings.Default.Save();
             }
-            return Path.Combine(Settings.Default.DataDirectoryPath, "data.xml");
+            return UtilityMethods.AddDefaultFileName(Settings.Default.DataDirectoryPath);
         }
 
         public void SetPage(Page newpage)
@@ -141,7 +141,7 @@ namespace RecipeSelectHelper
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if(!SaveChangesOnExit) return;
-            string path = Path.Combine(Settings.Default.DataDirectoryPath, "data.xml");
+            string path = UtilityMethods.AddDefaultFileName(Settings.Default.DataDirectoryPath);
             Settings.Default.Save();
             XmlDataHandler.SaveToXml(path, Data);
         }

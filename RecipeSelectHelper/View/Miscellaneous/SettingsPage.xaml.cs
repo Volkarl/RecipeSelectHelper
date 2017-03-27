@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -136,8 +137,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
         {
             string dataAsString = Clipboard.GetText();
             ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
-            var merge = MergePage.TryMerge(_parent.Data, importedData);
-            _parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
+            //var merge = MergePage.TryMerge(_parent.Data, importedData);
+            //_parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
 
             // when showdialog returns -> check property on window
         }
@@ -157,12 +158,17 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private ProgramData GetSelectedData()
         {
+            throw new NotImplementedException();
             return _parent.Data;
         }
 
         private void ButtonExportSaveAsFile_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new FolderBrowserDialog {ShowNewFolderButton = true};
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                XmlDataHandler.SaveToXml(UtilityMethods.AddDefaultFileName(dialog.SelectedPath), GetSelectedData());
+            }
         }
 
         private void ButtonExitWithoutSaving_OnClick(object sender, RoutedEventArgs e)
