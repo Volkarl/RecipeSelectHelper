@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,6 +27,8 @@ using AllCategoriesPage = RecipeSelectHelper.View.Categories.AllCategoriesPage;
 using AllRecipesPage = RecipeSelectHelper.View.Recipes.AllRecipesPage;
 using AllSortingMethodsPage = RecipeSelectHelper.View.SortingMethods.AllSortingMethodsPage;
 using AllStoreProductsPage = RecipeSelectHelper.View.Products.AllStoreProductsPage;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 using RankingsViewPage = RecipeSelectHelper.View.Miscellaneous.RankingsViewPage;
 using SettingsPage = RecipeSelectHelper.View.Miscellaneous.SettingsPage;
@@ -143,7 +146,16 @@ namespace RecipeSelectHelper
             if(!SaveChangesOnExit) return;
             string path = UtilityMethods.AddDefaultFileName(Settings.Default.DataDirectoryPath);
             Settings.Default.Save();
-            XmlDataHandler.SaveToXml(path, Data);
+            try
+            {
+                XmlDataHandler.SaveToXml(path, Data);
+            }
+            catch (Exception ex)
+            {
+                string defaultPath = UtilityMethods.AddDefaultFileName(UtilityMethods.GetExePath());
+                XmlDataHandler.SaveToXml(defaultPath, Data);
+                MessageBox.Show("Invalid save path: data instead saved at " + defaultPath, ex.Message);
+            }
         }
     }
 }

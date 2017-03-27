@@ -93,5 +93,31 @@ namespace RecipeSelectHelper.Resources
             return true;
             throw new NotImplementedException();
         }
+
+        public class PcComparer : IEqualityComparer<ProductCategory>
+        {
+            public bool Equals(ProductCategory x, ProductCategory y)
+            {
+                return x.Name.Equals(y.Name);
+            }
+
+            public int GetHashCode(ProductCategory obj)
+            {
+                return obj.Name.GetHashCode();
+            }
+        }
+
+        public class RcComparer : IEqualityComparer<RecipeCategory>
+        {
+            public bool Equals(RecipeCategory x, RecipeCategory y)
+            {
+                return x.Name.Equals(y.Name);
+            }
+
+            public int GetHashCode(RecipeCategory obj)
+            {
+                return obj.Name.GetHashCode();
+            }
+        }
     }
 }

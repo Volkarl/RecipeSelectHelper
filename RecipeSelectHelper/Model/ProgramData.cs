@@ -196,5 +196,17 @@ namespace RecipeSelectHelper.Model
         //    if(s.RecipeIsValid())
         //    return;
         //}
+
+        public void Merge(ProgramData dataToAdd)
+        {
+            AllProductCategories = AllProductCategories.Union(dataToAdd.AllProductCategories).ToList();
+            AllGroupedProductCategories = AllGroupedProductCategories.Union(dataToAdd.AllGroupedProductCategories).ToList();
+            AllRecipeCategories = AllRecipeCategories.Union(dataToAdd.AllRecipeCategories).ToList();
+            AllGroupedRecipeCategories = AllGroupedRecipeCategories.Union(dataToAdd.AllGroupedRecipeCategories).ToList();
+            AllProducts = AllProducts.Union(dataToAdd.AllProducts).ToList();
+            AllBoughtProducts = AllBoughtProducts.Union(dataToAdd.AllBoughtProducts).ToList();
+            AllRecipes = AllRecipes.Union(dataToAdd.AllRecipes).ToList();
+            AllSortingMethods = AllSortingMethods.Union(dataToAdd.AllSortingMethods).ToList();
+        }
     }
 }

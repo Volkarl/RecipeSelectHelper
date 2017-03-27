@@ -13,6 +13,7 @@ using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Forms.Clipboard;
+using MessageBox = System.Windows.MessageBox;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {
@@ -130,7 +131,19 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ButtonImportFromFile_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                InitialDirectory = "c:\\",
+                Filter = @"Xml files (*.xml)|*.xml|All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ProgramData importedData = XmlDataHandler.FromXml(dialog.FileName);
+                _parent.Data.Merge(importedData);
+            }
         }
 
         private void ButtonImportPasteData_OnClick(object sender, RoutedEventArgs e)

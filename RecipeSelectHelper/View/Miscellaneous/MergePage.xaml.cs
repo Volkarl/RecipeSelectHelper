@@ -52,25 +52,5 @@ namespace RecipeSelectHelper.View.Miscellaneous
         }
 
         #endregion
-
-
-        public ProgramData Merge(ProgramData target, ProgramData mergeData)
-        {
-            List<ProductCategory> pcConflicts = ImportPc(target, mergeData.AllProductCategories);
-            if (pcConflicts.Any())
-            {
-                
-            }
-            
-            ImportRc(target, mergeData.AllRecipeCategories);
-            ImportGpc(target, mergeData.AllGroupedProductCategories);
-            ImportPc(target, mergeData.AllGroupedRecipeCategories);
-            ImportPc(target, mergeData.AllProductCategories);
-            ImportPc(target, mergeData.AllProductCategories);
-            ImportPc(target, mergeData.AllProductCategories);
-
-
-            ProgramData conflicts;
-        }
     }
 }
