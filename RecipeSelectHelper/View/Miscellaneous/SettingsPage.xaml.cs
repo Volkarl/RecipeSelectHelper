@@ -150,10 +150,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         {
             string dataAsString = Clipboard.GetText();
             ProgramData importedData = XmlDataHandler.FromXmlString(dataAsString);
-            //var merge = MergePage.TryMerge(_parent.Data, importedData);
-            //_parent.ContentControl.Content = new AddElementBasePage(conflictPage, "Resolve conflicts")
-
-            // when showdialog returns -> check property on window
+            _parent.Data.Merge(importedData);
         }
 
         private void ExpanderExport_OnExpanded(object sender, RoutedEventArgs e)
@@ -171,8 +168,56 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private ProgramData GetSelectedData()
         {
+            ProgramData data = new ProgramData();
+            switch (ListViewExportOptions.SelectedIndex)
+            {
+                case 0: data = _parent.Data;
+                    break;
+                case 1: data = GetRecipeData(_parent.Data);
+                    break;
+                case 2: data = GetStoreProductData(_parent.Data);
+                    break;
+                case 3: data = GetBoughtProductData(_parent.Data);
+                    break;
+                case 4: data = GetSortingMethodData(_parent.Data);
+                    break;
+            }
+            return data;
+        }
+
+        private ProgramData GetSortingMethodData(ProgramData parentData)
+        {
             throw new NotImplementedException();
-            return _parent.Data;
+        }
+
+        private ProgramData GetBoughtProductData(ProgramData parentData)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ProgramData GetStoreProductData(ProgramData parentData)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ProgramData GetRecipeData(ProgramData parentData)
+        {
+            ProgramData data = new ProgramData();
+            //foreach (Recipe recipe in parentData.AllRecipes)
+            //{
+            //    data.AllRecipes.Add(recipe);
+            //    data.AllProducts.AddRange(recipe.Ingredients.ConvertAll(x => x.CorrespondingProduct));
+            //    data.
+            // HERE I WANTED TO USE .UNION TO THEN ENSURE THAT EACH PRODUCT/RECIPECATEGORY AND SUCH WAS ONLY IN THERE ONCE, EVEN IF
+            // REFERENCED MULTIPLE TIMES!
+            //}
+
+            // FOllow it down the tree somehow? Make a specialized class for this
+
+            data.AllRecipes = parentData.AllRecipes;
+
+            
+            throw new NotImplementedException();
         }
 
         private void ButtonExportSaveAsFile_OnClick(object sender, RoutedEventArgs e)

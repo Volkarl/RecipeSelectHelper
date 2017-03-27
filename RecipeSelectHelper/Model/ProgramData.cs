@@ -13,6 +13,8 @@ namespace RecipeSelectHelper.Model
     public class ProgramData
     {
         [DataMember]
+        public string CompatibilityVersion { get; set; }
+        [DataMember]
         public List<Product> AllProducts { get; set; }
         [DataMember]
         public List<BoughtProduct> AllBoughtProducts { get; set; }
@@ -29,8 +31,10 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<GroupedSelection<RecipeCategory>> AllGroupedRecipeCategories { get; set; }
 
-        public ProgramData()
+        public static string ProgramVersion = "Version 1.0";
+        public ProgramData(string compatibilityVersion = "Version 1.0")
         {
+            CompatibilityVersion = compatibilityVersion;
             AllProducts = new List<Product>();
             AllBoughtProducts = new List<BoughtProduct>();
             AllRecipes = new List<Recipe>();

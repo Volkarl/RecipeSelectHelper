@@ -59,7 +59,8 @@ namespace RecipeSelectHelper
         {
             string path = GetSettingsFilePath();
             Data = File.Exists(path) ? XmlDataHandler.FromXml(path) : new ProgramData();
-
+            if (Data.CompatibilityVersion != ProgramData.ProgramVersion) throw new ArgumentException("Loaded data is of wrong program version");
+                //FixCompatibilityErrors(Data.CompatibilityVersion);
             SetPage(new RankingsViewPage(this));
             HighlightButtonBackground(Button_RankRecipes);
         }
