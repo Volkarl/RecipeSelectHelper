@@ -15,12 +15,12 @@
         <StackPanel>
             <DockPanel Margin="1">
                 <Label Content="Recipe Name: " Height="30" Width="125"></Label>
-                <!--<Button Name="Button_RecipeNameIsUnique" Width="30" Height="30" DockPanel.Dock="Right">
-                    <Button.Content>
+                <!--<Label Name="Button_RecipeNameIsUnique" Width="30" Height="30" DockPanel.Dock="Right">
+                    <Label.Content>
                         <Image Style="{StaticResource ImageCheckmark}"></Image>
-                    </Button.Content>
-                </Button>-->
-                <TextBox Name="TextBox_RecipeName" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding RecipeNameValid}" LostFocus="Button_RecipeNameIsUnique_OnClick" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+                    </Label.Content>
+                </Label>-->
+                <TextBox Name="TextBox_RecipeName" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding RecipeNameValid}" LostFocus="RecipeNameChanged" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
             </DockPanel>
 
             <DockPanel Margin="1">

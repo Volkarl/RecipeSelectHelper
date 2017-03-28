@@ -176,7 +176,7 @@ namespace RecipeSelectHelper.View.Recipes
             _parent.SetPage(new AddElementBasePage(new AddGroupedRecipeCategoryPage(_parent), "Add New Recipe Types", _parent));
         }
 
-        private void Button_RecipeNameIsUnique_OnClick(object sender, RoutedEventArgs e)
+        private void RecipeNameChanged(object sender, RoutedEventArgs e)
         {
             string error;
             RecipeNameValid = _valid.RecipeNameIsValid(TextBox_RecipeName.Text, out error);
