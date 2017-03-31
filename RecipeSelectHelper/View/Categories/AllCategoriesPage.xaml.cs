@@ -109,11 +109,11 @@ namespace RecipeSelectHelper.View.Categories
         {
             _parent.Data.RemoveElement(SelectedProductCategory); //.AllProductCategories.Remove(SelectedProductCategory);
 
-            ProductCategory selectedPC = SelectedProductCategory;
-            ObservableCollection<ProductCategory> PC = ProductCategories;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedPC, ref PC);
-            SelectedProductCategory = selectedPC;
-            ProductCategories = PC;
+            ProductCategory selectedPc = SelectedProductCategory;
+            ObservableCollection<ProductCategory> pc = ProductCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedPc, ref pc);
+            SelectedProductCategory = selectedPc;
+            ProductCategories = pc;
 
             ListView_PC.Focus();
         }
@@ -135,11 +135,11 @@ namespace RecipeSelectHelper.View.Categories
         {
             _parent.Data.RemoveElement(SelectedRecipeCategory); //AllRecipeCategories.Remove(SelectedRecipeCategory);
 
-            RecipeCategory selectedRC = SelectedRecipeCategory;
-            ObservableCollection<RecipeCategory> RC = RecipeCategories;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRC, ref RC);
-            SelectedRecipeCategory = selectedRC;
-            RecipeCategories = RC;
+            RecipeCategory selectedRc = SelectedRecipeCategory;
+            ObservableCollection<RecipeCategory> rc = RecipeCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRc, ref rc);
+            SelectedRecipeCategory = selectedRc;
+            RecipeCategories = rc;
 
             ListView_RC.Focus();
         }

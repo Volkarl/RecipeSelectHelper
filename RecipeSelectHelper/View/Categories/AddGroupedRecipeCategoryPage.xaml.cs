@@ -114,7 +114,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void ButtonRemoveRecipeCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _data.AllRecipeCategories.Remove(SelectedRC);
+            _data.RemoveElement(SelectedRC); // AllRecipeCategories.Remove(SelectedRC);
 
             RecipeCategory selectedRc = SelectedRC;
             ObservableCollection<RecipeCategory> rc = RecipeCategories;

@@ -119,7 +119,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
 
         private void Button_RemoveBoughtProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.Data.AllBoughtProducts.Remove(SelectedBoughtProduct);
+            _parent.Data.RemoveElement(SelectedBoughtProduct); //AllBoughtProducts.Remove(SelectedBoughtProduct);
 
             BoughtProduct selectedBp = SelectedBoughtProduct;
             ObservableCollection<BoughtProduct> tempBpCollection = BoughtProducts;

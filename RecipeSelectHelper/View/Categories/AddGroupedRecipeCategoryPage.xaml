@@ -26,7 +26,8 @@
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
             <Button Name="Button_AddNewRecipeCategory" Height="30" Content="Add" Click="Button_AddNewRecipeCategory_OnClick"></Button>
             <Button Name="Button_EditRecipeCategory" Content="Edit" Click="Button_EditRecipeCategory_OnClick"></Button>
-            <Button Name="ButtonRemoveRecipeCategory" Content="Remove" Click="ButtonRemoveRecipeCategory_OnClick"></Button>
+            <Button Name="Button
+                    RecipeCategory" Content="Remove" Click="ButtonRemoveRecipeCategory_OnClick"></Button>
         </UniformGrid>
 
         <Label DockPanel.Dock="Top" Height="30" Content="List of categories to group: " VerticalAlignment="Center"></Label>
