@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.Resources
         {
             var errorArray = new string[6];
             int i = 0;
-            if (RecipeNameIsValid(recipe.Name, out errorArray[i++]) &&
+            if (RecipeNameIsValid(recipe.Name) &&
                 DescriptionIsValid(recipe.Description, out errorArray[i++]) &&
                 InstructionIsValid(recipe.Instruction, out errorArray[i++]) &&
                 GroupedRcAreValid(recipe.GroupedCategories, out errorArray[i++]) &&
@@ -34,23 +34,16 @@ namespace RecipeSelectHelper.Resources
             return false;
         }
 
-        public bool RecipeNameIsValid(string name, out string error)
+        public bool RecipeNameIsValid(string r)
         {
-            bool nameUnique = RecipeNameIsUnique(name);
-            bool spellingValid = RecipeNameSpellingIsValid(name, out error);
-            if (!nameUnique) error = "Recipe name is already taken";
+            bool nameUnique = RecipeNameIsUnique(r);
+            bool spellingValid = RecipeNameSpellingIsValid(r);
             return nameUnique && spellingValid;
         }
 
-        private bool RecipeNameIsUnique(string name)
+        private bool RecipeNameSpellingIsValid(string r)
         {
-            return !_programData.AllRecipes.Any(x => x.Name.Equals(name));
-        }
-
-        private bool RecipeNameSpellingIsValid(string name, out string error)
-        {
-            error = String.Empty;    //error should be null if nothing is wrong!
-            return !string.IsNullOrWhiteSpace(name);
+            return !string.IsNullOrWhiteSpace(r);
         }
 
         public bool DescriptionIsValid(string name, out string error)
@@ -119,5 +112,14 @@ namespace RecipeSelectHelper.Resources
                 return obj.Name.GetHashCode();
             }
         }
+
+        public bool RecipeCategoryNameIsValid(string name) => !string.IsNullOrWhiteSpace(name) && RecipeCategoryNameIsUnique(name);
+        public bool ProductCategoryNameIsValid(string name) => !string.IsNullOrWhiteSpace(name) && ProductCategoryNameIsUnique(name);
+        public bool StoreProductNameIsValid(string name) => !string.IsNullOrWhiteSpace(name) && StoreProductNameIsUnique(name);
+
+        private bool RecipeCategoryNameIsUnique(string rc) => !_programData.AllRecipeCategories.Any(x => x.Name.Equals(rc));
+        private bool ProductCategoryNameIsUnique(string pc) => !_programData.AllProductCategories.Any(x => x.Name.Equals(pc));
+        private bool RecipeNameIsUnique(string r) => !_programData.AllRecipes.Any(x => x.Name.Equals(r));
+        private bool StoreProductNameIsUnique(string p) => !_programData.AllProducts.Any(x => x.Name.Equals(p));
     }
 }

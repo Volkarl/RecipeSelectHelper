@@ -14,7 +14,7 @@
         <StackPanel>
             <DockPanel Margin="1">
                 <Label Height="30" Width="125" Content="Name:"></Label>
-                <TextBox Name="TextBox_ProductName" VerticalContentAlignment="Center" Height="30"></TextBox>
+                <TextBox Name="TextBox_ProductName" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding ProductNameValid}" LostFocus="ProductNameChanged"  VerticalContentAlignment="Center" Height="30"></TextBox>
             </DockPanel>
 
             <DockPanel Name="DockPanel_GroupedCategories" Margin="1">

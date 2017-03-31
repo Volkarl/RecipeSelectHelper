@@ -68,12 +68,15 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="Null">
                 <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                <Setter Property="ToolTip" Value="{x:Null}"></Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"  Value="True">
                 <Setter Property="BorderBrush" Value="LawnGreen"></Setter>
+                <Setter Property="ToolTip" Value="{x:Null}"></Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="False">
-                <Setter Property="BorderBrush" Value="Red"></Setter>
+                <Setter Property="BorderBrush" Value="Orange"></Setter>
+                <Setter Property="ToolTip" Value="Name invalid or already taken"></Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>

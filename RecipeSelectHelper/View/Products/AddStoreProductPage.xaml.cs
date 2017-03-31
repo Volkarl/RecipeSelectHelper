@@ -15,7 +15,7 @@ namespace RecipeSelectHelper.View.Products
     /// <summary>
     /// Interaction logic for AddStoreProductPage.xaml
     /// </summary>
-    public partial class AddStoreProductPage : Page, IAddElement
+    public partial class AddStoreProductPage : Page, IAddElement, INotifyPropertyChanged
     {
         private MainWindow _parent;
         private ValidityChecker _valid;
@@ -56,6 +56,17 @@ namespace RecipeSelectHelper.View.Products
         {
             get { return _groupedProductCategories; }
             set { _groupedProductCategories = value; OnPropertyChanged(nameof(GroupedProductCategories)); }
+        }
+
+        private bool? _productNameValid;
+        public bool? ProductNameValid
+        {
+            get { return _productNameValid; }
+            set
+            {
+                _productNameValid = value;
+                OnPropertyChanged(nameof(ProductNameValid));
+            }
         }
 
         #endregion
@@ -134,6 +145,11 @@ namespace RecipeSelectHelper.View.Products
         private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
         {
             _parent.SetPage(new AddElementBasePage(new AddGroupedProductCategories(_parent), "Add New Product Types", _parent));
+        }
+
+        private void ProductNameChanged(object sender, RoutedEventArgs e)
+        {
+            ProductNameValid = _valid.StoreProductNameIsValid(TextBox_ProductName.Text);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace RecipeSelectHelper.View.Recipes
             Ingredients = new ObservableCollection<BoolableWithValue<Product, int>>(_addedIng.ConvertAll(x => new BoolableWithValue<Product, int>(x)));
         }
 
-        private void ClearUIElements()
+        private void ClearUiElements()
         {
             TextBox_RecipeName.Text = string.Empty;
             TextBox_RecipeDescription.Text = string.Empty;
@@ -142,33 +142,12 @@ namespace RecipeSelectHelper.View.Recipes
             if (_valid.RecipeIsValid(recipe, out errors))
             {
                 _parent.Data.AllRecipes.Add(recipe);
-                ClearUIElements();
+                ClearUiElements();
             }
             else
             {
                 MessageBox.Show(string.Join("\n", errors));
             }
-
-            //string error;
-            //if (_valid.RecipeIsValid)
-            //{
-            //    bool innerErrorOccured = false;
-            //    try
-            //    {
-            //        var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
-            //        _parent.Data.AllRecipes.Add(recipe);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        innerErrorOccured = true;
-            //        MessageBox.Show(ex.Message);
-            //    }
-            //    if(!innerErrorOccured) ClearUIElements();
-            //}
-            //else
-            //{
-            //    MessageBox.Show(error);
-            //}
         }
 
         private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
@@ -178,18 +157,7 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void RecipeNameChanged(object sender, RoutedEventArgs e)
         {
-            string error;
-            RecipeNameValid = _valid.RecipeNameIsValid(TextBox_RecipeName.Text, out error);
-            if (!RecipeNameValid.Value)
-            {
-                TextBox_RecipeName.BorderBrush = System.Windows.Media.Brushes.Red;
-                TextBox_RecipeName.ToolTip = error;
-            }
-            else
-            {
-                TextBox_RecipeName.BorderBrush = System.Windows.Media.Brushes.LawnGreen;
-                TextBox_RecipeName.ToolTip = null;
-            }
+            RecipeNameValid = _valid.RecipeNameIsValid(TextBox_RecipeName.Text);
         }
     }
 }
