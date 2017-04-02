@@ -36,6 +36,7 @@ namespace RecipeSelectHelper.View.Categories
         private void AddCategoriesPage_Loaded(object sender, RoutedEventArgs e)
         {
             _valid = new ValidityChecker(_data);
+            TextBox_CategoryName.Focus();
         }
 
         #region ObservableObjects
