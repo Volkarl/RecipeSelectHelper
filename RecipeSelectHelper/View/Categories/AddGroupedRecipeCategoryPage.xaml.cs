@@ -37,8 +37,6 @@ namespace RecipeSelectHelper.View.Categories
             RecipeCategories = new ObservableCollection<RecipeCategory>(_data.AllRecipeCategories.OrderBy(x => x.Name));
             // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
             SelectedRC = null;
-            MinSelectionAmount = 0;
-            MaxSelectionAmount = 3;
         }
 
         #region ObservableObjects
@@ -60,9 +58,7 @@ namespace RecipeSelectHelper.View.Categories
         public int MaxSelectionAmount
         {
             get { return _maxSelectionAmount; }
-            set { _maxSelectionAmount = value; 
-                //value > RecipeCategories.Count ? RecipeCategories.Count : value;
-                OnPropertyChanged(nameof(MaxSelectionAmount)); }
+            set { _maxSelectionAmount = value; OnPropertyChanged(nameof(MaxSelectionAmount)); }
         }
 
         private ObservableCollection<RecipeCategory> _recipeCategories;
