@@ -28,6 +28,8 @@ namespace RecipeSelectHelper.Model
                 minSelect < 0 ||
                 maxSelect < 0 ||
                 maxSelect < minSelect) throw new ArgumentException("MinSelect: " + minSelect + " & MaxSelect: " + maxSelect);
+            
+            if(maxSelect == 0) throw new ArgumentException("MaxSelect is 0.");
 
             MinSelect = minSelect;
             MaxSelect = maxSelect;

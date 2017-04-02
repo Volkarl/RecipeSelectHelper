@@ -42,10 +42,10 @@ namespace RecipeSelectHelper.View.Categories
         }
 
         private ObservableCollection<GroupedSelection<ProductCategory>> _groupedPc;
-        public ObservableCollection<GroupedSelection<ProductCategory>> GroupedPC
+        public ObservableCollection<GroupedSelection<ProductCategory>> GroupedPc
         {
             get { return _groupedPc; }
-            set { _groupedPc = value; OnPropertyChanged(nameof(GroupedPC)); }
+            set { _groupedPc = value; OnPropertyChanged(nameof(GroupedPc)); }
         }
 
         private GroupedSelection<ProductCategory> _selectedGroupedPc;
@@ -78,7 +78,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void InitializeObservableObjects()
         {
-            GroupedPC = new ObservableCollection<GroupedSelection<ProductCategory>>(_parent.Data.AllGroupedProductCategories.OrderBy(x => x.MinSelect));
+            GroupedPc = new ObservableCollection<GroupedSelection<ProductCategory>>(_parent.Data.AllGroupedProductCategories.OrderBy(x => x.MinSelect));
             GroupedRc = new ObservableCollection<GroupedSelection<RecipeCategory>>(_parent.Data.AllGroupedRecipeCategories.OrderBy(x => x.MinSelect));
             SelectedGroupedPC = null;
             SelectedGroupedRc = null;
@@ -86,7 +86,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddGroupedPC_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedProductCategories(_parent), "Add New Grouped Product Categories", _parent);
+            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedProductCategoryPage(_parent), "Add New Grouped Product Categories", _parent);
         }
 
         private void Button_EditGroupedPC_OnClick(object sender, RoutedEventArgs e)
@@ -96,6 +96,15 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_RemoveGroupedPC_OnClick(object sender, RoutedEventArgs e)
         {
+            _parent.Data.RemoveElement(SelectedGroupedPC);
+
+            GroupedSelection<ProductCategory> selectedGpc = SelectedGroupedPC;
+            ObservableCollection<GroupedSelection<ProductCategory>> gpc = GroupedPc;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedGpc, ref gpc);
+            SelectedGroupedPC = selectedGpc;
+            GroupedPc = gpc;
+
+            SearchableListView_GroupedPC.Focus();
         }
 
         private void Button_AddGroupedRC_OnClick(object sender, RoutedEventArgs e)
@@ -105,12 +114,19 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EditGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
         }
 
         private void Button_RemoveGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _parent.Data.RemoveElement(SelectedGroupedRc);
+
+            GroupedSelection<RecipeCategory> selectedGrc = SelectedGroupedRc;
+            ObservableCollection<GroupedSelection<RecipeCategory>> grc = GroupedRc;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedGrc, ref grc);
+            SelectedGroupedRc = selectedGrc;
+            GroupedRc = grc;
+
+            SearchableListView_GroupedRC.Focus();
         }
 
         private void Button_ViewCategories_OnClick(object sender, RoutedEventArgs e)

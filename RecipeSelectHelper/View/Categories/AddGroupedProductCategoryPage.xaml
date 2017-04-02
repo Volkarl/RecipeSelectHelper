@@ -1,0 +1,34 @@
+﻿<Page x:Class="RecipeSelectHelper.View.Categories.AddGroupedProductCategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="580"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      Title="AddGroupedProductCategoryPage">
+
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
+            <Label Content="Max. Selection Amount: " ToolTip="The maximum amount of items the user is allowed to select to create a recipe." Width="200"></Label>
+            <resources:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></resources:InputSlider>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
+            <Label Content="Min. Selection Amount: " ToolTip="The minimum amount of items the user is required to select before he can create a recipe." Width="200"></Label>
+            <resources:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></resources:InputSlider>
+        </DockPanel>
+
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
+            <Button Name="Button_AddNewProductCategory" Height="30" Content="Add" Click="Button_AddNewProductCategory_OnClick"></Button>
+            <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_OnClick"></Button>
+            <Button Name="ButtonRemoveProductCategory" Content="Remove" Click="ButtonRemoveProductCategory_OnClick"></Button>
+        </UniformGrid>
+
+        <Label DockPanel.Dock="Top" Height="30" Content="List of categories to group: " VerticalAlignment="Center"></Label>
+        <ListView DockPanel.Dock="Top" Name="ListView_ProductCategories" SelectedItem="{Binding SelectedPc, Mode=TwoWay}" ItemsSource="{Binding Path=ProductCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
+    </DockPanel>
+</Page>
+
+
+

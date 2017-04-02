@@ -12,18 +12,18 @@ using RecipeSelectHelper.Resources;
 namespace RecipeSelectHelper.View.Categories
 {
     /// <summary>
-    /// Interaction logic for AddGroupedRecipeCategoryPage.xaml
+    /// Interaction logic for AddGroupedProductCategoryPage.xaml
     /// </summary>
-    public partial class AddGroupedRecipeCategoryPage : Page, IAddElement, INotifyPropertyChanged
+    public partial class AddGroupedProductCategoryPage : Page, IAddElement, INotifyPropertyChanged
     {
         private MainWindow _parent;
         private static ProgramData _data = new ProgramData();
 
-        public AddGroupedRecipeCategoryPage(MainWindow parent)
+        public AddGroupedProductCategoryPage(MainWindow parent)
         {
             _parent = parent;
             ResetInternalData();
-            Loaded += AddGroupedRecipeCategoryPage_Loaded;
+            Loaded += AddGroupedProductCategoryPage_Loaded;
             InitializeComponent();
         }
 
@@ -34,16 +34,16 @@ namespace RecipeSelectHelper.View.Categories
             _data = new ProgramData();
         }
 
-        private void AddGroupedRecipeCategoryPage_Loaded(object sender, RoutedEventArgs e)
+        private void AddGroupedProductCategoryPage_Loaded(object sender, RoutedEventArgs e)
         {
             LoadObservableObjects();
         }
 
         private void LoadObservableObjects()
         {
-            RecipeCategories = new ObservableCollection<RecipeCategory>(_data.AllRecipeCategories.OrderBy(x => x.Name));
+            ProductCategories = new ObservableCollection<ProductCategory>(_data.AllProductCategories.OrderBy(x => x.Name));
             // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
-            SelectedRc = null;
+            SelectedPc = null;
         }
 
         #region ObservableObjects
@@ -68,34 +68,34 @@ namespace RecipeSelectHelper.View.Categories
             set { _maxSelectionAmount = value; OnPropertyChanged(nameof(MaxSelectionAmount)); }
         }
 
-        private ObservableCollection<RecipeCategory> _recipeCategories;
-        public ObservableCollection<RecipeCategory> RecipeCategories
+        private ObservableCollection<ProductCategory> _productCategories;
+        public ObservableCollection<ProductCategory> ProductCategories
         {
-            get { return _recipeCategories; }
-            set { _recipeCategories = value; OnPropertyChanged(nameof(RecipeCategories)); }
+            get { return _productCategories; }
+            set { _productCategories = value; OnPropertyChanged(nameof(ProductCategories)); }
         }
 
-        private RecipeCategory _selectedRc;
-        public RecipeCategory SelectedRc
+        private ProductCategory _selectedPc;
+        public ProductCategory SelectedPc
         {
-            get { return _selectedRc; }
-            set { _selectedRc = value; OnPropertyChanged(nameof(SelectedRc)); }
+            get { return _selectedPc; }
+            set { _selectedPc = value; OnPropertyChanged(nameof(SelectedPc)); }
         }
         #endregion
 
         public void AddItem(object sender, RoutedEventArgs e)
         {
-            var categories = new List<RecipeCategory>();
+            var categories = new List<ProductCategory>();
 
-            foreach (RecipeCategory rc in RecipeCategories)
+            foreach (ProductCategory pc in ProductCategories)
             {
-                categories.Add(rc);
+                categories.Add(pc);
             }
 
             try
             {
-                var selection = new GroupedSelection<RecipeCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
-                _parent.Data.AllGroupedRecipeCategories.Add(selection);
+                var selection = new GroupedSelection<ProductCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
+                _parent.Data.AllGroupedProductCategories.Add(selection);
                 ClearPage();
             }
             catch (Exception ex)
@@ -107,32 +107,32 @@ namespace RecipeSelectHelper.View.Categories
         private void ClearPage()
         {
             _data = new ProgramData();
-            RecipeCategories = new ObservableCollection<RecipeCategory>();
+            ProductCategories = new ObservableCollection<ProductCategory>();
             MinSelectionAmount = 0;
             MaxSelectionAmount = 0;
         }
 
-        private void Button_AddNewRecipeCategory_OnClick(object sender, RoutedEventArgs e)
+        private void Button_AddNewProductCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category To Group", _parent);
+            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category To Group", _parent);
         }
 
-        private void Button_EditRecipeCategory_OnClick(object sender, RoutedEventArgs e)
+        private void Button_EditProductCategory_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void ButtonRemoveRecipeCategory_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonRemoveProductCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _data.RemoveElement(SelectedRc); // AllRecipeCategories.Remove(SelectedRC);
+            _data.RemoveElement(SelectedPc);
 
-            RecipeCategory selectedRc = SelectedRc;
-            ObservableCollection<RecipeCategory> rc = RecipeCategories;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedRc, ref rc);
-            SelectedRc = selectedRc;
-            RecipeCategories = rc;
+            ProductCategory selectedPc = SelectedPc;
+            ObservableCollection<ProductCategory> rc = ProductCategories;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedPc, ref rc);
+            SelectedPc = selectedPc;
+            ProductCategories = rc;
 
-            ListView_RecipeCategories.Focus();
+            ListView_ProductCategories.Focus();
         }
     }
 }

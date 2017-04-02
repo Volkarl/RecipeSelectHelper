@@ -14,12 +14,12 @@
             <Label Content="Max. Selection Amount: " ToolTip="The maximum amount of items the user is allowed to select to create a recipe." Width="200"></Label>
             <!--<custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MaxSelectionAmount}"></custom:IntegerTextBox>-->
             <!--<Slider VerticalAlignment="Center" Name="Slider_MaxAmount" Value="{Binding MaxSelectionAmount}" Maximum="{Binding RecipeCategories.Count}"></Slider>-->
-            <custom:InputSlider OuterValue="{Binding MaxSelectionAmount}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
+            <custom:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Min. Selection Amount: " ToolTip="The minimum amount of items the user is required to select before he can create a recipe." Width="200"></Label>
             <!--<custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MinSelectionAmount}"></custom:IntegerTextBox>-->
-            <custom:InputSlider OuterValue="{Binding MinSelectionAmount}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
+            <custom:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
             <!--<Slider VerticalAlignment="Center" Name="Slider_MinAmount" Value="{Binding MinSelectionAmount}" Maximum="{Binding RecipeCategories.Count}"></Slider>-->
         </DockPanel>
 
@@ -30,6 +30,6 @@
         </UniformGrid>
 
         <Label DockPanel.Dock="Top" Height="30" Content="List of categories to group: " VerticalAlignment="Center"></Label>
-        <ListView DockPanel.Dock="Top" Name="ListView_RecipeCategories" SelectedItem="{Binding SelectedRC, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
+        <ListView DockPanel.Dock="Top" Name="ListView_RecipeCategories" SelectedItem="{Binding SelectedRc, Mode=TwoWay}" ItemsSource="{Binding Path=RecipeCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
     </DockPanel>
 </Page>

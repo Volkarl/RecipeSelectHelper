@@ -144,7 +144,7 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_AddGroupedCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AddElementBasePage(new AddGroupedProductCategories(_parent), "Add New Product Types", _parent));
+            _parent.SetPage(new AddElementBasePage(new AddGroupedProductCategoryPage(_parent), "Add New Product Types", _parent));
         }
 
         private void ProductNameChanged(object sender, RoutedEventArgs e)

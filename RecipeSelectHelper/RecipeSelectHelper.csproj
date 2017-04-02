@@ -112,8 +112,8 @@
     <Compile Include="Resources\AddElementBasePage.xaml.cs">
       <DependentUpon>AddElementBasePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Categories\AddGroupedProductCategories.xaml.cs">
-      <DependentUpon>AddGroupedProductCategories.xaml</DependentUpon>
+    <Compile Include="View\Categories\AddGroupedProductCategoryPage.xaml.cs">
+      <DependentUpon>AddGroupedProductCategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Categories\AddGroupedRecipeCategoryPage.xaml.cs">
       <DependentUpon>AddGroupedRecipeCategoryPage.xaml</DependentUpon>
@@ -203,7 +203,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Categories\AddGroupedProductCategories.xaml">
+    <Page Include="View\Categories\AddGroupedProductCategoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
