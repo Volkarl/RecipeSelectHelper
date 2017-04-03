@@ -116,7 +116,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
         {
             List<ProductCategory> containsPc = FilterPc.GetSelected();
             List<ProductCategory> containsGpc = FilterGpc.GetSelected();
-            ListView_BoughtProducts.SetProductFilter(TextBox_SearchBoughtProducts.Text, containsPc, containsGpc);
+            ListView_BoughtProducts.SetBoughtProductFilter(TextBox_SearchBoughtProducts.Text, containsPc, containsGpc);
             ListView_BoughtProducts.ApplyFilter();
         }
 
