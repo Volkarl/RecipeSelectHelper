@@ -13,7 +13,7 @@
         Data="M 5,5 15,5 10,0 5,5" />
         </DockPanel>
     </DataTemplate>
-    
+
     <DataTemplate x:Key="ArrowDown">
         <DockPanel>
             <TextBlock HorizontalAlignment="Center" 
@@ -42,7 +42,13 @@
             </Canvas>
         </Viewbox>
     </DataTemplate>
-    
+
+    <DataTemplate x:Key="SearchButton">
+        <StackPanel Orientation="Horizontal">
+            <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
+            <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+    </DataTemplate>
 
     <Style TargetType="ListViewItem" x:Key="Style_ListViewItemStretch">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -158,6 +164,9 @@
         <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
     </DataTemplate>
 
+    <DataTemplate x:Key="ItemsControlFilterByRecipeCategory" DataType="local:FilterRecipeCategory">
+        <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
+    </DataTemplate>
 
     <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">
         <ItemsControl ItemsSource="{Binding}">
@@ -174,7 +183,23 @@
         </ItemsControl>
     </DataTemplate>
 
+    <DataTemplate x:Key="ItemsControlFilterByGroupedRecipeCategory" DataType="local:FilterGroupedRecipeCategories">
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool, Mode=TwoWay}"></CheckBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DataTemplate>
+
+
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
-    
+
 </ResourceDictionary>

@@ -55,6 +55,19 @@ namespace RecipeSelectHelper.Resources
             else _view.Filter = x => nameTrue(x as BoughtProduct) && gpcTrue(x as BoughtProduct);
         }
 
+        public void SetRecipeFilter(string name, List<RecipeCategory> containsRc, List<RecipeCategory> containsGrc)
+        {
+            Predicate<Recipe> nameTrue = x => x.Name.ContainsCaseInsensitive(name);
+            Predicate<Recipe> pcTrue = x => x.Categories.ContainsAll(containsRc);
+            Predicate<Recipe> gpcTrue = x => x.GetCheckedGroupedCategories().ContainsAll(containsGrc);
+
+            bool anyPcs = containsRc.Any();
+            bool anyGpcs = containsGrc.Any();
+            if (anyPcs && anyGpcs) _view.Filter = x => nameTrue(x as Recipe) && pcTrue(x as Recipe) && gpcTrue(x as Recipe);
+            else if (anyPcs) _view.Filter = x => nameTrue(x as Recipe) && pcTrue(x as Recipe);
+            else _view.Filter = x => nameTrue(x as Recipe) && gpcTrue(x as Recipe);
+        }
+
         public void ApplyFilter()
         {
             CollectionViewSource.GetDefaultView(ItemsSource).Refresh();

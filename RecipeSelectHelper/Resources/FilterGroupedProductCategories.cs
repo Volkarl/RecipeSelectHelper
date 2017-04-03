@@ -26,7 +26,7 @@ namespace RecipeSelectHelper.Resources
 
         public List<ProductCategory> GetCheckedCategories()
         {
-            List<ProductCategory> list = new List<ProductCategory>();
+            var list = new List<ProductCategory>();
             foreach (Boolable<ProductCategory> bp in this)
             {
                 if(bp.Bool) list.Add(bp.Instance);

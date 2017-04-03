@@ -18,9 +18,71 @@ namespace RecipeSelectHelper.Resources
         //    return x => predicate1(x) && predicate2(x);
         //} // Why wont this work?
 
+        public static List<BoughtProduct> GetExpiredProducts(this IEnumerable<BoughtProduct> boughtProducts)
+        {
+            var expiredProducts = new List<BoughtProduct>();
+            foreach (BoughtProduct bp in boughtProducts)
+            {
+                if (bp.ExpirationData.ProductExpirationTime.HasValue)
+                {
+                    if (DateTime.Now > bp.ExpirationData.ProductExpirationTime.Value)
+                    {
+                        expiredProducts.Add(bp);
+                    }
+                }
+            }
+            return expiredProducts;
+        }
+
+        public static List<ProductCategory> GetCheckedGroupedCategories(this Product product)
+        {
+            var s = new List<ProductCategory>();
+            foreach (GroupedProductCategory gpc in product.GroupedCategories)
+            {
+                foreach (Boolable<ProductCategory> pcBoolable in gpc.GroupedPc)
+                {
+                    if (pcBoolable.Bool) s.Add(pcBoolable.Instance);
+                }
+            }
+            return s;
+        }
+
+        public static List<RecipeCategory> GetCheckedGroupedCategories(this Recipe recipe)
+        {
+            var s = new List<RecipeCategory>();
+            foreach (GroupedRecipeCategory grc in recipe.GroupedCategories)
+            {
+                foreach (Boolable<RecipeCategory> rcBoolable in grc.GroupedRc)
+                {
+                    if (rcBoolable.Bool) s.Add(rcBoolable.Instance);
+                }
+            }
+            return s;
+        }
+
+        public static List<RecipeCategory> GetSelected(this ObservableCollection<FilterGroupedRecipeCategories> filterGrc)
+        {
+            var selected = new List<RecipeCategory>();
+            foreach (FilterGroupedRecipeCategories gpc in filterGrc)
+            {
+                selected.AddRange(gpc.GetCheckedCategories());
+            }
+            return selected;
+        }
+
+        public static List<RecipeCategory> GetSelected(this ObservableCollection<FilterRecipeCategory> filterRc)
+        {
+            var selected = new List<RecipeCategory>();
+            foreach (FilterRecipeCategory pc in filterRc)
+            {
+                if (pc.Bool) selected.Add(pc.Instance);
+            }
+            return selected;
+        }
+
         public static List<ProductCategory> GetSelected(this ObservableCollection<FilterGroupedProductCategories> filterGpc)
         {
-            List<ProductCategory> selected = new List<ProductCategory>();
+            var selected = new List<ProductCategory>();
             foreach (FilterGroupedProductCategories gpc in filterGpc)
             {
                 selected.AddRange(gpc.GetCheckedCategories());
@@ -30,14 +92,13 @@ namespace RecipeSelectHelper.Resources
 
         public static List<ProductCategory> GetSelected(this ObservableCollection<FilterProductCategory> filterPc)
         {
-            List<ProductCategory> selected = new List<ProductCategory>();
+            var selected = new List<ProductCategory>();
             foreach (FilterProductCategory pc in filterPc)
             {
                 if (pc.Bool) selected.Add(pc.Instance);
             }
             return selected;
         }
-
 
         public static int ToInt(this char c)
         {

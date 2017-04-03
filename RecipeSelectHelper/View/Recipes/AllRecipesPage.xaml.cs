@@ -17,105 +17,6 @@ namespace RecipeSelectHelper.View.Recipes
     public partial class AllRecipesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
-        private List<RecipeCategory> _selectedCategories;
-
-        public AllRecipesPage(MainWindow parent)
-        {
-            this._parent = parent;
-            InitializeObservableObjects();
-
-            this.Loaded += AllRecipesPageLoaded;
-            InitializeComponent();
-        }
-
-        private void InitializeObservableObjects()
-        {
-            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes);
-            SelectedRecipe = null;
-        }
-
-        private void AllRecipesPageLoaded(object sender, RoutedEventArgs e)
-        {
-            SetUpWrapPanel();
-            FilterRecipesByName(TextBox_SearchRecipes.Text);
-            Recipes = new ObservableCollection<Recipe>(SortByName(Recipes));
-            _selectedCategories = new List<RecipeCategory>();
-            TextBox_SearchRecipes.Focus();
-        }
-
-        private IEnumerable<Recipe> SortByName(IEnumerable<Recipe> recipes)
-        {
-            return recipes.OrderBy(x => x.Name);
-        }
-
-        private void SetUpWrapPanel()
-        {
-            foreach (RecipeCategory rc in _parent.Data.AllRecipeCategories)
-            {
-                var check = new CheckBox { Content = rc.Name };
-                check.Checked += (sender, e) => CategorySelected(rc);
-                check.Unchecked += (sender, e) => CategoryDeselected(rc);
-                WrapPanel_RecipeCategories.Children.Add(check);
-            }
-        }
-
-        private void CategoryDeselected(RecipeCategory rc)
-        {
-            if (_selectedCategories.Remove(rc))
-            {
-                IEnumerable<Recipe> filteredRecipes = FilterBySelectedCategories(_parent.Data.AllRecipes);
-                filteredRecipes = SortByName(filteredRecipes);
-                Recipes = new ObservableCollection<Recipe>(filteredRecipes);
-            }
-        }
-
-        private void CategorySelected(RecipeCategory rc)
-        {
-            _selectedCategories.Add(rc);
-            Recipes = new ObservableCollection<Recipe>(FilterBySelectedCategories(Recipes.ToList()));
-        }
-
-        private List<Recipe> FilterBySelectedCategories(List<Recipe> recipesToFilter)
-        {
-            var filteredRecipes = recipesToFilter.ToList();
-            foreach (RecipeCategory cat in _selectedCategories)
-            {
-                foreach (Recipe rec in recipesToFilter)
-                {
-                    if (rec.Categories.All(x => !x.Equals(cat)))
-                    {
-                        filteredRecipes.Remove(rec);
-                    }
-                }
-            }
-            return filteredRecipes;
-        }
-
-        private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            _parent.SetPage(new Resources.AddElementBasePage(new Recipes.AddRecipePage(_parent), "Add New Recipe", _parent));
-        }
-
-        private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedRecipe != null)
-            {
-                DisplayRecipeInfo(SelectedRecipe);
-            }
-        }
-
-        private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            _parent.Data.RemoveElement(SelectedRecipe); //.AllRecipes.Remove(SelectedRecipe);
-
-            Recipe selectedR = SelectedRecipe;
-            ObservableCollection<Recipe> tempRecipeCollection = Recipes;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref tempRecipeCollection);
-            SelectedRecipe = selectedR;
-            Recipes = tempRecipeCollection;
-
-            ListView_Recipes.Focus();
-        }
 
         #region ObservableObjects
 
@@ -139,26 +40,132 @@ namespace RecipeSelectHelper.View.Recipes
             set { _selectedRecipe = value; OnPropertyChanged(nameof(SelectedRecipe)); }
         }
 
+        private ObservableCollection<FilterRecipeCategory> _filterRc;
+        public ObservableCollection<FilterRecipeCategory> FilterRc
+        {
+            get { return _filterRc; }
+            set { _filterRc = value; OnPropertyChanged(nameof(FilterRc)); }
+        }
+
+        private ObservableCollection<FilterGroupedRecipeCategories> _filterGrc;
+        public ObservableCollection<FilterGroupedRecipeCategories> FilterGrc
+        {
+            get { return _filterGrc; }
+            set { _filterGrc = value; OnPropertyChanged(nameof(FilterGrc)); }
+        }
+
+
         #endregion
+
+        public AllRecipesPage(MainWindow parent)
+        {
+            this._parent = parent;
+            this.Loaded += AllRecipesPageLoaded;
+            InitializeComponent();
+        }
+
+        private void InitializeObservableObjects()
+        {
+            Recipes = new ObservableCollection<Recipe>(OrderBy.OrderByName(_parent.Data.AllRecipes));
+            FilterRc = new ObservableCollection<FilterRecipeCategory>(_parent.Data.AllRecipeCategories.ConvertAll(x => new FilterRecipeCategory(x)));
+            FilterGrc = new ObservableCollection<FilterGroupedRecipeCategories>(_parent.Data.AllGroupedRecipeCategories.ConvertAll(x => new FilterGroupedRecipeCategories(x)));
+            SelectedRecipe = null;
+        }
+
+        private void AllRecipesPageLoaded(object sender, RoutedEventArgs e)
+        {
+            InitializeObservableObjects();
+            TextBox_SearchRecipes.Focus();
+        }
+
+        //private void SetUpWrapPanel()
+        //{
+        //    foreach (RecipeCategory rc in _parent.Data.AllRecipeCategories)
+        //    {
+        //        var check = new CheckBox { Content = rc.Name };
+        //        check.Checked += (sender, e) => CategorySelected(rc);
+        //        check.Unchecked += (sender, e) => CategoryDeselected(rc);
+        //        WrapPanel_RecipeCategories.Children.Add(check);
+        //    }
+        //}
+
+        //private void CategoryDeselected(RecipeCategory rc)
+        //{
+        //    if (_selectedCategories.Remove(rc))
+        //    {
+        //        IEnumerable<Recipe> filteredRecipes = FilterBySelectedCategories(_parent.Data.AllRecipes);
+        //        filteredRecipes = SortByName(filteredRecipes);
+        //        Recipes = new ObservableCollection<Recipe>(filteredRecipes);
+        //    }
+        //}
+
+        //private void CategorySelected(RecipeCategory rc)
+        //{
+        //    _selectedCategories.Add(rc);
+        //    Recipes = new ObservableCollection<Recipe>(FilterBySelectedCategories(Recipes.ToList()));
+        //}
+
+        //private List<Recipe> FilterBySelectedCategories(List<Recipe> recipesToFilter)
+        //{
+        //    var filteredRecipes = recipesToFilter.ToList();
+        //    foreach (RecipeCategory cat in _selectedCategories)
+        //    {
+        //        foreach (Recipe rec in recipesToFilter)
+        //        {
+        //            if (rec.Categories.All(x => !x.Equals(cat)))
+        //            {
+        //                filteredRecipes.Remove(rec);
+        //            }
+        //        }
+        //    }
+        //    return filteredRecipes;
+        //}
+
+        private void Button_AddRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(new AddRecipePage(_parent), "Add New Recipe", _parent));
+        }
+
+        private void Button_EditRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.SetPage(new AddElementBasePage(_parent));
+        }
+
+        private void Button_RemoveRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            _parent.Data.RemoveElement(SelectedRecipe);
+
+            Recipe selectedR = SelectedRecipe;
+            ObservableCollection<Recipe> tempRecipeCollection = Recipes;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedR, ref tempRecipeCollection);
+            SelectedRecipe = selectedR;
+            Recipes = tempRecipeCollection;
+
+            ListView_Recipes.Focus();
+        }
 
         private void TextBox_SearchRecipes_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                FilterRecipesByName(TextBox_SearchRecipes.Text);
+                SortListView();
                 TextBox_SearchRecipes.Focus();
             }
         }
 
-        private void FilterRecipesByName(string searchParameter)
-        {
-            Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.Where(x => x.Name.Contains(searchParameter)));
-        }
+        //private void FilterRecipesByName(string searchParameter)
+        //{
+        //    Recipes = new ObservableCollection<Recipe>(_parent.Data.AllRecipes.Where(x => x.Name.Contains(searchParameter)));
+        //}
 
-        private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e)
+        private void Button_SearchRecipes_Click(object sender, RoutedEventArgs e) => SortListView();
+
+        private void SortListView()
         {
-            FilterRecipesByName(TextBox_SearchRecipes.Text);
-            TextBox_SearchRecipes.Focus();
+            List<RecipeCategory> containsRc = FilterRc.GetSelected();
+            List<RecipeCategory> containsGrc = FilterGrc.GetSelected();
+            ListView_Recipes.SetRecipeFilter(TextBox_SearchRecipes.Text, containsRc, containsGrc);
+            ListView_Recipes.ApplyFilter();
         }
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

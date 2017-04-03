@@ -37,11 +37,11 @@
                     </WrapPanel>
                 </Expander>-->
 
-                <Button Grid.Column="2" VerticalAlignment="Top" Width="100" Height="30" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick">
-                    <StackPanel Orientation="Horizontal">
+                <Button Grid.Column="2" VerticalAlignment="Top" Width="100" Height="30" ContentTemplate="{StaticResource SearchButton}" Name="Button_SearchBoughtProducts" Click="Button_SearchBoughtProducts_OnClick">
+                    <!--<StackPanel Orientation="Horizontal">
                         <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
                         <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
+                    </StackPanel>-->
                 </Button>
 
                 <TextBox Grid.Column="1" Margin="10,0,0,0" Height="30" VerticalAlignment="Top" Name="TextBox_SearchBoughtProducts" TextWrapping="Wrap" KeyDown="TextBox_SearchBoughtProducts_OnKeyDown"></TextBox>

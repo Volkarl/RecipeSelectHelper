@@ -77,28 +77,13 @@ namespace RecipeSelectHelper.View.BoughtProducts
             FilterPc = new ObservableCollection<FilterProductCategory>(_parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(x)));
             FilterGpc = new ObservableCollection<FilterGroupedProductCategories>(_parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x)));
             SelectedBoughtProduct = null;
-            ExpiredProducts = new ObservableCollection<BoughtProduct>(GetExpiredProducts(BoughtProducts));
+            ExpiredProducts = new ObservableCollection<BoughtProduct>(BoughtProducts.GetExpiredProducts());
         }
 
         private void FridgePage_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeObservableObjects();
-        }
-
-        private List<BoughtProduct> GetExpiredProducts(IEnumerable<BoughtProduct> boughtProducts)
-        {
-            var expiredProducts = new List<BoughtProduct>();
-            foreach (BoughtProduct bp in boughtProducts)
-            {
-                if (bp.ExpirationData.ProductExpirationTime.HasValue)
-                {
-                    if (DateTime.Now > bp.ExpirationData.ProductExpirationTime.Value)
-                    {
-                        expiredProducts.Add(bp);
-                    }
-                }
-            }
-            return expiredProducts;
+            TextBox_SearchBoughtProducts.Focus();
         }
 
         private void Button_SearchBoughtProducts_OnClick(object sender, RoutedEventArgs e) => SortListView();

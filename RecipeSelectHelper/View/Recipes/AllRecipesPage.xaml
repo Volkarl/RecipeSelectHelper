@@ -31,8 +31,41 @@
             <ColumnDefinition Width="100"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="8" LastChildFill="True">
-            <Grid DockPanel.Dock="Top">
+        <DockPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="8">
+            <Grid DockPanel.Dock="Top" MinHeight="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Expander Grid.Column="0" Grid.ColumnSpan="3" ExpandDirection="Down">
+                    <Expander.Header>
+                        <Label Content="Filter Products" Height="30" VerticalContentAlignment="Center"></Label>
+                    </Expander.Header>
+                    <StackPanel>
+                        <TextBlock Text="Recipe Type: "></TextBlock>
+                        <ItemsControl ItemsSource="{Binding FilterGrc}" Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByGroupedRecipeCategory}"></ItemsControl>
+                        <TextBlock Text="Recipe Attributes: "></TextBlock>
+                        <ItemsControl ItemsSource="{Binding FilterRc}" Style="{StaticResource StyleItemsControlWrapPanel}" ItemTemplate="{StaticResource ItemsControlFilterByRecipeCategory}"></ItemsControl>
+                    </StackPanel>
+                </Expander>
+
+
+                <!--<Expander Header="Filter Products in Fridge" VerticalAlignment="Center" ExpandDirection="Down">
+                    <WrapPanel Name="WrapPanel_ProductCategories" Orientation="Horizontal">
+                        <WrapPanel.Background>
+                            <SolidColorBrush Color="Gray" Opacity="0.1"></SolidColorBrush>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </Expander>-->
+
+                <Button Grid.Column="2" VerticalAlignment="Top" ContentTemplate="{StaticResource SearchButton}" Width="100" Height="30" Name="Button_SearchRecipes" Click="Button_SearchRecipes_Click"></Button>
+
+                <TextBox Grid.Column="1" Margin="10,0,0,0" Height="30" VerticalAlignment="Top" Name="TextBox_SearchRecipes" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>
+            </Grid>
+
+
+            <!--<Grid DockPanel.Dock="Top">
                 <Expander Header="Filter Recipes" ExpandDirection="Down">
                     <WrapPanel Name="WrapPanel_RecipeCategories" Margin="-2,10,0,0" Orientation="Horizontal">
                         <WrapPanel.Background>
@@ -40,11 +73,11 @@
                         </WrapPanel.Background>
                     </WrapPanel>
                 </Expander>
-            </Grid>
+            </Grid>-->
             
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
 
-            <custom:ExtendedListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <custom:FilterableListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
@@ -58,16 +91,16 @@
                         <GridViewColumn Header="Value" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </custom:ExtendedListView>
+            </custom:FilterableListView>
         </DockPanel>
         
-        <Button Name="Button_SearchRecipes" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Click="Button_SearchRecipes_Click">
+        <!--<Button Name="Button_SearchRecipes" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Click="Button_SearchRecipes_Click">
             <StackPanel Orientation="Horizontal">
                 <ContentPresenter ContentTemplate="{StaticResource IconSearch}"></ContentPresenter>
                 <TextBlock Text="Search" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
-        </Button>
-        <TextBox Name="TextBox_SearchRecipes" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>
+        </Button>-->
+        <!--<TextBox Name="TextBox_SearchRecipes" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding SearchParameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" KeyDown="TextBox_SearchRecipes_KeyDown"></TextBox>-->
         
         <UniformGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="8" Rows="1">
             <Button Name="Button_AddRecipe" Content="Add Recipes" Click="Button_AddRecipe_Click"></Button>

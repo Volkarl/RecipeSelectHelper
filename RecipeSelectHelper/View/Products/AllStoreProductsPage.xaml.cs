@@ -124,7 +124,7 @@ namespace RecipeSelectHelper.View.Products
         // At the moment it reapplies ALL filters every time it is run, and doesn't "just" apply the changes.
         //private void AddCategoryFilters()
         //{
-        //    foreach (FilterProductCategory pc in FilterPc)
+        //    foreach (FilterProductCategory pc in FilterRc)
         //    {
         //        if (pc.Bool)
         //        {
@@ -133,7 +133,7 @@ namespace RecipeSelectHelper.View.Products
         //    }
 
         //    var pcsToCheckFor = new List<ProductCategory>();
-        //    foreach (FilterGroupedProductCategories gpc in FilterGpc)
+        //    foreach (FilterGroupedProductCategories gpc in FilterGrc)
         //    {
         //        pcsToCheckFor.AddRange(gpc.GetCheckedCategories());
         //    }
