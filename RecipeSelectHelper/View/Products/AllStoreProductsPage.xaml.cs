@@ -57,9 +57,6 @@ namespace RecipeSelectHelper.View.Products
 
         #endregion
 
-        //public List<FilterProductCategory> FilterPc { get; set; }
-        //public List<FilterGroupedProductCategories> FilterGpc { get; set; }
-
         public AllStoreProductsPage(MainWindow parent)
         {
             _parent = parent;
@@ -73,14 +70,9 @@ namespace RecipeSelectHelper.View.Products
             TextBox_SearchStoreProducts.Focus();
         }
 
-        private IEnumerable<Product> OrderByName(IEnumerable<Product> products)
-        {
-            return products.OrderBy(x => x.Name);
-        }
-
         private void InitializeObservableObjects()
         {
-            StoreProducts = new ObservableCollection<Product>(OrderByName(_parent.Data.AllProducts));
+            StoreProducts = new ObservableCollection<Product>(OrderBy.OrderByName(_parent.Data.AllProducts));
             FilterPc = new ObservableCollection<FilterProductCategory>(_parent.Data.AllProductCategories.ConvertAll(x => new FilterProductCategory(x)));
             FilterGpc = new ObservableCollection<FilterGroupedProductCategories>(_parent.Data.AllGroupedProductCategories.ConvertAll(x => new FilterGroupedProductCategories(x)));
             SelectedStoreProduct = null;
@@ -122,33 +114,10 @@ namespace RecipeSelectHelper.View.Products
 
         private void SortListView()
         {
-            List<ProductCategory> containsPc = GetSelectedPc(FilterPc);
-            List<ProductCategory> containsGpc = GetSelectedGpc(FilterGpc);
+            List<ProductCategory> containsPc = FilterPc.GetSelected();
+            List<ProductCategory> containsGpc = FilterGpc.GetSelected();
             ListView_StoreProducts.SetProductFilter(TextBox_SearchStoreProducts.Text, containsPc, containsGpc);
-            //AddSearchTextFilter();
-            //AddCategoryFilters();
             ListView_StoreProducts.ApplyFilter();
-            //FilterProductsByName(TextBox_SearchStoreProducts.Text);
-        }
-
-        private List<ProductCategory> GetSelectedGpc(ObservableCollection<FilterGroupedProductCategories> filterGpc)
-        {
-            List<ProductCategory> selected = new List<ProductCategory>();
-            foreach (FilterGroupedProductCategories gpc in FilterGpc)
-            {
-                selected.AddRange(gpc.GetCheckedCategories());
-            }
-            return selected;
-        }
-
-        private List<ProductCategory> GetSelectedPc(ObservableCollection<FilterProductCategory> filterPc)
-        {
-            List<ProductCategory> selected = new List<ProductCategory>();
-            foreach (FilterProductCategory pc in FilterPc)
-            {
-                if(pc.Bool) selected.Add(pc.Instance);
-            }
-            return selected;
         }
 
         // This method can be rewritten to be quite a bit more readable and efficient!

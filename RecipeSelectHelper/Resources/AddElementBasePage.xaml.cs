@@ -16,6 +16,8 @@ namespace RecipeSelectHelper.Resources
         private MainWindow _parent;
         private object _finalizeButtonContent;
 
+        public AddElementBasePage(MainWindow parent) : this(null, "Page Not Implemented", parent, string.Empty) { }
+
         // Rename this class maybe. Its no longer only for adding elements, but also for editing elements. 
         // Anything with a back button and a finalize button!
         public AddElementBasePage(IAddElement content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")

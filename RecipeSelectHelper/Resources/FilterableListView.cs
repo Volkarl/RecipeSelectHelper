@@ -27,18 +27,7 @@ namespace RecipeSelectHelper.Resources
         {
             _view = (CollectionView)CollectionViewSource.GetDefaultView(this.ItemsSource);
             _view.Filter = x => true;
-            //SetFilter<object>(x => true);
         }
-
-        //public void SetFilter<T>(Predicate<T> filterFunc) where T : class
-        //{
-        //    _view.Filter = x => filterFunc(x as T);
-        //}
-
-        //public void AddAdditionalFilter<T>(Predicate<T> filterFunc) where T : class
-        //{
-        //    SetFilter<T>(x => _view.Filter(x) && filterFunc(x));
-        //}
 
         public void SetProductFilter(string name, List<ProductCategory> containsPc, List<ProductCategory> containsGpc)
         {
@@ -51,6 +40,19 @@ namespace RecipeSelectHelper.Resources
             if(anyPcs && anyGpcs) _view.Filter = x => nameTrue(x as Product) && pcTrue(x as Product) && gpcTrue(x as Product);
             else if(anyPcs) _view.Filter = x => nameTrue(x as Product) && pcTrue(x as Product);
             else _view.Filter = x => nameTrue(x as Product) && gpcTrue(x as Product);
+        }
+
+        public void SetBoughtProductFilter(string name, List<ProductCategory> containsPc, List<ProductCategory> containsGpc)
+        {
+            Predicate<BoughtProduct> nameTrue = x => x.CorrespondingProduct.Name.ContainsCaseInsensitive(name);
+            Predicate<BoughtProduct> pcTrue = x => x.CorrespondingProduct.Categories.ContainsAll(containsPc);
+            Predicate<BoughtProduct> gpcTrue = x => x.CorrespondingProduct.GetCheckedGroupedCategories().ContainsAll(containsGpc);
+
+            bool anyPcs = containsPc.Any();
+            bool anyGpcs = containsGpc.Any();
+            if (anyPcs && anyGpcs) _view.Filter = x => nameTrue(x as BoughtProduct) && pcTrue(x as BoughtProduct) && gpcTrue(x as BoughtProduct);
+            else if (anyPcs) _view.Filter = x => nameTrue(x as BoughtProduct) && pcTrue(x as BoughtProduct);
+            else _view.Filter = x => nameTrue(x as BoughtProduct) && gpcTrue(x as BoughtProduct);
         }
 
         public void ApplyFilter()

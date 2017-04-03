@@ -72,6 +72,7 @@
     <Compile Include="Resources\InputSlider.xaml.cs">
       <DependentUpon>InputSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\OrderBy.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
     <Compile Include="Model\SortingMethods\IPreference.cs" />
     <Compile Include="Model\SortingMethods\Preference.cs" />

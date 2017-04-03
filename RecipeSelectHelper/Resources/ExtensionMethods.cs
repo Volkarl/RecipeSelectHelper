@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -14,7 +16,28 @@ namespace RecipeSelectHelper.Resources
         //public static Predicate<T> Add<T>(this Predicate<T> predicate1, Predicate<T> predicate2)
         //{
         //    return x => predicate1(x) && predicate2(x);
-        //}
+        //} // Why wont this work?
+
+        public static List<ProductCategory> GetSelected(this ObservableCollection<FilterGroupedProductCategories> filterGpc)
+        {
+            List<ProductCategory> selected = new List<ProductCategory>();
+            foreach (FilterGroupedProductCategories gpc in filterGpc)
+            {
+                selected.AddRange(gpc.GetCheckedCategories());
+            }
+            return selected;
+        }
+
+        public static List<ProductCategory> GetSelected(this ObservableCollection<FilterProductCategory> filterPc)
+        {
+            List<ProductCategory> selected = new List<ProductCategory>();
+            foreach (FilterProductCategory pc in filterPc)
+            {
+                if (pc.Bool) selected.Add(pc.Instance);
+            }
+            return selected;
+        }
+
 
         public static int ToInt(this char c)
         {

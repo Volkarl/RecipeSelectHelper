@@ -158,6 +158,7 @@
         <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
     </DataTemplate>
 
+
     <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">
         <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
