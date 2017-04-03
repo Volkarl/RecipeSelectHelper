@@ -54,7 +54,6 @@ namespace RecipeSelectHelper.View.Recipes
             set { _filterGrc = value; OnPropertyChanged(nameof(FilterGrc)); }
         }
 
-
         #endregion
 
         public AllRecipesPage(MainWindow parent)

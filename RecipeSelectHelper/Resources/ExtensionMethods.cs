@@ -115,7 +115,7 @@ namespace RecipeSelectHelper.Resources
         public static bool ContainsAll<T>(this ICollection<T> collection1, ICollection<T> collection2)
         {
             if (collection1.Count < collection2.Count) return false;
-            return !collection1.Except(collection2).Any();
+            return !collection2.Except(collection1).Any();
         }
 
         public static string GetDescription(this Enum value)
