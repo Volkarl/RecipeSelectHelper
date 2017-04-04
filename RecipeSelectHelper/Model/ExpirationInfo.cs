@@ -23,10 +23,12 @@ namespace RecipeSelectHelper.Model
             {
                 return 0;
             }
-            double now = (timeNow ?? DateTime.Now).Ticks;
-            long diff = ProductExpirationTime.Value.Ticks - ProductCreatedTime.Value.Ticks;
-            return diff / now;
+            long now = (timeNow ?? DateTime.Now).Ticks;
+            long pCreation = ProductCreatedTime.Value.Ticks;
+            long diffNow = now - pCreation;
+            long diffExpire = ProductExpirationTime.Value.Ticks - pCreation;
+            return diffNow / (double)diffExpire;
         }
-        // Make sure the above one works and doesn't lose the fraction
+        // Untested outside of mathcad
     }
 }

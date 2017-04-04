@@ -10,7 +10,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public int Val { get; set; }
 
-        private Func<double, double> _valueFormula = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
+        private static Func<double, double> _valueFormula = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
 
         public ExpirationDatePreference(string description = null) : base(description)
         {
