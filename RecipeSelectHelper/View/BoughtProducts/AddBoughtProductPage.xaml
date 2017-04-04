@@ -48,7 +48,7 @@
                 
                 <DockPanel DockPanel.Dock="Top">
                     <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
-                    <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0">
+                    <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0" ItemsSource="{Binding StoreProducts}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick"/>

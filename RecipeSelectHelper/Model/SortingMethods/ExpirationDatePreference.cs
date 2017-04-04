@@ -12,9 +12,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
         private static Func<double, double> _valueFormula = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
 
-        public ExpirationDatePreference(string description = null) : base(description)
+        public ExpirationDatePreference(int val, string description = null) : base(description)
         {
-            Description += nameof(ExpirationDatePreference) + " | Finds expiration date value (between 0 and 120 depending on time to product expiration) and multiplies this by " + Val;
+            Val = val;
+            Description += nameof(ExpirationDatePreference) + " | Expiration date value (0 to ≈ 120) multiplied by " + Val;
         }
 
         public override void Calculate(ProgramData pd)

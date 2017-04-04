@@ -51,6 +51,8 @@ namespace RecipeSelectHelper.View.BoughtProducts
             }
         }
 
+        // observablecollection of StoreProducts here
+
         #endregion
 
         private void AddBoughtProductPage_Loaded(object sender, RoutedEventArgs e)

@@ -150,8 +150,9 @@ namespace RecipeSelectHelper.View.SortingMethods
                         new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByExpirationDate:
-                    ui1 = new Label {Content = "LOTS OF WEIRD STUFF AND CONFIGURATIONS SHOULD BE HERE!", Height = 30};
-                    ui2 = new IntegerTextBox {Height = 30};
+                    ui1 = new TextBlock {Text = "By default: assigns value between 0 and ≈ 120 to products from fridge depending on how close they are to expiration.", Height = 30, TextWrapping = TextWrapping.Wrap};
+                    ui2 = new DockPanelWithLabel("Multiply this value by: ",
+                        new IntegerTextBox());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -234,21 +235,33 @@ namespace RecipeSelectHelper.View.SortingMethods
                 case PreferenceTopic.ByIngredientsOwned:
                 {
                     int value;
-                    if (GetValuesFromUI(out value, StackPanel_CurrentPreference, 1))
-                    {
-                        preferenceMethod = SortByIngredientsOwned(value);
-                    }
+                    UnpackValues(out value, StackPanel_CurrentPreference);
+                    //if (GetValuesFromUI(out value, StackPanel_CurrentPreference, 1))
+                    //{
+                    //    preferenceMethod = SortByIngredientsOwned(value);
+                    //}
+                    preferenceMethod = SortByIngredientsOwned(value);
                     break;
-                }
+                    }
                 case PreferenceTopic.ByExpirationDate:
                 {
-                    preferenceMethod = SortByExpirationDate();
+                    int value;
+                    UnpackValues(out value, StackPanel_CurrentPreference);
+                    //GetValuesFromUI(out value, StackPanel_CurrentPreference, 1);
+                    preferenceMethod = SortByExpirationDate(value);
                     break;
                 }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(choice), choice, null);
             }
             return preferenceMethod;
+        }
+
+        private bool UnpackValues(out int value, StackPanel stackPanel) // My naming scheme here is completely off the chain -.-
+        {
+            var dp = stackPanel.Children[2] as DockPanelWithLabel;
+            var itxt = dp.SecondElement as IntegerTextBox;
+            return int.TryParse(itxt.Text, out value);
         }
 
         private bool GetValuesFromUI(out int value, StackPanel stackPanel, int integerTextBoxIndex)
@@ -267,9 +280,9 @@ namespace RecipeSelectHelper.View.SortingMethods
             return int.TryParse(itxt.Text, out value);   //what happens if its empty? Will it raise an exception regardless?
         }
 
-        private Preference SortByExpirationDate()
+        private Preference SortByExpirationDate(int val)
         {
-            return new ExpirationDatePreference();
+            return new ExpirationDatePreference(val);
         }
 
         private Preference SortByIngredientsOwned(int val)
