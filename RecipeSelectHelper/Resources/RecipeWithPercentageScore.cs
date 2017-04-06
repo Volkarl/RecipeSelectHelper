@@ -1,4 +1,5 @@
-﻿using RecipeSelectHelper.Model;
+﻿using System;
+using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -8,14 +9,9 @@ namespace RecipeSelectHelper.Resources
         public double PercentageValue { get; private set; }
         public Recipe CorrespondinRecipe { get; set; }
 
-        public RecipeWithPercentageScore(Recipe recipe)
+        public RecipeWithPercentageScore(Recipe recipe, int maxValue = 0)
         {
-            CorrespondinRecipe = recipe;
-            MaxValue = 0;
-            PercentageValue = 0;
-        }
-        public RecipeWithPercentageScore(Recipe recipe, int maxValue)
-        {
+            if (maxValue == 0) maxValue = 1; // To avoid dividing by zero
             CorrespondinRecipe = recipe;
             MaxValue = maxValue;
             PercentageValue = (CorrespondinRecipe.Value / MaxValue) * 100;

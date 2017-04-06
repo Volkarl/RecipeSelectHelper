@@ -30,5 +30,14 @@ namespace RecipeSelectHelper.Model
             return diffNow / (double)diffExpire;
         }
         // Untested outside of mathcad
+
+        public override string ToString()
+        {
+            string s = "Created date: ";
+            if (ProductCreatedTime != null) s += ProductCreatedTime.Value;
+            s += "\nExpiration date: ";
+            if (ProductExpirationTime != null) s += ProductExpirationTime.Value;
+            return s;
+        }
     }
 }

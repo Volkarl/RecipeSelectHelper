@@ -65,7 +65,7 @@
             <custom:FilterableListView Margin="0,10,0,0" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding Path=BoughtProducts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler" />
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>

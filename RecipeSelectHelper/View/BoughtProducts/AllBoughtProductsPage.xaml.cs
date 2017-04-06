@@ -128,9 +128,12 @@ namespace RecipeSelectHelper.View.BoughtProducts
             ListView_BoughtProducts.Focus();
         }
 
-        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            var item = sender as ListViewItem;
+            var bp = item.Content as BoughtProduct;
+
+            MessageBox.Show(Prettyprinter.ToPrettyString(bp));
         }
 
         private void Button_ReviewExpiredItems_OnClick(object sender, RoutedEventArgs e)

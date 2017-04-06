@@ -23,13 +23,13 @@ namespace RecipeSelectHelper.View.BoughtProducts
         {
             _parent = parent;
             this.Loaded += AddBoughtProductPage_Loaded;
-            InitializeObservableObjects();
             InitializeComponent();
         }
 
         private void InitializeObservableObjects()
         {
             ProductExpiration = new Boolable<ExpirationInfo>(new ExpirationInfo());
+            StoreProducts = new ObservableCollection<Product>(OrderBy.OrderByName(_parent.Data.AllProducts));
         }
 
         #region ObservableObjects
@@ -51,17 +51,48 @@ namespace RecipeSelectHelper.View.BoughtProducts
             }
         }
 
-        // observablecollection of StoreProducts here
+        private ObservableCollection<Product> _storeProducts;
+        public ObservableCollection<Product> StoreProducts
+        {
+            get { return _storeProducts; }
+            set { _storeProducts = value; OnPropertyChanged(nameof(StoreProducts)); }
+        }
+
+        private Product _selectedStoreProduct;
+        public Product SelectedStoreProduct
+        {
+            get { return _selectedStoreProduct; }
+            set { _selectedStoreProduct = value; OnPropertyChanged(nameof(SelectedStoreProduct)); }
+        }
 
         #endregion
 
         private void AddBoughtProductPage_Loaded(object sender, RoutedEventArgs e)
         {
+            InitializeObservableObjects();
+            SetProductCreationTime(0);
+            HighlightButtonBackground(ButtonDefaultExpiration);
         }
 
         public void AddItem(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                BoughtProduct bp = new BoughtProduct(SelectedStoreProduct, ProductExpiration.Bool ? ProductExpiration.Instance : new ExpirationInfo());
+                _parent.Data.AllBoughtProducts.Add(bp);
+                ClearUiElements();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             MessageBox.Show("Success");
+        }
+
+        private void ClearUiElements()
+        {
+            ClearButtonColor();
+            ProductExpiration = new Boolable<ExpirationInfo>(new ExpirationInfo());
         }
 
         private void TextBox_SearchParameter_OnKeyDown(object sender, KeyEventArgs e)
@@ -81,19 +112,23 @@ namespace RecipeSelectHelper.View.BoughtProducts
             if(btn == null) return;
             var daysAgo = Convert.ToInt32(btn.Tag);
 
+            SetProductCreationTime(daysAgo);
+            HighlightButtonBackground(btn);
+        }
+
+        private void SetProductCreationTime(int daysAgo)
+        {
             var now = DateTime.Now;
             ProductExpiration.Instance.ProductCreatedTime = now.Subtract(new TimeSpan(daysAgo, 0, 0, 0));
-
-            HighlightButtonBackground(btn);
         }
 
         private void HighlightButtonBackground(Button button)
         {
-            ClearOtherButtons();
+            ClearButtonColor();
             button.Background = new SolidColorBrush(Colors.LightBlue);
         }
 
-        private void ClearOtherButtons()
+        private void ClearButtonColor()
         {
             foreach (UIElement child in UniformGridProducedDateButtons.Children)
             {

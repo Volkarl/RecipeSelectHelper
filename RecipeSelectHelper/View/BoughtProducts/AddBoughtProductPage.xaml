@@ -10,6 +10,15 @@
       d:DesignHeight="360" d:DesignWidth="680"
       Title="AddBoughtProductPage">
 
+    <Page.Resources>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+    
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
             <DockPanel>
@@ -28,7 +37,7 @@
                         <DockPanel>
                             <Label VerticalContentAlignment="Center" Name="LabelProducedDate" Content="Produced Ago: " DockPanel.Dock="Left" HorizontalContentAlignment="Right"></Label>
                             <UniformGrid Name="UniformGridProducedDateButtons" Rows="1">
-                                <Button Content="Today" Tag="0"  Click="Button_OnClick_ChangeProductCreatedTime"></Button>
+                                <Button Name="ButtonDefaultExpiration" Content="Today" Tag="0"  Click="Button_OnClick_ChangeProductCreatedTime"></Button>
                                 <Button Content="1 Day" Tag="1" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
                                 <Button Content="3 Days" Tag="3" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
                                 <Button Content="7 Days" Tag="7" Click="Button_OnClick_ChangeProductCreatedTime"></Button>
@@ -48,7 +57,7 @@
                 
                 <DockPanel DockPanel.Dock="Top">
                     <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
-                    <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0" ItemsSource="{Binding StoreProducts}">
+                    <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0" ItemsSource="{Binding StoreProducts}" SelectedItem="{Binding SelectedStoreProduct}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick"/>
