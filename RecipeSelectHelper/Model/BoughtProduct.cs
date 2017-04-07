@@ -10,10 +10,12 @@ namespace RecipeSelectHelper.Model
         public Product CorrespondingProduct { get; set; }
         [DataMember]
         public ExpirationInfo ExpirationData { get; set; }
+        [DataMember]
+        public uint Amount { get; set; }
 
-        public int Value { get; set; } = 0;
+        public int OwnValue { get; set; } = 0;
 
-        public BoughtProduct(Product correspondingProduct, ExpirationInfo expirationData = null)
+        public BoughtProduct(Product correspondingProduct, uint amount, ExpirationInfo expirationData = null)
         {
             if(correspondingProduct == null) throw new ArgumentException("No product selected");
             CorrespondingProduct = correspondingProduct;

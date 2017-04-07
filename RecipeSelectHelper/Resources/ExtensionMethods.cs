@@ -151,7 +151,7 @@ namespace RecipeSelectHelper.Resources
                     return (T)Enum.Parse(typeof(T), fi.Name);
             }
 
-            throw new KeyNotFoundException("Enum Value not found.");
+            throw new KeyNotFoundException("Enum OwnValue not found.");
             // return (T)Enum.Parse(typeof(T), description);
         }
     }

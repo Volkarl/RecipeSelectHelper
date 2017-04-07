@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DataDirectoryPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <OwnValue Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

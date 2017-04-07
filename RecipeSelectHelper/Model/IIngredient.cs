@@ -2,7 +2,7 @@
 {
     public interface IIngredient
     {
-        int AmountNeeded { get; set; }
+        uint AmountNeeded { get; set; }
         int Value { get; }
         int OwnValue { get; set; }
         Product CorrespondingProduct { get; set; }

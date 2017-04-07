@@ -12,15 +12,15 @@ namespace RecipeSelectHelper.Model
     public class Ingredient : IIngredient
     {
         [DataMember]
-        public int AmountNeeded { get; set; }
+        public uint AmountNeeded { get; set; }
         [DataMember]
         public Product CorrespondingProduct { get; set; }
 
-        public int Value => OwnValue + CorrespondingProduct.AggregatedValue;
+        public int Value => OwnValue + CorrespondingProduct.Value;
 
         public int OwnValue { get; set; } = 0;
 
-        public Ingredient(int amountNeeded, Product correspondingProduct)
+        public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;

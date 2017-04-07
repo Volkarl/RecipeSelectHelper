@@ -2,8 +2,9 @@
 {
     public interface IBoughtProduct
     {
-        int Value { get; set; }
+        int OwnValue { get; set; }
         Product CorrespondingProduct { get; set; }
         ExpirationInfo ExpirationData { get; set; }
+        uint Amount { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace RecipeSelectHelper.Model
         public void ResetAllValues()
         {
             AllProductCategories.ForEach(x => x.Value = 0);
-            AllBoughtProducts.ForEach(x => x.Value = 0);
+            AllBoughtProducts.ForEach(x => x.OwnValue = 0);
             AllProducts.ForEach(x => x.OwnValue = 0);
             AllRecipeCategories.ForEach(x => x.Value = 0);
             AllRecipes.ForEach(x => x.OwnValue = 0);
@@ -67,7 +67,7 @@ namespace RecipeSelectHelper.Model
             foreach (BoughtProduct bp in this.AllBoughtProducts)
             {
                 //hash += bp.ID.GetHashCode();
-                hash += bp.Value.GetHashCode();
+                hash += bp.OwnValue.GetHashCode();
                 //hash += bp.CorrespondingProduct.ID.GetHashCode();
             }
 

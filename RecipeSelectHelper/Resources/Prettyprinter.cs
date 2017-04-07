@@ -13,7 +13,7 @@ namespace RecipeSelectHelper.Resources
         {
             return $"{bp.CorrespondingProduct}\n" + 
                    $"{bp.ExpirationData}\n" + 
-                   $"{bp.Value}";
+                   $"{bp.OwnValue}";
         }
     }
 }

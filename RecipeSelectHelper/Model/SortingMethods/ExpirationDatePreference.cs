@@ -21,12 +21,12 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public override void Calculate(ProgramData pd)
         {
             DateTime now = DateTime.Now;
-            pd.AllBoughtProducts.ForEach(x => x.Value += CalculateValue(x.ExpirationData, now));
+            pd.AllBoughtProducts.ForEach(x => x.OwnValue += CalculateValue(x.ExpirationData, now));
         }
 
         private int CalculateValue(ExpirationInfo exp, DateTime time)
         {
-            int decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
+            var decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
             double formulaResult = _valueFormula(decimalExpired);
             return Val * Convert.ToInt32(formulaResult);
         }

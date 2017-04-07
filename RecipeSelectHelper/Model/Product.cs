@@ -31,8 +31,8 @@ namespace RecipeSelectHelper.Model
             GroupedCategories = groupedCategories ?? new List<GroupedProductCategory>();
         }
 
-        public int AggregatedValue => CalculateValue();
-        private int CalculateValue()                             // I COULD ADD SOMETHING ABOUT SUBSTITUTES HERE?
+        public int Value => AggregateValue();
+        private int AggregateValue()                             // I COULD ADD SOMETHING ABOUT SUBSTITUTES HERE?
         {
             int val = OwnValue;
             foreach (ProductCategory productCategory in Categories)

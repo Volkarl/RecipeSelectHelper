@@ -189,7 +189,7 @@ namespace RecipeSelectHelper.View.Recipes
             s += "\n";
             s += "Description: " + rec.Description + "\n";
             s += "Instruction: " + rec.Instruction + "\n";
-            s += "Value: " + rec.Value + "\n";
+            s += "OwnValue: " + rec.Value + "\n";
             s += "Ingredients: ";
             foreach (Ingredient ing in rec.Ingredients)
             {
