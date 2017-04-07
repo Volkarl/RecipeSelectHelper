@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RecipeSelectHelper.View"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
       mc:Ignorable="d" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="360" d:DesignWidth="680"
@@ -18,7 +20,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
     </Page.Resources>
-    
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
             <DockPanel>
@@ -32,7 +34,7 @@
                             </CheckBox.LayoutTransform>
                         </CheckBox>
                     </StackPanel>
-                    
+
                     <UniformGrid Rows="2" Visibility="{Binding ProductExpiration.Bool, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <DockPanel>
                             <Label VerticalContentAlignment="Center" Name="LabelProducedDate" Content="Produced Ago: " DockPanel.Dock="Left" HorizontalContentAlignment="Right"></Label>
@@ -54,7 +56,7 @@
                         </DockPanel>
                     </UniformGrid>
                 </DockPanel>
-                
+
                 <DockPanel DockPanel.Dock="Top">
                     <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
                     <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0" ItemsSource="{Binding StoreProducts}" SelectedItem="{Binding SelectedStoreProduct}">
@@ -63,6 +65,9 @@
                                 <EventSetter Event="MouseDoubleClick" Handler="ListView_OnMouseDoubleClick"/>
                             </Style>
                         </ListView.ItemContainerStyle>
+                        <i:Interaction.Behaviors>
+                            <resources:IgnoreMouseWheelBehavior />
+                        </i:Interaction.Behaviors>
                     </ListView>
                 </DockPanel>
 
