@@ -22,8 +22,16 @@ namespace RecipeSelectHelper.Model
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
+            if(correspondingProduct == null) throw new ArgumentException();
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;
+            CorrespondingProduct.IncreaseIngredientValue += CorrespondingProduct_IncreaseIngredientValue;
+        }
+
+        private void CorrespondingProduct_IncreaseIngredientValue(object sender, Tuple<int,uint> e)
+        {
+            // Implement the amountNeeded-vs.amountFulfilled-thingy
+            OwnValue += e;
         }
     }
 }

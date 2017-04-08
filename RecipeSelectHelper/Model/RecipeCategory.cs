@@ -13,7 +13,7 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Name { get; set; }
 
-        public int Value { get; set; }
+        public int OwnValue { get; set; }
 
         public RecipeCategory(string name)
         {

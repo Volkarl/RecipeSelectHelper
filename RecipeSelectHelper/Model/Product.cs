@@ -21,7 +21,9 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<GroupedProductCategory> GroupedCategories { get; set; }
 
-        public int OwnValue { get; set; } = 0; 
+        public int OwnValue { get; set; } = 0;
+
+        public event EventHandler<Tuple<int,uint>> IncreaseIngredientValue;
 
         public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null, List<GroupedProductCategory> groupedCategories = null)
         {
@@ -37,9 +39,14 @@ namespace RecipeSelectHelper.Model
             int val = OwnValue;
             foreach (ProductCategory productCategory in Categories)
             {
-                val += productCategory.Value;
+                val += productCategory.OwnValue;
             }
             return val;
+        }
+
+        public void AddValueToCorrespondingIngredients(int valueForEntireAmount, uint amountOfProduct)
+        {
+            IncreaseIngredientValue?.Invoke(this, new Tuple<int, uint>(valueForEntireAmount, amountOfProduct)); 
         }
 
         public override string ToString()

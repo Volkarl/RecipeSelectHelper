@@ -88,7 +88,7 @@
                         <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
                         <GridViewColumn Header="Types" Width="Auto" DisplayMemberBinding="{Binding GroupedCategoriesAsString}"></GridViewColumn>
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
-                        <GridViewColumn Header="OwnValue" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
+                        <GridViewColumn Header="OwnOwnOwnValue" Width="Auto" DisplayMemberBinding="{Binding Value}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </custom:FilterableListView>

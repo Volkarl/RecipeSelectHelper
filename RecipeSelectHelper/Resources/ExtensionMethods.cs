@@ -100,6 +100,13 @@ namespace RecipeSelectHelper.Resources
             return selected;
         }
 
+        public static void MoveElement<T>(this List<T> collection, int index, int newIndex)
+        {
+            T item = collection[index];
+            collection.RemoveAt(index);
+            collection.Insert(newIndex, item);
+        }
+
         public static int ToInt(this char c)
         {
             return (int)(c - '0');

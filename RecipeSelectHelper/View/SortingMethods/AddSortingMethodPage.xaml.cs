@@ -33,7 +33,6 @@ namespace RecipeSelectHelper.View.SortingMethods
         public AddSortingMethodPage(MainWindow parent)
         {
             _parent = parent;
-            DataContext = this;
             LoadObservableObjects();
             Loaded += SortingMethodsPage_Loaded;
             InitializeComponent();

@@ -81,7 +81,7 @@ namespace RecipeSelectHelper.Model
             int val = OwnValue;
             foreach (RecipeCategory recipeCategory in Categories)
             {
-                val += recipeCategory.Value;
+                val += recipeCategory.OwnValue;
             }
             foreach (Ingredient ingredient in Ingredients)
             {

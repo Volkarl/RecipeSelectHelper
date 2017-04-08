@@ -21,7 +21,12 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public override void Calculate(ProgramData pd)
         {
             DateTime now = DateTime.Now;
-            pd.AllBoughtProducts.ForEach(x => x.OwnValue += CalculateValue(x.ExpirationData, now));
+            foreach (BoughtProduct bp in pd.AllBoughtProducts)
+            {
+                int val = CalculateValue(bp.ExpirationData, now);
+                bp.OwnValue += val;
+                bp.CorrespondingProduct.AddValueToCorrespondingIngredients(val, bp.Amount);
+            }
         }
 
         private int CalculateValue(ExpirationInfo exp, DateTime time)

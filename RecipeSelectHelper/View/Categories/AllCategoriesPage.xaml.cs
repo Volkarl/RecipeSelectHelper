@@ -101,7 +101,7 @@ namespace RecipeSelectHelper.View.Categories
         {
             if (SelectedProductCategory != null)
             {
-                MessageBox.Show(SelectedProductCategory.Name + " | OwnValue " + SelectedProductCategory.Value);
+                MessageBox.Show(SelectedProductCategory.Name + " | OwnValue " + SelectedProductCategory.OwnValue);
             }
         }
 
@@ -127,7 +127,7 @@ namespace RecipeSelectHelper.View.Categories
         {
             if (SelectedRecipeCategory != null)
             {
-                MessageBox.Show(SelectedRecipeCategory.Name + " | OwnValue " + SelectedRecipeCategory.Value);
+                MessageBox.Show(SelectedRecipeCategory.Name + " | OwnValue " + SelectedRecipeCategory.OwnValue);
             }
         }
 
