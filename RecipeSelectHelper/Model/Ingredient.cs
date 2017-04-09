@@ -19,7 +19,14 @@ namespace RecipeSelectHelper.Model
 
         public int Value => OwnValue + CorrespondingProduct.Value;
 
-        public int OwnValue => _ownValueCalculator.GetOptimalValueCombination();
+        public int OwnValue
+        {
+            get
+            {
+                if (_ownValueCalculator == null) _ownValueCalculator = new AmountPerValueCalculator(AmountNeeded);
+                return _ownValueCalculator.GetOptimalValueCombination();
+            }
+        }
 
         private AmountPerValueCalculator _ownValueCalculator;
 
@@ -29,11 +36,12 @@ namespace RecipeSelectHelper.Model
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;
             CorrespondingProduct.IncreaseIngredientValue += IngredientValueIncreased;
-            _ownValueCalculator = new AmountPerValueCalculator(amountNeeded);
         }
 
         private void IngredientValueIncreased(object sender, Tuple<int,uint> e)
         {
+            if(_ownValueCalculator == null) _ownValueCalculator = new AmountPerValueCalculator(AmountNeeded);
+            // It is done this way, because the constructor is not invoked during serialization.
             _ownValueCalculator.AddAmountWithValue(e.Item1, e.Item2);
         }
     }
