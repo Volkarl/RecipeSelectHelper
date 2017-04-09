@@ -4,7 +4,7 @@
     {
         uint AmountNeeded { get; set; }
         int Value { get; }
-        int OwnValue { get; set; }
+        int OwnValue { get; }
         Product CorrespondingProduct { get; set; }
     }
 }

@@ -95,8 +95,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
             var rand = new Random();
             var p = _parent.Data.AllProducts[rand.Next(0, _parent.Data.AllProducts.Count)];
+            uint amount = Convert.ToUInt32(rand.Next(0, 200));
             var exp = new ExpirationInfo();
-            _parent.Data.AllBoughtProducts.Add(new BoughtProduct(p, exp));
+            _parent.Data.AllBoughtProducts.Add(new BoughtProduct(p, amount, exp));
         }
 
         private static int _rClicks = 0;
@@ -108,7 +109,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             if (_parent.Data.AllProducts.Count > 0)
             {
                 var corrP = _parent.Data.AllProducts[rand.Next(0, _parent.Data.AllProducts.Count)];
-                iList.Add(new Ingredient(_rClicks, corrP));
+                iList.Add(new Ingredient(Convert.ToUInt32(_rClicks), corrP));
             }
             if (_parent.Data.AllRecipeCategories.Count > 0)
             {

@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -18,20 +19,22 @@ namespace RecipeSelectHelper.Model
 
         public int Value => OwnValue + CorrespondingProduct.Value;
 
-        public int OwnValue { get; set; } = 0;
+        public int OwnValue => _ownValueCalculator.GetOptimalValueCombination();
+
+        private AmountPerValueCalculator _ownValueCalculator;
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
             if(correspondingProduct == null) throw new ArgumentException();
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;
-            CorrespondingProduct.IncreaseIngredientValue += CorrespondingProduct_IncreaseIngredientValue;
+            CorrespondingProduct.IncreaseIngredientValue += IngredientValueIncreased;
+            _ownValueCalculator = new AmountPerValueCalculator(amountNeeded);
         }
 
-        private void CorrespondingProduct_IncreaseIngredientValue(object sender, Tuple<int,uint> e)
+        private void IngredientValueIncreased(object sender, Tuple<int,uint> e)
         {
-            // Implement the amountNeeded-vs.amountFulfilled-thingy
-            OwnValue += e;
+            _ownValueCalculator.AddAmountWithValue(e.Item1, e.Item2);
         }
     }
 }

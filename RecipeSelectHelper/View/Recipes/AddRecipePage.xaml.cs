@@ -135,7 +135,7 @@ namespace RecipeSelectHelper.View.Recipes
             string instruction = TextBox_RecipeInstruction.Text;
             List<GroupedRecipeCategory> groupedRc = GroupedRecipeCategories.ToList();
             List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance);
-            List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(y.Value, y.Instance));
+            List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(Convert.ToUInt32(y.Value), y.Instance));
 
             var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
             List<string> errors;

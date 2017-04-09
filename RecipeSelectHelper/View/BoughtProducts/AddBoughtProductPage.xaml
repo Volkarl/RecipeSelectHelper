@@ -57,6 +57,11 @@
                     </UniformGrid>
                 </DockPanel>
 
+                <DockPanel Margin="0,1,0,0" DockPanel.Dock="Bottom">
+                    <Label Height="30" Width="100" Content="Amount: "></Label>
+                    <resources:IntegerTextBox x:Name="IntegerTextBoxAmountBought"></resources:IntegerTextBox>
+                </DockPanel>
+
                 <DockPanel DockPanel.Dock="Top">
                     <TextBox DockPanel.Dock="Top" VerticalContentAlignment="Center" Name="TextBox_SearchParameter" Height="30" KeyDown="TextBox_SearchParameter_OnKeyDown"></TextBox>
                     <ListView DockPanel.Dock="Top" Name="ListView_Items" Margin="0,1,0,0" ItemsSource="{Binding StoreProducts}" SelectedItem="{Binding SelectedStoreProduct}">

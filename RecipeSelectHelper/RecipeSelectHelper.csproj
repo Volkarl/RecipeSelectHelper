@@ -81,6 +81,7 @@
     <Compile Include="Model\GroupedProductCategory.cs" />
     <Compile Include="Model\GroupedRecipeCategory.cs" />
     <Compile Include="Model\GroupedSelection.cs" />
+    <Compile Include="Resources\AmountPerValueCalculator.cs" />
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
     <Compile Include="Resources\FilterableListView.cs" />

@@ -78,7 +78,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
         {
             try
             {
-                BoughtProduct bp = new BoughtProduct(SelectedStoreProduct, ProductExpiration.Bool ? ProductExpiration.Instance : new ExpirationInfo());
+                BoughtProduct bp = new BoughtProduct(SelectedStoreProduct, uint.Parse(IntegerTextBoxAmountBought.Text), ProductExpiration.Bool ? ProductExpiration.Instance : new ExpirationInfo());
                 _parent.Data.AllBoughtProducts.Add(bp);
                 ClearUiElements();
             }

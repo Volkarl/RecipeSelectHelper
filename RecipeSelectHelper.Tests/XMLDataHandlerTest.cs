@@ -74,7 +74,7 @@ namespace RecipeSelectHelper.Tests
 
             for (int index = 0; index < products.Count; index++)
             {
-                ingredients.Add(new Ingredient(index, products[index]));
+                ingredients.Add(new Ingredient(Convert.ToUInt32(index), products[index]));
             }
 
             int i = 0;
@@ -89,9 +89,10 @@ namespace RecipeSelectHelper.Tests
         {
             var bp = new List<BoughtProduct>();
             var ex = new ExpirationInfo();
-            foreach (var product in products)
+            for (int index = 0; index < products.Count; index++)
             {
-                bp.Add(new BoughtProduct(product, ex));
+                var product = products[index];
+                bp.Add(new BoughtProduct(product, Convert.ToUInt32(index), ex));
             }
             return bp;
         }

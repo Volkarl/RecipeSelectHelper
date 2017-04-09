@@ -26,6 +26,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
                 int val = CalculateValue(bp.ExpirationData, now);
                 bp.OwnValue += val;
                 bp.CorrespondingProduct.AddValueToCorrespondingIngredients(val, bp.Amount);
+                // For the value of the boughtproducts to be aggregated into the corresponding recipes, the amount/value information is added to 
+                // all the ingredients. They then figure out how to combine the different boughtproducts most efficiently, to get the highest value.
+                // This also means that if this preference is executed twice, then the same boughtproducts will be used for values twice, 
+                // which is usually not good.
             }
         }
 
