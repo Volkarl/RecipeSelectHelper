@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using RecipeSelectHelper.Resources;
 
@@ -23,16 +24,34 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             if(String.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();
             Name = name;
-            Preferences = preferences ?? new List<Preference>();
-            ApplyPreferenceOrderingRules(Preferences);
+            preferences = preferences ?? new List<Preference>();
+            preferences = ApplyPreferenceOptimizations(preferences);
+            preferences = ApplyPreferenceOrderingRules(preferences);
+            Preferences = preferences;
         }
 
-        private void ApplyPreferenceOrderingRules(List<Preference> preferences)
+        private List<Preference> ApplyPreferenceOptimizations(List<Preference> preferences)
         {
-            // If there are multiple ExpirationDatePreferences, then those have to be combined, using their Values, otherwise they doubleoverride the ingredientAmounts
-            // AllRecipeIngredientsInFridgePreference MUST be after anything that manipulates ingredientAmounts, USE MoveElement() extension
+            // Combine all expirationDatePreferences into one, to avoid errors and unecessary calculations while computing the values. 
+            List<ExpirationDatePreference> expirPrefs = preferences.FindAll(x => x is ExpirationDatePreference).ConvertAll(y => y as ExpirationDatePreference);
+            int combinedVal = expirPrefs.Sum(x => x.Val);
+            var combinedExpirPref = new ExpirationDatePreference(combinedVal);
+            preferences.RemoveElements(expirPrefs.ConvertAll(x => x as Preference));
+            preferences.Add(combinedExpirPref);
+            return preferences;
+        }
 
-            throw new NotImplementedException();
+        private List<Preference> ApplyPreferenceOrderingRules(List<Preference> preferences)
+        {
+            // AllRecipeIngredientsInFridgePreference MUST be after anything that manipulates ingredientAmounts
+            // TODO
+
+            for (var i = preferences.Count - 1; i >= 0; i--)
+            {
+                if(preferences[i] is ExpirationDatePreference) preferences.MoveElement(i, preferences.Count);
+                // Go backwards through preferences and move these to the very back
+            }
+            return preferences;
         }
 
         public void Execute(ProgramData data)

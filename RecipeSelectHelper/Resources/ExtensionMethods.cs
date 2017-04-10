@@ -100,6 +100,14 @@ namespace RecipeSelectHelper.Resources
             return selected;
         }
 
+        public static void RemoveElements<T>(this List<T> collection, List<T> itemsToRemove)
+        {
+            foreach (T element in itemsToRemove)
+            {
+                collection.Remove(element);
+            }
+        }
+
         public static void MoveElement<T>(this List<T> collection, int index, int newIndex)
         {
             T item = collection[index];
