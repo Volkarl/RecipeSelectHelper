@@ -15,18 +15,24 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
             foreach (BoughtProduct bp in pd.AllBoughtProducts)
             {
-                foreach (BoughtProduct sub in FindSubstitutesInFridge(pd))
+                foreach (BoughtProduct sub in FindSubstitutesInFridge(bp.CorrespondingProduct, pd))
                 {
-                    bp.CorrespondingProduct.AddValueToCorrespondingIngredients(sub.OwnValue, sub.Amount);
+                    bp.CorrespondingProduct.AddValueToCorrespondingIngredients(sub.OwnValue, sub.Amount); //Add ref to bp here,
+                    // otherwise I can never sort out bp's that have been used multiple times (as multiple subs or, one ingredient
+                    // and one or more subs.
+                    throw new NotImplementedException();
                 }
             }
-            throw new NotImplementedException();
         }
 
-        private List<BoughtProduct> FindSubstitutesInFridge(ProgramData pd)
+        private List<BoughtProduct> FindSubstitutesInFridge(Product p, ProgramData data)
         {
-
-            throw new NotImplementedException();
+            List<BoughtProduct> bpSubs = new List<BoughtProduct>();
+            foreach (Product sub in data.ProductSubstitutes.FindSubstitutes(p))
+            {
+                bpSubs.Add(data.AllBoughtProducts.Find(x => x.CorrespondingProduct == sub));
+            }
+            return bpSubs;
         }
     }
 }
