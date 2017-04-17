@@ -30,6 +30,8 @@ namespace RecipeSelectHelper.Model
         public List<GroupedSelection<ProductCategory>> AllGroupedProductCategories { get; set; }
         [DataMember]
         public List<GroupedSelection<RecipeCategory>> AllGroupedRecipeCategories { get; set; }
+        [DataMember]
+        public SubstituteRelationsRepository ProductSubstitutes { get; set; }
 
         public static string ProgramVersion = "Version 1.0";
         public ProgramData(string compatibilityVersion = "Version 1.0")
@@ -43,6 +45,7 @@ namespace RecipeSelectHelper.Model
             AllSortingMethods = new List<SortingMethod>();
             AllGroupedProductCategories = new List<GroupedSelection<ProductCategory>>();
             AllGroupedRecipeCategories = new List<GroupedSelection<RecipeCategory>>();
+            ProductSubstitutes = new SubstituteRelationsRepository();
         }
 
         public void ResetAllValues()
@@ -86,10 +89,6 @@ namespace RecipeSelectHelper.Model
                 {
                     hash += s.Name.GetHashCode();
                     hash += s.OwnValue.GetHashCode();
-                }
-                foreach (Product b in p.SubstituteProducts)
-                {
-                    //hash += b.ID.GetHashCode();
                 }
             }
 
@@ -163,10 +162,7 @@ namespace RecipeSelectHelper.Model
         {
             AllProducts.Remove(p);
             AllBoughtProducts.RemoveAll(x => x.CorrespondingProduct.Equals(p));
-            foreach (Product allP in AllProducts)
-            {
-                allP.SubstituteProducts.Remove(p);
-            }
+            ProductSubstitutes.RemoveProduct(p);
             foreach (Recipe r in AllRecipes)
             {
                 r.Ingredients.RemoveAll(x => x.CorrespondingProduct.Equals(p));
@@ -190,17 +186,6 @@ namespace RecipeSelectHelper.Model
 
         #endregion
 
-        //public void Import(List<RecipeCategory> importedData, out List<RecipeCategory> conflicts)
-        //{
-        //    conflicts = new ProgramData();
-        //    var s = new ValidityChecker(importedData);
-
-        //    ImportRc(im);
-
-        //    if(s.RecipeIsValid())
-        //    return;
-        //}
-
         public void Merge(ProgramData dataToAdd)
         {
             AllProductCategories = AllProductCategories.Union(dataToAdd.AllProductCategories).ToList();
@@ -211,6 +196,8 @@ namespace RecipeSelectHelper.Model
             AllBoughtProducts = AllBoughtProducts.Union(dataToAdd.AllBoughtProducts).ToList();
             AllRecipes = AllRecipes.Union(dataToAdd.AllRecipes).ToList();
             AllSortingMethods = AllSortingMethods.Union(dataToAdd.AllSortingMethods).ToList();
+            // ProductSubstitutes
+            throw new NotImplementedException();
         }
     }
 }

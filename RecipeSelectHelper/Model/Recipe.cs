@@ -76,7 +76,7 @@ namespace RecipeSelectHelper.Model
             // Lots of exceptins here if something is wrong. Check also if selections are correct in groupedcategories.
         }
 
-        public void AggregateValue()    //combine this with value prop
+        public void AggregateValue()    //combine this with value prop? No, because I don't want to recalculate until I click "sort"!?
         {
             int val = OwnValue;
             foreach (RecipeCategory recipeCategory in Categories)

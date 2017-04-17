@@ -86,7 +86,10 @@ namespace RecipeSelectHelper.View.Miscellaneous
             {
                 subList.Add(_parent.Data.AllProducts[rand.Next(0, _parent.Data.AllProducts.Count)]);
             }
-            _parent.Data.AllProducts.Add(new Product("Product" + _pClicks++, pc, subList));
+            Product p = new Product("Product" + _pClicks++, pc);
+            _parent.Data.AllProducts.Add(p);
+            _parent.Data.ProductSubstitutes.AddSubstitutes(p, subList);
+
         }
 
         private void Button_AddBP_OnClick(object sender, RoutedEventArgs e)
