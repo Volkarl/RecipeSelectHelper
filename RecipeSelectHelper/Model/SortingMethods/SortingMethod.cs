@@ -57,15 +57,20 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public void Execute(ProgramData data)
         {
             if (Preferences == null || data == null) return;
-            double percentPerPreference = 100 / (double)Preferences.Count;
+            double percentPerStep = 50 / (double)Preferences.Count;
             double percentageFinished = 0;
             foreach (Preference preference in Preferences)
             {
                 preference.Calculate(data);
-                percentageFinished += percentPerPreference;
+                percentageFinished += percentPerStep;
                 ProgressChanged?.Invoke(this, percentageFinished);
             }
-            data.AllRecipes.ForEach(x => x.AggregateValue()); 
+            foreach (Recipe recipe in data.AllRecipes)
+            {
+                recipe.AggregateValue();
+                percentageFinished += percentPerStep;
+                ProgressChanged?.Invoke(this, percentageFinished);
+            }
         }
     }
 }
