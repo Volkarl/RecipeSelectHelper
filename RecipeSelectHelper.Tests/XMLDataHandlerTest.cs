@@ -23,38 +23,40 @@ namespace RecipeSelectHelper.Tests
             data = new List<ProgramData>();
             _testFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testData.xml");
 
-            List<ProductCategory> productCategories = AddPC();
-            List<RecipeCategory> recipeCategories = AddRC();
-            List<Product> products = AddP(productCategories);
-            List<BoughtProduct> boughtProducts = AddBP(products);
-            List<Recipe> recipes = AddR(recipeCategories, products);
-            List<SortingMethod> sortingMethods = AddSM(productCategories);
+            List<ProductCategory> pc = AddPC();
+            List<RecipeCategory> rc = AddRC();
+            List<Product> p = AddP(pc);
+            List<BoughtProduct> bp = AddBP(p);
+            List<Recipe> r = AddR(rc, p);
+            List<SortingMethod> sm = AddSM(pc);
 
-            ProgramData dataLowComplexity = addProgramData(0, productCategories, recipeCategories, products, boughtProducts, recipes, sortingMethods);
-            ProgramData dataMediumComplexity = addProgramData(1, productCategories, recipeCategories, products, boughtProducts, recipes, sortingMethods);
-            ProgramData dataHighComplexity = addProgramData(2, productCategories, recipeCategories, products, boughtProducts, recipes, sortingMethods);
+            ProgramData dataLowComplexity =    addProgramData(0, pc, rc, p, bp, r, sm);
+            ProgramData dataMediumComplexity = addProgramData(1, pc, rc, p, bp, r, sm);
+            ProgramData dataHighComplexity =   addProgramData(2, pc, rc, p, bp, r, sm);
             data.Add(dataLowComplexity);
             data.Add(dataMediumComplexity);
             data.Add(dataHighComplexity);
         }
 
-        private ProgramData addProgramData(int complexity, List<ProductCategory> productCategories, List<RecipeCategory> recipeCategories, List<Product> products, List<BoughtProduct> boughtProducts, List<Recipe> recipes, List<SortingMethod> sortingMethods)
+        private ProgramData addProgramData(int complexity, List<ProductCategory> pc, List<RecipeCategory> rc, List<Product> p, List<BoughtProduct> bp, List<Recipe> r, List<SortingMethod> sm)
         {
-            var data = new ProgramData();
-            data.AllProductCategories = productCategories;
-            data.AllRecipeCategories = recipeCategories;
-            data.AllProducts = products;
-            data.AllBoughtProducts = new List<BoughtProduct>();
-            data.AllRecipes = new List<Recipe>();
+            var dataL = new ProgramData
+            {
+                AllProductCategories = pc,
+                AllRecipeCategories = rc,
+                AllProducts = p,
+                AllBoughtProducts = new List<BoughtProduct>(),
+                AllRecipes = new List<Recipe>()
+            };
 
             for (int i = complexity; i >= 0; i--)
             {
-                data.AllBoughtProducts.Add(boughtProducts[i]);
-                data.AllRecipes.Add(recipes[i]);
+                dataL.AllBoughtProducts.Add(bp[i]);
+                dataL.AllRecipes.Add(r[i]);
             }
 
-            data.AllSortingMethods = sortingMethods;
-            return data;
+            dataL.AllSortingMethods = sm;
+            return dataL;
         }
 
         private List<SortingMethod> AddSM(List<ProductCategory> productCategories)
@@ -102,7 +104,7 @@ namespace RecipeSelectHelper.Tests
             var p = new List<Product>();
             var p1 = new Product("PLowComplexity");
             var p2 = new Product("PMediumComplexity", productCategories);
-            var p3 = new Product("PHighComplexity", productCategories, new List<Product> { p1, p2 });
+            var p3 = new Product("PHighComplexity", productCategories);
             p.Add(p1);
             p.Add(p2);
             p.Add(p3);

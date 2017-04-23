@@ -13,6 +13,5 @@ namespace RecipeSelectHelper.Model
         int Value { get; }
         //int ID { get; }
         List<ProductCategory> Categories { get; set; }
-        List<Product> SubstituteProducts { get; set; }
     }
 }

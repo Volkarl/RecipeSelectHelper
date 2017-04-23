@@ -105,9 +105,10 @@ namespace RecipeSelectHelper.View.Products
 
             List<GroupedProductCategory> groupedProductCategories = GroupedProductCategories.ToList();
 
-            var product = new Product(TextBox_ProductName.Text, categories, substituteProducts, groupedProductCategories);
+            var product = new Product(TextBox_ProductName.Text, categories, groupedProductCategories);
             _parent.Data.AllProducts.Add(product);
-
+            _parent.Data.ProductSubstitutes.AddSubstitutes(product, substituteProducts);
+            
             ClearUI();
         }
 

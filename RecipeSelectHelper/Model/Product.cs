@@ -17,24 +17,21 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public List<Product> SubstituteProducts { get; set; }
-        [DataMember]
         public List<GroupedProductCategory> GroupedCategories { get; set; }
 
         public int OwnValue { get; set; } = 0;
 
         public event EventHandler<Tuple<int,uint>> IncreaseIngredientValue;
 
-        public Product(string name, List<ProductCategory> categories = null, List<Product> substituteProducts = null, List<GroupedProductCategory> groupedCategories = null)
+        public Product(string name, List<ProductCategory> categories = null, List<GroupedProductCategory> groupedCategories = null)
         {
             Name = name;
             Categories = categories ?? new List<ProductCategory>();
-            SubstituteProducts = substituteProducts ?? new List<Product>();
             GroupedCategories = groupedCategories ?? new List<GroupedProductCategory>();
         }
 
         public int Value => AggregateValue();
-        private int AggregateValue()                             // I COULD ADD SOMETHING ABOUT SUBSTITUTES HERE?
+        private int AggregateValue()
         {
             int val = OwnValue;
             foreach (ProductCategory productCategory in Categories)
@@ -49,6 +46,16 @@ namespace RecipeSelectHelper.Model
             IncreaseIngredientValue?.Invoke(this, new Tuple<int, uint>(valueForEntireAmount, amountOfProduct)); 
         }
 
+        public string ToString(SubstituteRelationsRepository subRepo)
+        {
+            string subsToString = "|Substitutes: \n";
+            foreach (Product substitute in subRepo.FindSubstitutes(this))
+            {
+                subsToString += "  " + substitute.Name + "\n";
+            }
+            return ToString() + subsToString;
+        }
+
         public override string ToString()
         {
             string str = "|Product: " + Name + "\n";
@@ -56,11 +63,6 @@ namespace RecipeSelectHelper.Model
             foreach (ProductCategory pc in Categories)
             {
                 str += "  " + pc.Name + "\n";
-            }
-            str += "|Substitutes: \n";
-            foreach (Product substitute in SubstituteProducts)
-            {
-                str += "  " + substitute.Name + "\n";
             }
             return str;
         }
@@ -70,10 +72,7 @@ namespace RecipeSelectHelper.Model
             get
             {
                 if (Categories == null || Categories.IsEmpty()) return String.Empty;
-                else
-                {
-                    return string.Join(", ", Categories.ConvertAll(x => x.Name));
-                }
+                return string.Join(", ", Categories.ConvertAll(x => x.Name));
             }
         }
 
@@ -95,13 +94,13 @@ namespace RecipeSelectHelper.Model
             }
         }
 
-        public string SubstitutesToString
-        {
-            get
-            {
-                if(SubstituteProducts == null || SubstituteProducts.IsEmpty()) return String.Empty;
-                return string.Join(", ", SubstituteProducts.ConvertAll(x => x.Name));
-            }
-        }
+        //public string SubstitutesToString
+        //{
+        //    get
+        //    {
+        //        if(SubstituteProducts == null || SubstituteProducts.IsEmpty()) return String.Empty;
+        //        return string.Join(", ", SubstituteProducts.ConvertAll(x => x.Name));
+        //    }
+        //}
     }
 }
