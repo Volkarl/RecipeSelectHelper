@@ -38,7 +38,7 @@ namespace RecipeSelectHelper.Model
             CorrespondingProduct.IncreaseIngredientValue += IngredientValueIncreased;
         }
 
-        private void IngredientValueIncreased(object sender, Tuple<int,uint> e)
+        private void IngredientValueIncreased(object sender, Tuple<int,BoughtProduct> e)
         {
             if(_ownValueCalculator == null) _ownValueCalculator = new AmountPerValueCalculator(AmountNeeded);
             // It is done this way, because the constructor is not invoked during serialization.
