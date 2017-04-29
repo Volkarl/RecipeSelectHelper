@@ -10,39 +10,39 @@ namespace RecipeSelectHelper.Resources
     public class AmountPerValueCalculator
     {
         public uint AmountNeeded { get; }
-        public List<Tuple<int, BoughtProduct>> OrderedValueProduct;
+        public List<Tuple<int, BoughtProduct>> OrderedValueProducts;
 
         public AmountPerValueCalculator(uint amountNeeded)
         {
             AmountNeeded = amountNeeded;
-            OrderedValueProduct = new List<Tuple<int, BoughtProduct>>();
+            OrderedValueProducts = new List<Tuple<int, BoughtProduct>>();
         }
 
         public void AddAmountWithValue(int totalValue, BoughtProduct bp)
         {
-            if (OrderedValueProduct.IsEmpty())
+            if (OrderedValueProducts.IsEmpty())
             {
-                OrderedValueProduct.Add(new Tuple<int, BoughtProduct>(totalValue, bp));
+                OrderedValueProducts.Add(new Tuple<int, BoughtProduct>(totalValue, bp));
                 return;
             }
-
+            
             int i = 0;
-            while (totalValue <= OrderedValueProduct[i].Item1 && i < OrderedValueProduct.Count)
+            int maxIndex = OrderedValueProducts.Count - 1;
+            while (totalValue <= OrderedValueProducts[i].Item1 && i < maxIndex)
             {
                 // Find the index where the new tuple belongs
                 i++;
             }
-            OrderedValueProduct.Insert(i, new Tuple<int, BoughtProduct>(totalValue, bp));
-            // The most optimal boughtProducts are, as such, inserted leftmost
-            //TODO
-            throw new NotImplementedException("REVERSE THE INSERTIONS, I WANT OPTIMAL ONES LEFTMOST"); 
+            
+            OrderedValueProducts.Insert(i, new Tuple<int, BoughtProduct>(totalValue, bp));
+            // The boughtProducts that are the most valuable per weight are, as such, inserted leftmost
         }
 
         public int GetOptimalValueCombination()
         {
             int optimalValue = 0;
             long amountNeeded = AmountNeeded;
-            foreach (Tuple<int, BoughtProduct> valueBp in OrderedValueProduct)
+            foreach (Tuple<int, BoughtProduct> valueBp in OrderedValueProducts)
             {
                 amountNeeded -= valueBp.Item2.Amount;
                 if (amountNeeded > 0)

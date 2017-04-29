@@ -17,7 +17,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             {
                 foreach (BoughtProduct sub in FindSubstitutesInFridge(bp.CorrespondingProduct, pd))
                 {
-                    bp.CorrespondingProduct.AddValueToCorrespondingIngredients(sub.OwnValue, sub.Amount); //Add ref to bp here,
+                    bp.CorrespondingProduct.AddValueToCorrespondingIngredients(sub.OwnValue, sub); //Add ref to bp here,
                     // otherwise I can never sort out bp's that have been used multiple times (as multiple subs or, one ingredient
                     // and one or more subs.
                     throw new NotImplementedException();
@@ -30,7 +30,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             List<BoughtProduct> bpSubs = new List<BoughtProduct>();
             foreach (Product sub in data.ProductSubstitutes.FindSubstitutes(p))
             {
-                bpSubs.Add(data.AllBoughtProducts.Find(x => x.CorrespondingProduct == sub));
+                bpSubs.AddRange(data.AllBoughtProducts.Where(x => x.CorrespondingProduct == sub));
             }
             return bpSubs;
         }
