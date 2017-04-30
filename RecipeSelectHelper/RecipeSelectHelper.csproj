@@ -69,6 +69,7 @@
     <Compile Include="Resources\AmountPerValueCalculator.cs" />
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
+    <Compile Include="Resources\BpValueInformation.cs" />
     <Compile Include="Resources\FilterableListView.cs" />
     <Compile Include="Resources\FilterGroupedProductCategories.cs" />
     <Compile Include="Resources\FilterGroupedRecipeCategories.cs" />

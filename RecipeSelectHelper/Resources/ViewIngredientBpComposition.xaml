@@ -6,7 +6,39 @@
              xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    
+    <Grid IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="Value"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="Name"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Value" Grid.Row="0" Grid.Column="0"></Label>
+        <Label Content="Name" Grid.Row="0" Grid.Column="1"></Label>
+        <Label Content="Amount of product used" Grid.Row="0" Grid.Column="2"></Label>
+
+        <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid IsSharedSizeScope="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="Value"></ColumnDefinition>
+                            <ColumnDefinition SharedSizeGroup="Name"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Grid.Column="1"></StackPanel>
+        <StackPanel Grid.Column="2"></StackPanel>
     </Grid>
 </UserControl>

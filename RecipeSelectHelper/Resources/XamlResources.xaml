@@ -198,7 +198,46 @@
         </ItemsControl>
     </DataTemplate>
 
+    <DataTemplate x:Key="ViewIngredientBpComposition" DataType="model:Ingredient">
+        <Grid IsSharedSizeScope="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Value"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Name"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
+            <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+            <local:InputSlider Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding OwnValueCalculator.PercentageTotalIngredientsGathered}"></local:InputSlider>
+            
+            <Label Content="Value" Grid.Row="1" Grid.Column="0"></Label>
+            <Label Content="Name" Grid.Row="1" Grid.Column="1"></Label>
+            <Label Content="Amount of Product used" Grid.Row="1" Grid.Column="2"></Label>
+
+            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding OwnValueCalculator.OrderedValueProducts}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid IsSharedSizeScope="True" IsEnabled="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="Value"></ColumnDefinition>
+                                <ColumnDefinition SharedSizeGroup="Name"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding ValuePerAmount}"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Product.CorrespondingProduct.Name}"></TextBlock>
+                            <local:InputSlider Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:InputSlider>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
+    </DataTemplate>
 
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
