@@ -57,6 +57,9 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public void Execute(ProgramData data)
         {
             if (Preferences == null || data == null) return;
+
+            Dictionary<BoughtProduct, uint> TempAmount = CreateTempAmountDict(data.AllBoughtProducts);
+
             double percentPerStep = 50 / (double)Preferences.Count;
             double percentageFinished = 0;
             foreach (Preference preference in Preferences)
@@ -71,6 +74,12 @@ namespace RecipeSelectHelper.Model.SortingMethods
                 percentageFinished += percentPerStep;
                 ProgressChanged?.Invoke(this, percentageFinished);
             }
+        }
+
+        private Dictionary<BoughtProduct, uint> CreateTempAmountDict(List<BoughtProduct> boughtProducts)
+        {
+            return boughtProducts.ToDictionary(x => x, x => x.Amount); 
+            //TODO: If there are ever issues, check if it truly passes amount by value, and not reference
         }
     }
 }
