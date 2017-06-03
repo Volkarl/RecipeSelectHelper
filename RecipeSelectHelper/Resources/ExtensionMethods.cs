@@ -13,10 +13,22 @@ namespace RecipeSelectHelper.Resources
 {
     public static class ExtensionMethods
     {
+        #region NotWorkingCombinePredicates
         //public static Predicate<T> Add<T>(this Predicate<T> predicate1, Predicate<T> predicate2)
         //{
         //    return x => predicate1(x) && predicate2(x);
         //} // Why wont this work?
+        #endregion
+
+        public static List<T> CombineElements<T>(this List<T> allElements, Predicate<T> finder,
+            Func<List<T>, T> combiner)
+        {
+            List<T> matchingElements = allElements.FindAll(finder);
+            T combinedElement = combiner(matchingElements);
+            List<T> newElementList = allElements.RemoveElements(matchingElements);
+            newElementList.Add(combinedElement);
+            return newElementList;
+        }
 
         public static List<BoughtProduct> GetExpiredProducts(this IEnumerable<BoughtProduct> boughtProducts)
         {
@@ -100,12 +112,13 @@ namespace RecipeSelectHelper.Resources
             return selected;
         }
 
-        public static void RemoveElements<T>(this List<T> collection, List<T> itemsToRemove)
+        public static List<T> RemoveElements<T>(this List<T> collection, List<T> itemsToRemove)
         {
             foreach (T element in itemsToRemove)
             {
                 collection.Remove(element);
             }
+            return collection;
         }
 
         public static void MoveElement<T>(this List<T> collection, int index, int newIndex)

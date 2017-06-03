@@ -33,12 +33,8 @@ namespace RecipeSelectHelper.Model.SortingMethods
         private List<Preference> ApplyPreferenceOptimizations(List<Preference> preferences)
         {
             // Combine all expirationDatePreferences into one, to avoid errors and unecessary calculations while computing the values. 
-            List<ExpirationDatePreference> expirPrefs = preferences.FindAll(x => x is ExpirationDatePreference).ConvertAll(y => y as ExpirationDatePreference);
-            int combinedVal = expirPrefs.Sum(x => x.Val);
-            var combinedExpirPref = new ExpirationDatePreference(combinedVal);
-            preferences.RemoveElements(expirPrefs.ConvertAll(x => x as Preference));
-            preferences.Add(combinedExpirPref);
-            return preferences;
+            return preferences.CombineElements(x => x is ExpirationDatePreference,
+                x => new ExpirationDatePreference(x.Sum(y => ((ExpirationDatePreference) y).Val)));
         }
 
         private List<Preference> ApplyPreferenceOrderingRules(List<Preference> preferences)
