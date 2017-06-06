@@ -54,7 +54,7 @@ namespace RecipeSelectHelper.Model
             AllBoughtProducts.ForEach(x => x.OwnValue = 0);
             AllProducts.ForEach(x => x.OwnValue = 0);
             AllRecipeCategories.ForEach(x => x.OwnValue = 0);
-            AllRecipes.ForEach(x => x.OwnValue = 0);
+            AllRecipes.ForEach(x => x.Clean());
         }
 
         public int GetValueHashCode()

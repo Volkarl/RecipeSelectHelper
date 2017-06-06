@@ -54,8 +54,6 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             if (Preferences == null || data == null) return;
 
-            Dictionary<BoughtProduct, uint> TempAmount = CreateTempAmountDict(data.AllBoughtProducts);
-
             double percentPerStep = 50 / (double)Preferences.Count;
             double percentageFinished = 0;
             foreach (Preference preference in Preferences)
@@ -64,6 +62,11 @@ namespace RecipeSelectHelper.Model.SortingMethods
                 percentageFinished += percentPerStep;
                 ProgressChanged?.Invoke(this, percentageFinished);
             }
+
+            TransferProductValueToIngredients(data.AllProducts, data.AllBoughtProducts);
+            // This is done because products and bought products are otherwise separate from ingredients, 
+            // and are therefore not automatically aggregated into the Recipe values
+
             foreach (Recipe recipe in data.AllRecipes)
             {
                 recipe.AggregateValue();
@@ -72,10 +75,20 @@ namespace RecipeSelectHelper.Model.SortingMethods
             }
         }
 
-        private Dictionary<BoughtProduct, uint> CreateTempAmountDict(List<BoughtProduct> boughtProducts)
+        private void TransferProductValueToIngredients(List<Product> products, List<BoughtProduct> boughtProducts)
         {
-            return boughtProducts.ToDictionary(x => x, x => x.Amount); 
-            //TODO: If there are ever issues, check if it truly passes amount by value, and not reference
+            Dictionary<Product, AmountNeededValueCalculator> valCalcs = CreateEmptyValueCalculators(products);
+            foreach (BoughtProduct bp in boughtProducts) valCalcs[bp.CorrespondingProduct].AddBoughtProduct(bp);
+            foreach (Product p in products) p.TransferValueToCorrespondingIngredients(valCalcs[p]);
+            // The result of this is that every ingredient in every recipe now holds a reference to the single 
+            // Value Calculator belonging to the Ingredient's Corresponding Product.
+        }
+
+        private Dictionary<Product, AmountNeededValueCalculator> CreateEmptyValueCalculators(List<Product> products)
+        {
+            List<AmountNeededValueCalculator> emptyCalculators = new List<AmountNeededValueCalculator>();
+            foreach (Product x in products) emptyCalculators.Add(new AmountNeededValueCalculator(x));
+            return emptyCalculators.ToDictionary(x => x.CorrespondingProduct);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace RecipeSelectHelper.Resources
     public class AmountPerValueCalculator
     {
         public int AmountNeeded { get; }
-        public BpValueInformation OrderedValueProducts { get; set; }
+        public BpValue OrderedValueProducts { get; set; }
 
         public AmountPerValueCalculator(int amountNeeded)
         {

@@ -21,7 +21,7 @@ namespace RecipeSelectHelper.Model
 
         public int OwnValue { get; set; } = 0;
 
-        public event EventHandler<Tuple<int,BoughtProduct>> IncreaseIngredientValue;
+        public event EventHandler<AmountNeededValueCalculator> TransferValueToIngredients;
 
         public Product(string name, List<ProductCategory> categories = null, List<GroupedProductCategory> groupedCategories = null)
         {
@@ -41,9 +41,9 @@ namespace RecipeSelectHelper.Model
             return val;
         }
 
-        public void AddValueToCorrespondingIngredients(int valueForEntireAmount, BoughtProduct boughtProduct)
+        public void TransferValueToCorrespondingIngredients(AmountNeededValueCalculator valueCalculator)
         {
-            IncreaseIngredientValue?.Invoke(this, new Tuple<int, BoughtProduct>(valueForEntireAmount, boughtProduct)); 
+            TransferValueToIngredients?.Invoke(this, valueCalculator); 
         }
 
         public string ToString(SubstituteRelationsRepository subRepo)

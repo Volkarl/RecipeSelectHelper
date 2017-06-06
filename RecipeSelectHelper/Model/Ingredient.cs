@@ -23,26 +23,36 @@ namespace RecipeSelectHelper.Model
         {
             get
             {
-                if (OwnValueCalculator == null) OwnValueCalculator = new AmountPerValueCalculator(AmountNeeded);
-                return OwnValueCalculator.GetOptimalValueCombination();
+                if (_ownValueCalculator == null) throw new ArgumentException("The CorrespondingProduct has not sent information about the fitting BoughtProducts.");
+                // This means: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
+                return _ownValueCalculator.GetOptimalValueCombination();
             }
         }
 
-        public AmountPerValueCalculator OwnValueCalculator { get; set; }
+        public AmountNeededValueCalculator _ownValueCalculator;
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
             if(correspondingProduct == null) throw new ArgumentException();
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;
-            CorrespondingProduct.IncreaseIngredientValue += IngredientValueIncreased;
+            CorrespondingProduct.TransferValueToIngredients += BoughtProductValueTransfered;
         }
 
-        private void IngredientValueIncreased(object sender, Tuple<int,BoughtProduct> e)
+        private void BoughtProductValueTransfered(object sender, AmountNeededValueCalculator e)
         {
-            if(OwnValueCalculator == null) OwnValueCalculator = new AmountPerValueCalculator(AmountNeeded);
-            // It is done this way, because the constructor is not invoked during serialization.
-            OwnValueCalculator.AddAmountWithValue(e.Item1, e.Item2);
+            _ownValueCalculator = e; 
+        }
+
+        public void Clean()
+        {
+            _ownValueCalculator = null;
+        }
+
+        public void AggregateValue(Dictionary<BoughtProduct, uint> bpAmountsRemaining)
+        {
+            OwnValue = _ownValueCalculator.GetOptimalValueCombination(bpAmountsRemaining);
+            // TODO CHANGE IT SO THAT AGGREGATE/OWNVALUE/VALUE is like it is for recipes
         }
     }
 }

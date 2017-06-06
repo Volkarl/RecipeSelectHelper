@@ -38,10 +38,7 @@ namespace RecipeSelectHelper.Model
                 {
                     return string.Empty;
                 }
-                else
-                {
-                    return string.Join(", ", Categories.ConvertAll(x => x.Name));
-                }
+                return string.Join(", ", Categories.ConvertAll(x => x.Name));
             }
         }
 
@@ -76,18 +73,46 @@ namespace RecipeSelectHelper.Model
             // Lots of exceptins here if something is wrong. Check also if selections are correct in groupedcategories.
         }
 
-        public void AggregateValue()    //combine this with value prop? No, because I don't want to recalculate until I click "sort"!?
+        public void AggregateValue()    
         {
+            // This is not combined with value property because I don't want to recalculate until I click "sort"!?
+
             int val = OwnValue;
             foreach (RecipeCategory recipeCategory in Categories)
             {
                 val += recipeCategory.OwnValue;
             }
+
+            Dictionary<BoughtProduct, uint> bpAmountsRemaining = CreateDictForBpAmounts();
+            // This dictionary will be used to keep track of how much and which boughtProducts our ingredients use 
+
             foreach (Ingredient ingredient in Ingredients)
             {
+                ingredient.AggregateValue(bpAmountsRemaining);
                 val += ingredient.Value;
             }
             this.Value = val;
+        }
+
+        private Dictionary<BoughtProduct, uint> CreateDictForBpAmounts()
+        {
+            Dictionary<BoughtProduct, uint> bpAmountsRemaining = new Dictionary<BoughtProduct, uint>();
+            List<AmountNeededValueCalculator> addedCalculators = new List<AmountNeededValueCalculator>();
+            foreach (Ingredient ingredient in Ingredients)
+            {
+                if (!addedCalculators.Contains(ingredient._ownValueCalculator))
+                {
+                    ingredient._ownValueCalculator.OrderedBpValues.ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
+                    addedCalculators.Add(ingredient._ownValueCalculator);
+                }
+            }
+            return bpAmountsRemaining;
+        }
+
+        public void Clean()
+        {
+            OwnValue = 0;
+            Ingredients.ForEach(x => x.Clean());
         }
     }
 }

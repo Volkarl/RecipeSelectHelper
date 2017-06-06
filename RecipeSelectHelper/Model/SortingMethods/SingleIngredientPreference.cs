@@ -22,10 +22,11 @@ namespace RecipeSelectHelper.Model.SortingMethods
             Description += nameof(SingleIngredientPreference) + " | Add " + val + " to product: " + product.Name;
         }
 
-        public override void Calculate(ProgramData pd)
+        public override void Calculate(ProgramData pd, Dictionary<BoughtProduct, uint> amountsInFridge)
         {
             if (Product == null) return;
-            pd.AllProducts.Find(y => y.Equals(Product)).OwnValue += Val;   //Substitutes are not used yet!
+            pd.AllProducts.Find(x => x.Equals(Product)).OwnValue += Val;
+            pd.ProductSubstitutes.FindSubstitutes(Product).ForEach(x => x.OwnValue += Val);
         }
     }
 }
