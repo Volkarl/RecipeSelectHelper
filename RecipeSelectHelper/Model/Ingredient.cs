@@ -23,13 +23,13 @@ namespace RecipeSelectHelper.Model
         {
             get
             {
-                if (_ownValueCalculator == null) throw new ArgumentException("The CorrespondingProduct has not sent information about the fitting BoughtProducts.");
+                if (OwnValueCalculator == null) throw new ArgumentException("The CorrespondingProduct has not sent information about the fitting BoughtProducts.");
                 // This means: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
-                return _ownValueCalculator.GetOptimalValueCombination();
+                return OwnValueCalculator.GetOptimalValueCombination();
             }
         }
 
-        public AmountNeededValueCalculator _ownValueCalculator;
+        public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
@@ -41,17 +41,18 @@ namespace RecipeSelectHelper.Model
 
         private void BoughtProductValueTransfered(object sender, AmountNeededValueCalculator e)
         {
-            _ownValueCalculator = e; 
+            OwnValueCalculator = e; 
         }
 
         public void Clean()
         {
-            _ownValueCalculator = null;
+            OwnValueCalculator = null;
+            OwnValue = 0;
         }
 
         public void AggregateValue(Dictionary<BoughtProduct, uint> bpAmountsRemaining)
         {
-            OwnValue = _ownValueCalculator.GetOptimalValueCombination(bpAmountsRemaining);
+            OwnValue = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining);
             // TODO CHANGE IT SO THAT AGGREGATE/OWNVALUE/VALUE is like it is for recipes
         }
     }

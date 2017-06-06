@@ -212,13 +212,13 @@
             </Grid.RowDefinitions>
 
             <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-            <local:InputSlider Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding OwnValueCalculator.PercentageTotalIngredientsGathered}"></local:InputSlider>
+            <local:InputSlider Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding _ownValueCalculator.PercentageTotalIngredientsGathered}"></local:InputSlider>
             
             <Label Content="Value" Grid.Row="1" Grid.Column="0"></Label>
             <Label Content="Name" Grid.Row="1" Grid.Column="1"></Label>
             <Label Content="Amount of Product used" Grid.Row="1" Grid.Column="2"></Label>
 
-            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding OwnValueCalculator.OrderedValueProducts}">
+            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding _ownValueCalculator.OrderedValueProducts}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid IsSharedSizeScope="True" IsEnabled="False">

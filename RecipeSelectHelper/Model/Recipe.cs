@@ -100,10 +100,10 @@ namespace RecipeSelectHelper.Model
             List<AmountNeededValueCalculator> addedCalculators = new List<AmountNeededValueCalculator>();
             foreach (Ingredient ingredient in Ingredients)
             {
-                if (!addedCalculators.Contains(ingredient._ownValueCalculator))
+                if (!addedCalculators.Contains(ingredient.OwnValueCalculator))
                 {
-                    ingredient._ownValueCalculator.OrderedBpValues.ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
-                    addedCalculators.Add(ingredient._ownValueCalculator);
+                    ingredient.OwnValueCalculator.OrderedBpValues.ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
+                    addedCalculators.Add(ingredient.OwnValueCalculator);
                 }
             }
             return bpAmountsRemaining;
