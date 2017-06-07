@@ -22,7 +22,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             Description += nameof(RecipeCategoryPreference) + " | Add " + val + " to all recipes of category: " + RecipeCategory.Name;
         }
 
-        public override void Calculate(ProgramData pd, Dictionary<BoughtProduct, uint> amountsInFridge)
+        public override void Calculate(ProgramData pd)
         {
             if (RecipeCategory == null) return;
             pd.AllRecipeCategories.Find(y => y.Equals(RecipeCategory)).OwnValue += Val;

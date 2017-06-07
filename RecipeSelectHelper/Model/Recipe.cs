@@ -19,9 +19,9 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Instruction { get; set; }
 
-        public int Value { get; private set; } = 0;
+        public int Value { get; private set; }
 
-        public int OwnValue { get; set; } = 0;
+        public int OwnValue { get; set; }
 
         [DataMember]
         public List<Ingredient> Ingredients { get; set; }
@@ -88,7 +88,7 @@ namespace RecipeSelectHelper.Model
 
             foreach (Ingredient ingredient in Ingredients)
             {
-                ingredient.AggregateValue(bpAmountsRemaining);
+                ingredient.AggregateBpValues(bpAmountsRemaining);
                 val += ingredient.Value;
             }
             this.Value = val;
@@ -102,7 +102,7 @@ namespace RecipeSelectHelper.Model
             {
                 if (!addedCalculators.Contains(ingredient.OwnValueCalculator))
                 {
-                    ingredient.OwnValueCalculator.OrderedBpValues.ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
+                    ingredient.OwnValueCalculator.OrderedBpValues.ToList().ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
                     addedCalculators.Add(ingredient.OwnValueCalculator);
                 }
             }

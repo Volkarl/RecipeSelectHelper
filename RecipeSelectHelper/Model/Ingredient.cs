@@ -12,22 +12,17 @@ namespace RecipeSelectHelper.Model
     [DataContract(Name = "Ingredient")]
     public class Ingredient : IIngredient
     {
+
         [DataMember]
         public uint AmountNeeded { get; set; }
         [DataMember]
         public Product CorrespondingProduct { get; set; }
 
+        public int AmountSatisfied { get; private set; }
+
         public int Value => OwnValue + CorrespondingProduct.Value;
 
-        public int OwnValue
-        {
-            get
-            {
-                if (OwnValueCalculator == null) throw new ArgumentException("The CorrespondingProduct has not sent information about the fitting BoughtProducts.");
-                // This means: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
-                return OwnValueCalculator.GetOptimalValueCombination();
-            }
-        }
+        public int OwnValue { get; set; }
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
@@ -48,12 +43,17 @@ namespace RecipeSelectHelper.Model
         {
             OwnValueCalculator = null;
             OwnValue = 0;
+            AmountSatisfied = 0;
         }
 
-        public void AggregateValue(Dictionary<BoughtProduct, uint> bpAmountsRemaining)
+
+        public void AggregateBpValues(Dictionary<BoughtProduct, uint> bpAmountsRemaining)
         {
-            OwnValue = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining);
-            // TODO CHANGE IT SO THAT AGGREGATE/OWNVALUE/VALUE is like it is for recipes
+            if (OwnValueCalculator == null) throw new ArgumentException("The CorrespondingProduct has not sent information about the fitting BoughtProducts.");
+            // Translated: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
+
+            OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded);
+            OwnValue += (int) Math.Round(result.Value);
         }
     }
 }

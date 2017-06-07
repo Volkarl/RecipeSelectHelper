@@ -64,8 +64,8 @@ namespace RecipeSelectHelper.Model.SortingMethods
             }
 
             TransferProductValueToIngredients(data.AllProducts, data.AllBoughtProducts);
-            // This is done because products and bought products are otherwise separate from ingredients, 
-            // and are therefore not automatically aggregated into the Recipe values
+            // This is done because Products and BoughtProducts are separate from Ingredients. 
+            // To aggregate their value into the Recipe values, the Ingredients are sent information about the BoughtProducts.
 
             foreach (Recipe recipe in data.AllRecipes)
             {

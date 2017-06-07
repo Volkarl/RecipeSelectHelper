@@ -16,7 +16,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             Description += nameof(IngredientsOwnedPreference) + " | Add " + val + " to every owned ingredient";
         }
 
-        public override void Calculate(ProgramData pd, Dictionary<BoughtProduct, uint> amountsInFridge)
+        public override void Calculate(ProgramData pd)
         {
             pd.AllBoughtProducts.ForEach(y => y.OwnValue += Val);
         }

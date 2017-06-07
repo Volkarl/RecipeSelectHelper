@@ -19,18 +19,13 @@ namespace RecipeSelectHelper.Model.SortingMethods
             Description += nameof(ExpirationDatePreference) + " | Expiration date value (0 to ≈ 120) multiplied by " + Val;
         }
 
-        public override void Calculate(ProgramData pd, Dictionary<BoughtProduct, uint> amountsInFridge)
+        public override void Calculate(ProgramData pd)
         {
             DateTime startTime = DateTime.Now;
             foreach (BoughtProduct bp in pd.AllBoughtProducts)
             {
                 int val = CalculateValue(bp.ExpirationData, startTime);
                 bp.OwnValue += val;
-                bp.CorrespondingProduct.TransferValueToCorrespondingIngredients(val, bp.Amount);
-                // For the value of the boughtproducts to be aggregated into the corresponding recipes, the amount/value information is added to 
-                // all the ingredients. They then figure out how to combine the different boughtproducts most efficiently, to get the highest value.
-                // This also means that if this preference is executed twice, then the same boughtproducts will be used for values twice, 
-                // which is usually not good.
             }
         }
 

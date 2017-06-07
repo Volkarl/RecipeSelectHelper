@@ -22,7 +22,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             Description += nameof(SingleIngredientPreference) + " | Add " + val + " to product: " + product.Name;
         }
 
-        public override void Calculate(ProgramData pd, Dictionary<BoughtProduct, uint> amountsInFridge)
+        public override void Calculate(ProgramData pd)
         {
             if (Product == null) return;
             pd.AllProducts.Find(x => x.Equals(Product)).OwnValue += Val;

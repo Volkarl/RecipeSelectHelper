@@ -5,6 +5,6 @@ namespace RecipeSelectHelper.Model.SortingMethods
     public interface IPreference
     {
         string Description { get; set; }
-        void Calculate(ProgramData data, Dictionary<BoughtProduct, uint> amountsInFridge);
+        void Calculate(ProgramData data);
     }
 }
