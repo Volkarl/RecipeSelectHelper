@@ -50,7 +50,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             return preferences;
         }
 
-        public void Execute(ProgramData data)
+        public void Execute(ProgramData data, bool allowSubstitutes)
         {
             if (Preferences == null || data == null) return;
 
@@ -63,7 +63,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
                 ProgressChanged?.Invoke(this, percentageFinished);
             }
 
-            TransferProductValueToIngredients(data.AllProducts, data.AllBoughtProducts);
+            TransferProductValueToIngredients(data.AllProducts, data.AllBoughtProducts, allowSubstitutes, data.ProductSubstitutes);
             // This is done because Products and BoughtProducts are separate from Ingredients. 
             // To aggregate their value into the Recipe values, the Ingredients are sent information about the BoughtProducts.
 
@@ -75,13 +75,28 @@ namespace RecipeSelectHelper.Model.SortingMethods
             }
         }
 
-        private void TransferProductValueToIngredients(List<Product> products, List<BoughtProduct> boughtProducts)
+        private void TransferProductValueToIngredients(List<Product> products, List<BoughtProduct> boughtProducts, bool substitutesEnabled, SubstituteRelationsRepository substituteRelations)
         {
             Dictionary<Product, AmountNeededValueCalculator> valCalcs = CreateEmptyValueCalculators(products);
             foreach (BoughtProduct bp in boughtProducts) valCalcs[bp.CorrespondingProduct].AddBoughtProduct(bp);
+            if (substitutesEnabled) AddSubstituteBpsToValCalcs(valCalcs, products, boughtProducts, substituteRelations);
             foreach (Product p in products) p.TransferValueToCorrespondingIngredients(valCalcs[p]);
             // The result of this is that every ingredient in every recipe now holds a reference to the single 
             // Value Calculator belonging to the Ingredient's Corresponding Product.
+            // If substitutes are enabled, every Value Calculator also contains all of its substitutes' bought products.
+        }
+
+        private void AddSubstituteBpsToValCalcs(Dictionary<Product, AmountNeededValueCalculator> valCalcs, List<Product> products, 
+            List<BoughtProduct> bps, SubstituteRelationsRepository substituteRelations)
+        {
+            ILookup<Product, BoughtProduct> bpLookup = bps.ToLookup(x => x.CorrespondingProduct);
+
+            foreach (Product p in products)
+            {
+                // TODO Perhaps add a progress counter here?
+                foreach (Product sub in substituteRelations.FindSubstitutes(p))
+                    foreach (BoughtProduct bp in bpLookup[sub]) valCalcs[p].AddBoughtProduct(bp);
+            }
         }
 
         private Dictionary<Product, AmountNeededValueCalculator> CreateEmptyValueCalculators(List<Product> products)
@@ -90,5 +105,6 @@ namespace RecipeSelectHelper.Model.SortingMethods
             foreach (Product x in products) emptyCalculators.Add(new AmountNeededValueCalculator(x));
             return emptyCalculators.ToDictionary(x => x.CorrespondingProduct);
         }
+
     }
 }

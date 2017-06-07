@@ -90,7 +90,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
             if (SelectedSortingMethod == null) return;
             SelectedSortingMethod.ProgressChanged += ChangeProgressBarValue;
-            SelectedSortingMethod.Execute(_parent.Data);
+            SelectedSortingMethod.Execute(_parent.Data, CheckBox_SubstitutesEnabled.IsChecked ?? false);
 
             // Use recipe values to assign percentage scores to the recipes.
             List<Recipe> allRecipes = _parent.Data.AllRecipes;

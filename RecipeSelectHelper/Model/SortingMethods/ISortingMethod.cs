@@ -6,6 +6,6 @@ namespace RecipeSelectHelper.Model.SortingMethods
     {
         string Name { get; set; }
         List<Preference> Preferences { get; set; }
-        void Execute(ProgramData data);
+        void Execute(ProgramData data, bool allowSubstitutes);
     }
 }
