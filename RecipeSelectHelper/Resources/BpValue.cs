@@ -17,7 +17,6 @@ namespace RecipeSelectHelper.Resources
             if(product == null) throw new ArgumentException();
             Bp = product;
             ValuePerAmount = (double) Bp.OwnValue / Bp.Amount;
-            PercentageOfAmountNeeded = (int)((Bp.Amount / (double) amountLeft) * 100);
         }
     }
 }

@@ -38,7 +38,7 @@
         <custom:ExtendedListView x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondinRecipe.Name}"></GridViewColumn>
+                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondingRecipe.Name}"></GridViewColumn>
                     <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
                 </GridView>
             </ListView.View>

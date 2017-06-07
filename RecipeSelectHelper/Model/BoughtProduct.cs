@@ -15,6 +15,8 @@ namespace RecipeSelectHelper.Model
 
         public int OwnValue { get; set; } = 0;
 
+        private BoughtProduct() { }
+
         public BoughtProduct(Product correspondingProduct, uint amount, ExpirationInfo expirationData = null)
         {
             if(correspondingProduct == null) throw new ArgumentException("No product selected");

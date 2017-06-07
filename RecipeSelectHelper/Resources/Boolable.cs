@@ -16,6 +16,7 @@ namespace RecipeSelectHelper.Resources
         [DataMember]
         public bool Bool { get; set; }
 
+        private Boolable() { }
         public Boolable(T instance, bool startValue = false)
         {
             Bool = startValue;

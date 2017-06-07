@@ -15,6 +15,8 @@ namespace RecipeSelectHelper.Model
 
         public int OwnValue { get; set; }
 
+        private RecipeCategory() { }
+
         public RecipeCategory(string name)
         {
             Name = name;

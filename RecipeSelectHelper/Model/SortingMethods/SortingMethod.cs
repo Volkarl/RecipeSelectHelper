@@ -20,6 +20,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
         public event EventHandler<double> ProgressChanged;
 
+        private SortingMethod() { }
         public SortingMethod(string name, List<Preference> preferences)
         {
             if(String.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();

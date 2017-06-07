@@ -68,7 +68,7 @@ namespace RecipeSelectHelper.Resources
         {
             var serializer = new DataContractSerializer(data.GetType(), null, 0x7FFF, false, true /*preserveObjectReferences*/, null);
             // int.MaxValue?
-            using (var xmlw = XmlWriter.Create(filePath))
+            using (var xmlw = XmlWriter.Create(new Uri(filePath).LocalPath)) 
             {
                 serializer.WriteObject(xmlw, data);
             }

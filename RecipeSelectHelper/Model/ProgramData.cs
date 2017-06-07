@@ -48,6 +48,8 @@ namespace RecipeSelectHelper.Model
             ProductSubstitutes = new SubstituteRelationsRepository();
         }
 
+        private ProgramData() { }
+
         public void ResetAllValues()
         {
             AllProductCategories.ForEach(x => x.OwnValue = 0);

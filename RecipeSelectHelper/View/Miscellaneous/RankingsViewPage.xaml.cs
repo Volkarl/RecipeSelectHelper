@@ -38,7 +38,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             {
                 withPercentageScores.Add(new RecipeWithPercentageScore(rec));
             }
-            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondinRecipe.Name)); // SHOULD BE EMPTY??
+            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondingRecipe.Name)); // SHOULD BE EMPTY??
         }
 
         private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)

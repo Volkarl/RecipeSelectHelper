@@ -23,6 +23,8 @@ namespace RecipeSelectHelper.Model
 
         public event EventHandler<AmountNeededValueCalculator> TransferValueToIngredients;
 
+        private Product() { } // Needed for serialization
+
         public Product(string name, List<ProductCategory> categories = null, List<GroupedProductCategory> groupedCategories = null)
         {
             Name = name;
@@ -48,23 +50,12 @@ namespace RecipeSelectHelper.Model
 
         public string ToString(SubstituteRelationsRepository subRepo)
         {
-            string subsToString = "|Substitutes: \n";
-            foreach (Product substitute in subRepo.FindSubstitutes(this))
-            {
-                subsToString += "  " + substitute.Name + "\n";
-            }
-            return ToString() + subsToString;
+            return $"{ToString()}\n| Substitutes:\n {string.Join(", ", subRepo.FindSubstitutes(this).ConvertAll(x => x.Name))}";
         }
 
         public override string ToString()
         {
-            string str = "|Product: " + Name + "\n";
-            str += "|Categories: \n";
-            foreach (ProductCategory pc in Categories)
-            {
-                str += "  " + pc.Name + "\n";
-            }
-            return str;
+            return $"| Product: {Name}\n| Categories:\n{string.Join(", ", Categories.ConvertAll(x => x.Name))}";
         }
 
         public string CategoriesAsString

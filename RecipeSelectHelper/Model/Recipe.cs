@@ -60,6 +60,8 @@ namespace RecipeSelectHelper.Model
             }
         }
 
+        private Recipe() { }
+
         public Recipe(string name, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
         {
             this.Name = name;

@@ -11,6 +11,8 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public DateTime? ProductExpirationTime { get; set; }
 
+        private ExpirationInfo() { }
+
         public ExpirationInfo(DateTime? createdTime = null, DateTime? expirationTime = null)
         {
             ProductCreatedTime = createdTime;

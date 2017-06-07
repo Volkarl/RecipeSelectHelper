@@ -16,6 +16,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public string Description { get; set; }
 
+        private Preference() { }
         protected Preference(string description = null)
         {
             Description = description ?? string.Empty;

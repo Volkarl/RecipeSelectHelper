@@ -20,6 +20,8 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public GroupedSelection<ProductCategory> CorrespondingGroupedSelection { get; set; }
 
+        private GroupedProductCategory() { }
+
         public GroupedProductCategory(GroupedSelection<ProductCategory> correspondingGroupedPc) : this(correspondingGroupedPc.GroupedItems, correspondingGroupedPc.MinSelect, correspondingGroupedPc.MaxSelect)
         {
             if (correspondingGroupedPc == null) throw new ArgumentException();

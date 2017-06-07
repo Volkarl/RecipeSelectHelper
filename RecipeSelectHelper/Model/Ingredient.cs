@@ -26,6 +26,8 @@ namespace RecipeSelectHelper.Model
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
+        private Ingredient() { }
+
         public Ingredient(uint amountNeeded, Product correspondingProduct)
         {
             if(correspondingProduct == null) throw new ArgumentException();

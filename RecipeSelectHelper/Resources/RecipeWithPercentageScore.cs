@@ -5,16 +5,16 @@ namespace RecipeSelectHelper.Resources
 {
     public class RecipeWithPercentageScore
     {
-        public int MaxValue { get; private set; }
-        public double PercentageValue { get; private set; }
-        public Recipe CorrespondinRecipe { get; set; }
+        public int MaxValue { get; }
+        public double PercentageValue { get; }
+        public Recipe CorrespondingRecipe { get; set; }
 
-        public RecipeWithPercentageScore(Recipe recipe, int maxValue = 0)
+        public RecipeWithPercentageScore(Recipe recipe, int maxValue = 1)
         {
             if (maxValue == 0) maxValue = 1; // To avoid dividing by zero
-            CorrespondinRecipe = recipe;
+            CorrespondingRecipe = recipe;
             MaxValue = maxValue;
-            PercentageValue = (CorrespondinRecipe.Value / MaxValue) * 100;
+            PercentageValue = (CorrespondingRecipe.Value / MaxValue) * 100;
         }
     }
 }

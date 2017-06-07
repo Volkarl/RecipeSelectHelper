@@ -80,7 +80,7 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_RemoveStoreProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.Data.RemoveElement(SelectedStoreProduct); //.AllProducts.Remove(SelectedStoreProduct);
+            _parent.Data.RemoveElement(SelectedStoreProduct); 
 
             Product selected = SelectedStoreProduct;
             ObservableCollection<Product> newProductCollection = StoreProducts;
@@ -120,6 +120,8 @@ namespace RecipeSelectHelper.View.Products
             ListView_StoreProducts.ApplyFilter();
         }
 
+        #region deprecated
+
         // This method can be rewritten to be quite a bit more readable and efficient!
         // At the moment it reapplies ALL filters every time it is run, and doesn't "just" apply the changes.
         //private void AddCategoryFilters()
@@ -151,6 +153,8 @@ namespace RecipeSelectHelper.View.Products
         //    StoreProducts = new ObservableCollection<Product>(_parent.Data.AllProducts.Where(x => x.Name.Contains(searchParameter)));
         //}
 
+        #endregion
+
         private void ListViewItem_OnDoubleClick(object sender, MouseButtonEventArgs e)
             => DisplayProductInfo(SelectedStoreProduct);
 
@@ -158,7 +162,7 @@ namespace RecipeSelectHelper.View.Products
         {
             if (product != null)
             {
-                MessageBox.Show(product.ToString());
+                MessageBox.Show(product.ToString(_parent.Data.ProductSubstitutes));
             }
         }
     }

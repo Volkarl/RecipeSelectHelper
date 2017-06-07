@@ -17,6 +17,8 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public int MaxSelect { get; set; }
 
+        private GroupedSelection() { }
+
         public GroupedSelection(List<T> groupedItems, int minSelect, int maxSelect)
         {
             GroupedItems = groupedItems;

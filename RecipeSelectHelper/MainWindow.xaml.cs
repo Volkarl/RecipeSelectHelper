@@ -153,7 +153,7 @@ namespace RecipeSelectHelper
             }
             catch (Exception ex)
             {
-                string defaultPath = UtilityMethods.AddDefaultFileName(UtilityMethods.GetExePath());
+                string defaultPath = UtilityMethods.AddDefaultFileName(UtilityMethods.GetExeDirectoryPath());
                 XmlDataHandler.SaveToXml(defaultPath, Data);
                 MessageBox.Show("Invalid save path: data instead saved at " + defaultPath, ex.Message);
             }

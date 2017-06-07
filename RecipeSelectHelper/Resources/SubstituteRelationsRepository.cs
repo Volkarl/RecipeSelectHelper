@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using RecipeSelectHelper.Model;
 
 namespace RecipeSelectHelper.Resources
@@ -12,25 +13,32 @@ namespace RecipeSelectHelper.Resources
     [DataContract(Name = "SubstituteRelationsRepository")]
     public class SubstituteRelationsRepository
     {
-        private string _productColumn = "Product";
-        private string _substituteColumn = "Substitute";
+        private static readonly string _productColumn = "Product";
+        private static readonly string _substituteColumn = "Substitute";
 
         [DataMember]
-        public DataTable SubstituteTable { get; }
+        public DataTable SubstituteTable { get; set; }
 
         public SubstituteRelationsRepository()
         {
-            SubstituteTable = new DataTable();
-            SubstituteTable.Columns.Add(_productColumn, typeof(Product));
-            SubstituteTable.Columns.Add(_substituteColumn, typeof(Product));
+            SetupTable();
         }
 
         public void AddSubstitutes(Product product, List<Product> substitutes)
         {
-            foreach (Product substitute in substitutes)
+            if (SubstituteTable == null) SetupTable();
+
+            foreach (Product sub in substitutes)
             {
-                SubstituteTable.Rows.Add(product, substitute);
+                SubstituteTable.Rows.Add(product, sub);
             }
+        }
+
+        private void SetupTable()
+        {
+            SubstituteTable = new DataTable("ProductSubstituteRelationsTable") {CaseSensitive = true};
+            SubstituteTable.Columns.Add(_productColumn, typeof(Product));
+            SubstituteTable.Columns.Add(_substituteColumn, typeof(Product));
         }
 
         public List<Product> FindSubstitutes(Product product)
@@ -38,7 +46,17 @@ namespace RecipeSelectHelper.Resources
             List<Product> substituteList = new List<Product>();
             foreach (DataRow row in SubstituteTable.Rows)
             {
-                if (row.Field<Product>(_productColumn) == product)
+
+                // MAKE INTO LOOKUP IN STEAD OF THIS SHIT. CANT SERIALIZE FAK
+                
+                // All right, problem here is that whenever I serialize my DataTable, all the references are lost, which fucks up everything.
+
+                //MessageBox.Show($"Product " + row.Field<Product>(_productColumn).Name + " contains sub" + row.Field<Product>(_substituteColumn).Name + (row.Field<Product>(_productColumn) == product).ToString());
+                MessageBox.Show(row.Field<Product>(_productColumn).Equals(product).ToString());
+
+
+
+                if (row.Field<Product>(_productColumn).Equals(product))
                 {
                     substituteList.Add(row.Field<Product>(_substituteColumn));
                 }
