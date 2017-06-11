@@ -48,7 +48,7 @@ namespace RecipeSelectHelper.Model
             TransferValueToIngredients?.Invoke(this, valueCalculator); 
         }
 
-        public string ToString(SubstituteRelationsRepository subRepo)
+        public string ToString(SubstituteRelationsDictionary subRepo)
         {
             return $"{ToString()}\n| Substitutes:\n {string.Join(", ", subRepo.FindSubstitutes(this).ConvertAll(x => x.Name))}";
         }

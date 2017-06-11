@@ -99,6 +99,7 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Resources\SubstituteRelationsDictionary.cs" />
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
     <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />

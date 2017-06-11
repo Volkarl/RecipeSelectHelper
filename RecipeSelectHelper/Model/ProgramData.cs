@@ -31,7 +31,7 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<GroupedSelection<RecipeCategory>> AllGroupedRecipeCategories { get; set; }
         [DataMember]
-        public SubstituteRelationsRepository ProductSubstitutes { get; set; }
+        public SubstituteRelationsDictionary ProductSubstitutes { get; set; }
 
         public static string ProgramVersion = "Version 1.0";
         public ProgramData(string compatibilityVersion = "Version 1.0")
@@ -45,7 +45,7 @@ namespace RecipeSelectHelper.Model
             AllSortingMethods = new List<SortingMethod>();
             AllGroupedProductCategories = new List<GroupedSelection<ProductCategory>>();
             AllGroupedRecipeCategories = new List<GroupedSelection<RecipeCategory>>();
-            ProductSubstitutes = new SubstituteRelationsRepository();
+            ProductSubstitutes = new SubstituteRelationsDictionary();
         }
 
         private ProgramData() { }
