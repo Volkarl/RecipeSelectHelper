@@ -194,5 +194,11 @@ namespace RecipeSelectHelper.Resources
             return indent + textToIndent.Replace("\n", "\n" + indent);
         }
 
+        public static T1 MaxItem<T1,T2>(this IEnumerable<T1> source, Func<T1,T2> valueToCompare)
+        {
+            IEnumerable<T1> enumerable = source as T1[] ?? source.ToArray();
+            T2 maxValue = enumerable.Max(valueToCompare);
+            return enumerable.First(x => valueToCompare(x).Equals(maxValue));
+        }
     }
 }

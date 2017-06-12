@@ -77,8 +77,7 @@ namespace RecipeSelectHelper.Model
 
         public void AggregateValue()    
         {
-            // This is not combined with value property because I don't want to recalculate until I click "sort"!?
-
+            // This is not combined with value property because I don't want to recalculate until I click "sort".
             int val = OwnValue;
             foreach (RecipeCategory recipeCategory in Categories)
             {
