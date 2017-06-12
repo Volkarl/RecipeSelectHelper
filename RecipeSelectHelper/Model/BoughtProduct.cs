@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -23,6 +24,14 @@ namespace RecipeSelectHelper.Model
             CorrespondingProduct = correspondingProduct;
             Amount = amount;
             ExpirationData = expirationData;
+        }
+
+        public override string ToString()
+        {
+            return $"-- Bought Product --\n" +
+                   $"| Corresponding Product: \n{CorrespondingProduct.ToString().Indent()}\n" +
+                   $"| Amount: {Amount}\n" +
+                   $"{ExpirationData?.ToString() ?? String.Empty}\n";
         }
     }
 }

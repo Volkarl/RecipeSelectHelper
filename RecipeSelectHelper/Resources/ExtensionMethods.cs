@@ -128,6 +128,11 @@ namespace RecipeSelectHelper.Resources
             collection.Insert(newIndex, item);
         }
 
+        public static int LastIndex<T>(this IEnumerable<T> collection)
+        {
+            return collection.Count() - 1;
+        }
+
         public static int ToInt(this char c)
         {
             return (int)(c - '0');
@@ -182,5 +187,12 @@ namespace RecipeSelectHelper.Resources
             throw new KeyNotFoundException("Enum OwnValue not found.");
             // return (T)Enum.Parse(typeof(T), description);
         }
+
+        public static string Indent(this string textToIndent, int indentAmount = 4)
+        {
+            var indent = new string(' ', indentAmount);
+            return indent + textToIndent.Replace("\n", "\n" + indent);
+        }
+
     }
 }

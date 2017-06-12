@@ -326,9 +326,9 @@ namespace RecipeSelectHelper.View.SortingMethods
                 _parent.Data.AllSortingMethods.Add(sm);
                 ClearUI();
             }
-            catch (Exception exception)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(exception.Message);
+                ErrorReporter.EmptyRequiredProperty(ex.Message);
             }
         }
 

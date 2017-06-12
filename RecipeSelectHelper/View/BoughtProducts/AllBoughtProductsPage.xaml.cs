@@ -131,9 +131,8 @@ namespace RecipeSelectHelper.View.BoughtProducts
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
-            var bp = item.Content as BoughtProduct;
-
-            MessageBox.Show(Prettyprinter.ToPrettyString(bp));
+            var bp = item?.Content as BoughtProduct;
+            MessageBox.Show(bp?.ToString());
         }
 
         private void Button_ReviewExpiredItems_OnClick(object sender, RoutedEventArgs e)

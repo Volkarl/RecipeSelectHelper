@@ -35,11 +35,8 @@ namespace RecipeSelectHelper.Model
 
         public override string ToString()
         {
-            string s = "Created date: ";
-            if (ProductCreatedTime != null) s += ProductCreatedTime.Value;
-            s += "\nExpiration date: ";
-            if (ProductExpirationTime != null) s += ProductExpirationTime.Value;
-            return s;
+            return $"| Created date: {ProductCreatedTime?.ToString() ?? String.Empty}\n" +
+                   $"| Expiration date: {ProductExpirationTime?.ToString() ?? String.Empty}\n";
         }
     }
 }

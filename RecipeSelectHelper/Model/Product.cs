@@ -50,12 +50,17 @@ namespace RecipeSelectHelper.Model
 
         public string ToString(SubstituteRelationsDictionary subRepo)
         {
-            return $"{ToString()}\n| Substitutes:\n {string.Join(", ", subRepo.FindSubstitutes(this).ConvertAll(x => x.Name))}";
+            return $"{ToString()}\n" +
+                   $"| Substitutes:\n" +
+                   $"{string.Join(", ", subRepo.FindSubstitutes(this).ConvertAll(x => x.Name)).Indent()}";
         }
 
         public override string ToString()
         {
-            return $"| Product: {Name}\n| Categories:\n{string.Join(", ", Categories.ConvertAll(x => x.Name))}";
+            return $"-- Product --\n" +
+                   $"| Product: {Name}\n" +
+                   $"| Categories:\n" +
+                   $"{string.Join(", ", Categories.ConvertAll(x => x.Name)).Indent()}";
         }
 
         public string CategoriesAsString

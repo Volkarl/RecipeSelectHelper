@@ -23,7 +23,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         private SortingMethod() { }
         public SortingMethod(string name, List<Preference> preferences)
         {
-            if(String.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();
+            if(String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name");
             Name = name;
             preferences = preferences ?? new List<Preference>();
             preferences = ApplyPreferenceOptimizations(preferences);
@@ -45,7 +45,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
             for (var i = preferences.Count - 1; i >= 0; i--)
             {
-                if(preferences[i] is ExpirationDatePreference) preferences.MoveElement(i, preferences.Count);
+                if(preferences[i] is ExpirationDatePreference) preferences.MoveElement(i, preferences.LastIndex());
                 // Go backwards through preferences and move these to the very back
             }
             return preferences;
