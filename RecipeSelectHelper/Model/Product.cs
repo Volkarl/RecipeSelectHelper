@@ -23,7 +23,7 @@ namespace RecipeSelectHelper.Model
 
         public event EventHandler<AmountNeededValueCalculator> TransferValueToIngredients;
 
-        private Product() { } // Needed for serialization
+        private Product() { } // Needed for deserialization
 
         public Product(string name, List<ProductCategory> categories = null, List<GroupedProductCategory> groupedCategories = null)
         {

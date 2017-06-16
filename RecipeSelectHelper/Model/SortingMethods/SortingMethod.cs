@@ -103,7 +103,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         private Dictionary<Product, AmountNeededValueCalculator> CreateEmptyValueCalculators(List<Product> products)
         {
             List<AmountNeededValueCalculator> emptyCalculators = new List<AmountNeededValueCalculator>();
-            foreach (Product x in products) emptyCalculators.Add(new AmountNeededValueCalculator(x));
+            foreach (Product x in products.Distinct()) emptyCalculators.Add(new AmountNeededValueCalculator(x));
             return emptyCalculators.ToDictionary(x => x.CorrespondingProduct);
         }
 

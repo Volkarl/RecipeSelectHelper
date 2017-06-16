@@ -98,14 +98,9 @@ namespace RecipeSelectHelper.Model
         private Dictionary<BoughtProduct, uint> CreateDictForBpAmounts()
         {
             Dictionary<BoughtProduct, uint> bpAmountsRemaining = new Dictionary<BoughtProduct, uint>();
-            List<AmountNeededValueCalculator> addedCalculators = new List<AmountNeededValueCalculator>();
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (Ingredient ingredient in Ingredients.Distinct())
             {
-                if (!addedCalculators.Contains(ingredient.OwnValueCalculator))
-                {
-                    ingredient.OwnValueCalculator.OrderedBpValues.ToList().ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
-                    addedCalculators.Add(ingredient.OwnValueCalculator);
-                }
+                ingredient.OwnValueCalculator.OrderedBpValues.ToList().ConvertAll(x => x.Bp).ForEach(y => bpAmountsRemaining.Add(y, y.Amount));
             }
             return bpAmountsRemaining;
         }

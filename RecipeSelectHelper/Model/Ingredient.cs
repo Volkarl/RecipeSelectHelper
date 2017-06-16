@@ -36,6 +36,12 @@ namespace RecipeSelectHelper.Model
             CorrespondingProduct.TransferValueToIngredients += BoughtProductValueTransfered;
         }
 
+        [OnDeserialized]
+        private void RebindEvent(StreamingContext c)
+        {
+            CorrespondingProduct.TransferValueToIngredients += BoughtProductValueTransfered;
+        }
+
         private void BoughtProductValueTransfered(object sender, AmountNeededValueCalculator e)
         {
             OwnValueCalculator = e; 
