@@ -33,11 +33,11 @@ namespace RecipeSelectHelper.Model
             if(correspondingProduct == null) throw new ArgumentException();
             AmountNeeded = amountNeeded;
             CorrespondingProduct = correspondingProduct;
-            CorrespondingProduct.TransferValueToIngredients += BoughtProductValueTransfered;
+            RebindEvent();
         }
 
         [OnDeserialized]
-        private void RebindEvent(StreamingContext c)
+        private void RebindEvent(StreamingContext context = default(StreamingContext))
         {
             CorrespondingProduct.TransferValueToIngredients += BoughtProductValueTransfered;
         }

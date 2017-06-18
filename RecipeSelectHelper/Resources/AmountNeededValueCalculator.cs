@@ -40,16 +40,18 @@ namespace RecipeSelectHelper.Resources
                     }
                 }
             }
-
-            throw new NotImplementedException((OrderedBpValues.First().ValuePerAmount > OrderedBpValues.Last().ValuePerAmount) + 
-                "MAKE SURE THE FIRST VALUE IS ACTUALLY THE HIGHEST ONE!!! OTHERWISE REVERSE THE SORTING.");
             return returnVal;
         }
 
         public void AddBoughtProduct(BoughtProduct bp)
         {
             if (!OrderedBpValues.Add(new BpValue(bp)))
-                throw new ArgumentException($"Could not be added to ordered values: {bp}");
+            {
+
+                var v = OrderedBpValues.Comparer.Compare(new BpValue(bp), OrderedBpValues.First());
+                throw new ArgumentException($"Error: Duplicate BoughtProduct was not added to ordered values: {bp}" +
+                                            $"{OrderedBpValues.Comparer}");
+            }
         }
     }
 
@@ -70,8 +72,11 @@ namespace RecipeSelectHelper.Resources
     {
         public int Compare(BpValue x, BpValue y)
         {
-            if(x == null || y == null) throw new ArgumentNullException($"{(x == null ? "x" : "y")} is null.");
-            return x.ValuePerAmount.CompareTo(y.ValuePerAmount);
+            if (x == null || y == null) throw new ArgumentNullException($"{(x == null ? "x" : "y")} is null.");
+            if (x == y) return 0; // Reference equal objects are equal
+            var comparison = x.ValuePerAmount.CompareTo(y.ValuePerAmount) * (-1);
+            return comparison == 0 ? 1 : comparison;
+            // If both values are equal, one is placed below the other.
         }
     }
 }

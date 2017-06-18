@@ -15,6 +15,10 @@ namespace RecipeSelectHelper.Model
         public uint Amount { get; set; }
 
         public int OwnValue { get; set; } = 0;
+        // The BoughtProduct doesn't aggregate the value of the correspondingProduct, to avoid Product values 
+        // double-dipping, as Ingredients do aggregate correspondingProduct. Intuitively this also makes sense, 
+        // because regardless of whether something is a vegetable or not, if it's a day out from expiration, 
+        // it should have priority for being used for recipes. 
 
         private BoughtProduct() { }
 
@@ -31,6 +35,7 @@ namespace RecipeSelectHelper.Model
             return $"-- Bought Product --\n" +
                    $"| Corresponding Product: \n{CorrespondingProduct.ToString().Indent()}\n" +
                    $"| Amount: {Amount}\n" +
+                   $"| OwnValue: {OwnValue}\n" +
                    $"{ExpirationData?.ToString() ?? String.Empty}\n";
         }
     }
