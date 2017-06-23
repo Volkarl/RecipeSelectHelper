@@ -1,18 +1,15 @@
-﻿using NUnit.Framework;
-using RecipeSelectHelper.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
 
-namespace RecipeSelectHelper.Tests
+namespace RecipeSelectHelper.Tests.UnitTests
 {
     [TestFixture]
-    public class XMLDataHandlerTest
+    public class XmlDataHandlerTest
     {
         string _testFilePath;
         List<ProgramData> data;
