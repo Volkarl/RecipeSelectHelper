@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Tests.IntegrationTests
 {
@@ -34,71 +35,89 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             public static ProgramData LowCoupling = CreateProgramData(ProgramDataType.LowCoupling);
             public static ProgramData MedCoupling = CreateProgramData(ProgramDataType.MedCoupling);
             public static ProgramData HighCoupling = CreateProgramData(ProgramDataType.HighCoupling);
-            public static ProgramData NoCouplingWithSubs = CreateProgramData(ProgramDataType.NoCouplingWithSubs);
-            public static ProgramData LowCouplingWithSubs = CreateProgramData(ProgramDataType.LowCouplingWithSubs);
-            public static ProgramData MedCouplingWithSubs = CreateProgramData(ProgramDataType.MedCouplingWithSubs);
-            public static ProgramData HighCouplingWithSubs = CreateProgramData(ProgramDataType.HighCouplingWithSubs);
+            public static ProgramData NoCouplingWithSubs = CreateProgramData(ProgramDataType.NoCoupling, true);
+            public static ProgramData LowCouplingWithSubs = CreateProgramData(ProgramDataType.LowCoupling, true);
+            public static ProgramData MedCouplingWithSubs = CreateProgramData(ProgramDataType.MedCoupling, true);
+            public static ProgramData HighCouplingWithSubs = CreateProgramData(ProgramDataType.HighCoupling, true);
         }
 
         private enum ProgramDataType
         {
-            Empty, NoCoupling, LowCoupling, MedCoupling, HighCoupling, NoCouplingWithSubs, LowCouplingWithSubs, MedCouplingWithSubs, HighCouplingWithSubs
+            Empty, NoCoupling, LowCoupling, MedCoupling, HighCoupling
         }
 
-        private static ProgramData CreateProgramData(ProgramDataType i)
+        private static ProgramData CreateProgramData(ProgramDataType i, bool genWithSubstitutes = false)
         {
             var pd = new ProgramData();
-            List<ProductCategory> pc;
-            List<RecipeCategory> rc;
+            List<ProductCategory> pc = GenPc();
+            List<RecipeCategory> rc = GenRc();
             List<Product> p;
             List<Recipe> r;
+            List<BoughtProduct> bp;
             switch (i)
             {
                 case ProgramDataType.Empty:
-                    break;
+                    return pd;
                 case ProgramDataType.NoCoupling:
-                    AddToData(pd, GenPc(), GenRc(), GenP(), GenR(), GenBp());
+                    p = GenP();
+                    r = GenR();
+                    bp = GenBp();
                     break;
                 case ProgramDataType.LowCoupling:
-                    pc = GenPc();
-                    rc = GenRc();
                     p = GenP(pc);
-                    AddToData(pd, pc, rc, p, GenR(rc), GenBp(p));
+                    r = GenR(rc);
+                    bp = GenBp();
                     break;
                 case ProgramDataType.MedCoupling:
+                    p = GenP(pc);
+                    r = GenR(rc);
+                    bp = GenBp(p);
                     break;
                 case ProgramDataType.HighCoupling:
-                    break;
-                case ProgramDataType.NoCouplingWithSubs:
-                    break;
-                case ProgramDataType.LowCouplingWithSubs:
-                    pc = GenPc();
-                    rc = GenRc();
                     p = GenP(pc);
-                    AddToData(pd, pc, rc, p, GenR(rc), GenBp(p), GenSub(p));
-                    break;
-                case ProgramDataType.MedCouplingWithSubs:
-                    break;
-                case ProgramDataType.HighCouplingWithSubs:
+                    r = GenR(rc, p);
+                    bp = GenBp(p);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(i), i, null);
             }
+            Dictionary<Product, List<Product>> subs = genWithSubstitutes ? GenSub(p) : GenSub();
+            AddToData(pd, pc, rc, p, r, bp, subs);
             return pd;
         }
 
         private static Dictionary<Product, List<Product>> GenSub(List<Product> products = null)
         {
-            throw new NotImplementedException();
+            Dictionary<Product, List<Product>> subs = new Dictionary<Product, List<Product>>();
+            if (products != null)
+            {
+                List<Product> previous = new List<Product>();
+                foreach (Product product in products)
+                {
+                    if(previous.Any()) subs.Add(product, previous);
+                    previous.Add(product);
+                }
+            }
+            return subs;
+            // Each product will have all the previous products as substitutes
         }
 
         private static List<BoughtProduct> GenBp(List<Product> products = null)
         {
-            throw new NotImplementedException();
+            if (products == null)
+            {
+                Product noCoupling = new Product("noCouplingProduct");
+                return new List<BoughtProduct>
+                { new BoughtProduct(noCoupling, 1), new BoughtProduct(noCoupling, 2), new BoughtProduct(noCoupling, 3)};
+            }
+            uint amount = 1;
+            return new List<BoughtProduct>(products.ConvertAll(x => new BoughtProduct(x, amount++)));
         }
 
-        private static List<Recipe> GenR(List<RecipeCategory> rc = null)
+        private static List<Recipe> GenR(List<RecipeCategory> rc = null, List<Product> products = null)
         {
+            if(rc == null && products == null) return new List<Recipe> {new Recipe("rec0"), new Recipe("rec1"), new Recipe("rec2")};
+
             throw new NotImplementedException();
         }
 
