@@ -151,6 +151,11 @@ namespace RecipeSelectHelper.Resources
             return !collection2.Except(collection1).Any();
         }
 
+        public static List<T> ToSingleItemList<T>(this T obj) 
+        {
+            return new List<T> {obj};
+        }
+
         public static string GetDescription(this Enum value)
         {
             Type type = value.GetType();

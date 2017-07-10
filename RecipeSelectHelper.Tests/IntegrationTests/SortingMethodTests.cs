@@ -13,14 +13,37 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
     [TestFixture]
     public class SortingMethodTests
     {
-        private struct SortingMethods
+        private static class SortingMethods
         {
-            public static SortingMethod Empty = new SortingMethod(SortingMethodType.Empty.ToString(), CreatePreferenceList(SortingMethodType.Empty));
-            public static SortingMethod ProductCategory = new SortingMethod(SortingMethodType.ProductCategory.ToString(), CreatePreferenceList(SortingMethodType.ProductCategory));
-            public static SortingMethod RecipeCategory = new SortingMethod(SortingMethodType.RecipeCategory.ToString(), CreatePreferenceList(SortingMethodType.RecipeCategory));
-            public static SortingMethod IngredientsOwned = new SortingMethod(SortingMethodType.IngredientsOwned.ToString(), CreatePreferenceList(SortingMethodType.IngredientsOwned));
-            public static SortingMethod SingleIngredient = new SortingMethod(SortingMethodType.SingleIngredient.ToString(), CreatePreferenceList(SortingMethodType.SingleIngredient));
-            public static SortingMethod ExpirationDate = new SortingMethod(SortingMethodType.ExpirationDate.ToString(), CreatePreferenceList(SortingMethodType.ExpirationDate));
+            public static SortingMethod Empty(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.Empty.ToString(), CreatePreferenceList(SortingMethodType.Empty, pd));
+            }
+
+            public static SortingMethod ProductCategory(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.ProductCategory.ToString(), CreatePreferenceList(SortingMethodType.ProductCategory, pd));
+            }
+
+            public static SortingMethod RecipeCategory(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.RecipeCategory.ToString(), CreatePreferenceList(SortingMethodType.RecipeCategory, pd));
+            }
+
+            public static SortingMethod IngredientsOwned(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.IngredientsOwned.ToString(), CreatePreferenceList(SortingMethodType.IngredientsOwned, pd));
+            }
+
+            public static SortingMethod SingleIngredient(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.SingleIngredient.ToString(), CreatePreferenceList(SortingMethodType.SingleIngredient, pd));
+            }
+
+            public static SortingMethod ExpirationDate(ProgramData pd)
+            {
+                return new SortingMethod(SortingMethodType.ExpirationDate.ToString(), CreatePreferenceList(SortingMethodType.ExpirationDate, pd));
+            }
         }
 
         private enum SortingMethodType
@@ -28,7 +51,7 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             Empty, ProductCategory, RecipeCategory, IngredientsOwned, SingleIngredient, ExpirationDate, All
         }
 
-        private struct ProgramDatas
+        private static class ProgramDatas
         {
             public static ProgramData Empty = CreateProgramData(ProgramDataType.Empty);
             public static ProgramData NoCoupling = CreateProgramData(ProgramDataType.NoCoupling);
@@ -116,15 +139,40 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
 
         private static List<Recipe> GenR(List<RecipeCategory> rc = null, List<Product> products = null)
         {
-            if(rc == null && products == null) return new List<Recipe> {new Recipe("rec0"), new Recipe("rec1"), new Recipe("rec2")};
+            List<Recipe> recipes;
+            
+            if(rc != null && products != null) recipes = new List<Recipe>
+            {
+                new Recipe("rec0", categories:rc[0].ToSingleItemList(), ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
+                new Recipe("rec1", categories:rc[1].ToSingleItemList(), ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
+                new Recipe("rec2", categories:rc[2].ToSingleItemList(), ingredients:new Ingredient(2, products[2]).ToSingleItemList())
+            };
+            else if(rc != null) recipes = new List<Recipe>
+            {
+                new Recipe("rec0", categories:rc[0].ToSingleItemList()),
+                new Recipe("rec1", categories:rc[1].ToSingleItemList()),
+                new Recipe("rec2", categories:rc[2].ToSingleItemList())
+            };
+            else if (products != null)recipes = new List<Recipe>
+            {
+                new Recipe("rec0", ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
+                new Recipe("rec1", ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
+                new Recipe("rec2", ingredients:new Ingredient(2, products[2]).ToSingleItemList())
+            };
+            else recipes = new List<Recipe> { new Recipe("rec0"), new Recipe("rec1"), new Recipe("rec2") };
 
-            throw new NotImplementedException();
+            return recipes;
         }
 
         private static List<Product> GenP(List<ProductCategory> pc = null)
         {
             if(pc == null) return new List<Product> {new Product("0"), new Product("1"), new Product("2")};
-            return new List<Product> {new Product("0", new List<ProductCategory> {pc[0]}), new Product("1", new List<ProductCategory> {pc[1]}), new Product("2", new List<ProductCategory> {pc[2]})};
+            return new List<Product>
+            {
+                new Product("0", pc[0].ToSingleItemList()),
+                new Product("1", pc[1].ToSingleItemList()),
+                new Product("2", pc[2].ToSingleItemList())
+            };
         }
 
         private static List<RecipeCategory> GenRc()
@@ -143,7 +191,7 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             if (rc != null) pd.AllRecipeCategories.AddRange(rc);
             if (p != null) pd.AllProducts.AddRange(p);
             if (r != null) pd.AllRecipes.AddRange(r);
-            if(bp != null) pd.AllBoughtProducts.AddRange(bp);
+            if (bp != null) pd.AllBoughtProducts.AddRange(bp);
             if (subs != null)
                 foreach (KeyValuePair<Product, List<Product>> pair in subs)
                     pd.ProductSubstitutes.AddSubstitutes(pair.Key, pair.Value);
@@ -186,14 +234,41 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             return pref;
         }
 
-
-        [OneTimeSetUp]
-        public void Initialzie()
+        [TestCase] 
+        void s_name_CorrectResult()
         {
-            SortingMethod sm = CreateSortingMethod();
-            sm.Execute(CreateProgramData(), true);
-            var s = new ProgramData();
-            s.
+            ProgramDataType pdt;
+            SortingMethodType smt;
+            ProgramData expectedResult;
+            //ExecuteAndVerifyResult(pdt, true, smt, expectedResult);
+            throw new NotImplementedException();
+        }
+
+        private void ExecuteAndVerifyResult(ProgramDataType pdt, bool allowSubs, SortingMethodType smt, ProgramData expectedResult)
+        {
+            ProgramData pd = CreateProgramData(pdt);
+            List<Preference> pref = CreatePreferenceList(smt, pd);
+            var sm = new SortingMethod("sm", pref);
+            sm.Execute(pd, allowSubs);
+            ReportNonEquivalence(expectedResult, pd);
+        }
+        
+        private void ReportNonEquivalence(ProgramData expectedResult, ProgramData data)
+        {
+            // Todo: perhaps I should not check whether every item of each sequence is equal, but only whether the sorting is correct? 
+
+            if (expectedResult == null || data == null) throw new ArgumentNullException(data == null ? nameof(data) : nameof(expectedResult));
+
+            if (!expectedResult.AllProductCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProductCategories.ConvertAll(x => x.OwnValue)))
+                throw new ArgumentException(nameof(expectedResult.AllProductCategories));
+            if (!expectedResult.AllRecipeCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipeCategories.ConvertAll(x => x.OwnValue)))
+                throw new ArgumentException(nameof(expectedResult.AllRecipeCategories));
+            if (!expectedResult.AllProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProducts.ConvertAll(x => x.OwnValue)))
+                throw new ArgumentException(nameof(expectedResult.AllProducts));
+            if (!expectedResult.AllBoughtProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllBoughtProducts.ConvertAll(x => x.OwnValue)))
+                throw new ArgumentException(nameof(expectedResult.AllBoughtProducts));
+            if (!expectedResult.AllRecipes.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipes.ConvertAll(x => x.OwnValue)))
+                throw new ArgumentException(nameof(expectedResult.AllRecipes));
         }
     }
 }
