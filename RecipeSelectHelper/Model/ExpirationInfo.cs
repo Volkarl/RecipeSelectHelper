@@ -19,6 +19,8 @@ namespace RecipeSelectHelper.Model
             ProductExpirationTime = expirationTime;
         }
 
+        public bool HasValue => ProductCreatedTime.HasValue && ProductExpirationTime.HasValue;
+
         public double GetExpiredPercentage(DateTime? timeNow = null)
         {
             if (ProductCreatedTime == null || ProductExpirationTime == null)

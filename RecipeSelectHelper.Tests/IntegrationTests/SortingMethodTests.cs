@@ -292,5 +292,22 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             if (!expectedResult.AllRecipes.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipes.ConvertAll(x => x.OwnValue)))
                 throw new ArgumentException(nameof(expectedResult.AllRecipes));
         }
+
+
+
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ExpirationDatePreference_RecipeWithoutExpirationDate_ZeroPoints(bool substitutesAllowed)
+        {
+            ProgramData pd = new ProgramData {AllProducts = GenP()};
+            pd.AllBoughtProducts = GenBp(pd.AllProducts);
+            pd.AllRecipes = GenR(products: pd.AllProducts);
+
+            ExecuteAndVerifyResult(pd, substitutesAllowed, SortingMethodType.ExpirationDate, new[] { 0, 0, 0 });
+        }
+
+        //TODO More expiration date preference tests, for other conditions!!
+
     }
 }

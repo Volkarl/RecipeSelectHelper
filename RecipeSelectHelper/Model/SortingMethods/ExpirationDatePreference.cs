@@ -24,12 +24,13 @@ namespace RecipeSelectHelper.Model.SortingMethods
             DateTime startTime = DateTime.Now;
             foreach (BoughtProduct bp in pd.AllBoughtProducts)
             {
-                int val = CalculateValue(bp.ExpirationData, startTime);
+                if(!bp.ExpirationData.HasValue) continue;
+                int val = CalcExpirationValue(bp.ExpirationData, startTime);
                 bp.OwnValue += val;
             }
         }
 
-        private int CalculateValue(ExpirationInfo exp, DateTime time)
+        private int CalcExpirationValue(ExpirationInfo exp, DateTime time)
         {
             var decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
             if (decimalExpired == 0) return 0;

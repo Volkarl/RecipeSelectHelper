@@ -27,7 +27,7 @@ namespace RecipeSelectHelper.Model
             if(correspondingProduct == null) throw new ArgumentException("No product selected");
             CorrespondingProduct = correspondingProduct;
             Amount = amount;
-            ExpirationData = expirationData;
+            ExpirationData = expirationData ?? new ExpirationInfo();
         }
 
         public override string ToString()
