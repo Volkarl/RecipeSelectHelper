@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
 {
-    public class IntegerTextBox : TextBox
+    public class IntegerTextBox : PositiveIntegerTextBox
     {
-        public IntegerTextBox()
-        {
-            VerticalContentAlignment = VerticalAlignment.Center;
-        }
         protected override void OnTextChanged(TextChangedEventArgs e)
         {
+            bool isNegative = Text.FirstOrDefault() == '-';
             base.OnTextChanged(e);
+            Text = '-' + Text;
 
-            Text = new String(Text.Where(c => Char.IsDigit(c)).ToArray());
-            this.SelectionStart = Text.Length;
+            // TODO UNTESTED!
         }
     }
 }

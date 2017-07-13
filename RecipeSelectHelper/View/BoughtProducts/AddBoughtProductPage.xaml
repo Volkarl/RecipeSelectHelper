@@ -59,7 +59,7 @@
 
                 <DockPanel Margin="0,1,0,0" DockPanel.Dock="Bottom">
                     <Label Height="30" Width="100" Content="Amount: "></Label>
-                    <resources:IntegerTextBox x:Name="IntegerTextBoxAmountBought"></resources:IntegerTextBox>
+                    <resources:PositiveIntegerTextBox x:Name="IntegerTextBoxAmountBought"></resources:PositiveIntegerTextBox>
                 </DockPanel>
 
                 <DockPanel DockPanel.Dock="Top">

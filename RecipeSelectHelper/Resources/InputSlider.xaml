@@ -16,6 +16,6 @@
         <!--About the ridiculous looking bindings: I do this to avoid having to set the datacontex in here.
         If I were to set datacontext here, then any bindings outside of here would be trying to look INSIDE THIS DATACONTEXT to find 
         their source data. That source data is obviously not in here. -->
-        <local:IntegerTextBox VerticalContentAlignment="Center" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></local:IntegerTextBox>
+        <local:PositiveIntegerTextBox VerticalContentAlignment="Center" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></local:PositiveIntegerTextBox>
     </Grid>
 </UserControl>

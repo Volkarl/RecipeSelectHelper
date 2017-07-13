@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
 {
-    public class InputLimitedIntegerTextBox : IntegerTextBox
+    public class InputLimitedIntegerTextBox : PositiveIntegerTextBox
     {
         public static readonly DependencyProperty MaxInputProperty = DependencyProperty.Register(nameof(MaxInput), typeof(int?), typeof(InputLimitedIntegerTextBox), new FrameworkPropertyMetadata(new int?()));
         public int? MaxInput

@@ -80,7 +80,7 @@
                                 <CheckBox IsChecked="{Binding Bool}" DockPanel.Dock="Left" HorizontalContentAlignment="Stretch">
                                     <!-- Both HorizontalContentAlignment=Stretch and the ItemContainerStyle=StyleStretch are needed for the items to fill the entire listviewitem -->
                                     <DockPanel>
-                                        <resources:IntegerTextBox Text="{Binding Value}" MinWidth="100" DockPanel.Dock="Right" IsEnabled="{Binding Bool}"></resources:IntegerTextBox>
+                                        <resources:PositiveIntegerTextBox Text="{Binding Value}" MinWidth="100" DockPanel.Dock="Right" IsEnabled="{Binding Bool}"></resources:PositiveIntegerTextBox>
                                         <TextBlock Text="{Binding Instance.Name}"></TextBlock>
                                     </DockPanel>
                                 </CheckBox>
