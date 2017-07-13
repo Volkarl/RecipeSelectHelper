@@ -235,21 +235,43 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         }
 
         [TestCase] 
-        void s_name_CorrectResult()
+        public void ProductCategoryPreference_AllRecipesContainProductCategory_AllRecipesRecieve1Point()
         {
-            ProgramDataType pdt;
-            SortingMethodType smt;
-            ProgramData expectedResult;
-            //ExecuteAndVerifyResult(pdt, true, smt, expectedResult);
-            throw new NotImplementedException();
+            ProgramData pd = new ProgramData();
+            pd.AllProductCategories = new List<ProductCategory> { new ProductCategory("mypc")};
+            pd.AllProducts = new List<Product>
+            {
+                new Product("0", pd.AllProductCategories),
+                new Product("1", pd.AllProductCategories),
+                new Product("2", pd.AllProductCategories)
+            };
+            pd.AllRecipes = GenR(products: pd.AllProducts);
+
+            ExecuteAndVerifyResult(pd, false, SortingMethodType.ProductCategory, new []{1, 1, 1});
+        }
+        
+        private void ExecuteAndVerifyResult(ProgramData pd, bool allowSubs, SortingMethodType smt,
+            int[] expectedRecipeValues)
+        {
+            if(pd.AllRecipes.Count != expectedRecipeValues.Length) throw new ArgumentException("Mismatched array size");
+
+            CreateAndExecutePreference(pd, allowSubs, smt);
+            int i = 0;
+            foreach (int val in pd.AllRecipes.ConvertAll(r => r.Value))
+                Assert.AreEqual(val, expectedRecipeValues[i++]);
+        }
+
+        private void CreateAndExecutePreference(ProgramData pd, bool allowSubs, SortingMethodType smt)
+        {
+            List<Preference> pref = CreatePreferenceList(smt, pd);
+            var sm = new SortingMethod("sm", pref);
+            sm.Execute(pd, allowSubs);
         }
 
         private void ExecuteAndVerifyResult(ProgramDataType pdt, bool allowSubs, SortingMethodType smt, ProgramData expectedResult)
         {
             ProgramData pd = CreateProgramData(pdt);
-            List<Preference> pref = CreatePreferenceList(smt, pd);
-            var sm = new SortingMethod("sm", pref);
-            sm.Execute(pd, allowSubs);
+            CreateAndExecutePreference(pd, allowSubs, smt);
             ReportNonEquivalence(expectedResult, pd);
         }
         
