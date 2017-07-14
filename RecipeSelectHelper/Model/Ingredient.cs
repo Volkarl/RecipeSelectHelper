@@ -47,7 +47,7 @@ namespace RecipeSelectHelper.Model
             OwnValueCalculator = e; 
         }
 
-        public void Clean()
+        public void Reset()
         {
             OwnValueCalculator = null;
             OwnValue = 0;

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
@@ -7,6 +10,7 @@ namespace RecipeSelectHelper.Model
     [DataContract(Name = "BoughtProduct")]
     public class BoughtProduct : IBoughtProduct
     {
+
         [DataMember]
         public Product CorrespondingProduct { get; set; }
         [DataMember]
@@ -14,11 +18,15 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public uint Amount { get; set; }
 
-        public int OwnValue { get; set; } = 0;
+        private List<Tuple<int, Preference>> _ownValue = new List<Tuple<int, Preference>>();
+        public void AddValue(int value, Preference sender) => _ownValue.Add(new Tuple<int, Preference>(value, sender));
+        public int OwnValue { get { return _ownValue.Sum(tuple => tuple.Item1); } }
         // The BoughtProduct doesn't aggregate the value of the correspondingProduct, to avoid Product values 
         // double-dipping, as Ingredients do aggregate correspondingProduct. Intuitively this also makes sense, 
         // because regardless of whether something is a vegetable or not, if it's a day out from expiration, 
         // it should have priority for being used for recipes. 
+
+        public void Reset() => _ownValue = new List<Tuple<int, Preference>>();
 
         private BoughtProduct() { }
 

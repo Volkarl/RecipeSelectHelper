@@ -105,10 +105,10 @@ namespace RecipeSelectHelper.Model
             return bpAmountsRemaining;
         }
 
-        public void Clean()
+        public void Reset()
         {
             OwnValue = 0;
-            Ingredients.ForEach(x => x.Clean());
+            Ingredients.ForEach(x => x.Reset());
         }
     }
 }
