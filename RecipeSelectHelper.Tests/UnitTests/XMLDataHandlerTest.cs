@@ -12,12 +12,12 @@ namespace RecipeSelectHelper.Tests.UnitTests
     public class XmlDataHandlerTest
     {
         string _testFilePath;
-        List<ProgramData> data;
+        private ProgramData[] _data;
 
         [OneTimeSetUp]
         public void Initialize()
         {
-            data = new List<ProgramData>();
+            _data = new ProgramData[3];
             _testFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testData.xml");
 
             List<ProductCategory> pc = AddPC();
@@ -30,9 +30,9 @@ namespace RecipeSelectHelper.Tests.UnitTests
             ProgramData dataLowComplexity =    addProgramData(0, pc, rc, p, bp, r, sm);
             ProgramData dataMediumComplexity = addProgramData(1, pc, rc, p, bp, r, sm);
             ProgramData dataHighComplexity =   addProgramData(2, pc, rc, p, bp, r, sm);
-            data.Add(dataLowComplexity);
-            data.Add(dataMediumComplexity);
-            data.Add(dataHighComplexity);
+            _data[0] = dataLowComplexity;
+            _data[1] = dataMediumComplexity;
+            _data[2] = dataHighComplexity;
         }
 
         private ProgramData addProgramData(int complexity, List<ProductCategory> pc, List<RecipeCategory> rc, List<Product> p, List<BoughtProduct> bp, List<Recipe> r, List<SortingMethod> sm)
@@ -142,9 +142,9 @@ namespace RecipeSelectHelper.Tests.UnitTests
         [TestCase(2)]
         public void ToXMLAndFromXML_ValidProgramData_Works(int i)
         {
-            XmlDataHandler.SaveToXml(_testFilePath, data[i]);
+            XmlDataHandler.SaveToXml(_testFilePath, _data[i]);
             ProgramData deserializedData = XmlDataHandler.FromXml(_testFilePath);
-            Assert.AreEqual(data[i].GetValueHashCode(), deserializedData.GetValueHashCode());
+            Assert.AreEqual(_data[i].GetValueHashCode(), deserializedData.GetValueHashCode());
         }
     }
 }

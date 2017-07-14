@@ -18,7 +18,8 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public uint Amount { get; set; }
 
-        public ValueInformation OwnValue { get; } = new ValueInformation();
+        private ValueInformation _ownValue = new ValueInformation();
+        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
         // The BoughtProduct doesn't aggregate the value of the correspondingProduct, to avoid Product values 
         // double-dipping, as Ingredients do aggregate correspondingProduct. Intuitively this also makes sense, 
         // because regardless of whether something is a vegetable or not, if it's a day out from expiration, 

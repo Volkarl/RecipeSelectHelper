@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
 
@@ -54,7 +52,7 @@ namespace RecipeSelectHelper.Model
         {
             AllProductCategories.ForEach(x => x.OwnValue = 0);
             AllBoughtProducts.ForEach(x => x.Reset());
-            AllProducts.ForEach(x => x.OwnValue = 0);
+            AllProducts.ForEach(x => x.Reset());
             AllRecipeCategories.ForEach(x => x.OwnValue = 0);
             AllRecipes.ForEach(x => x.Reset());
         }
@@ -62,62 +60,54 @@ namespace RecipeSelectHelper.Model
         public int GetValueHashCode()
         {
             int hash = 0;
-            hash += this.AllBoughtProducts.Count.GetHashCode();
-            hash += this.AllProductCategories.Count.GetHashCode();
-            hash += this.AllProducts.Count.GetHashCode();
-            hash += this.AllRecipeCategories.Count.GetHashCode();
-            hash += this.AllRecipes.Count.GetHashCode();
-            hash += this.AllSortingMethods.Count.GetHashCode();
+            hash += AllBoughtProducts.Count.GetHashCode();
+            hash += AllProductCategories.Count.GetHashCode();
+            hash += AllProducts.Count.GetHashCode();
+            hash += AllRecipeCategories.Count.GetHashCode();
+            hash += AllRecipes.Count.GetHashCode();
+            hash += AllSortingMethods.Count.GetHashCode();
 
-            foreach (BoughtProduct bp in this.AllBoughtProducts)
+            foreach (BoughtProduct bp in AllBoughtProducts)
             {
-                //hash += bp.ID.GetHashCode();
-                //hash += bp.OwnValue.GetHashCode();
-                //hash += bp.CorrespondingProduct.ID.GetHashCode();
                 hash += bp.Amount.GetHashCode();
             }
 
-            foreach (ProductCategory pc in this.AllProductCategories)
+            foreach (ProductCategory pc in AllProductCategories)
             {
                 hash += pc.Name.GetHashCode();
                 hash += pc.OwnValue.GetHashCode();
             }
 
-            foreach (Product p in this.AllProducts)
+            foreach (Product p in AllProducts)
             {
-                //hash += p.ID.GetHashCode();
                 hash += p.Name.GetHashCode();
-                hash += p.OwnValue.GetHashCode();
                 foreach (ProductCategory s in p.Categories)
                 {
                     hash += s.Name.GetHashCode();
-                    hash += s.OwnValue.GetHashCode();
                 }
             }
 
-            foreach (RecipeCategory rc in this.AllRecipeCategories)
+            foreach (RecipeCategory rc in AllRecipeCategories)
             {
                 hash += rc.Name.GetHashCode();
-                hash += rc.OwnValue.GetHashCode();
             }
 
-            foreach (Recipe r in this.AllRecipes)
+            foreach (Recipe r in AllRecipes)
             {
                 hash += r.CategoriesAsString.GetHashCode();
                 hash += r.Description.GetHashCode();
-                //hash += r.ID.GetHashCode();
                 hash += r.Value.GetHashCode();
                 foreach (Ingredient i in r.Ingredients)
                 {
                     hash += i.AmountNeeded.GetHashCode();
                     hash += i.Value.GetHashCode();
-                    //hash += i.CorrespondingProduct.ID.GetHashCode();
                 }
             }
 
-            foreach (SortingMethod sm in this.AllSortingMethods)
+            foreach (SortingMethod sm in AllSortingMethods)
             {
-                //hash += sm.GetHashCode();
+                hash += sm.Name.GetHashCode();
+                foreach (Preference p in sm.Preferences) hash += p.Description.GetHashCode();
             }
 
             return hash;

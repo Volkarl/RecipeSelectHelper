@@ -19,7 +19,9 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<GroupedProductCategory> GroupedCategories { get; set; }
 
-        public int OwnValue { get; set; } = 0;
+        private ValueInformation _ownValue = new ValueInformation();
+        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
+        public void Reset() => OwnValue.Reset();
 
         public event EventHandler<AmountNeededValueCalculator> TransferValueToIngredients;
 
@@ -35,7 +37,7 @@ namespace RecipeSelectHelper.Model
         public int Value => AggregateValue();
         private int AggregateValue()
         {
-            int val = OwnValue;
+            int val = OwnValue.GetValue;
             foreach (ProductCategory productCategory in Categories)
             {
                 val += productCategory.OwnValue;

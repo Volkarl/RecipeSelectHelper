@@ -21,7 +21,8 @@ namespace RecipeSelectHelper.Model
 
         public int Value { get; private set; }
 
-        public ValueInformation OwnValue { get; } = new ValueInformation();
+        private ValueInformation _ownValue = new ValueInformation();
+        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
 
         [DataMember]
         public List<Ingredient> Ingredients { get; set; }
