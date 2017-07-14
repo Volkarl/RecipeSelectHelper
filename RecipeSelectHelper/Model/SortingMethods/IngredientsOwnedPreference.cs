@@ -18,7 +18,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
         public override void Calculate(ProgramData pd)
         {
-            pd.AllBoughtProducts.ForEach(y => y.AddValue(Val, this));
+            pd.AllBoughtProducts.ForEach(y => y.OwnValue.AddValue(Val, this));
         }
     }
 }

@@ -106,6 +106,7 @@
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
     <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
+    <Compile Include="Resources\ValueInformation.cs" />
     <Compile Include="Resources\ViewIngredientBpComposition.xaml.cs">
       <DependentUpon>ViewIngredientBpComposition.xaml</DependentUpon>
     </Compile>

@@ -327,11 +327,11 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             
             CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
 
-            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue} - Oldest bp\n" +
-                                         $"pd[1] = {pd.AllBoughtProducts[1].OwnValue}\n" +
-                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue} - Least old bp\n");
-            Assert.Greater(pd.AllBoughtProducts[2].OwnValue, pd.AllBoughtProducts[1].OwnValue);
-            Assert.Greater(pd.AllBoughtProducts[1].OwnValue, pd.AllBoughtProducts[0].OwnValue);
+            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
+                                         $"pd[1] = {pd.AllBoughtProducts[1].OwnValue.GetValue}\n" +
+                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");
+            Assert.Greater(pd.AllBoughtProducts[2].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
+            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[0].OwnValue.GetValue);
         }
 
 

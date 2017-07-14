@@ -18,15 +18,13 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public uint Amount { get; set; }
 
-        private List<Tuple<int, Preference>> _ownValue = new List<Tuple<int, Preference>>();
-        public void AddValue(int value, Preference sender) => _ownValue.Add(new Tuple<int, Preference>(value, sender));
-        public int OwnValue { get { return _ownValue.Sum(tuple => tuple.Item1); } }
+        public ValueInformation OwnValue { get; } = new ValueInformation();
         // The BoughtProduct doesn't aggregate the value of the correspondingProduct, to avoid Product values 
         // double-dipping, as Ingredients do aggregate correspondingProduct. Intuitively this also makes sense, 
         // because regardless of whether something is a vegetable or not, if it's a day out from expiration, 
         // it should have priority for being used for recipes. 
 
-        public void Reset() => _ownValue = new List<Tuple<int, Preference>>();
+        public void Reset() => OwnValue.Reset();
 
         private BoughtProduct() { }
 

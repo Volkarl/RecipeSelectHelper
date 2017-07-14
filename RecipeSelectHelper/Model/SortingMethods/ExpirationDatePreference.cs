@@ -26,7 +26,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
             {
                 if(!bp.ExpirationData.HasValue) continue;
                 int val = CalcExpirationValue(bp.ExpirationData, startTime);
-                bp.AddValue(val, this);
+                bp.OwnValue.AddValue(val, this);
             }
         }
 

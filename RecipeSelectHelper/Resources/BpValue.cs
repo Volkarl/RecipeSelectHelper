@@ -16,7 +16,7 @@ namespace RecipeSelectHelper.Resources
         {
             if(product == null) throw new ArgumentNullException(nameof(product));
             Bp = product;
-            ValuePerAmount = Bp.Amount == 0 ? 0 : ((double) Bp.OwnValue / Bp.Amount);
+            ValuePerAmount = Bp.Amount == 0 ? 0 : ((double) Bp.OwnValue.GetValue / Bp.Amount);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace RecipeSelectHelper.Model
 
         public int Value { get; private set; }
 
-        public int OwnValue { get; set; }
+        public ValueInformation OwnValue { get; } = new ValueInformation();
 
         [DataMember]
         public List<Ingredient> Ingredients { get; set; }
@@ -78,7 +78,7 @@ namespace RecipeSelectHelper.Model
         public void AggregateValue()    
         {
             // This is not combined with value property because I don't want to recalculate until I click "sort".
-            int val = OwnValue;
+            int val = OwnValue.GetValue;
             foreach (RecipeCategory recipeCategory in Categories)
             {
                 val += recipeCategory.OwnValue;
@@ -107,7 +107,7 @@ namespace RecipeSelectHelper.Model
 
         public void Reset()
         {
-            OwnValue = 0;
+            OwnValue.Reset();
             Ingredients.ForEach(x => x.Reset());
         }
     }
