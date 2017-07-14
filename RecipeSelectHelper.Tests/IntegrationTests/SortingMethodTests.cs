@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -301,13 +302,40 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         public void ExpirationDatePreference_RecipeWithoutExpirationDate_ZeroPoints(bool substitutesAllowed)
         {
             ProgramData pd = new ProgramData {AllProducts = GenP()};
-            pd.AllBoughtProducts = GenBp(pd.AllProducts);
+            pd.AllBoughtProducts = GenBp(pd.AllProducts); // BP with no expiration date
             pd.AllRecipes = GenR(products: pd.AllProducts);
 
             ExecuteAndVerifyResult(pd, substitutesAllowed, SortingMethodType.ExpirationDate, new[] { 0, 0, 0 });
         }
 
+
         //TODO More expiration date preference tests, for other conditions!!
 
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ExpirationDatePreference_ValidExpirationDates_SortedCorrectly(bool substitutesAllowed)
+        {
+            DateTime tomorrow = DateTime.Now.AddDays(1);
+            ProgramData pd = new ProgramData { AllProducts = GenP() };
+            pd.AllBoughtProducts = new List<BoughtProduct>
+            {
+                new BoughtProduct(pd.AllProducts[0], 1, new ExpirationInfo(DateTime.Now.AddDays(-2), tomorrow)), // Oldest bp
+                new BoughtProduct(pd.AllProducts[1], 1, new ExpirationInfo(DateTime.Now.AddDays(-1), tomorrow)), 
+                new BoughtProduct(pd.AllProducts[2], 1, new ExpirationInfo(DateTime.Now, tomorrow))              // Least old bp
+            };
+            
+            CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
+
+            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue}\n" +
+                                         $"pd[1] = {pd.AllBoughtProducts[1].OwnValue}\n" +
+                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue}\n");
+            Assert.Greater(pd.AllBoughtProducts[2].OwnValue, pd.AllBoughtProducts[1].OwnValue);
+            Assert.Greater(pd.AllBoughtProducts[1].OwnValue, pd.AllBoughtProducts[0].OwnValue);
+        }
+
+
+        //Todo test with multiple bps from the same p, and see if it still works
+        // And make proper substitute-dependant test
     }
 }
