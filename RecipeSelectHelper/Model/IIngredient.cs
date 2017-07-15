@@ -1,10 +1,12 @@
-﻿namespace RecipeSelectHelper.Model
+﻿using RecipeSelectHelper.Resources;
+
+namespace RecipeSelectHelper.Model
 {
     public interface IIngredient
     {
         uint AmountNeeded { get; set; }
         int Value { get; }
-        int OwnValue { get; }
+        ValueInformation OwnValue { get; }
         Product CorrespondingProduct { get; set; }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Model\GroupedRecipeCategory.cs" />
     <Compile Include="Model\GroupedSelection.cs" />
     <Compile Include="Model\SortingMethods\SubstitutesAllowedPreference.cs" />
+    <Compile Include="Resources\AggregatedValue.cs" />
     <Compile Include="Resources\AmountNeededValueCalculator.cs" />
     <Compile Include="Resources\AmountPerValueCalculator.cs" />
     <Compile Include="Resources\Boolable.cs" />

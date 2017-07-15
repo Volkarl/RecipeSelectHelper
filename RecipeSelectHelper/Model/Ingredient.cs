@@ -12,7 +12,6 @@ namespace RecipeSelectHelper.Model
     [DataContract(Name = "Ingredient")]
     public class Ingredient : IIngredient
     {
-
         [DataMember]
         public uint AmountNeeded { get; set; }
         [DataMember]
@@ -20,9 +19,10 @@ namespace RecipeSelectHelper.Model
 
         public uint AmountSatisfied { get; private set; }
 
-        public int Value => OwnValue + CorrespondingProduct.Value;
+        public int Value => OwnValue.GetValue + CorrespondingProduct.Value;
 
-        public int OwnValue { get; set; }
+        private ValueInformation _ownValue = new ValueInformation();
+        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
@@ -50,7 +50,7 @@ namespace RecipeSelectHelper.Model
         public void Reset()
         {
             OwnValueCalculator = null;
-            OwnValue = 0;
+            OwnValue.Reset();
             AmountSatisfied = 0;
         }
 
@@ -60,7 +60,7 @@ namespace RecipeSelectHelper.Model
             // Translated: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
 
             OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded);
-            OwnValue += (int) Math.Round(result.Value);
+            OwnValue.AddValue((int) Math.Round(result.Value), new AggregatedValue(this));
             AmountSatisfied += result.AmountSatisfied;
         }
 
