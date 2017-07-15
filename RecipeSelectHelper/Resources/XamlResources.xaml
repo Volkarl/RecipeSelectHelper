@@ -242,4 +242,29 @@
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
 
+    <DataTemplate x:Key="DataTemplateRecipeDetailsViewer" DataType="{x:Type model:Recipe}">
+        <StackPanel Margin="1">
+            <ItemsControl ItemsSource="{Binding OwnValue.GetSenders}" Tag="{Binding Value}">
+                <!--<ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>-->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <ProgressBar Value="{Binding Item1}" Maximum="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" DockPanel.Dock="Top"></ProgressBar>
+                            <TextBlock Text="{Binding Item2}" DockPanel.Dock="Bottom"></TextBlock>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+            <!--Other valueDetailsViewers inside itemcontrols, displaying the inner values-->
+
+        </StackPanel>
+    </DataTemplate>
+
+
 </ResourceDictionary>
