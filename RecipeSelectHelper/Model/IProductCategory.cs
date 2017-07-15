@@ -1,8 +1,10 @@
-﻿namespace RecipeSelectHelper.Model
+﻿using RecipeSelectHelper.Resources;
+
+namespace RecipeSelectHelper.Model
 {
     public interface IProductCategory
     {
         string Name { get; set; }
-        int OwnValue { get; set; }
+        ValueInformation OwnValue { get; }
     }
 }

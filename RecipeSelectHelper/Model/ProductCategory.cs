@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -13,7 +14,10 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Name { get; set; }
 
-        public int OwnValue { get; set; }
+        private ValueInformation _ownValue = new ValueInformation();
+        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
+
+        public void Reset() => OwnValue.Reset();
 
         private ProductCategory() { }
 

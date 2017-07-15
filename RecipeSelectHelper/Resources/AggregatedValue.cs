@@ -18,11 +18,11 @@ namespace RecipeSelectHelper.Resources
             Aggregator = o;
         }
 
-        public AggregatedValue(ProductCategory pc) : this(pc.GetType(), pc) { }
-        public AggregatedValue(RecipeCategory rc) : this(rc.GetType(), rc) { }
-        public AggregatedValue(Product p) : this(p.GetType(), p) { }
-        public AggregatedValue(BoughtProduct bp) : this(bp.GetType(), bp) { }
+        //public AggregatedValue(ProductCategory pc) : this(pc.GetType(), pc) { }
+        //public AggregatedValue(RecipeCategory rc) : this(rc.GetType(), rc) { }
+        //public AggregatedValue(Product p) : this(p.GetType(), p) { }
+        //public AggregatedValue(BoughtProduct bp) : this(bp.GetType(), bp) { }
         public AggregatedValue(Ingredient i) : this(i.GetType(), i) { }
-        public AggregatedValue(Recipe r) : this(r.GetType(), r) { }
+        //public AggregatedValue(Recipe r) : this(r.GetType(), r) { }
     }
 }

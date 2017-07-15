@@ -40,7 +40,7 @@ namespace RecipeSelectHelper.Model
             int val = OwnValue.GetValue;
             foreach (ProductCategory productCategory in Categories)
             {
-                val += productCategory.OwnValue;
+                val += productCategory.OwnValue.GetValue;
             }
             return val;
         }

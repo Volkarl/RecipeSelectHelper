@@ -27,7 +27,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         public override void Calculate(ProgramData pd)
         {
             if (ProductCategory == null) return;
-            pd.AllProductCategories.Find(y => y.Equals(ProductCategory)).OwnValue += Val;
+            pd.AllProductCategories.Find(y => y.Equals(ProductCategory)).OwnValue.AddValue(Val, this);
         }
     }
 }

@@ -82,7 +82,7 @@ namespace RecipeSelectHelper.Model
             int val = OwnValue.GetValue;
             foreach (RecipeCategory recipeCategory in Categories)
             {
-                val += recipeCategory.OwnValue;
+                val += recipeCategory.OwnValue.GetValue;
             }
 
             Dictionary<BoughtProduct, uint> bpAmountsRemaining = CreateDictForBpAmounts();
