@@ -11,7 +11,18 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public int Val { get; set; }
 
-        private static Func<double, double> _valueDecayFormula = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
+        private static readonly Func<double, double> ValueDecayParabola = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
+
+        private static double root1 = 1.47437;
+        private static double root2 = 34.7896;
+        private static double maxValue = 121.285;
+
+        private double ValueDecayFormula(double decimalExpired)
+        {
+            if (decimalExpired < root1) return 0;
+            if (decimalExpired > root2) return maxValue;
+            return ValueDecayParabola(decimalExpired);
+        }
 
         public ExpirationDatePreference(int val)
         {
@@ -34,7 +45,7 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             var decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
             if (decimalExpired == 0) return 0;
-            double formulaResult = _valueDecayFormula(decimalExpired);
+            double formulaResult = ValueDecayFormula(decimalExpired);
             return Val * Convert.ToInt32(formulaResult);
         }
     }

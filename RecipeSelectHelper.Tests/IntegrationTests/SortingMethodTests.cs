@@ -332,6 +332,8 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
                                          $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");
             Assert.Greater(pd.AllBoughtProducts[2].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
             Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[0].OwnValue.GetValue);
+            // Keep in mind that they might hit maxValue, so choose some dates where the difference actually shows!
+            // Right now we should have 66%, 50% and 0% towards expiration. It caps value at 34% currently, but that will be changed soon-ish. Todo
         }
 
 

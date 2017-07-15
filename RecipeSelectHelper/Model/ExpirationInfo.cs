@@ -33,7 +33,6 @@ namespace RecipeSelectHelper.Model
             long diffExpire = ProductExpirationTime.Value.Ticks - pCreation;
             return diffNow / (double)diffExpire;
         }
-        // Untested outside of mathcad
 
         public override string ToString()
         {
