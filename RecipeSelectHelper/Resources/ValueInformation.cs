@@ -21,13 +21,13 @@ namespace RecipeSelectHelper.Resources
             _aggregationValues = new List<Tuple<int, AggregatedValue>>();
         }
         
-        public List<Tuple<int, string>> GetSenders
+        public List<IntStringTuple> GetSenders
         {
             get
             {
-                List<Tuple<int, string>> combinedSenderList = new List<Tuple<int, string>>();
-                combinedSenderList.AddRange(_preferenceValues.ConvertAll(x => new Tuple<int, string>(x.Item1, x.Item2.ToString())));
-                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new Tuple<int, string>(x.Item1, x.Item2.ToString())));
+                List<IntStringTuple> combinedSenderList = new List<IntStringTuple>();
+                combinedSenderList.AddRange(_preferenceValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), GetValue)));
+                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), GetValue)));
                 return combinedSenderList;
             }
         }

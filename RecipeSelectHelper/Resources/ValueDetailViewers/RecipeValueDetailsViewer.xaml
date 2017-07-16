@@ -12,4 +12,8 @@
 
     <!--<ItemsControl ItemsSource="{Binding MyRecipe}" ItemTemplate="{StaticResource DataTemplateRecipeDetailsViewer}"></ItemsControl>-->
 
+    <ResourceDictionary>
+                
+    </ResourceDictionary>
+    
 </UserControl>

@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
-                    xmlns:model="clr-namespace:RecipeSelectHelper.Model;assembly=RecipeSelectHelper"
-                    >
+                    xmlns:model="clr-namespace:RecipeSelectHelper.Model;assembly=RecipeSelectHelper">
 
     <DataTemplate x:Key="ArrowUp">
         <DockPanel>
@@ -242,14 +241,14 @@
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
 
-    <DataTemplate x:Key="DataTemplateRecipeDetailsViewer" DataType="{x:Type model:Recipe}">
+    <!--<DataTemplate x:Key="DataTemplateRecipeDetailsViewer" DataType="{x:Type model:Recipe}">
         <StackPanel Margin="1">
             <ItemsControl ItemsSource="{Binding OwnValue.GetSenders}" Tag="{Binding Value}">
-                <!--<ItemsControl.ItemsPanel>
+                --><!--<ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Margin="1" Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled"></WrapPanel>
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>-->
+                    </ItemsControl.ItemsPanel>--><!--
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel>
@@ -261,10 +260,57 @@
 
             </ItemsControl>
 
-            <!--Other valueDetailsViewers inside itemcontrols, displaying the inner values-->
+            --><!--Other valueDetailsViewers inside itemcontrols, displaying the inner values--><!--
 
         </StackPanel>
+    </DataTemplate>-->
+
+
+    <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:IntStringTuple">
+        <DockPanel>
+            <ProgressBar Maximum="{Binding TotalValue}" Value="{Binding Item1}" DockPanel.Dock="Top"></ProgressBar>
+            <TextBlock Text="{Binding Item2}"></TextBlock>
+        </DockPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="DataTemplateProductCategoryDetailView" DataType="{x:Type model:ProductCategory}">
+        <Expander>
+            <ItemsControl ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+        </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateRecipeCategoryDetailView" DataType="{x:Type model:RecipeCategory}">
+        <Expander>
+            <ItemsControl ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+        </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateProductDetailView" DataType="{x:Type model:Product}">
+        <Expander>
+            <StackPanel>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+            </StackPanel>
+        </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateIngredientDetailView" DataType="{x:Type model:Ingredient}">
+        <Expander>
+            <StackPanel>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateProductDetailView}" ItemsSource="{Binding CorrespondingProduct}"></ItemsControl>
+            </StackPanel>
+        </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateRecipeDetailView" DataType="{x:Type model:Recipe}">
+        <Expander>
+            <StackPanel>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
+                <ItemsControl ItemTemplate="{DynamicResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+            </StackPanel>
+        </Expander>
+    </DataTemplate>
 
 </ResourceDictionary>

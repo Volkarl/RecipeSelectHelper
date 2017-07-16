@@ -72,6 +72,7 @@
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
     <Compile Include="Resources\BpValue.cs" />
+    <Compile Include="Resources\IntStringTuple.cs" />
     <Compile Include="Resources\ErrorReporter.cs" />
     <Compile Include="Resources\FilterableListView.cs" />
     <Compile Include="Resources\FilterGroupedProductCategories.cs" />
@@ -338,6 +339,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\ConcreteTypesForXaml\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
