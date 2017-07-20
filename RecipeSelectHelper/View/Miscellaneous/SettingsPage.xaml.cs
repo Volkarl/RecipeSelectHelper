@@ -63,7 +63,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             new Recipe("Tomato Juice", "Dont drink, danger!", "Mash tomatoes, then throw in the trash.", 
                 new List<Ingredient>
                 {
-                    new Ingredient(10, new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")}))
+                    new Ingredient(10, new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")})),
+                    new Ingredient(20, new Product("Water", new List<ProductCategory> {new ProductCategory("Tasteless things")}))
                 }, new List<RecipeCategory> {new RecipeCategory("Not ingestible")})
         };
         public ObservableCollection<Recipe> Recipes

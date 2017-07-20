@@ -13,14 +13,13 @@ namespace RecipeSelectHelper.Resources
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null || IsListWithElements(value) ? Visibility.Hidden : Visibility.Visible;
+            return value == null || IsListWithoutElements(value) ? Visibility.Hidden : Visibility.Visible;
         }
 
-        private bool IsListWithElements(object value)
+        private bool IsListWithoutElements(object value)
         {
             var list = value as IList;
-            if (list == null) return false;
-            return list.Count != 0;
+            return list?.Count == 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

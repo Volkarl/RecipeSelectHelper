@@ -278,12 +278,13 @@
 
     <DataTemplate x:Key="DataTemplateProductCategoryDetailView" DataType="{x:Type model:ProductCategory}">
         <Expander>
-            <StackPanel>
+            <Expander.Header>
                 <TextBlock>
                     <Run Text="Product Category: "></Run>
                     <Run Text="{Binding Name}"></Run>
                 </TextBlock>
-
+            </Expander.Header>
+            <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
@@ -291,12 +292,13 @@
 
     <DataTemplate x:Key="DataTemplateRecipeCategoryDetailView" DataType="{x:Type model:RecipeCategory}">
         <Expander>
-            <StackPanel>
+            <Expander.Header>
                 <TextBlock>
                     <Run Text="Recipe Category: "></Run>
                     <Run Text="{Binding Name}"></Run>
                 </TextBlock>
-
+            </Expander.Header>
+            <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
@@ -304,12 +306,13 @@
 
     <DataTemplate x:Key="DataTemplateProductDetailView" DataType="{x:Type model:Product}">
         <Expander>
-            <StackPanel>
+            <Expander.Header>
                 <TextBlock>
                     <Run Text="Product: "></Run>
                     <Run Text="{Binding Name}"></Run>
                 </TextBlock>
-                
+            </Expander.Header>
+            <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
             </StackPanel>
@@ -318,12 +321,13 @@
 
     <DataTemplate x:Key="DataTemplateIngredientDetailView" DataType="{x:Type model:Ingredient}">
         <Expander>
-            <StackPanel>
+            <Expander.Header>
                 <TextBlock>
                     <Run Text="Ingredient: "></Run>
                     <Run Text="{Binding CorrespondingProduct.Name}"></Run>
                 </TextBlock>
-
+            </Expander.Header>
+            <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl ItemTemplate="{DynamicResource DataTemplateProductDetailView}" ItemsSource="{Binding CorrespondingProduct}"></ItemsControl>
             </StackPanel>
@@ -332,14 +336,15 @@
 
     <DataTemplate x:Key="DataTemplateRecipeDetailView" DataType="{x:Type model:Recipe}">
         <Expander>
-            <StackPanel>
+            <Expander.Header>
                 <TextBlock>
                     <Run Text="Recipe: "></Run>
                     <Run Text="{Binding Name}"></Run>
                 </TextBlock>
-                
+            </Expander.Header>
+            <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <TextBlock Text="Recipe Category:"></TextBlock>
+                <TextBlock Text="Recipe Categories:"></TextBlock>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
                 <TextBlock Text="Ingredients:"></TextBlock>
                 <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
