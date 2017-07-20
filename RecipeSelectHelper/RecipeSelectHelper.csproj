@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Resources\IntegerTextBox.cs" />
     <Compile Include="Resources\LimitedInputTextBox.cs" />
+    <Compile Include="Resources\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="Resources\OrderBy.cs" />
     <Compile Include="Resources\Prettyprinter.cs" />
     <Compile Include="Resources\RecipeWithPercentageScore.cs" />
@@ -108,9 +109,6 @@
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
     <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
-    <Compile Include="Resources\ValueDetailViewers\RecipeValueDetailsViewer.xaml.cs">
-      <DependentUpon>RecipeValueDetailsViewer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\ValueInformation.cs" />
     <Compile Include="Resources\ViewIngredientBpComposition.xaml.cs">
       <DependentUpon>ViewIngredientBpComposition.xaml</DependentUpon>
@@ -215,10 +213,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Page Include="Resources\StandardStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\ValueDetailViewers\RecipeValueDetailsViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\ConcreteTypesForXaml\" />
+    <Folder Include="Resources\ValueDetailViewers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
