@@ -22,7 +22,7 @@ namespace RecipeSelectHelper.Model
         public int Value => OwnValue.GetValue + CorrespondingProduct.Value;
 
         private ValueInformation _ownValue = new ValueInformation();
-        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
+        public ValueInformation OwnValue => _ownValue ?? (_ownValue = new ValueInformation()); //Needed for deserialization
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 

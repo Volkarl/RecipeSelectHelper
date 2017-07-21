@@ -30,6 +30,12 @@ namespace RecipeSelectHelper.Resources
             return newElementList;
         }
 
+        public static string GetLastSubstring(this string str, char splitAtChar)
+        {
+            int index = str.LastIndexOf(splitAtChar);
+            return str.Substring(index + 1);
+        }
+
         public static List<BoughtProduct> GetExpiredProducts(this IEnumerable<BoughtProduct> boughtProducts)
         {
             var expiredProducts = new List<BoughtProduct>();

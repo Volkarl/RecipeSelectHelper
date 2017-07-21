@@ -271,8 +271,8 @@
 
     <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:IntStringTuple">
         <DockPanel>
-            <ProgressBar Maximum="{Binding TotalValue}" Value="{Binding Item1}" DockPanel.Dock="Top"></ProgressBar>
-            <TextBlock Text="{Binding Item2}"></TextBlock>
+            <ProgressBar HorizontalAlignment="Left" Background="LightGray" Width="200" Height="10" Maximum="{Binding TotalValue, Mode=OneWay}" Value="{Binding Item1, Mode=OneWay}" DockPanel.Dock="Top"></ProgressBar>
+            <TextBlock Text="{Binding Item2, Mode=OneWay}"></TextBlock>
         </DockPanel>
     </DataTemplate>
 

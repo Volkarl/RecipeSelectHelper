@@ -15,7 +15,7 @@ namespace RecipeSelectHelper.Model
         public string Name { get; set; }
 
         private ValueInformation _ownValue = new ValueInformation();
-        public ValueInformation OwnValue => _ownValue ?? new ValueInformation(); //Needed for deserialization
+        public ValueInformation OwnValue => _ownValue ?? (_ownValue = new ValueInformation()); //Needed for deserialization
 
         public void Reset() => OwnValue.Reset();
 
