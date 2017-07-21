@@ -283,7 +283,7 @@
                     <Run Text="Product Category:"></Run>
                     <Run Text="{Binding Name}"></Run>
                     <Run Text=" (Value:"></Run>
-                    <Run Text="{Binding OwnValue.GetSenders.Count, Mode=OneWay}"></Run>
+                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
                     <Run Text=")"></Run>
                 </TextBlock>
             </Expander.Header>
@@ -300,7 +300,7 @@
                     <Run Text="Recipe Category:"></Run>
                     <Run Text="{Binding Name}"></Run>
                     <Run Text=" (Value:"></Run>
-                    <Run Text="{Binding OwnValue.GetSenders.Count, Mode=OneWay}"></Run>
+                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
                     <Run Text=")"></Run>
                 </TextBlock>
             </Expander.Header>
@@ -317,7 +317,7 @@
                     <Run Text="Product:"></Run>
                     <Run Text="{Binding Name}"></Run>
                     <Run Text=" (Value:"></Run>
-                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text="{Binding Value, Mode=OneWay}"></Run>
                     <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
@@ -335,7 +335,7 @@
                     <Run Text="Ingredient:"></Run>
                     <Run Text="{Binding CorrespondingProduct.Name}"></Run>
                     <Run Text=" (Value:"></Run>
-                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text="{Binding Value, Mode=OneWay}"></Run>
                     <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
@@ -353,15 +353,13 @@
                     <Run Text="Recipe:"></Run>
                     <Run Text="{Binding Name}"></Run>
                     <Run Text=" (Value:"></Run>
-                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text="{Binding Value, Mode=OneWay}"></Run>
                     <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <!--<TextBlock Text="Recipe Categories:"></TextBlock>-->
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
-                <!--<TextBlock Text="Ingredients:"></TextBlock>-->
                 <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
             </StackPanel>
         </Expander>

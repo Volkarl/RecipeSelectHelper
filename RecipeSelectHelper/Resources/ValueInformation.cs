@@ -26,8 +26,9 @@ namespace RecipeSelectHelper.Resources
             get
             {
                 List<IntStringTuple> combinedSenderList = new List<IntStringTuple>();
-                combinedSenderList.AddRange(_preferenceValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), GetValue)));
-                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), GetValue)));
+                int totalValue = GetValue;
+                combinedSenderList.AddRange(_preferenceValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), totalValue)));
+                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.ToString(), totalValue)));
                 return combinedSenderList;
             }
         }

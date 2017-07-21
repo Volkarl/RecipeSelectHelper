@@ -35,10 +35,22 @@
             <ColumnDefinition Width="0"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <custom:ExtendedListView x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}">
+        <custom:ExtendedListView x:Name="ListView_Recipes" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" Tag="CorrespondingRecipe.Name">
+            <ListView.Resources>
+                <DataTemplate x:Key="ViewRecipeValueDetails" DataType="custom:RecipeWithPercentageScore">
+                    <Expander Header="{Binding CorrespondingRecipe.Name}">
+                        <ContentControl Content="{Binding CorrespondingRecipe}" ContentTemplate="{StaticResource DataTemplateRecipeDetailView}"></ContentControl>
+                    </Expander>
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Recipe" DisplayMemberBinding="{Binding CorrespondingRecipe.Name}"></GridViewColumn>
+                    <GridViewColumn Header="Recipe" CellTemplate="{StaticResource ViewRecipeValueDetails}"></GridViewColumn>
                     <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
                 </GridView>
             </ListView.View>

@@ -15,10 +15,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public RecipeCategory RecipeCategory { get; set; }
 
-        public RecipeCategoryPreference(int val, RecipeCategory productCategory)
+        public RecipeCategoryPreference(int val, RecipeCategory rc)
         {
             Val = val;
-            RecipeCategory = productCategory;
+            RecipeCategory = rc;
             Description += nameof(RecipeCategoryPreference) + " | Add " + val + " to all recipes of category: " + RecipeCategory.Name;
         }
 

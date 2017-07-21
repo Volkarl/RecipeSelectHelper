@@ -51,9 +51,9 @@ namespace RecipeSelectHelper.Resources
             GridViewColumnHeader column = e.OriginalSource as GridViewColumnHeader;
             if (column == null) return;
 
-            if (_sortColumn == column)
+            if (ReferenceEquals(_sortColumn, column))
             {
-                // Toggle sorting direction 
+                // Click on same column? Then toggle sorting direction 
                 _sortDirection = _sortDirection == ListSortDirection.Ascending ?
                                                    ListSortDirection.Descending :
                                                    ListSortDirection.Ascending;
@@ -81,16 +81,17 @@ namespace RecipeSelectHelper.Resources
                 column.Column.HeaderTemplate = Application.Current.Resources["ArrowDown"] as DataTemplate;
             }
 
-            string header = string.Empty;
+            string header = String.Empty;
 
             // if binding is used and property name doesn't match header content 
             Binding b = _sortColumn.Column.DisplayMemberBinding as Binding;
             if (b != null)
-            {
                 header = b.Path.Path;
-            }
+            else if (Tag != null)
+                header = Tag.ToString();
+                // if displayMemberPath hasn't been used to bind, we try to sort by the path that is written in the ListView Tag (if any)
 
-            // NULLREFERENCEEXCEPTION HERE? TRY FRIDGEPAGE!
+            // todo NULLREFERENCEEXCEPTION HERE? TRY FRIDGEPAGE!
             ICollectionView resultDataView = CollectionViewSource.GetDefaultView(ItemsSource);
             resultDataView.SortDescriptions.Clear();
             resultDataView.SortDescriptions.Add(new SortDescription(header, _sortDirection));

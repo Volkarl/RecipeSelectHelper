@@ -34,16 +34,11 @@ namespace RecipeSelectHelper.View.Miscellaneous
             SelectedRecipe = null;
 
             var withPercentageScores = new List<RecipeWithPercentageScore>();
-            foreach (Recipe rec in _parent.Data.AllRecipes)
-            {
-                withPercentageScores.Add(new RecipeWithPercentageScore(rec));
-            }
-            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondingRecipe.Name)); // SHOULD BE EMPTY??
+            foreach (Recipe rec in _parent.Data.AllRecipes) withPercentageScores.Add(new RecipeWithPercentageScore(rec));
+            Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondingRecipe.Name)); 
         }
 
-        private void RankingsViewPageLoaded(object sender, RoutedEventArgs e)
-        {
-        }
+        private void RankingsViewPageLoaded(object sender, RoutedEventArgs e) { }
 
         #region ObservableObjects
 
@@ -95,11 +90,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             // Use recipe values to assign percentage scores to the recipes.
             List<Recipe> allRecipes = _parent.Data.AllRecipes;
             int maxValue = allRecipes.Max(x => x.Value);
-            var withPercentageScores = new ObservableCollection<RecipeWithPercentageScore>();
-            foreach (Recipe recipe in allRecipes)
-            {
-                withPercentageScores.Add(new RecipeWithPercentageScore(recipe, maxValue));
-            }
+            var withPercentageScores = new ObservableCollection<RecipeWithPercentageScore>(); //Simplify using: Recipe.ConvertTo lambda
+            foreach (Recipe recipe in allRecipes) withPercentageScores.Add(new RecipeWithPercentageScore(recipe, maxValue));
             Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.PercentageValue).Reverse());
             MessageBox.Show("Successfully Sorted");
         }

@@ -294,6 +294,21 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
                 throw new ArgumentException(nameof(expectedResult.AllRecipes));
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void RecipeCategoryPreference_RecipesWithValidCategories_CorrectAmountOfPoints(bool substitutesAllowed)
+        {
+            ProgramData pd = new ProgramData {AllRecipeCategories = new List<RecipeCategory> { new RecipeCategory("Cat") } };
+            pd.AllRecipes = new List<Recipe>
+            {
+                new Recipe("Rec1"),
+                new Recipe("Rec2", categories:pd.AllRecipeCategories),
+                new Recipe("Rec3", categories:new List<RecipeCategory> {pd.AllRecipeCategories[0], pd.AllRecipeCategories[0]})
+            };
+
+            ExecuteAndVerifyResult(pd, substitutesAllowed, SortingMethodType.RecipeCategory, new[] { 0, 1, 2 });
+        }
+
 
 
 

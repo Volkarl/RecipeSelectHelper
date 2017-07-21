@@ -42,7 +42,7 @@ namespace RecipeSelectHelper.Model
             return $"-- Bought Product --\n" +
                    $"| Corresponding Product: \n{CorrespondingProduct.ToString().Indent()}\n" +
                    $"| Amount: {Amount}\n" +
-                   $"| OwnValue: {OwnValue}\n" +
+                   $"| OwnValue: {OwnValue.GetValue}\n" +
                    $"{ExpirationData?.ToString() ?? String.Empty}\n";
         }
     }
