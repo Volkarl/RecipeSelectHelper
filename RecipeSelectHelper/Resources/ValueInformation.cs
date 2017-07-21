@@ -17,9 +17,7 @@ namespace RecipeSelectHelper.Resources
             new Tuple<int, Preference>(value, sender));
 
         public void AddValue(int value, AggregatedValue sender) =>
-            _aggregationValues.Add(
-                new Tuple<int, AggregatedValue>(value,
-                    sender)); // I need an overload like this, otherwise I cant aggregate values! Perhaps make a sender-class that can hold both preferences, ingredients, product categories and all of that jazz.
+            _aggregationValues.Add(new Tuple<int, AggregatedValue>(value, sender));
 
         public int GetValue => _preferenceValues.Sum(tuple => tuple.Item1) +
                                _aggregationValues.Sum(tuple => tuple.Item1);
