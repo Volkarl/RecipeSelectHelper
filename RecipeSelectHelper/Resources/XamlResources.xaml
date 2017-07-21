@@ -270,9 +270,9 @@
 
 
     <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:IntStringTuple">
-        <DockPanel>
+        <DockPanel Background="AliceBlue">
             <ProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding Item1, Mode=OneWay}" DockPanel.Dock="Top"></ProgressBar>
-            <TextBlock Text="{Binding Item2, Mode=OneWay}"></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Text="{Binding Item2, Mode=OneWay}"></TextBlock>
         </DockPanel>
     </DataTemplate>
 

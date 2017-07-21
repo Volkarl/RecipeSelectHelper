@@ -25,10 +25,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             if(String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name");
             Name = name;
-            preferences = preferences ?? new List<Preference>();
-            preferences = ApplyPreferenceOptimizations(preferences);
-            preferences = ApplyPreferenceOrderingRules(preferences);
-            Preferences = preferences;
+            //preferences = preferences ?? new List<Preference>();
+            //preferences = ApplyPreferenceOptimizations(preferences);
+            //preferences = ApplyPreferenceOrderingRules(preferences);
+            Preferences = preferences ?? new List<Preference>();
         }
 
         private List<Preference> ApplyPreferenceOptimizations(List<Preference> preferences)

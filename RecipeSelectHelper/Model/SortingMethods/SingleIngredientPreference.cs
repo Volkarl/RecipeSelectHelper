@@ -26,7 +26,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             if (Product == null) return;
             pd.AllProducts.Find(x => x.Equals(Product)).OwnValue.AddValue(Val, this);
-            pd.ProductSubstitutes.FindSubstitutes(Product).ForEach(x => x.OwnValue.AddValue(Val, this));
+            //pd.ProductSubstitutes.FindSubstitutes(Product).ForEach(x => x.OwnValue.AddValue(Val, this));
+            // When I look at substitutes again, I may wish to use this like once more. 
+            // Atm though, substitutes are only handled by the sortingmethod itself, not by the preferences. 
+            // In any case, I'd need an allowSubs bool as input.
         }
     }
 }
