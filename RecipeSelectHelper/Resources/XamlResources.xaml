@@ -277,76 +277,91 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateProductCategoryDetailView" DataType="{x:Type model:ProductCategory}">
-        <Expander>
+        <Expander Background="LightBlue">
             <Expander.Header>
                 <TextBlock>
-                    <Run Text="Product Category: "></Run>
+                    <Run Text="Product Category:"></Run>
                     <Run Text="{Binding Name}"></Run>
+                    <Run Text=" (Value:"></Run>
+                    <Run Text="{Binding OwnValue.GetSenders.Count, Mode=OneWay}"></Run>
+                    <Run Text=")"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateRecipeCategoryDetailView" DataType="{x:Type model:RecipeCategory}">
-        <Expander>
+        <Expander Background="LightSalmon">
             <Expander.Header>
                 <TextBlock>
-                    <Run Text="Recipe Category: "></Run>
+                    <Run Text="Recipe Category:"></Run>
                     <Run Text="{Binding Name}"></Run>
+                    <Run Text=" (Value:"></Run>
+                    <Run Text="{Binding OwnValue.GetSenders.Count, Mode=OneWay}"></Run>
+                    <Run Text=")"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateProductDetailView" DataType="{x:Type model:Product}">
-        <Expander>
+        <Expander Background="LightGreen">
             <Expander.Header>
                 <TextBlock>
-                    <Run Text="Product: "></Run>
+                    <Run Text="Product:"></Run>
                     <Run Text="{Binding Name}"></Run>
+                    <Run Text=" (Value:"></Run>
+                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateIngredientDetailView" DataType="{x:Type model:Ingredient}">
-        <Expander>
+        <Expander Background="LightYellow">
             <Expander.Header>
                 <TextBlock>
-                    <Run Text="Ingredient: "></Run>
+                    <Run Text="Ingredient:"></Run>
                     <Run Text="{Binding CorrespondingProduct.Name}"></Run>
+                    <Run Text=" (Value:"></Run>
+                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <ItemsControl ItemTemplate="{DynamicResource DataTemplateProductDetailView}" ItemsSource="{Binding CorrespondingProduct}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ContentControl Visibility="{Binding CorrespondingProduct, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ContentTemplate="{StaticResource DataTemplateProductDetailView}" Content="{Binding CorrespondingProduct}"></ContentControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateRecipeDetailView" DataType="{x:Type model:Recipe}">
-        <Expander>
+        <Expander Background="LightSeaGreen">
             <Expander.Header>
                 <TextBlock>
-                    <Run Text="Recipe: "></Run>
+                    <Run Text="Recipe:"></Run>
                     <Run Text="{Binding Name}"></Run>
+                    <Run Text=" (Value:"></Run>
+                    <Run Text="{Binding OwnValue.GetValue, Mode=OneWay}"></Run>
+                    <Run Text=")⟶"></Run>
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <TextBlock Text="Recipe Categories:"></TextBlock>
-                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
-                <TextBlock Text="Ingredients:"></TextBlock>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <!--<TextBlock Text="Recipe Categories:"></TextBlock>-->
+                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+                <!--<TextBlock Text="Ingredients:"></TextBlock>-->
                 <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
             </StackPanel>
         </Expander>
