@@ -11,9 +11,8 @@ namespace RecipeSelectHelper.Resources
 
         public RecipeWithPercentageScore(Recipe recipe, int maxValue = 1)
         {
-            if (maxValue == 0) maxValue = 1; // To avoid dividing by zero
             CorrespondingRecipe = recipe;
-            MaxValue = maxValue;
+            MaxValue = maxValue == 0 ? 1 : maxValue; // To avoid dividing by zero
             PercentageValue = (CorrespondingRecipe.Value / MaxValue) * 100;
         }
     }
