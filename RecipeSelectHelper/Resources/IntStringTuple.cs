@@ -5,9 +5,16 @@ namespace RecipeSelectHelper.Resources
     public class IntStringTuple : Tuple<int, string>
     {
         private readonly int _totalValue;
+        public int TotalValue => _totalValue;
+        // This needs to be able to show 0/0
+        //todo rename to something like exactMaximum
 
-        public int ProgressMaximum => _totalValue == 0 && Item1 == 0 ? 1 : 0;
+        public int ProgressMaximum => _totalValue == 0 && Item1 == 0 ? 1 : _totalValue;
         // To avoid having fully filled progress bars whenever our values are 0/0
+        // todo rename to something like progressBarMaximum
+
+
+        public int PercentageCompletion => (Item1 / ProgressMaximum) * 100;
 
         public IntStringTuple(int integer, string text, int totalValue) : base(integer, text)
         {

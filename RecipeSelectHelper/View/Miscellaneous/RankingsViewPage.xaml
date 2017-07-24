@@ -60,7 +60,7 @@
             <CheckBox Name="CheckBox_SubstitutesEnabled" IsChecked="True" Content="Substitutes" DockPanel.Dock="Top" HorizontalAlignment="Center"></CheckBox>
             <Button Name="Button_SortRecipes" Content="Sort Recipes" Click="Button_SortRecipes_Click" DockPanel.Dock="Top"></Button>
         </DockPanel>
-        <ProgressBar Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></ProgressBar>
+        <custom:TextProgressBar x:Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></custom:TextProgressBar>
         <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8" ItemsSource="{Binding SortingMethods}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSortingMethod}"></ComboBox>
     </Grid>
 </Page>

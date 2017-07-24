@@ -107,6 +107,9 @@
     <Compile Include="Model\ProgramData.cs" />
     <Compile Include="Resources\SubstituteRelationsDictionary.cs" />
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
+    <Compile Include="Resources\TextProgressBar.xaml.cs">
+      <DependentUpon>TextProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
     <Compile Include="Resources\ValueInformation.cs" />
@@ -213,6 +216,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Page Include="Resources\StandardStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

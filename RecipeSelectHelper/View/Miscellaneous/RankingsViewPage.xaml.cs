@@ -82,7 +82,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private void Button_SortRecipes_Click(object sender, RoutedEventArgs e)
         {
             _parent.Data.ResetAllValues();
-            ProgressBar_Sorting.Value = 0;
+            ProgressBar_Sorting.ProgressBar.Value = 0;
 
             if (SelectedSortingMethod == null) return;
             SelectedSortingMethod.ProgressChanged += ChangeProgressBarValue;
@@ -99,13 +99,15 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ChangeProgressBarValue(object sender, double e)
         {
-            if ((ProgressBar_Sorting.Value + e) > 100)
+            if ((ProgressBar_Sorting.ProgressBar.Value + e) > 100)
             {
-                ProgressBar_Sorting.Value = 100;
+                ProgressBar_Sorting.ProgressBar.Value = 100;
+                ProgressBar_Sorting.OuterText = "100 %";
             }
             else
             {
-                ProgressBar_Sorting.Value += e;
+                ProgressBar_Sorting.ProgressBar.Value += e;
+                ProgressBar_Sorting.OuterText = e + " %";
             }
         }
     }
