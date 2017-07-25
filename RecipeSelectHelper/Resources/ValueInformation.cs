@@ -28,16 +28,16 @@ namespace RecipeSelectHelper.Resources
             _aggregationValues = new List<Tuple<int, AggregatedValue>>();
         }
 
-        public List<IntStringTuple> GetSenders
+        public List<ProgressInfo> GetSenders
         {
             get
             {
-                List<IntStringTuple> combinedSenderList = new List<IntStringTuple>();
+                List<ProgressInfo> combinedSenderList = new List<ProgressInfo>();
                 int totalValue = GetValue;
                 combinedSenderList.AddRange(
-                    _preferenceValues.ConvertAll(x => new IntStringTuple(x.Item1, x.Item2.Description, totalValue)));
-                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new IntStringTuple(x.Item1,
-                    $"Aggregated {x.Item1} from {x.Item2.Aggregator.ToString().GetLastSubstring('.')}", totalValue)));
+                    _preferenceValues.ConvertAll(x => new ProgressInfo(x.Item1, totalValue, x.Item2.Description)));
+                combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new ProgressInfo(x.Item1, totalValue, 
+                    $"Aggregated {x.Item1} from {x.Item2.Aggregator.ToString().GetLastSubstring('.')}")));
                 return combinedSenderList;
             }
         }

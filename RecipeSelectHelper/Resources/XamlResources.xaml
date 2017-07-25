@@ -269,18 +269,18 @@
     </DataTemplate>-->
 
 
-    <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:IntStringTuple">
+    <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:ProgressInfo">
         <DockPanel Background="AliceBlue">
-            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding ProgressMaximum, Mode=OneWay}" OuterValue="{Binding Item1, Mode=OneWay}" DockPanel.Dock="Top">
+            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Top">
                 <local:TextProgressBar.OuterText>
                     <MultiBinding StringFormat="{}{0} %   {1} / {2}">
                         <Binding Path="PercentageCompletion"></Binding>
-                        <Binding Path="Item1"></Binding>
-                        <Binding Path="TotalValue"></Binding>
+                        <Binding Path="Value"></Binding>
+                        <Binding Path="Maximum"></Binding>
                     </MultiBinding>
                 </local:TextProgressBar.OuterText>
             </local:TextProgressBar>
-            <TextBlock HorizontalAlignment="Left" Text="{Binding Item2, Mode=OneWay}"></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
         </DockPanel>
     </DataTemplate>
 
