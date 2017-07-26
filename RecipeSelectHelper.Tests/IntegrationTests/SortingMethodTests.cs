@@ -352,6 +352,31 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         }
 
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ExpirationDatePreference_BpsWithSameCorrespondingProduct_SortedCorrectly(bool substitutesAllowed)
+        {
+            DateTime tomorrow = DateTime.Now.AddDays(1);
+            Product p1 = new Product("P1", GenPc());
+            ProgramData pd = new ProgramData { AllProducts = new List<Product> {p1} };
+            pd.AllBoughtProducts = new List<BoughtProduct>
+            {
+                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now.AddDays(-2), tomorrow)), // Oldest bp
+                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now.AddDays(-1), tomorrow)),
+                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now, tomorrow))              // Least old bp
+            };
+
+            CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
+
+            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
+                                         $"pd[1] = {pd.AllBoughtProducts[1].OwnValue.GetValue}\n" +
+                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");
+            Assert.Greater(pd.AllBoughtProducts[2].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
+            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[0].OwnValue.GetValue);
+            // Same issue as above, and will be fixed when the formula is fixed Todo
+        }
+
+
         //Todo test with multiple bps from the same p, and see if it still works
         // And make proper substitute-dependant test
     }
