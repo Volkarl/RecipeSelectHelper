@@ -214,13 +214,13 @@
             </Grid.RowDefinitions>
 
             <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-            <local:InputSlider Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding _ownValueCalculator.PercentageTotalIngredientsGathered}"></local:InputSlider>
+            <local:TextProgressBar OuterText="{Binding PercentageOfTotalIngredientsGathered}" Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfTotalIngredientsGathered}"></local:TextProgressBar>
             
             <Label Content="Value" Grid.Row="1" Grid.Column="0"></Label>
             <Label Content="Name" Grid.Row="1" Grid.Column="1"></Label>
             <Label Content="Amount of Product used" Grid.Row="1" Grid.Column="2"></Label>
 
-            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding _ownValueCalculator.OrderedValueProducts}">
+            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding OwnValueCalculator.OrderedBpValues}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid IsSharedSizeScope="True" IsEnabled="False">
@@ -231,8 +231,16 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="{Binding ValuePerAmount}"></TextBlock>
-                            <TextBlock Grid.Column="1" Text="{Binding Product.CorrespondingProduct.Name}"></TextBlock>
-                            <local:InputSlider Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:InputSlider>
+                            <TextBlock Grid.Column="1" Text="{Binding Bp.CorrespondingProduct.Name}"></TextBlock>
+                            <local:TextProgressBar Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:TextProgressBar>
+
+                            <!--TODO Okay! I want to show how much of each bp I should be using for cooking my recipe.
+                            Problem with this is that the class bpvalue is shared between all amountNeededValueCalcs and they don't know
+                            about how much each recipe uses. So, the way I can solve this is by granting myself access to the recipe's 
+                            ingredients' AggregateBPValues OptimalValue solution. I use this class to contain all the info I need.-->
+                            
+                            <!--<local:InputSlider Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:InputSlider>-->
+                            <!--Brug evt inputslider  her hvis jeg gerne vil muliggøre at man redigerer i bp-ingridienser efter sortering-->
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

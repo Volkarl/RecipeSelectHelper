@@ -248,10 +248,10 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             };
             pd.AllRecipes = GenR(products: pd.AllProducts);
 
-            ExecuteAndVerifyResult(pd, false, SortingMethodType.ProductCategory, new []{1, 1, 1});
+            ExecuteAndVerifyRecipeValue(pd, false, SortingMethodType.ProductCategory, new []{1, 1, 1});
         }
         
-        private void ExecuteAndVerifyResult(ProgramData pd, bool allowSubs, SortingMethodType smt,
+        private void ExecuteAndVerifyRecipeValue(ProgramData pd, bool allowSubs, SortingMethodType smt,
             int[] expectedRecipeValues)
         {
             if(pd.AllRecipes.Count != expectedRecipeValues.Length) throw new ArgumentException("Mismatched array size");
@@ -269,30 +269,30 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             sm.Execute(pd, allowSubs);
         }
 
-        private void ExecuteAndVerifyResult(ProgramDataType pdt, bool allowSubs, SortingMethodType smt, ProgramData expectedResult)
-        {
-            ProgramData pd = CreateProgramData(pdt);
-            CreateAndExecutePreference(pd, allowSubs, smt);
-            ReportNonEquivalence(expectedResult, pd);
-        }
+        //private void ExecuteAndVerifyRecipeValue(ProgramDataType pdt, bool allowSubs, SortingMethodType smt, ProgramData expectedResult)
+        //{
+        //    ProgramData pd = CreateProgramData(pdt);
+        //    CreateAndExecutePreference(pd, allowSubs, smt);
+        //    ReportNonEquivalence(expectedResult, pd);
+        //}
         
-        private void ReportNonEquivalence(ProgramData expectedResult, ProgramData data)
-        {
-            // Todo: perhaps I should not check whether every item of each sequence is equal, but only whether the sorting is correct? 
+        //private void ReportNonEquivalence(ProgramData expectedResult, ProgramData data)
+        //{
+        //    // Todo: perhaps I should not check whether every item of each sequence is equal, but only whether the sorting is correct? 
 
-            if (expectedResult == null || data == null) throw new ArgumentNullException(data == null ? nameof(data) : nameof(expectedResult));
+        //    if (expectedResult == null || data == null) throw new ArgumentNullException(data == null ? nameof(data) : nameof(expectedResult));
 
-            if (!expectedResult.AllProductCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProductCategories.ConvertAll(x => x.OwnValue)))
-                throw new ArgumentException(nameof(expectedResult.AllProductCategories));
-            if (!expectedResult.AllRecipeCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipeCategories.ConvertAll(x => x.OwnValue)))
-                throw new ArgumentException(nameof(expectedResult.AllRecipeCategories));
-            if (!expectedResult.AllProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProducts.ConvertAll(x => x.OwnValue)))
-                throw new ArgumentException(nameof(expectedResult.AllProducts));
-            if (!expectedResult.AllBoughtProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllBoughtProducts.ConvertAll(x => x.OwnValue)))
-                throw new ArgumentException(nameof(expectedResult.AllBoughtProducts));
-            if (!expectedResult.AllRecipes.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipes.ConvertAll(x => x.OwnValue)))
-                throw new ArgumentException(nameof(expectedResult.AllRecipes));
-        }
+        //    if (!expectedResult.AllProductCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProductCategories.ConvertAll(x => x.OwnValue)))
+        //        throw new ArgumentException(nameof(expectedResult.AllProductCategories));
+        //    if (!expectedResult.AllRecipeCategories.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipeCategories.ConvertAll(x => x.OwnValue)))
+        //        throw new ArgumentException(nameof(expectedResult.AllRecipeCategories));
+        //    if (!expectedResult.AllProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllProducts.ConvertAll(x => x.OwnValue)))
+        //        throw new ArgumentException(nameof(expectedResult.AllProducts));
+        //    if (!expectedResult.AllBoughtProducts.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllBoughtProducts.ConvertAll(x => x.OwnValue)))
+        //        throw new ArgumentException(nameof(expectedResult.AllBoughtProducts));
+        //    if (!expectedResult.AllRecipes.ConvertAll(x => x.OwnValue).SequenceEqual(data.AllRecipes.ConvertAll(x => x.OwnValue)))
+        //        throw new ArgumentException(nameof(expectedResult.AllRecipes));
+        //}
 
         [TestCase(false)]
         [TestCase(true)]
@@ -306,11 +306,8 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
                 new Recipe("Rec3", categories:new List<RecipeCategory> {pd.AllRecipeCategories[0], pd.AllRecipeCategories[0]})
             };
 
-            ExecuteAndVerifyResult(pd, substitutesAllowed, SortingMethodType.RecipeCategory, new[] { 0, 1, 2 });
+            ExecuteAndVerifyRecipeValue(pd, substitutesAllowed, SortingMethodType.RecipeCategory, new[] { 0, 1, 2 });
         }
-
-
-
 
         [TestCase(false)]
         [TestCase(true)]
@@ -320,7 +317,7 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             pd.AllBoughtProducts = GenBp(pd.AllProducts); // BP with no expiration date
             pd.AllRecipes = GenR(products: pd.AllProducts);
 
-            ExecuteAndVerifyResult(pd, substitutesAllowed, SortingMethodType.ExpirationDate, new[] { 0, 0, 0 });
+            ExecuteAndVerifyRecipeValue(pd, substitutesAllowed, SortingMethodType.ExpirationDate, new[] { 0, 0, 0 });
         }
 
 
@@ -379,5 +376,51 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
 
         //Todo test with multiple bps from the same p, and see if it still works
         // And make proper substitute-dependant test
+
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SingleIngredientPreference_ValidIngredients_CorrectAmountOfPoints(bool substitutesAllowed)
+        {
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void IngredientsOwnedPreference_ValidIngredientsAndBps_CorrectAmountOfPoints(bool substitutesAllowed)
+        {
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void AmountNeededValueCalculator_ValidInnput_CorrectBpsSelected(bool substitutesAllowed)
+        {
+            // Tests whether the correct Bps are selected for cooking the recipe
+
+
+            //todo 3 recipes with single (and same) ingredients
+
+            SortingMethodType smt = SortingMethodType.ExpirationDate;
+            if (substitutesAllowed)
+            {
+                // Sub1 > Sub2 > Bp3 > Bp4 > Sub5 > Bp6
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1});
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2});
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3});
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4});
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4, sub5});
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4, sub5, bp6});
+            }
+            else
+            {
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3 });
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3, bp4 });
+                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3, bp4, bp6 });
+            }
+        }
+
+        private void ExecuteAndVerifyRecipeBpComposition(ProgramData pd, bool allowSubs, SortingMethodType smt)
+        {
+            CreateAndExecutePreference(pd, allowSubs, smt);
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace RecipeSelectHelper.Model
 
         public uint AmountSatisfied { get; private set; }
 
+        public uint PercentageOfTotalIngredientsGathered => AmountNeeded == 0 ? 0 : AmountSatisfied / AmountNeeded;
+
         public int Value => OwnValue.GetValue + CorrespondingProduct.Value;
 
         private ValueInformation _ownValue = new ValueInformation();
