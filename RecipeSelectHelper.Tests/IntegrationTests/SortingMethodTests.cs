@@ -238,8 +238,7 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         [TestCase] 
         public void ProductCategoryPreference_AllRecipesContainProductCategory_AllRecipesRecieve1Point()
         {
-            ProgramData pd = new ProgramData();
-            pd.AllProductCategories = new List<ProductCategory> { new ProductCategory("mypc")};
+            ProgramData pd = new ProgramData { AllProductCategories = new List<ProductCategory> {new ProductCategory("mypc")}};
             pd.AllProducts = new List<Product>
             {
                 new Product("0", pd.AllProductCategories),
@@ -328,13 +327,12 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         [TestCase(true)]
         public void ExpirationDatePreference_ValidExpirationDates_SortedCorrectly(bool substitutesAllowed)
         {
-            DateTime tomorrow = DateTime.Now.AddDays(1);
             ProgramData pd = new ProgramData { AllProducts = GenP() };
             pd.AllBoughtProducts = new List<BoughtProduct>
             {
-                new BoughtProduct(pd.AllProducts[0], 1, new ExpirationInfo(DateTime.Now.AddDays(-2), tomorrow)), // Oldest bp
-                new BoughtProduct(pd.AllProducts[1], 1, new ExpirationInfo(DateTime.Now.AddDays(-1), tomorrow)), 
-                new BoughtProduct(pd.AllProducts[2], 1, new ExpirationInfo(DateTime.Now, tomorrow))              // Least old bp
+                new BoughtProduct(pd.AllProducts[0], 1, CreateExpir(-2)), // Oldest bp
+                new BoughtProduct(pd.AllProducts[1], 1, CreateExpir(-1)), 
+                new BoughtProduct(pd.AllProducts[2], 1, CreateExpir(0))   // Least old bp
             };
             
             CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
@@ -353,14 +351,16 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         [TestCase(true)]
         public void ExpirationDatePreference_BpsWithSameCorrespondingProduct_SortedCorrectly(bool substitutesAllowed)
         {
-            DateTime tomorrow = DateTime.Now.AddDays(1);
             Product p1 = new Product("P1", GenPc());
-            ProgramData pd = new ProgramData { AllProducts = new List<Product> {p1} };
-            pd.AllBoughtProducts = new List<BoughtProduct>
+            ProgramData pd = new ProgramData
             {
-                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now.AddDays(-2), tomorrow)), // Oldest bp
-                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now.AddDays(-1), tomorrow)),
-                new BoughtProduct(p1, 1, new ExpirationInfo(DateTime.Now, tomorrow))              // Least old bp
+                AllProducts = new List<Product> {p1},
+                AllBoughtProducts = new List<BoughtProduct>
+                {
+                    new BoughtProduct(p1, 1, CreateExpir(-2)), // Oldest bp
+                    new BoughtProduct(p1, 1, CreateExpir(-1)),
+                    new BoughtProduct(p1, 1, CreateExpir(0)) // Least old bp
+                }
             };
 
             CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
@@ -392,35 +392,71 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
 
         [TestCase(false)]
         [TestCase(true)]
-        public void AmountNeededValueCalculator_ValidInnput_CorrectBpsSelected(bool substitutesAllowed)
+        public void AmountNeededValueCalculator_ValidInput_CorrectBpsSelected(bool substitutesAllowed)
         {
             // Tests whether the correct Bps are selected for cooking the recipe
 
 
             //todo 3 recipes with single (and same) ingredients
 
+
+
             SortingMethodType smt = SortingMethodType.ExpirationDate;
+            Product baseP = new Product("Base");
+            Product subP = new Product("Sub");
+            SubstituteRelationsDictionary subRelations = new SubstituteRelationsDictionary();
+            subRelations.AddSubstitutes(baseP, new List<Product> {subP});
+            Recipe rec = new Recipe("Rec", ingredients: new List<Ingredient> { new Ingredient(100, baseP) });
+            BoughtProduct 
+                sub1 = new BoughtProduct(subP, 10, CreateExpir(-6)), 
+                sub2 = new BoughtProduct(subP, 10, CreateExpir(-5)),
+                bp3 = new BoughtProduct(baseP, 10, CreateExpir(-4)), 
+                bp4 = new BoughtProduct(baseP, 10, CreateExpir(-3)),
+                sub5 = new BoughtProduct(subP, 10, CreateExpir(-2)),
+                bp6 = new BoughtProduct(baseP, 10, CreateExpir(-1));
+
+            ProgramData pd = new ProgramData
+            {
+                AllProducts = new List<Product> { baseP, subP },
+                AllBoughtProducts = new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5, bp6 },
+                ProductSubstitutes = subRelations
+            };
             if (substitutesAllowed)
             {
                 // Sub1 > Sub2 > Bp3 > Bp4 > Sub5 > Bp6
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1});
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2});
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3});
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4});
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4, sub5});
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> {sub1, sub2, bp3, bp4, sub5, bp6});
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1 });
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2 });
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3 });
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4 });
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5 });
+                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5, bp6 });
             }
             else
             {
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3 });
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3, bp4 });
-                ExecuteAndVerifyRecipeBpComposition(pd, substitutesAllowed, smt, new List<BoughtProduct> { bp3, bp4, bp6 });
+                ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3 });
+                ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3, bp4 });
+                ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3, bp4, bp6 });
             }
         }
 
-        private void ExecuteAndVerifyRecipeBpComposition(ProgramData pd, bool allowSubs, SortingMethodType smt)
+        private ExpirationInfo CreateExpir(int daysOld)
         {
-            CreateAndExecutePreference(pd, allowSubs, smt);
+            if(daysOld > 0) throw new ArgumentException("Value must be below zero.");
+            return new ExpirationInfo(DateTime.Today.AddDays(daysOld), DateTime.Today.AddDays(1));
+        }
+
+        private void ExecuteAndVerifyRecipeBpComposition(ProgramData pd, bool allowSubs, List<BoughtProduct> expectedBpsToCookWith)
+        {
+            CreateAndExecutePreference(pd, allowSubs, SortingMethodType.ExpirationDate);
+            Ingredient ing = pd.AllRecipes.First().Ingredients.First();
+            //ing.OwnValueCalculator. ??? WHAT TO DO: Jeg vil gerne tjekke præcis hvilke bps den foreslår jeg skal bruge!
+            throw new NotImplementedException();
+            List<BoughtProduct> bpSequence;
+            int i = 0;
+            foreach (BoughtProduct bp in expectedBpsToCookWith)
+            {
+                Assert.AreSame(bp, bpSequence[i++]);
+            }
         }
     }
 }
