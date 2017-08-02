@@ -37,7 +37,7 @@ namespace RecipeSelectHelper.Resources
                 combinedSenderList.AddRange(
                     _preferenceValues.ConvertAll(x => new ProgressInfo(x.Item1, totalValue, x.Item2.Description)));
                 combinedSenderList.AddRange(_aggregationValues.ConvertAll(x => new ProgressInfo(x.Item1, totalValue, 
-                    $"Aggregated {x.Item1} from {x.Item2.Aggregator.ToString().GetLastSubstring('.')}")));
+                    $"Aggregated {x.Item1} from {x.Item2.GetString()}")));
                 return combinedSenderList;
             }
         }
