@@ -28,14 +28,14 @@ namespace RecipeSelectHelper.Resources
                 while (amountNeeded != 0 && iterator.MoveNext())
                 {
                     if(iterator.Current == null) throw new ArgumentNullException();
-                    uint amount = bpAmountsRemaining[iterator.Current.Bp];
+                    BpValue current = iterator.Current;
+                    uint amount = bpAmountsRemaining[current.Bp];
                     if (amount != 0)
                     {
                         uint removalAmount = (amount >= amountNeeded) ? amountNeeded : amount;
                         // Done to avoid removing more than allowed.
-                        bpAmountsRemaining[iterator.Current.Bp] -= removalAmount;
-                        returnVal.Value += iterator.Current.ValuePerAmount * removalAmount;
-                        returnVal.AmountSatisfied += removalAmount;
+                        bpAmountsRemaining[current.Bp] -= removalAmount;
+                        returnVal.AddValue(current.Bp, current.ValuePerAmount * removalAmount, removalAmount);
                         amountNeeded -= removalAmount;
                     }
                 }
@@ -57,8 +57,9 @@ namespace RecipeSelectHelper.Resources
 
     public class OptimalValue
     {
-        public double Value { get; set; }
-        public uint AmountSatisfied { get; set; }
+        public double Value { get; private set; }
+        public uint AmountSatisfied { get; private set; }
+        public List<BpValueSourceInfo> ValueLog { get; } = new List<BpValueSourceInfo>();
 
         public OptimalValue() : this(0, 0) { }
         public OptimalValue(double value, uint amountSatisfied)
@@ -66,6 +67,27 @@ namespace RecipeSelectHelper.Resources
             Value = value;
             AmountSatisfied = amountSatisfied;
         }
+
+        public void AddValue(BoughtProduct source, double totalValueToAdd, uint amountToAdd)
+        {
+            ValueLog.Add(new BpValueSourceInfo(source, totalValueToAdd, amountToAdd));
+            Value += totalValueToAdd;
+            AmountSatisfied += amountToAdd;
+        }
+    }
+
+    public class BpValueSourceInfo
+    {
+        public BpValueSourceInfo(BoughtProduct bp, double valueAdded, uint amountSatisfied)
+        {
+            Bp = bp;
+            ValueAdded = valueAdded;
+            AmountSatisfied = amountSatisfied;
+        }
+
+        public BoughtProduct Bp { get; }
+        public double ValueAdded { get; }
+        public uint AmountSatisfied { get; }
     }
 
     public class SortByValuePerAmount : IComparer<BpValue>

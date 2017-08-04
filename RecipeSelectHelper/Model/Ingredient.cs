@@ -28,6 +28,8 @@ namespace RecipeSelectHelper.Model
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
+        public List<BpValueSourceInfo> BpValueLog { get; set; } // Shows where the bp-values come from
+
         private Ingredient() { }
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
@@ -54,6 +56,7 @@ namespace RecipeSelectHelper.Model
             OwnValueCalculator = null;
             OwnValue.Reset();
             AmountSatisfied = 0;
+            BpValueLog = null;
         }
 
         public void AggregateBpValues(Dictionary<BoughtProduct, uint> bpAmountsRemaining)
@@ -62,8 +65,14 @@ namespace RecipeSelectHelper.Model
             // Translated: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
 
             OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded);
-            OwnValue.AddValue((int) Math.Round(result.Value), new AggregatedValue(this));
+            RecordResult(result);
+        }
+
+        private void RecordResult(OptimalValue result)
+        {
+            OwnValue.AddValue((int)Math.Round(result.Value), new AggregatedValue(this));
             AmountSatisfied += result.AmountSatisfied;
+            BpValueLog = result.ValueLog;
         }
 
         // Deprecated because we want to keep boughtProducts and/or substitutes entirely separate. Even if we use

@@ -450,13 +450,14 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             CreateAndExecutePreference(pd, allowSubs, SortingMethodType.ExpirationDate);
             Ingredient ing = pd.AllRecipes.First().Ingredients.First();
             //ing.OwnValueCalculator. ??? WHAT TO DO: Jeg vil gerne tjekke præcis hvilke bps den foreslår jeg skal bruge!
-            throw new NotImplementedException();
-            List<BoughtProduct> bpSequence;
+            //throw new NotImplementedException();
+            List<BpValueSourceInfo> valueLogs = ing.BpValueLog;
             int i = 0;
             foreach (BoughtProduct bp in expectedBpsToCookWith)
             {
-                Assert.AreSame(bp, bpSequence[i++]);
+                Assert.AreSame(bp, valueLogs[i++].Bp);
             }
+            //TODO
         }
     }
 }
