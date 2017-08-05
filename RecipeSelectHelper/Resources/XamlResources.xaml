@@ -403,12 +403,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" 
-                                   OuterMaximum="{Binding AmountNeeded, Mode=OneWay}" Grid.Row="0" Grid.Column="2"
+            <TextBlock Text="{Binding CorrespondingProduct.Name}" Background="LightBlue"></TextBlock>
+            <Label HorizontalContentAlignment="Left" Content="Owned Ingredient Amount: " Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10"
+                                   OuterMaximum="{Binding AmountNeeded, Mode=OneWay}" Grid.Row="2" Grid.Column="2"
                                    OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
                 <local:TextProgressBar.OuterText>
                     <MultiBinding StringFormat="{}{0} %   {1} / {2}">
@@ -419,7 +421,7 @@
                 </local:TextProgressBar.OuterText>
             </local:TextProgressBar>
 
-            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}"></ItemsControl>
+            <ItemsControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}"></ItemsControl>
         </Grid>
     </DataTemplate>
 

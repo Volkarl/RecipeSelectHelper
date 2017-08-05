@@ -41,14 +41,16 @@
                         <StackPanel>
                             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                                 <StackPanel Margin="5">
-                                    <TextBlock Text="View Which Bought Products To Cook With"></TextBlock>
-                                    <ContentControl Content="{Binding CorrespondingRecipe.Ingredients}" ContentTemplate="{StaticResource ViewIngredientBpComposition}"></ContentControl>
+                                    <TextBlock HorizontalAlignment="Left" Text="View Which Bought Products To Cook With"></TextBlock>
+                                    <Expander>
+                                        <ContentControl Content="{Binding CorrespondingRecipe.Ingredients}" ContentTemplate="{StaticResource ViewIngredientBpComposition}"></ContentControl>
+                                    </Expander>
                                 </StackPanel>
                             </Border>
 
                             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                                 <StackPanel Margin="5">
-                                    <TextBlock Text="View Value Details"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Text="View Value Details"></TextBlock>
                                     <ContentControl Content="{Binding CorrespondingRecipe}" ContentTemplate="{StaticResource DataTemplateRecipeDetailView}"></ContentControl>
                                 </StackPanel>
                             </Border>

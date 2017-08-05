@@ -19,7 +19,7 @@ namespace RecipeSelectHelper.Model
 
         public uint AmountSatisfied { get; private set; }
 
-        public uint PercentageOfTotalIngredientsGathered => AmountNeeded == 0 ? 0 : AmountSatisfied / AmountNeeded;
+        public int PercentageOfTotalIngredientsGathered => AmountNeeded == 0 ? 0 : Convert.ToInt32(((double) AmountSatisfied / AmountNeeded) * 100);
 
         public int Value => OwnValue.GetValue + CorrespondingProduct.Value;
 
