@@ -28,7 +28,7 @@ namespace RecipeSelectHelper.Model
 
         public AmountNeededValueCalculator OwnValueCalculator { get; private set; }
 
-        public List<BpValueSourceInfo> BpValueLog { get; set; } // Shows where the bp-values come from
+        public List<BpValueSourceInfo> BpValueLog { get; private set; } // Shows where the bp-values come from
 
         private Ingredient() { }
 

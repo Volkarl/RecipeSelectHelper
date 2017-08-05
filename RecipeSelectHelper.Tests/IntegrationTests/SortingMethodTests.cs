@@ -395,13 +395,6 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         public void AmountNeededValueCalculator_ValidInput_CorrectBpsSelected(bool substitutesAllowed)
         {
             // Tests whether the correct Bps are selected for cooking the recipe
-
-
-            //todo 3 recipes with single (and same) ingredients
-
-
-
-            SortingMethodType smt = SortingMethodType.ExpirationDate;
             Product baseP = new Product("Base");
             Product subP = new Product("Sub");
             SubstituteRelationsDictionary subRelations = new SubstituteRelationsDictionary();
@@ -419,22 +412,17 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             {
                 AllProducts = new List<Product> { baseP, subP },
                 AllBoughtProducts = new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5, bp6 },
-                ProductSubstitutes = subRelations
+                ProductSubstitutes = subRelations,
+                AllRecipes = new List<Recipe> { rec }
             };
             if (substitutesAllowed)
             {
                 // Sub1 > Sub2 > Bp3 > Bp4 > Sub5 > Bp6
-                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1 });
-                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2 });
-                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3 });
-                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4 });
-                ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5 });
                 ExecuteAndVerifyRecipeBpComposition(pd, true, new List<BoughtProduct> { sub1, sub2, bp3, bp4, sub5, bp6 });
             }
             else
             {
-                ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3 });
-                ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3, bp4 });
+                // Bp3 > Bp4 > Bp6
                 ExecuteAndVerifyRecipeBpComposition(pd, false, new List<BoughtProduct> { bp3, bp4, bp6 });
             }
         }
@@ -449,15 +437,16 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         {
             CreateAndExecutePreference(pd, allowSubs, SortingMethodType.ExpirationDate);
             Ingredient ing = pd.AllRecipes.First().Ingredients.First();
-            //ing.OwnValueCalculator. ??? WHAT TO DO: Jeg vil gerne tjekke præcis hvilke bps den foreslår jeg skal bruge!
-            //throw new NotImplementedException();
             List<BpValueSourceInfo> valueLogs = ing.BpValueLog;
             int i = 0;
+            if(expectedBpsToCookWith.IsEmpty() || valueLogs.IsEmpty() || expectedBpsToCookWith.Count != valueLogs.Count)
+                throw new ArgumentException();
             foreach (BoughtProduct bp in expectedBpsToCookWith)
             {
                 Assert.AreSame(bp, valueLogs[i++].Bp);
             }
-            //TODO
         }
+        // Todo: this fails because all products have the same value, which probably is because of the fucked up parabola.
+        // As soon as I fix that error, this should work as well.
     }
 }
