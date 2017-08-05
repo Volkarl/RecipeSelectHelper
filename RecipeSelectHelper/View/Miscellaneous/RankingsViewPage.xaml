@@ -38,7 +38,21 @@
             <ListView.Resources>
                 <DataTemplate x:Key="ViewRecipeValueDetails" DataType="custom:RecipeWithPercentageScore">
                     <Expander Header="{Binding CorrespondingRecipe.Name}">
-                        <ContentControl Content="{Binding CorrespondingRecipe}" ContentTemplate="{StaticResource DataTemplateRecipeDetailView}"></ContentControl>
+                        <StackPanel>
+                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                <StackPanel Margin="5">
+                                    <TextBlock Text="View Which Bought Products To Cook With"></TextBlock>
+                                    <ContentControl Content="{Binding CorrespondingRecipe.Ingredients}" ContentTemplate="{StaticResource ViewIngredientBpComposition}"></ContentControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                                <StackPanel Margin="5">
+                                    <TextBlock Text="View Value Details"></TextBlock>
+                                    <ContentControl Content="{Binding CorrespondingRecipe}" ContentTemplate="{StaticResource DataTemplateRecipeDetailView}"></ContentControl>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </Expander>
                 </DataTemplate>
             </ListView.Resources>

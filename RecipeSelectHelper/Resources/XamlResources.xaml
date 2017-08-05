@@ -200,10 +200,10 @@
         </ItemsControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="ViewIngredientBpComposition" DataType="model:Ingredient">
+    <!--<DataTemplate x:Key="OLDViewIngredientBpComposition" DataType="model:Ingredient">
         <Grid IsSharedSizeScope="True">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" SharedSizeGroup="Value"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="ValuePerAmount"></ColumnDefinition>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="Name"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -214,40 +214,52 @@
             </Grid.RowDefinitions>
 
             <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-            <local:TextProgressBar OuterText="{Binding PercentageOfTotalIngredientsGathered}" Grid.Row="0" Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfTotalIngredientsGathered}"></local:TextProgressBar>
-            
+            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" 
+                                   OuterMaximum="{Binding AmountNeeded, Mode=OneWay}" Grid.Row="0" Grid.Column="2"
+                                   OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
+                <local:TextProgressBar.OuterText>
+                    <MultiBinding StringFormat="{}{0} %   {1} / {2}">
+                        <Binding Path="PercentageOfTotalIngredientsGathered"></Binding>
+                        <Binding Path="AmountSatisfied"></Binding>
+                        <Binding Path="AmountNeeded"></Binding>
+                    </MultiBinding>
+                </local:TextProgressBar.OuterText>
+            </local:TextProgressBar>
+
             <Label Content="Value" Grid.Row="1" Grid.Column="0"></Label>
             <Label Content="Name" Grid.Row="1" Grid.Column="1"></Label>
-            <Label Content="Amount of Product used" Grid.Row="1" Grid.Column="2"></Label>
+            <Label Content="Amount Contributed" Grid.Row="1" Grid.Column="2"></Label>
 
-            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding OwnValueCalculator.OrderedBpValues}">
+            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}"></ItemsControl>
+            
+            --><!--<ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid IsSharedSizeScope="True" IsEnabled="False">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="Value"></ColumnDefinition>
+                                <ColumnDefinition SharedSizeGroup="ValuePerAmount"></ColumnDefinition>
                                 <ColumnDefinition SharedSizeGroup="Name"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding ValuePerAmount}"></TextBlock>
+                            <TextBlock Grid.Column="0" Text="{Binding AmountSatisfied}"></TextBlock>
                             <TextBlock Grid.Column="1" Text="{Binding Bp.CorrespondingProduct.Name}"></TextBlock>
                             <local:TextProgressBar Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:TextProgressBar>
 
-                            <!--TODO Okay! I want to show how much of each bp I should be using for cooking my recipe.
+                            --><!--TODO Okay! I want to show how much of each bp I should be using for cooking my recipe.
                             Problem with this is that the class bpvalue is shared between all amountNeededValueCalcs and they don't know
                             about how much each recipe uses. So, the way I can solve this is by granting myself access to the recipe's 
                             ingredients' AggregateBPValues OptimalValue solution. I use this class to contain all the info I need.-->
-                            
+
                             <!--<local:InputSlider Grid.Column="2" OuterMaximum="100" OuterValue="{Binding PercentageOfAmountNeeded}"></local:InputSlider>-->
-                            <!--Brug evt inputslider  her hvis jeg gerne vil muliggøre at man redigerer i bp-ingridienser efter sortering-->
+                            <!--Brug evt inputslider  her hvis jeg gerne vil muliggøre at man redigerer i bp-ingridienser efter sortering--><!--
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </ItemsControl>--><!--
+            
         </Grid>
-
-    </DataTemplate>
+    </DataTemplate>-->
 
     <!--<BitmapImage x:Key="ImageCheckBox" UriSource="check.png"></BitmapImage>
     <BitmapImage x:Key="ImageCross" UriSource="close.png"></BitmapImage>-->
@@ -277,7 +289,7 @@
     </DataTemplate>-->
 
 
-    <DataTemplate x:Key="DataTemplateViewValueSender" DataType="local:ProgressInfo">
+    <DataTemplate x:Key="DataTemplateViewProgressInfo" DataType="local:ProgressInfo">
         <DockPanel Background="AliceBlue">
             <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Top">
                 <local:TextProgressBar.OuterText>
@@ -304,7 +316,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -321,7 +333,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -338,7 +350,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
             </StackPanel>
         </Expander>
@@ -356,7 +368,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ContentControl Visibility="{Binding CorrespondingProduct, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ContentTemplate="{StaticResource DataTemplateProductDetailView}" Content="{Binding CorrespondingProduct}"></ContentControl>
             </StackPanel>
         </Expander>
@@ -374,11 +386,41 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewValueSender}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
             </StackPanel>
         </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ViewIngredientBpComposition" DataType="model:Ingredient">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Owned Ingredient Amount: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" 
+                                   OuterMaximum="{Binding AmountNeeded, Mode=OneWay}" Grid.Row="0" Grid.Column="2"
+                                   OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
+                <local:TextProgressBar.OuterText>
+                    <MultiBinding StringFormat="{}{0} %   {1} / {2}">
+                        <Binding Path="PercentageOfTotalIngredientsGathered"></Binding>
+                        <Binding Path="AmountSatisfied"></Binding>
+                        <Binding Path="AmountNeeded"></Binding>
+                    </MultiBinding>
+                </local:TextProgressBar.OuterText>
+            </local:TextProgressBar>
+
+            <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}"></ItemsControl>
+        </Grid>
     </DataTemplate>
 
 </ResourceDictionary>

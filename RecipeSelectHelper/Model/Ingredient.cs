@@ -30,6 +30,16 @@ namespace RecipeSelectHelper.Model
 
         public List<BpValueSourceInfo> BpValueLog { get; private set; } // Shows where the bp-values come from
 
+        public List<ProgressInfo> BpCompositionInfo
+        {
+            get
+            {
+                if(BpValueLog == null || BpValueLog.IsEmpty()) return new List<ProgressInfo>();
+                return new List<ProgressInfo>(BpValueLog.Select(x => new ProgressInfo((int) x.AmountSatisfied,
+                    (int) AmountSatisfied, x.Bp.CorrespondingProduct.Name)));
+            }
+        }
+
         private Ingredient() { }
 
         public Ingredient(uint amountNeeded, Product correspondingProduct)
