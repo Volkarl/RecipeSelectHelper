@@ -34,8 +34,12 @@ namespace RecipeSelectHelper.View.Miscellaneous
             SelectedRecipe = null;
 
             var withPercentageScores = new List<RecipeWithPercentageScore>();
-            int maxVal = _parent.Data.AllRecipes.Max(x => x.Value);
-            foreach (Recipe rec in _parent.Data.AllRecipes) withPercentageScores.Add(new RecipeWithPercentageScore(rec, maxVal));
+            if (_parent.Data.AllRecipes != null && _parent.Data.AllRecipes.Any())
+            {
+                int maxVal = _parent.Data.AllRecipes.Max(x => x.Value);
+                foreach (Recipe rec in _parent.Data.AllRecipes)
+                    withPercentageScores.Add(new RecipeWithPercentageScore(rec, maxVal));
+            }
             Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.CorrespondingRecipe.Name)); 
         }
 

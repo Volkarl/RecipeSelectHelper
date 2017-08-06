@@ -379,7 +379,7 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             Product subP = new Product("Sub");
             SubstituteRelationsDictionary subRelations = new SubstituteRelationsDictionary();
             subRelations.AddSubstitutes(baseP, new List<Product> {subP});
-            Recipe rec = new Recipe("Rec", ingredients: new List<Ingredient> { new Ingredient(100, baseP) });
+            Recipe rec = new Recipe("Rec", ingredients: new List<Ingredient> { new Ingredient(55, baseP) });
             BoughtProduct 
                 sub1 = new BoughtProduct(subP, 10, CreateExpir(-6)), 
                 sub2 = new BoughtProduct(subP, 10, CreateExpir(-5)),
