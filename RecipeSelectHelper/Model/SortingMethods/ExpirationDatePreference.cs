@@ -11,8 +11,10 @@ namespace RecipeSelectHelper.Model.SortingMethods
         [DataMember]
         public int Val { get; set; }
 
-        private static readonly Func<double, double> ValueDecayParabola = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
+        private static readonly Func<int, int> ValueLinearFunction = percentExpired => percentExpired;
 
+        private static readonly Func<double, double> ValueDecayParabola = x => (-0.4371 * Math.Pow(x, 2)) + (15.851 * x) - 22.42;
+        // Todo: Need to find a more fitting parabola formula for expiration values
         private static double root1 = 1.47437;
         private static double root2 = 34.7896;
         private static double maxValue = 121.285;
@@ -45,8 +47,9 @@ namespace RecipeSelectHelper.Model.SortingMethods
         {
             var decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
             if (decimalExpired == 0) return 0;
-            double formulaResult = ValueDecayFormula(decimalExpired);
-            return Val * Convert.ToInt32(formulaResult);
+            // double formulaResult = ValueDecayFormula(decimalExpired);
+            // return Val * Convert.ToInt32(formulaResult);
+            return ValueLinearFunction(decimalExpired);
         }
     }
 }

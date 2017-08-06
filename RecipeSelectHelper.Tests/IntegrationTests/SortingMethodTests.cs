@@ -337,13 +337,11 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
             
             CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
 
-            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
+            /*throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
                                          $"pd[1] = {pd.AllBoughtProducts[1].OwnValue.GetValue}\n" +
-                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");
-            Assert.Greater(pd.AllBoughtProducts[2].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
-            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[0].OwnValue.GetValue);
-            // Keep in mind that they might hit maxValue, so choose some dates where the difference actually shows!
-            // Right now we should have 66%, 50% and 0% towards expiration. It caps value at 34% currently, but that will be changed soon-ish. Todo
+                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");*/
+            Assert.Greater(pd.AllBoughtProducts[0].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
+            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[2].OwnValue.GetValue);
         }
 
 
@@ -365,29 +363,11 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
 
             CreateAndExecutePreference(pd, substitutesAllowed, SortingMethodType.ExpirationDate);
 
-            throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
+            /*throw new AssertionException($"\npd[0] = {pd.AllBoughtProducts[0].OwnValue.GetValue} - Oldest bp\n" +
                                          $"pd[1] = {pd.AllBoughtProducts[1].OwnValue.GetValue}\n" +
-                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");
-            Assert.Greater(pd.AllBoughtProducts[2].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
-            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[0].OwnValue.GetValue);
-            // Same issue as above, and will be fixed when the formula is fixed Todo
-        }
-
-
-        //Todo test with multiple bps from the same p, and see if it still works
-        // And make proper substitute-dependant test
-
-
-        [TestCase(false)]
-        [TestCase(true)]
-        public void SingleIngredientPreference_ValidIngredients_CorrectAmountOfPoints(bool substitutesAllowed)
-        {
-        }
-
-        [TestCase(false)]
-        [TestCase(true)]
-        public void IngredientsOwnedPreference_ValidIngredientsAndBps_CorrectAmountOfPoints(bool substitutesAllowed)
-        {
+                                         $"pd[2] = {pd.AllBoughtProducts[2].OwnValue.GetValue} - Least old bp\n");*/
+            Assert.Greater(pd.AllBoughtProducts[0].OwnValue.GetValue, pd.AllBoughtProducts[1].OwnValue.GetValue);
+            Assert.Greater(pd.AllBoughtProducts[1].OwnValue.GetValue, pd.AllBoughtProducts[2].OwnValue.GetValue);
         }
 
         [TestCase(false)]
@@ -446,7 +426,22 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
                 Assert.AreSame(bp, valueLogs[i++].Bp);
             }
         }
-        // Todo: this fails because all products have the same value, which probably is because of the fucked up parabola.
-        // As soon as I fix that error, this should work as well.
+
+        //TODO
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SingleIngredientPreference_ValidIngredients_CorrectAmountOfPoints(bool substitutesAllowed)
+        {
+        }
+
+        //TODO
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void IngredientsOwnedPreference_ValidIngredientsAndBps_CorrectAmountOfPoints(bool substitutesAllowed)
+        {
+        }
+
     }
 }
