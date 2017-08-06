@@ -83,15 +83,27 @@ namespace RecipeSelectHelper.View.Recipes
         {
             foreach (GroupedSelection<RecipeCategory> grc in _parent.Data.AllGroupedRecipeCategories)
             {
-                if (!_addedGrc.Contains(grc)) GroupedRecipeCategories.Add(new GroupedRecipeCategory(grc));
+                if (!_addedGrc.Contains(grc))
+                {
+                    GroupedRecipeCategories.Add(new GroupedRecipeCategory(grc));
+                    _addedGrc.Add(grc);
+                }
             }
             foreach (RecipeCategory rc in _parent.Data.AllRecipeCategories)
             {
-                if (!_addedRc.Contains(rc)) RecipeCategories.Add(new Boolable<RecipeCategory>(rc));
+                if (!_addedRc.Contains(rc))
+                {
+                    RecipeCategories.Add(new Boolable<RecipeCategory>(rc));
+                    _addedRc.Add(rc);
+                }
             }
-            foreach (Product ingredient in _parent.Data.AllProducts)
+            foreach (Product i in _parent.Data.AllProducts)
             {
-                if (!_addedIng.Contains(ingredient)) Ingredients.Add(new BoolableWithValue<Product, int>(ingredient));
+                if (!_addedIng.Contains(i))
+                {
+                    Ingredients.Add(new BoolableWithValue<Product, int>(i));
+                    _addedIng.Add(i);
+                }
             }
         }
 

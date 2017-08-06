@@ -39,7 +39,11 @@ namespace RecipeSelectHelper.View.Products
         {
             foreach (GroupedSelection<ProductCategory> gpc in _parent.Data.AllGroupedProductCategories)
             {
-                if (!_addedGpc.Contains(gpc)) GroupedProductCategories.Add(new GroupedProductCategory(gpc));
+                if (!_addedGpc.Contains(gpc))
+                {
+                    GroupedProductCategories.Add(new GroupedProductCategory(gpc));
+                    _addedGpc.Add(gpc);
+                }
             }
         }
 
