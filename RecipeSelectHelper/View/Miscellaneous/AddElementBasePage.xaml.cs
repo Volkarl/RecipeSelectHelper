@@ -1,10 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources;
 
-namespace RecipeSelectHelper.Resources
+namespace RecipeSelectHelper.View.Miscellaneous
 {
     /// <summary>
     /// Interaction logic for AddElementBasePage.xaml

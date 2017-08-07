@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
+using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.SortingMethods
 {
@@ -61,7 +62,7 @@ namespace RecipeSelectHelper.View.SortingMethods
 
         private void Button_AddSortingMethod_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new Resources.AddElementBasePage(new SortingMethods.AddSortingMethodPage(_parent), "Add New Sorting Method", _parent);
+            _parent.ContentControl.Content = new AddElementBasePage(new SortingMethods.AddSortingMethodPage(_parent), "Add New Sorting Method", _parent);
         }
 
         private void Button_EditSortingMethod_Click(object sender, RoutedEventArgs e)

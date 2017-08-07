@@ -137,7 +137,7 @@
     <Compile Include="View\Categories\AddCategoriesPage.xaml.cs">
       <DependentUpon>AddCategoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AddElementBasePage.xaml.cs">
+    <Compile Include="View\Miscellaneous\AddElementBasePage.xaml.cs">
       <DependentUpon>AddElementBasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Categories\AddGroupedProductCategoryPage.xaml.cs">
@@ -151,6 +151,9 @@
     </Compile>
     <Compile Include="View\Miscellaneous\CopyableTextWindow.xaml.cs">
       <DependentUpon>CopyableTextWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Miscellaneous\MassEditElementsPage.xaml.cs">
+      <DependentUpon>MassEditElementsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Miscellaneous\MergePage.xaml.cs">
       <DependentUpon>MergePage.xaml</DependentUpon>
@@ -235,7 +238,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\AddElementBasePage.xaml">
+    <Page Include="View\Miscellaneous\AddElementBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Miscellaneous\CopyableTextWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Miscellaneous\MassEditElementsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,7 +11,7 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" KeyDown="EnterPressed">
         <StackPanel>
-            <DockPanel Height="30" LastChildFill="True" Margin="1">
+            <DockPanel Height="30" Margin="1">
                 <Label Content="Category Name: " Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>
                 <TextBox Name="TextBox_CategoryName" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding CategoryNameValid}" LostFocus="CategoryNameChanged" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
             </DockPanel>

@@ -11,6 +11,7 @@ using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.Categories;
 using RecipeSelectHelper.View.Products;
+using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.Recipes
 {

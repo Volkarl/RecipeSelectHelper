@@ -1,0 +1,23 @@
+﻿<Page x:Class="RecipeSelectHelper.View.Miscellaneous.MassEditElementsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeSelectHelper.View.Miscellaneous"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="680"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      Title="{Binding PageTitle}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <DockPanel>
+            <TextBlock Height="30" Margin="1" Text="{Binding PageDescription}" DockPanel.Dock="Top"></TextBlock>
+            <UniformGrid Columns="3" DockPanel.Dock="Bottom">
+                <Button Name="ButtonYes" Content="Yes" Click="ButtonYes_OnClick"></Button>
+                <Button Name="ButtonNo" Content="No" Click="ButtonNo_OnClick"></Button>
+                <Button Name="ButtonAbort" Content="Abort All (Do not save changes)" Click="ButtonAbort_OnClick"></Button>
+            </UniformGrid>
+            <TextBlock Height="30" Margin="1" Text="{Binding ItemDescription}" DockPanel.Dock="Top"></TextBlock>
+        </DockPanel>
+    </ScrollViewer>
+</Page>

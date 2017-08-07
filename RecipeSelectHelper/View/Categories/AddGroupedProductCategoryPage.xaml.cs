@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.Categories
 {
