@@ -10,12 +10,16 @@
       Title="CategoriesPage">
 
     <DockPanel>
-        <Button Name="Button_ViewGroupedCategories" DockPanel.Dock="Bottom" Height="30" Content="View Grouped Categories" Click="Button_ViewGroupedCategories_OnClick"></Button>
+        <UniformGrid Height="30" Columns="3" DockPanel.Dock="Bottom">
+            <Button Name="Button_EvaluateMissingProducts" Click="Button_EvaluateMissingProducts_OnClick"  Content="Evaluate Missing Products"></Button>
+            <Button Name="Button_ViewGroupedCategories" Content="View Grouped Categories" Click="Button_ViewGroupedCategories_OnClick"></Button>
+            <Button Name="Button_EvaluateMissingRecipes" Click="Button_EvaluateMissingRecipes_OnClick"  Content="Evaluate Missing Recipes"></Button>
+        </UniformGrid>
 
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="0"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 

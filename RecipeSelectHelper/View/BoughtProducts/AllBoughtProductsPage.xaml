@@ -71,7 +71,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Product" DisplayMemberBinding="{Binding CorrespondingProduct.Name}"></GridViewColumn>
-                        <GridViewColumn Header="Types" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.GroupedCategoriesToString}"></GridViewColumn>
+                        <GridViewColumn Header="Types" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.GroupedCategoriesAsString}"></GridViewColumn>
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CorrespondingProduct.CategoriesAsString}"></GridViewColumn>
                         <GridViewColumn Header="Amount" Width="Auto" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
                         <GridViewColumn Header="Manifactured" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductCreatedTime, StringFormat={}{0:MM/dd/yy}}"></GridViewColumn>

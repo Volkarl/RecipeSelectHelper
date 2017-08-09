@@ -24,11 +24,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
     /// Interaction logic for MassEditElementsPage.xaml
     /// This page can for instance be used for asking the user one-by-one whether each recipe should recieve a new category.
     /// </summary>
-    public partial class MassEditElementsPage : Page
+    public partial class MassEditElementsPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
-        private IList<object> _collection;
-        private int _currentIndex = 0;
         private Func<object, string> _createItemDescription;
         private Action<object> _yesIsClicked;
         private Action<object> _noIsClicked;
@@ -39,17 +37,17 @@ namespace RecipeSelectHelper.View.Miscellaneous
             Action<object> yesIsClicked, Action<object> noIsClicked)
         {
             _parent = parent;
-            _collection = findCollectionFunc(parent.Data);
+            ItemsToEdit = findCollectionFunc(parent.Data);
             _createItemDescription = createItemDescription;
             _yesIsClicked = yesIsClicked;
             _noIsClicked = noIsClicked;
             PageTitle = title;
             PageDescription = pageDescription;
-            _logOfAnswers = new List<bool>(_collection.Count);
+            ItemDescription = createItemDescription(GetNextObject());
+            _logOfAnswers = new List<bool>(ItemsToEdit.Count);
 
             Loaded += MassEditElementsBasePage_Loaded;
             InitializeComponent();
-            // todo Could/should I do something fancy about the non-typesafe everything's an object thingy that I'm using?
         }
 
         private void MassEditElementsBasePage_Loaded(object sender, RoutedEventArgs e)
@@ -59,22 +57,44 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         #region ObservableObjects
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public string PageTitle { get; }
+
         public string PageDescription { get; }
-        public string ItemDescription => _createItemDescription(GetNextObject());
+
+        public IList<object> ItemsToEdit { get; }
+
+        private int _currentIndex = 0;
+        public int CurrentIndex
+        {
+            get { return _currentIndex; }
+            private set { _currentIndex = value; OnPropertyChanged(nameof(CurrentIndex)); }
+        }
+
+        private string _itemDescription;
+        public string ItemDescription
+        {
+            get { return _itemDescription; }
+            set { _itemDescription = value; OnPropertyChanged(nameof(ItemDescription)); }
+        }
 
         #endregion
 
         private object GetNextObject()
         {
-            if ((_collection.Count - 1) == _currentIndex) ApplyAndClosePage();
-            return _collection[_currentIndex++];
+            if (ItemsToEdit.Count <= CurrentIndex)
+            {
+                ApplyAndClosePage();
+                return null;
+            }
+            object newItem = ItemsToEdit[CurrentIndex++];
+            ItemDescription = _createItemDescription(newItem);
+            return newItem;
         }
 
         private void ApplyAndClosePage()
@@ -90,25 +110,25 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ApplyChanges()
         {
-            if(_logOfAnswers.Count > _collection.Count) throw new ArgumentException();
+            if(_logOfAnswers.Count > ItemsToEdit.Count) throw new ArgumentException();
             for (var i = 0; i < _logOfAnswers.Count; i++)
             {
                 bool answer = _logOfAnswers[i];
-                if (answer) _yesIsClicked(_collection[i]);
-                else _noIsClicked(_collection[i]);
+                if (answer) _yesIsClicked(ItemsToEdit[i]);
+                else _noIsClicked(ItemsToEdit[i]);
             }
         }
 
         private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
         {
-            _yesIsClicked(GetNextObject());
             _logOfAnswers.Add(true);
+            GetNextObject();
         }
 
         private void ButtonNo_OnClick(object sender, RoutedEventArgs e)
         {
-            _noIsClicked(GetNextObject());
             _logOfAnswers.Add(false);
+            GetNextObject();
         }
 
         private void ButtonAbort_OnClick(object sender, RoutedEventArgs e)

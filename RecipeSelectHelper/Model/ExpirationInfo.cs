@@ -33,11 +33,5 @@ namespace RecipeSelectHelper.Model
             long diffExpire = ProductExpirationTime.Value.Ticks - pCreation;
             return diffNow / (double)diffExpire;
         }
-
-        public override string ToString()
-        {
-            return $"| Created date: {ProductCreatedTime?.ToString() ?? String.Empty}\n" +
-                   $"| Expiration date: {ProductExpirationTime?.ToString() ?? String.Empty}\n";
-        }
     }
 }

@@ -31,17 +31,7 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public List<GroupedRecipeCategory> GroupedCategories { get; set; }
 
-        public string CategoriesAsString
-        {
-            get
-            {
-                if (Categories == null)
-                {
-                    return string.Empty;
-                }
-                return string.Join(", ", Categories.ConvertAll(x => x.Name));
-            }
-        }
+        public string CategoriesAsString => Categories.IsNullOrEmpty() ? string.Empty : string.Join(", ", Categories.ConvertAll(x => x.Name));
 
         public string GroupedCategoriesAsString
         {

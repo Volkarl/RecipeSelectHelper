@@ -50,13 +50,6 @@ namespace RecipeSelectHelper.Model
             TransferValueToIngredients?.Invoke(this, valueCalculator); 
         }
 
-        public string ToString(SubstituteRelationsDictionary subRepo)
-        {
-            return $"{ToString()}\n" +
-                   $"| Substitutes:\n" +
-                   $"{string.Join(", ", subRepo.FindSubstitutes(this).ConvertAll(x => x.Name)).Indent()}";
-        }
-
         public override string ToString()
         {
             return $"-- Product --\n" +
@@ -65,16 +58,9 @@ namespace RecipeSelectHelper.Model
                    $"{string.Join(", ", Categories.ConvertAll(x => x.Name)).Indent()}";
         }
 
-        public string CategoriesAsString
-        {
-            get
-            {
-                if (Categories == null || Categories.IsEmpty()) return String.Empty;
-                return string.Join(", ", Categories.ConvertAll(x => x.Name));
-            }
-        }
+        public string CategoriesAsString => Categories.IsNullOrEmpty() ? string.Empty : string.Join(", ", Categories.ConvertAll(x => x.Name));
 
-        public string GroupedCategoriesToString
+        public string GroupedCategoriesAsString
         {
             get
             {

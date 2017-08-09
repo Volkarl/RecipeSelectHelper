@@ -163,7 +163,7 @@ namespace RecipeSelectHelper.View.Products
         {
             if (product != null)
             {
-                MessageBox.Show(product.ToString(_parent.Data.ProductSubstitutes));
+                MessageBox.Show(FullItemDescriptor.GetDescription(product, _parent.Data.ProductSubstitutes));
             }
         }
     }

@@ -55,5 +55,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
         }
+
+        //TOdo cant I just delete the above?
     }
 }

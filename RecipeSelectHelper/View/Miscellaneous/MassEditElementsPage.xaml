@@ -7,17 +7,24 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="680"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
-      Title="{Binding PageTitle}">
+      Title="MassEditElementsPage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <DockPanel>
-            <TextBlock Height="30" Margin="1" Text="{Binding PageDescription}" DockPanel.Dock="Top"></TextBlock>
+            <Label Height="30" DockPanel.Dock="Top" Margin="1" Content="{Binding PageTitle}" Background="AliceBlue" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" DockPanel.Dock="Top">
+                <TextBlock Text="Current item: " DockPanel.Dock="Top"></TextBlock>
+                <TextBlock Text="{Binding CurrentIndex}" DockPanel.Dock="Top"></TextBlock>
+                <TextBlock Text=" of " VerticalAlignment="Top"></TextBlock>
+                <TextBlock Text="{Binding ItemsToEdit.Count}" VerticalAlignment="Top"></TextBlock>
+            </StackPanel>
+            <TextBlock Margin="0,10,0,10" Text="{Binding PageDescription}" DockPanel.Dock="Top"></TextBlock>
             <UniformGrid Columns="3" DockPanel.Dock="Bottom">
                 <Button Name="ButtonYes" Content="Yes" Click="ButtonYes_OnClick"></Button>
                 <Button Name="ButtonNo" Content="No" Click="ButtonNo_OnClick"></Button>
                 <Button Name="ButtonAbort" Content="Abort All (Do not save changes)" Click="ButtonAbort_OnClick"></Button>
             </UniformGrid>
-            <TextBlock Height="30" Margin="1" Text="{Binding ItemDescription}" DockPanel.Dock="Top"></TextBlock>
+            <TextBlock Margin="1" Text="{Binding ItemDescription}" VerticalAlignment="Top" DockPanel.Dock="Top"></TextBlock>
         </DockPanel>
     </ScrollViewer>
 </Page>

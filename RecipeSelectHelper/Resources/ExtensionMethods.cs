@@ -146,6 +146,11 @@ namespace RecipeSelectHelper.Resources
 
         public static bool ContainsCaseInsensitive(this string str1, string str2) => str1.ToLower().Contains(str2.ToLower());
 
+        public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
+        {
+            return collection.IsEmpty() || collection == null;
+        }
+
         public static bool IsEmpty<T>(this ICollection<T> collection)
         {
             return !collection.Any();

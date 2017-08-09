@@ -133,7 +133,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
         {
             var item = sender as ListViewItem;
             var bp = item?.Content as BoughtProduct;
-            MessageBox.Show(bp?.ToString());
+            MessageBox.Show(FullItemDescriptor.GetDescription(bp));
         }
 
         private void Button_ReviewExpiredItems_OnClick(object sender, RoutedEventArgs e)

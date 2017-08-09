@@ -72,6 +72,7 @@
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
     <Compile Include="Resources\BpValue.cs" />
+    <Compile Include="Resources\FullItemDescriptor.cs" />
     <Compile Include="Resources\ProgressInfo.cs" />
     <Compile Include="Resources\ErrorReporter.cs" />
     <Compile Include="Resources\FilterableListView.cs" />

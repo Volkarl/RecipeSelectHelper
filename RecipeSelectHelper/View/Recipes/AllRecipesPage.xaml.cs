@@ -176,29 +176,9 @@ namespace RecipeSelectHelper.View.Recipes
             DisplayRecipeInfo(rec);
         }
 
-        private void DisplayRecipeInfo(Recipe rec)
+        private void DisplayRecipeInfo(Recipe r)
         {
-            string s = "Name: " + rec.Name + "\n";
-            //s += "ID: " + rec.ID + "\n";
-            s += "Categories: " + rec.CategoriesAsString + "\n";
-            s += "Grouped Categories: ";
-            foreach (GroupedRecipeCategory groupedRc in rec.GroupedCategories)
-            {
-                s += groupedRc + ", ";
-            }
-            s = s.TrimEnd(' ', ',');
-            s += "\n";
-            s += "Description: " + rec.Description + "\n";
-            s += "Instruction: " + rec.Instruction + "\n";
-            s += "Value: " + rec.Value + "\n";
-            s += "Ingredients: ";
-            foreach (Ingredient ing in rec.Ingredients)
-            {
-                s += ing.CorrespondingProduct.Name + " (";
-                s += "value: " + ing.Value + ", ";
-                s += ing.AmountNeeded + " needed), ";
-            }
-            MessageBox.Show(s, "Recipe information");
+            MessageBox.Show(FullItemDescriptor.GetDescription(r), "Recipe information");
         }
     }
 }

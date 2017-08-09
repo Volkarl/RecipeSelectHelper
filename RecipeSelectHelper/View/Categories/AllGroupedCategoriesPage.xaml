@@ -11,9 +11,9 @@
       Title="AllGroupedCategoriesPage">
 
     <DockPanel>
-        <UniformGrid Margin="0,1,0,0" Rows="1" DockPanel.Dock="Bottom">
+        <UniformGrid Height="30" Rows="1" DockPanel.Dock="Bottom">
             <Button Name="Button_EvaluateMissingProducts" Click="Button_EvaluateMissingProducts_OnClick" Content="Evaluate Missing Products"></Button>
-            <Button Name="Button_ViewCategories" DockPanel.Dock="Bottom" Height="30" Content="View Categories" Click="Button_ViewCategories_OnClick"></Button>
+            <Button Name="Button_ViewCategories" Content="View Categories" Click="Button_ViewCategories_OnClick"></Button>
             <Button Name="Button_EvaluateMissingRecipes" Click="Button_EvaluateMissingRecipes_OnClick" Content="Evaluate Missing Recipes"></Button>
         </UniformGrid>
         <Grid DockPanel.Dock="Top">
