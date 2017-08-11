@@ -46,14 +46,14 @@ namespace RecipeSelectHelper
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public ProgramData Data { get; set; }
+        public bool SaveChangesOnExit = true;
+
         public MainWindow()
         {
             Loaded += MainWindow_Loaded1;
-            DataContext = this;
             InitializeComponent();
         }
-
-        public ProgramData Data { get; set; }
 
         private void MainWindow_Loaded1(object sender, RoutedEventArgs e)
         {
@@ -139,8 +139,6 @@ namespace RecipeSelectHelper
             SetPage(new SettingsPage(this));
             HighlightButtonBackground(sender as Button);
         }
-
-        public bool SaveChangesOnExit = true;
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {

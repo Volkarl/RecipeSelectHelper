@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RecipeSelectHelper"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Closing="Window_Closing">
 
     <Grid>
@@ -45,8 +46,11 @@
         <Button Name="Button_AllCategories" Grid.Row="5" Click="Button_AllCategories_Click" Content="Edit Categories"></Button>
 
         <Button Name="Button_Settings" Grid.Row="6" Click="Button_Settings_Click" Content="Settings"></Button>
-        
-        <Frame Name="ContentControl" Grid.Column="1" Grid.RowSpan="7" NavigationUIVisibility="Hidden" Margin="10"></Frame>
+
+        <DockPanel Grid.Column="1" Grid.RowSpan="7" Margin="10">
+            <!--<TextBlock Text="{Binding NavigationHistory, StringFormat=Hierarchy: {0}}" DockPanel.Dock="Top"></TextBlock>-->
+            <Frame Name="ContentControl" NavigationUIVisibility="Hidden" DockPanel.Dock="Top"></Frame>
+        </DockPanel>
     </Grid>
     
 </Window>
