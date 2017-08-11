@@ -18,6 +18,11 @@ namespace RecipeSelectHelper.Resources
 {
     public class ExtendedListView : ListView
     {
+        private ListSortDirection _sortDirection;
+        private GridViewColumnHeader _sortColumn;
+        private bool _columnSizeIsIncreased = false;
+        public int? FillingHeader { get; set; }
+
         public ExtendedListView()
         {
             Loaded += ListViewWithHeaderSort_Loaded;
@@ -27,9 +32,19 @@ namespace RecipeSelectHelper.Resources
 
         private void ListViewWithHeaderSort_Loaded(object sender, RoutedEventArgs e)
         {
-            IncreaseAllColumnSizes(20); //To make room for the ascending/descending arrow
+            MakeRoomForColumnArrows(); // The ascending/descending arrows
             FillingHeader = 0;
             HeaderFillRemainingSpace();
+        }
+
+        private void MakeRoomForColumnArrows()
+        {
+            // This is to avoid the size increasing beyond the 20 pixels if the listView is loaded multiple times (for example by navigating back onto a page)
+            if (!_columnSizeIsIncreased)
+            {
+                IncreaseAllColumnSizes(20);
+                _columnSizeIsIncreased = true;
+            }
         }
 
         private void IncreaseAllColumnSizes(int pixels)
@@ -42,9 +57,6 @@ namespace RecipeSelectHelper.Resources
                 column.Width = column.ActualWidth + pixels;
             }
         }
-
-        private ListSortDirection _sortDirection;
-        private GridViewColumnHeader _sortColumn;
 
         private void GridViewColumnHeaderClick(object sender, RoutedEventArgs e)
         {
@@ -114,7 +126,5 @@ namespace RecipeSelectHelper.Resources
         {
             HeaderFillRemainingSpace();
         }
-
-        public int? FillingHeader { get; set; }
     }
 }
