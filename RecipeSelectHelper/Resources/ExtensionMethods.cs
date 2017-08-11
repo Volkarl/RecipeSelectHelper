@@ -39,11 +39,12 @@ namespace RecipeSelectHelper.Resources
         public static List<BoughtProduct> GetExpiredProducts(this IEnumerable<BoughtProduct> boughtProducts)
         {
             var expiredProducts = new List<BoughtProduct>();
+            DateTime now = DateTime.Now;
             foreach (BoughtProduct bp in boughtProducts)
             {
                 if (bp.ExpirationData.ProductExpirationTime.HasValue)
                 {
-                    if (DateTime.Now > bp.ExpirationData.ProductExpirationTime.Value)
+                    if (now > bp.ExpirationData.ProductExpirationTime.Value)
                     {
                         expiredProducts.Add(bp);
                     }
@@ -148,7 +149,8 @@ namespace RecipeSelectHelper.Resources
 
         public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         {
-            return collection.IsEmpty() || collection == null;
+            return collection == null || collection.IsEmpty(); 
+            // Note: Short circuit evaluation saves us from an ArgumentNullException when we check for empty.
         }
 
         public static bool IsEmpty<T>(this ICollection<T> collection)

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.BoughtProducts
@@ -118,7 +119,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
 
         private void Button_RemoveBoughtProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.Data.RemoveElement(SelectedBoughtProduct); //AllBoughtProducts.Remove(SelectedBoughtProduct);
+            _parent.Data.RemoveElement(SelectedBoughtProduct); 
 
             BoughtProduct selectedBp = SelectedBoughtProduct;
             ObservableCollection<BoughtProduct> tempBpCollection = BoughtProducts;
@@ -138,7 +139,26 @@ namespace RecipeSelectHelper.View.BoughtProducts
 
         private void Button_ReviewExpiredItems_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if(ExpiredProducts.IsNullOrEmpty()) return;
+
+            DateTime now = DateTime.Now;
+            _parent.SetPage(new MassEditElementsPage(
+                _parent,
+                "Review Expired Products",
+                "Review expired products and select whether or not they should be thrown out.",
+                "Should the product be thrown out?",
+                ExpiredProducts.ToList().ConvertAll(bp => (object)bp),
+                o =>
+                {
+                    var bp = (BoughtProduct)o;
+                    string expir = bp.ExpirationData.ProductExpirationTime?.Subtract(now).ToString(); //crash when I launch massedit without any products in collection right here!
+                    return $"{FullItemDescriptor.GetDescription(bp)}\n\n" +
+                           $"Product expired {expir} days ago.\n";
+                },
+
+                o => _parent.Data.RemoveElement((BoughtProduct)o),
+
+                o => { }));
         }
     }
 }

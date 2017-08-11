@@ -31,11 +31,11 @@ namespace RecipeSelectHelper.Resources
 
         public static string GetDescription(Product p, SubstituteRelationsDictionary substituteRepository = null)
         {
-            List<Product> subs = substituteRepository.FindSubstitutes(p);
+            List<Product> subs = substituteRepository?.FindSubstitutes(p);
             return $"{p.Name}\n" +
                    StringIfContainsAnyMembers(p.Categories, $"Categories: {p.CategoriesAsString}\n") +
                    StringIfContainsAnyMembers(p.GroupedCategories, $"Types: {p.GroupedCategoriesAsString}\n") +
-                   StringIfContainsAnyMembers(subs, $"Substitutes: {string.Join(", ", subs.ConvertAll(s => s.Name))}\n");
+                   (subs == null ? null : StringIfContainsAnyMembers(subs, $"Substitutes: {string.Join(", ", subs.ConvertAll(s => s.Name))}\n"));
         }
 
         public static string GetDescription(BoughtProduct bp)

@@ -152,18 +152,19 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)
         {
-            if(SelectedRecipeCategory == null) return;
+            if(SelectedRecipeCategory == null || _parent.Data.AllRecipes.IsNullOrEmpty()) return;
+
             _parent.SetPage(new MassEditElementsPage(
                 _parent,
                 "Evaluate All Recipes By Category",
                 $"Recipe Category: {SelectedRecipeCategory}",
-                pd => pd.AllRecipes.ConvertAll(r => (object) r),
+                $"Should the recipe contain the category {SelectedRecipeCategory.Name}?",
+                _parent.Data.AllRecipes.ConvertAll(r => (object) r),
                 o => 
                 {
                     var r = (Recipe) o;
                     return $"{FullItemDescriptor.GetDescription(r)}\n\n" +
-                           $"{(r.Categories.Contains(SelectedRecipeCategory) ? "Recipe already contains the category." : "Recipe does not contain the category.")}\n" +
-                           $"Should recipe {r.Name} contain the category {SelectedRecipeCategory.Name}?";
+                           $"{(r.Categories.Contains(SelectedRecipeCategory) ? "Recipe already contains the category." : "Recipe does not contain the category.")}\n";
                 },
 
                 o =>
@@ -181,18 +182,19 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EvaluateMissingProducts_OnClick(object sender, RoutedEventArgs e)
         {
-            if(SelectedProductCategory == null) return;
+            if(SelectedProductCategory == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
+
             _parent.SetPage(new MassEditElementsPage(
                 _parent,
                 "Evaluate All Products By Category",
                 $"Product Category: {SelectedProductCategory}",
-                pd => pd.AllProducts.ConvertAll(p => (object)p),
+                $"Should the product contain the category {SelectedProductCategory.Name}?",
+                _parent.Data.AllProducts.ConvertAll(p => (object)p),
                 o =>
                 {
                     var p = (Product) o;
                     return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
-                           $"{(p.Categories.Contains(SelectedProductCategory) ? "Product already contains the category." : "Product does not contain the category.")}\n" +
-                           $"Should product {p.Name} contain the category {SelectedProductCategory.Name}?";
+                           $"{(p.Categories.Contains(SelectedProductCategory) ? "Product already contains the category." : "Product does not contain the category.")}\n";
                 },
 
                 o =>

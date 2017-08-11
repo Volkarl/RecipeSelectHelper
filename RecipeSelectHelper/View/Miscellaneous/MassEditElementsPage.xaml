@@ -24,6 +24,7 @@
                 <Button Name="ButtonNo" Content="No" Click="ButtonNo_OnClick"></Button>
                 <Button Name="ButtonAbort" Content="Abort All (Do not save changes)" Click="ButtonAbort_OnClick"></Button>
             </UniformGrid>
+            <Label Margin="0,10,0,10" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Question}" Foreground="OrangeRed" Background="LightYellow" FontWeight="SemiBold" DockPanel.Dock="Bottom"></Label>
             <TextBlock Margin="1" Text="{Binding ItemDescription}" VerticalAlignment="Top" DockPanel.Dock="Top"></TextBlock>
         </DockPanel>
     </ScrollViewer>

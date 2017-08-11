@@ -32,19 +32,24 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private Action<object> _noIsClicked;
         private List<bool> _logOfAnswers;
 
-        public MassEditElementsPage(MainWindow parent, string title, string pageDescription, 
-            Func<ProgramData, IList<object>> findCollectionFunc, Func<object, string> createItemDescription, 
+        public MassEditElementsPage(MainWindow parent, string title, string pageDescription, string question,
+            List<object> itemsToEdit, Func<object, string> createItemDescription, 
             Action<object> yesIsClicked, Action<object> noIsClicked)
         {
             _parent = parent;
-            ItemsToEdit = findCollectionFunc(parent.Data);
-            _createItemDescription = createItemDescription;
-            _yesIsClicked = yesIsClicked;
-            _noIsClicked = noIsClicked;
-            PageTitle = title;
-            PageDescription = pageDescription;
-            ItemDescription = createItemDescription(GetNextObject());
-            _logOfAnswers = new List<bool>(ItemsToEdit.Count);
+
+            if (!itemsToEdit.IsNullOrEmpty()) // If empty, it'll initialize the page and then navigate back
+            {
+                ItemsToEdit = itemsToEdit ?? new List<object>();
+                _logOfAnswers = new List<bool>(ItemsToEdit.Count);
+                _createItemDescription = createItemDescription;
+                _yesIsClicked = yesIsClicked;
+                _noIsClicked = noIsClicked;
+                PageTitle = title;
+                PageDescription = pageDescription;
+                Question = question;
+                ItemDescription = createItemDescription(GetNextObject());
+            }
 
             Loaded += MassEditElementsBasePage_Loaded;
             InitializeComponent();
@@ -52,7 +57,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void MassEditElementsBasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            ButtonYes.Focus();
+            if(ItemsToEdit.IsNullOrEmpty()) ClosePage();
         }
 
         #region ObservableObjects
@@ -66,6 +71,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
         public string PageTitle { get; }
 
         public string PageDescription { get; }
+
+        public string Question { get; }
 
         public IList<object> ItemsToEdit { get; }
 
