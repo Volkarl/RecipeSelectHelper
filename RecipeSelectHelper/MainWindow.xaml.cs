@@ -23,6 +23,7 @@ using System.Windows.Shapes;
 using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.BoughtProducts;
+using RecipeSelectHelper.View.Miscellaneous;
 using AllCategoriesPage = RecipeSelectHelper.View.Categories.AllCategoriesPage;
 using AllRecipesPage = RecipeSelectHelper.View.Recipes.AllRecipesPage;
 using AllSortingMethodsPage = RecipeSelectHelper.View.SortingMethods.AllSortingMethodsPage;
@@ -48,6 +49,8 @@ namespace RecipeSelectHelper
 
         public ProgramData Data { get; set; }
         public bool SaveChangesOnExit = true;
+        private readonly List<string> _navigationHistory = new List<string>();
+        public string NavigationHistory => string.Join(" > ", _navigationHistory);
 
         public MainWindow()
         {
@@ -75,9 +78,49 @@ namespace RecipeSelectHelper
             return UtilityMethods.AddDefaultFileName(Settings.Default.DataDirectoryPath);
         }
 
-        public void SetPage(Page newpage)
+        public void SetPage(AddElementBasePage newpage)
         {
-            this.ContentControl.Content = newpage;
+            SetPage(newpage, newpage.ContentPageTitle);
+        }
+
+        public void SetPage(Page newpage, string title = null)
+        {
+            ContentControl.Content = newpage;
+            AddNavigationPath(title ?? newpage.Title);
+        }
+
+        public void NavigatePageBack()
+        {
+            if (ContentControl.NavigationService.CanGoBack)
+            {
+                ContentControl.NavigationService.GoBack();
+                RemovePreviousNavigationPath();
+            }
+        }
+
+        private void RemovePreviousNavigationPath()
+        {
+            _navigationHistory.RemoveAt(_navigationHistory.Count - 1);
+            OnPropertyChanged(nameof(NavigationHistory));
+        }
+
+        public void SetRootPage(Page newpage, Button buttonToHighlight)
+        {
+            ClearNavigationPath();
+            SetPage(newpage);
+            HighlightButtonBackground(buttonToHighlight);
+        }
+
+        private void AddNavigationPath(string path)
+        {
+            _navigationHistory.Add(path);
+            OnPropertyChanged(nameof(NavigationHistory));
+        }
+
+        private void ClearNavigationPath()
+        {
+            _navigationHistory.Clear();
+            OnPropertyChanged(nameof(NavigationHistory));
         }
 
         private void HighlightButtonBackground(Button button)
@@ -100,44 +143,37 @@ namespace RecipeSelectHelper
 
         private void Button_RankRecipes_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new RankingsViewPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new RankingsViewPage(this), sender as Button);
         }
 
         private void Button_FridgeIngredients_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllBoughtProductsPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new AllBoughtProductsPage(this), sender as Button);
         }
 
         private void Button_AllRecipes_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllRecipesPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new AllRecipesPage(this), sender as Button);
         }
 
         private void Button_AllStoreProducts_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllStoreProductsPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new AllStoreProductsPage(this), sender as Button);
         }
 
         private void Button_AllSortingMethods_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllSortingMethodsPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new AllSortingMethodsPage(this), sender as Button);
         }
 
         private void Button_AllCategories_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new AllCategoriesPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new AllCategoriesPage(this), sender as Button);
         }
 
         private void Button_Settings_Click(object sender, RoutedEventArgs e)
         {
-            SetPage(new SettingsPage(this));
-            HighlightButtonBackground(sender as Button);
+            SetRootPage(new SettingsPage(this), sender as Button);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

@@ -10,7 +10,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
     public partial class AddElementBasePage : Page
     {
         private IAddElement _content;
-        private string _title;
+        public string ContentPageTitle;
         private MainWindow _parent;
         private object _finalizeButtonContent;
 
@@ -21,7 +21,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         public AddElementBasePage(IAddElement content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")
         {
             _content = content;
-            _title = title;
+            ContentPageTitle = title;
             _parent = parent;
             _finalizeButtonContent = contentOfFinalizeButton;
 
@@ -39,17 +39,14 @@ namespace RecipeSelectHelper.View.Miscellaneous
                 this.Button_Add.Click += addItemPage.AddItem;
             }
 
-            this.TextBlock_PageTitle.Text = _title;
+            this.TextBlock_PageTitle.Text = ContentPageTitle;
             this.Button_Add.Content = _finalizeButtonContent;
             this.ContentControl_AddNewItem.Content = _content;
         }
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
-            if (_parent.ContentControl.NavigationService.CanGoBack)
-            {
-                _parent.ContentControl.NavigationService.GoBack();
-            }
+            _parent.NavigatePageBack();
         }
 
         private void Button_Add_Click(object sender, RoutedEventArgs e)

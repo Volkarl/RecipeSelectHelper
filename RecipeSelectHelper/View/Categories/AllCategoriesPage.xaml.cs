@@ -97,7 +97,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddProductCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
+            _parent.SetPage(new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent));
         }
 
         private void Button_EditProductCategory_Click(object sender, RoutedEventArgs e)

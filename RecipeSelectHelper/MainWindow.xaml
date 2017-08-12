@@ -48,7 +48,7 @@
         <Button Name="Button_Settings" Grid.Row="6" Click="Button_Settings_Click" Content="Settings"></Button>
 
         <DockPanel Grid.Column="1" Grid.RowSpan="7" Margin="10">
-            <!--<TextBlock Text="{Binding NavigationHistory, StringFormat=Hierarchy: {0}}" DockPanel.Dock="Top"></TextBlock>-->
+            <Label Background="AliceBlue" HorizontalContentAlignment="Left" Content="{Binding NavigationHistory}" DockPanel.Dock="Top"></Label>
             <Frame Name="ContentControl" NavigationUIVisibility="Hidden" DockPanel.Dock="Top"></Frame>
         </DockPanel>
     </Grid>
