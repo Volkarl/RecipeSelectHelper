@@ -51,6 +51,20 @@ namespace RecipeSelectHelper.Model
             }
         }
 
+        public ProgressInfo BpCompositionForAllIngredients
+        {
+            get
+            {
+                int amounts = 0, amountNeeded = 0;
+                foreach (Ingredient i in Ingredients)
+                {
+                    amounts += (int) i.AmountSatisfied;
+                    amountNeeded += (int) i.AmountNeeded;
+                }
+                return new ProgressInfo(amounts, amountNeeded, string.Empty);
+            }
+        }
+
         private Recipe() { }
 
         public Recipe(string name, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)

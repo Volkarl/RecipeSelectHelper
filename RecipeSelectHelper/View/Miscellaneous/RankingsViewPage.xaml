@@ -41,16 +41,22 @@
                         <StackPanel>
                             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                                 <StackPanel Margin="5">
-                                    <TextBlock HorizontalAlignment="Left" Text="View Which Bought Products To Cook With"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Text="View which bought products to cook with"></TextBlock>
                                     <Expander>
-                                        <ContentControl Content="{Binding CorrespondingRecipe.Ingredients}" ContentTemplate="{StaticResource ViewIngredientBpComposition}"></ContentControl>
+                                        <Expander.Header>
+                                            <DockPanel>
+                                                <TextBlock DockPanel.Dock="Left" Text="Ingredients: "></TextBlock>
+                                                <ContentPresenter Content="{Binding CorrespondingRecipe.BpCompositionForAllIngredients}" ContentTemplate="{StaticResource DataTemplateViewProgressBar}"></ContentPresenter>
+                                            </DockPanel>
+                                        </Expander.Header>
+                                        <ItemsControl ItemsSource="{Binding CorrespondingRecipe.Ingredients}" ItemTemplate="{StaticResource ViewIngredientBpComposition}"></ItemsControl>
                                     </Expander>
                                 </StackPanel>
                             </Border>
 
                             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                                 <StackPanel Margin="5">
-                                    <TextBlock HorizontalAlignment="Left" Text="View Value Details"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Text="View value details"></TextBlock>
                                     <ContentControl Content="{Binding CorrespondingRecipe}" ContentTemplate="{StaticResource DataTemplateRecipeDetailView}"></ContentControl>
                                 </StackPanel>
                             </Border>

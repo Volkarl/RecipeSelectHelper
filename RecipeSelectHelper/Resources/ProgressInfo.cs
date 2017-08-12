@@ -16,7 +16,7 @@ namespace RecipeSelectHelper.Resources
         // public int MaximumNeverZero => _totalValue == 0 && Value == 0 ? 1 : _totalValue;
         // To avoid having fully filled progress bars whenever our values are 0/0
         
-        public int PercentageCompletion => (Value / MaximumNeverZero) * 100;
+        public int PercentageCompletion => (int)((Value / (double) MaximumNeverZero) * 100);
 
         public ProgressInfo(int value, int maxValue, string description = null)
         {

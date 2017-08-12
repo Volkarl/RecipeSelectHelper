@@ -289,7 +289,36 @@
     </DataTemplate>-->
 
 
-    <DataTemplate x:Key="DataTemplateViewProgressInfo" DataType="local:ProgressInfo">
+    <DataTemplate x:Key="DataTemplateViewProgressBar" DataType="local:ProgressInfo">
+        <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
+                               OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}"
+                               OuterValue="{Binding Value, Mode=OneWay}">
+            <local:TextProgressBar.OuterText>
+                <MultiBinding StringFormat="{}{0} %   {1} / {2}">
+                    <Binding Path="PercentageCompletion"></Binding>
+                    <Binding Path="Value"></Binding>
+                    <Binding Path="Maximum"></Binding>
+                </MultiBinding>
+            </local:TextProgressBar.OuterText>
+        </local:TextProgressBar>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateViewProgressInfoHorizontally" DataType="local:ProgressInfo">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
+            <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Right">
+                <local:TextProgressBar.OuterText>
+                    <MultiBinding StringFormat="{}{0} %   {1} / {2}">
+                        <Binding Path="PercentageCompletion"></Binding>
+                        <Binding Path="Value"></Binding>
+                        <Binding Path="Maximum"></Binding>
+                    </MultiBinding>
+                </local:TextProgressBar.OuterText>
+            </local:TextProgressBar>
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DataTemplateViewProgressInfoVertically" DataType="local:ProgressInfo">
         <DockPanel Background="AliceBlue">
             <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Top">
                 <local:TextProgressBar.OuterText>
@@ -300,7 +329,7 @@
                     </MultiBinding>
                 </local:TextProgressBar.OuterText>
             </local:TextProgressBar>
-            <TextBlock HorizontalAlignment="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
+            <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
         </DockPanel>
     </DataTemplate>
 
@@ -316,7 +345,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -333,7 +362,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -350,7 +379,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
             </StackPanel>
         </Expander>
@@ -368,7 +397,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ContentControl Visibility="{Binding CorrespondingProduct, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ContentTemplate="{StaticResource DataTemplateProductDetailView}" Content="{Binding CorrespondingProduct}"></ContentControl>
             </StackPanel>
         </Expander>
@@ -386,7 +415,7 @@
                 </TextBlock>
             </Expander.Header>
             <StackPanel>
-                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
+                <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
                 <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
             </StackPanel>
@@ -395,33 +424,24 @@
 
     <DataTemplate x:Key="ViewIngredientBpComposition" DataType="model:Ingredient">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding CorrespondingProduct.Name, StringFormat={}{0}: }" Background="LightBlue" DockPanel.Dock="Left" Margin="0,0,10,0"></TextBlock>
+                    <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
+                                           OuterMaximum="{Binding AmountNeeded, Mode=OneWay}"
+                                           OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
+                        <local:TextProgressBar.OuterText>
+                            <MultiBinding StringFormat="{}{0} %   {1} / {2}">
+                                <Binding Path="PercentageOfTotalIngredientsGathered"></Binding>
+                                <Binding Path="AmountSatisfied"></Binding>
+                                <Binding Path="AmountNeeded"></Binding>
+                            </MultiBinding>
+                        </local:TextProgressBar.OuterText>
+                    </local:TextProgressBar>
+                </DockPanel>
 
-            <TextBlock Text="{Binding CorrespondingProduct.Name}" Background="LightBlue"></TextBlock>
-            <Label HorizontalContentAlignment="Left" Content="Owned Ingredient Amount: " Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10"
-                                   OuterMaximum="{Binding AmountNeeded, Mode=OneWay}" Grid.Row="2" Grid.Column="2"
-                                   OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
-                <local:TextProgressBar.OuterText>
-                    <MultiBinding StringFormat="{}{0} %   {1} / {2}">
-                        <Binding Path="PercentageOfTotalIngredientsGathered"></Binding>
-                        <Binding Path="AmountSatisfied"></Binding>
-                        <Binding Path="AmountNeeded"></Binding>
-                    </MultiBinding>
-                </local:TextProgressBar.OuterText>
-            </local:TextProgressBar>
-
-            <ItemsControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfo}"></ItemsControl>
+                <ItemsControl Margin="10,0,0,0" Background="PaleGreen" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoHorizontally}"></ItemsControl>
+            </StackPanel>
         </Grid>
     </DataTemplate>
 
