@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       Title="RankingsViewPage"
@@ -34,7 +35,7 @@
             <ColumnDefinition Width="0"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" CanContentScroll="True" PreviewMouseWheel="ScrollViewer_MouseWheelScrolling">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" CanContentScroll="True">
             <custom:ExtendedListView x:Name="ListView_Recipes" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" Tag="CorrespondingRecipe.Name">
                 <ListView.Resources>
                     <DataTemplate x:Key="ViewRecipeValueDetails" DataType="custom:RecipeWithPercentageScore">
@@ -76,6 +77,9 @@
                         <GridViewColumn Header="Score %" Width="Auto" DisplayMemberBinding="{Binding PercentageValue}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <i:Interaction.Behaviors>
+                    <custom:IgnoreMouseWheelBehavior />
+                </i:Interaction.Behaviors>
             </custom:ExtendedListView>
         </ScrollViewer>
         <DockPanel Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Background="LightGray">

@@ -114,8 +114,5 @@ namespace RecipeSelectHelper.View.Miscellaneous
                 ProgressBar_Sorting.OuterText = e + " %";
             }
         }
-
-        private void ScrollViewer_MouseWheelScrolling(object sender, MouseWheelEventArgs e) => 
-            CsharpResources.ScrollViewer_MouseWheelScrolling(sender, e);
     }
 }
