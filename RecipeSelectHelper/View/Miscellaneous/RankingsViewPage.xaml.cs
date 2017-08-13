@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
@@ -95,8 +96,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             // Use recipe values to assign percentage scores to the recipes.
             List<Recipe> allRecipes = _parent.Data.AllRecipes;
             int maxValue = allRecipes.Max(x => x.Value);
-            var withPercentageScores = new ObservableCollection<RecipeWithPercentageScore>(); //Simplify using: Recipe.ConvertTo lambda
-            foreach (Recipe recipe in allRecipes) withPercentageScores.Add(new RecipeWithPercentageScore(recipe, maxValue));
+            var withPercentageScores = new ObservableCollection<RecipeWithPercentageScore>(allRecipes.ConvertAll(r => new RecipeWithPercentageScore(r, maxValue))); 
             Recipes = new ObservableCollection<RecipeWithPercentageScore>(withPercentageScores.OrderBy(x => x.PercentageValue).Reverse());
             MessageBox.Show("Successfully Sorted");
         }
@@ -114,5 +114,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
                 ProgressBar_Sorting.OuterText = e + " %";
             }
         }
+
+        private void ScrollViewer_MouseWheelScrolling(object sender, MouseWheelEventArgs e) => 
+            CsharpResources.ScrollViewer_MouseWheelScrolling(sender, e);
     }
 }
