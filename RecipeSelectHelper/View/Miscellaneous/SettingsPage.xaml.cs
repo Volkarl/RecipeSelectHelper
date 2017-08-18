@@ -60,7 +60,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         //todo delete this when done testing
         private ObservableCollection<Recipe> _recipes = new ObservableCollection<Recipe>
         {
-            new Recipe("Tomato Juice", "Dont drink, danger!", "Mash tomatoes, then throw in the trash.", 
+            new Recipe("Tomato Juice", 1, "Dont drink, danger!", "Mash tomatoes, then throw in the trash.", 
                 new List<Ingredient>
                 {
                     new Ingredient(10, new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")})),
@@ -136,7 +136,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             {
                 rcList.Add(_parent.Data.AllRecipeCategories[rand.Next(0, _parent.Data.AllRecipeCategories.Count)]);
             }
-            var r = new Recipe("Recipe" + _rClicks++, "Lorem", "Ipsum", iList, rcList);
+            var r = new Recipe("Recipe" + _rClicks++, 1, "Lorem", "Ipsum", iList, rcList);
             _parent.Data.AllRecipes.Add(r);
         }
 

@@ -77,9 +77,10 @@ namespace RecipeSelectHelper.Tests.UnitTests
             }
 
             int i = 0;
-            recipes.Add(new Recipe("RLowComplexity", "D" + i, "I" + i++));
-            recipes.Add(new Recipe("RMediumComplexity", "D" + i, "I" + i++, categories:recipeCategories));
-            recipes.Add(new Recipe("RHighComplexity", "D" + i, "I" + i, ingredients, recipeCategories));
+            int servings = 1;
+            recipes.Add(new Recipe("RLowComplexity", servings, "D" + i, "I" + i++));
+            recipes.Add(new Recipe("RMediumComplexity", servings, "D" + i, "I" + i++, categories:recipeCategories));
+            recipes.Add(new Recipe("RHighComplexity", servings, "D" + i, "I" + i, ingredients, recipeCategories));
 
             return recipes;
         }

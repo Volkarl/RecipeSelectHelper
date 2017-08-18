@@ -67,6 +67,8 @@ namespace RecipeSelectHelper.View.BoughtProducts
 
         #endregion
 
+        public event EventHandler<bool> ItemSuccessfullyAdded;
+
         private void AddBoughtProductPage_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeObservableObjects();
@@ -81,12 +83,13 @@ namespace RecipeSelectHelper.View.BoughtProducts
                 BoughtProduct bp = new BoughtProduct(SelectedStoreProduct, uint.Parse(IntegerTextBoxAmountBought.Text), ProductExpiration.Bool ? ProductExpiration.Instance : new ExpirationInfo());
                 _parent.Data.AllBoughtProducts.Add(bp);
                 ClearUiElements();
+                ItemSuccessfullyAdded?.Invoke(this, true);
             }
             catch (Exception ex)
             {
+                ItemSuccessfullyAdded?.Invoke(this, false);
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("Success");
         }
 
         private void ClearUiElements()

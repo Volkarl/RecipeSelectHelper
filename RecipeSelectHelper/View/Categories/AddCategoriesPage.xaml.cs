@@ -59,6 +59,8 @@ namespace RecipeSelectHelper.View.Categories
 
         #endregion
 
+        public event EventHandler<bool> ItemSuccessfullyAdded;
+
         public void AddItem(object sender, RoutedEventArgs e)
         {
             if (_mode == CategoryMode.ProductCategory)
@@ -71,6 +73,7 @@ namespace RecipeSelectHelper.View.Categories
             }
             // Add error handling in the ctor of recipe and product category. For instance, null and string.empty is not allowed.
 
+            ItemSuccessfullyAdded?.Invoke(this, true);
             ClearUiElements();
             TextBox_CategoryName.Focus();
         }

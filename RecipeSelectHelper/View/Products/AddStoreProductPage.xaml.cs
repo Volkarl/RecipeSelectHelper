@@ -76,6 +76,8 @@ namespace RecipeSelectHelper.View.Products
 
         #endregion
 
+        public event EventHandler<bool> ItemSuccessfullyAdded;
+
         private void AddStoreProductPage_Loaded(object sender, RoutedEventArgs e)
         {
             _valid = new ValidityChecker(_parent.Data);
@@ -94,6 +96,7 @@ namespace RecipeSelectHelper.View.Products
             TextBox_ProductName.Focus();
         }
 
+
         public void AddItem(object sender, RoutedEventArgs e)
         {
             List<ProductCategory> categories = new List<ProductCategory>();
@@ -110,11 +113,19 @@ namespace RecipeSelectHelper.View.Products
 
             List<GroupedProductCategory> groupedProductCategories = GroupedProductCategories.ToList();
 
-            var product = new Product(TextBox_ProductName.Text, categories, groupedProductCategories);
-            _parent.Data.AllProducts.Add(product);
-            _parent.Data.ProductSubstitutes.AddSubstitutes(product, substituteProducts);
-            
-            ClearUI();
+            try
+            {
+                var product = new Product(TextBox_ProductName.Text, categories, groupedProductCategories);
+                _parent.Data.AllProducts.Add(product);
+                _parent.Data.ProductSubstitutes.AddSubstitutes(product, substituteProducts);
+                ClearUI();
+                ItemSuccessfullyAdded?.Invoke(this, true);
+            }
+            catch (Exception ex)
+            {
+                ItemSuccessfullyAdded?.Invoke(this, false);
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ClearUI()

@@ -141,24 +141,25 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         private static List<Recipe> GenR(List<RecipeCategory> rc = null, List<Product> products = null)
         {
             List<Recipe> recipes;
+            int servings = 1;
             
             if(rc != null && products != null) recipes = new List<Recipe>
             {
-                new Recipe("rec0", categories:rc[0].ToSingleItemList(), ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
-                new Recipe("rec1", categories:rc[1].ToSingleItemList(), ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
-                new Recipe("rec2", categories:rc[2].ToSingleItemList(), ingredients:new Ingredient(2, products[2]).ToSingleItemList())
+                new Recipe("rec0", servings, categories:rc[0].ToSingleItemList(), ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
+                new Recipe("rec1", servings, categories:rc[1].ToSingleItemList(), ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
+                new Recipe("rec2", servings, categories:rc[2].ToSingleItemList(), ingredients:new Ingredient(2, products[2]).ToSingleItemList())
             };
             else if(rc != null) recipes = new List<Recipe>
             {
-                new Recipe("rec0", categories:rc[0].ToSingleItemList()),
-                new Recipe("rec1", categories:rc[1].ToSingleItemList()),
-                new Recipe("rec2", categories:rc[2].ToSingleItemList())
+                new Recipe("rec0", servings, categories:rc[0].ToSingleItemList()),
+                new Recipe("rec1", servings, categories:rc[1].ToSingleItemList()),
+                new Recipe("rec2", servings, categories:rc[2].ToSingleItemList())
             };
             else if (products != null)recipes = new List<Recipe>
             {
-                new Recipe("rec0", ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
-                new Recipe("rec1", ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
-                new Recipe("rec2", ingredients:new Ingredient(2, products[2]).ToSingleItemList())
+                new Recipe("rec0", servings, ingredients:new Ingredient(0, products[0]).ToSingleItemList()),
+                new Recipe("rec1", servings, ingredients:new Ingredient(1, products[1]).ToSingleItemList()),
+                new Recipe("rec2", servings, ingredients:new Ingredient(2, products[2]).ToSingleItemList())
             };
             else recipes = new List<Recipe> { new Recipe("rec0"), new Recipe("rec1"), new Recipe("rec2") };
 

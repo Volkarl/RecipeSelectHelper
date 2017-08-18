@@ -84,6 +84,8 @@ namespace RecipeSelectHelper.View.Categories
         }
         #endregion
 
+        public event EventHandler<bool> ItemSuccessfullyAdded;
+
         public void AddItem(object sender, RoutedEventArgs e)
         {
             var categories = new List<ProductCategory>();
@@ -98,9 +100,11 @@ namespace RecipeSelectHelper.View.Categories
                 var selection = new GroupedSelection<ProductCategory>(categories, MinSelectionAmount, MaxSelectionAmount);
                 _parent.Data.AllGroupedProductCategories.Add(selection);
                 ClearPage();
+                ItemSuccessfullyAdded?.Invoke(this, true);
             }
             catch (Exception ex)
             {
+                ItemSuccessfullyAdded?.Invoke(this, false);
                 MessageBox.Show(ex.Message);
             }
         }

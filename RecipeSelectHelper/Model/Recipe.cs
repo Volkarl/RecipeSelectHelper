@@ -18,6 +18,8 @@ namespace RecipeSelectHelper.Model
         public string Description { get; set; }
         [DataMember]
         public string Instruction { get; set; }
+        [DataMember]
+        public int Servings { get; set; }
 
         public int Value { get; private set; }
 
@@ -67,11 +69,12 @@ namespace RecipeSelectHelper.Model
 
         private Recipe() { }
 
-        public Recipe(string name, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
+        public Recipe(string name, int servings = 1, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
         {
             this.Name = name;
             this.Description = description ?? String.Empty;
             this.Instruction = instruction ?? String.Empty;
+            this.Servings = servings;
             this.Ingredients = ingredients ?? new List<Ingredient>();
             this.Categories = categories ?? new List<RecipeCategory>();
             this.GroupedCategories = groupedCategories ?? new List<GroupedRecipeCategory>();

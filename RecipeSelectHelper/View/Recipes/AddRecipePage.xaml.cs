@@ -39,6 +39,14 @@ namespace RecipeSelectHelper.View.Recipes
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public string RecipeName { get; set; }
+
+        public string RecipeDescription { get; set; }
+
+        public string RecipeInstruction { get; set; }
+
+        public int RecipeServings { get; set; } = 1;
+
         private bool? _recipeNameValid;
         public bool? RecipeNameValid
         {
@@ -63,6 +71,7 @@ namespace RecipeSelectHelper.View.Recipes
         }
 
         private ObservableCollection<BoolableWithValue<Product, int>> _ingredients;
+
         public ObservableCollection<BoolableWithValue<Product, int>> Ingredients
         {
             get { return _ingredients; }
@@ -70,6 +79,8 @@ namespace RecipeSelectHelper.View.Recipes
         }
 
         #endregion
+
+        public event EventHandler<bool> ItemSuccessfullyAdded;
 
         private void AddRecipePage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -143,16 +154,15 @@ namespace RecipeSelectHelper.View.Recipes
 
         public void AddItem(object sender, RoutedEventArgs e)
         {
-            string name = TextBox_RecipeName.Text;
-            string description = TextBox_RecipeDescription.Text;
-            string instruction = TextBox_RecipeInstruction.Text;
             List<GroupedRecipeCategory> groupedRc = GroupedRecipeCategories.ToList();
             List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance);
             List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(Convert.ToUInt32(y.Value), y.Instance));
 
-            var recipe = new Recipe(name, description, instruction, ingredients, categories, groupedRc);
+            var recipe = new Recipe(RecipeName, RecipeServings, RecipeDescription, RecipeInstruction, ingredients, categories, groupedRc);
             List<string> errors;
-            if (_valid.RecipeIsValid(recipe, out errors))
+            bool success = _valid.RecipeIsValid(recipe, out errors);
+            ItemSuccessfullyAdded?.Invoke(this, success);
+            if (success)
             {
                 _parent.Data.AllRecipes.Add(recipe);
                 ClearUiElements();

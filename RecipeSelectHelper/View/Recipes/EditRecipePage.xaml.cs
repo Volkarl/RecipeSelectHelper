@@ -12,6 +12,7 @@ namespace RecipeSelectHelper.View.Recipes
     public partial class EditRecipePage : Page, IAddElement //rename the interface and its method
     {
         private Recipe _recipeToEdit;
+        public event EventHandler<bool> ItemSuccessfullyAdded;
 
         public EditRecipePage(Recipe recipeToEdit)
         {
@@ -25,6 +26,7 @@ namespace RecipeSelectHelper.View.Recipes
             throw new NotImplementedException();
             // Same as from addstoreproductpage
         }
+
 
         public void AddItem(object sender, RoutedEventArgs e)
         {

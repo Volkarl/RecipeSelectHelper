@@ -15,17 +15,17 @@
         <StackPanel>
             <DockPanel Margin="1">
                 <Label Content="Recipe Name: " Height="30" Width="125"></Label>
-                <TextBox Name="TextBox_RecipeName" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding RecipeNameValid}" LostFocus="RecipeNameChanged" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
+                <TextBox Name="TextBox_RecipeName" Text="{Binding RecipeName}" Style="{StaticResource StyleBorderColorOnBool}" Tag="{Binding RecipeNameValid}" LostFocus="RecipeNameChanged" Height="30" VerticalContentAlignment="Center" DockPanel.Dock="Left"></TextBox>
             </DockPanel>
 
             <DockPanel Margin="1">
                 <Label Content="Recipe Description: " Height="30" Width="125"></Label>
-                <TextBox Name="TextBox_RecipeDescription" Height="30" VerticalContentAlignment="Center"></TextBox>
+                <TextBox Name="TextBox_RecipeDescription" Text="{Binding RecipeDescription}" Height="30" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
 
             <DockPanel Margin="1">
-                <Label Content="Cooking Instructions: " Height="30" Width="125"></Label>
-                <TextBox Name="TextBox_RecipeInstruction" Height="30" VerticalContentAlignment="Center"></TextBox>
+                <Label Content="Amount of Servings: " Height="30" Width="125"></Label>
+                <resources:IntegerTextBox Text="{Binding RecipeServings}" Height="30" VerticalContentAlignment="Center"></resources:IntegerTextBox>
             </DockPanel>
 
             <DockPanel Name="DockPanel_GroupedCategories" Margin="1">
@@ -89,6 +89,11 @@
                         <Button Name="Button_AddIngredient2" Content="Add New Ingredient..." Height="30" Click="Button_AddIngredient_Click"></Button>
                     </StackPanel>
                 </Expander>
+            </DockPanel>
+
+            <DockPanel Margin="1">
+                <Label Content="Cooking Instructions: " Height="30" Width="125"></Label>
+                <TextBox Name="TextBox_RecipeInstruction" Text="{Binding RecipeInstruction}" Height="30" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
 
         </StackPanel>

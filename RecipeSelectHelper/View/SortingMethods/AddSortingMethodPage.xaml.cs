@@ -49,6 +49,8 @@ namespace RecipeSelectHelper.View.SortingMethods
         {
         }
 
+        public event EventHandler<bool> ItemSuccessfullyAdded;
+
         #region ObservableObjects
 
         private ObservableCollection<string> _pref1Settings;
@@ -325,9 +327,11 @@ namespace RecipeSelectHelper.View.SortingMethods
                 var sm = new SortingMethod(TextBox_SortingMethodName.Text, SelectedPreferences.ToList());
                 _parent.Data.AllSortingMethods.Add(sm);
                 ClearUI();
+                ItemSuccessfullyAdded?.Invoke(this, true);
             }
             catch (ArgumentException ex)
             {
+                ItemSuccessfullyAdded?.Invoke(this, false);
                 ErrorReporter.EmptyRequiredProperty(ex.Message);
             }
         }
