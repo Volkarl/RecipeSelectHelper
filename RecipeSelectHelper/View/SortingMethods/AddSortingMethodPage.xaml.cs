@@ -131,29 +131,29 @@ namespace RecipeSelectHelper.View.SortingMethods
                     ui1 = new DockPanelWithLabel("If product is: ",
                         CreateComboBoxToDisplayName(_parent.Data.AllProductCategories));
                     ui2 = new DockPanelWithLabel("Then add value: ", 
-                        new PositiveIntegerTextBox());
+                        new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByRecipeCategory:
                     ui1 = new DockPanelWithLabel("If recipe is: ",
                         CreateComboBoxToDisplayName(_parent.Data.AllRecipeCategories));
                     ui2 = new DockPanelWithLabel("Then add value: ", 
-                        new PositiveIntegerTextBox());
+                        new IntegerTextBox());
                     break;
                 case PreferenceTopic.BySpecificIngredients:
                     ui1 = new DockPanelWithLabel("If recipe contains ingredient: ", 
                         CreateComboBoxToDisplayName(_parent.Data.AllProducts));
                     ui2 = new DockPanelWithLabel("Then add value: ", 
-                        new PositiveIntegerTextBox());
+                        new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByIngredientsOwned:
                     ui1 = new Label {Content = "If recipe contains any ingredient from fridge", Height = 30};
                     ui2 = new DockPanelWithLabel("Then add value: ", 
-                        new PositiveIntegerTextBox());
+                        new IntegerTextBox());
                     break;
                 case PreferenceTopic.ByExpirationDate:
                     ui1 = new TextBlock {Text = "By default: assigns value between 0 and ≈ 120 to products from fridge depending on how close they are to expiration.", Height = 30, TextWrapping = TextWrapping.Wrap};
                     ui2 = new DockPanelWithLabel("Multiply this value by: ",
-                        new PositiveIntegerTextBox());
+                        new IntegerTextBox());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -261,13 +261,13 @@ namespace RecipeSelectHelper.View.SortingMethods
         private bool UnpackValues(out int value, StackPanel stackPanel) // My naming scheme here is completely off the chain -.-
         {
             var dp = stackPanel.Children[2] as DockPanelWithLabel;
-            var itxt = dp.SecondElement as PositiveIntegerTextBox;
+            var itxt = dp.SecondElement as IntegerTextBox;
             return int.TryParse(itxt.Text, out value);
         }
 
         private bool GetValuesFromUI(out int value, StackPanel stackPanel, int integerTextBoxIndex)
         {
-            var itxt = stackPanel.Children[integerTextBoxIndex] as PositiveIntegerTextBox;
+            var itxt = stackPanel.Children[integerTextBoxIndex] as IntegerTextBox;
             return int.TryParse(itxt.Text, out value);
         }
 
@@ -277,7 +277,7 @@ namespace RecipeSelectHelper.View.SortingMethods
             var cbx = dp.SecondElement as ComboBox;
             selectedItem = cbx.SelectedValue as T;
             var dp2 = stackPanel.Children[2] as DockPanelWithLabel;
-            var itxt = dp2.SecondElement as PositiveIntegerTextBox;
+            var itxt = dp2.SecondElement as IntegerTextBox;
             return int.TryParse(itxt.Text, out value);   //what happens if its empty? Will it raise an exception regardless?
         }
 
