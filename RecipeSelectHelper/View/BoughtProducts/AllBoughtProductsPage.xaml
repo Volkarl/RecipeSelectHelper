@@ -76,7 +76,6 @@
                         <GridViewColumn Header="Amount" Width="Auto" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
                         <GridViewColumn Header="Manifactured" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductCreatedTime, StringFormat={}{0:MM/dd/yy}}"></GridViewColumn>
                         <GridViewColumn Header="Expiration" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductExpirationTime, StringFormat={}{0:MM/dd/yy}}"></GridViewColumn>
-                        <GridViewColumn Header="OwnValue" Width="Auto" DisplayMemberBinding="{Binding OwnValue.GetValue}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </custom:FilterableListView>
