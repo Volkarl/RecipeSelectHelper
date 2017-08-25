@@ -12,6 +12,7 @@ namespace RecipeSelectHelper.Resources
         public static string GetDescription(Recipe r)
         {
             return $"Name: {r.Name}\n" +
+                   $"Servings: {r.Servings}\n" +
                    StringIfContainsAnyMembers(r.Categories, $"Categories: {r.CategoriesAsString}\n") +
                    StringIfContainsAnyMembers(r.GroupedCategories, $"Types: {r.GroupedCategoriesAsString}\n") +
                    $"Description: {r.Description}\n" +
