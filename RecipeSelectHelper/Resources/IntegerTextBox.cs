@@ -7,15 +7,15 @@ using System.Windows.Controls;
 
 namespace RecipeSelectHelper.Resources
 {
-    public class IntegerTextBox : PositiveIntegerTextBox
+    public class IntegerTextBox : LimitedInputTextBox
     {
-        protected override void OnTextChanged(TextChangedEventArgs e)
-        {
-            bool isNegative = Text.FirstOrDefault() == '-';
-            base.OnTextChanged(e);
-            Text = '-' + Text;
+        public IntegerTextBox() : base(AllowPositiveAndNegativeIntegers) { }
 
-            // TODO UNTESTED!
+        private static string AllowPositiveAndNegativeIntegers(string str)
+        {
+            string minus = str.FirstOrDefault() == '-' ? "-" : "";
+            string rest = new string(str.Where(Char.IsDigit).ToArray());
+            return minus + rest;
         }
     }
 }
