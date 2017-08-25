@@ -267,5 +267,10 @@ namespace RecipeSelectHelper.View.Miscellaneous
             var result = browser.ShowDialog();
             if (result == DialogResult.OK) SaveFilePath = browser.SelectedPath;
         }
+
+        private void ButtonSaveChanges_OnClick(object sender, RoutedEventArgs e)
+        {
+            _parent.SaveChanges();
+        }
     }
 }

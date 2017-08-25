@@ -80,6 +80,7 @@
             </Expander>
         </StackPanel>
         
-        <Button Grid.Row="1" Grid.Column="1" Name="ButtonExitWithoutSaving" Click="ButtonExitWithoutSaving_OnClick" Content="Exit Application Without Saving" ToolTip="Per default, the application saves changes when it is closed. Click here if you do not wish to preserve changes at this time."></Button>
+        <Button Grid.Row="1" Name="ButtonSaveChanges" Content="Save Changes" Click="ButtonSaveChanges_OnClick" ToolTip="Per default, data is always saved when exiting by pressing the red cross."></Button>
+        <Button Grid.Row="1" Background="IndianRed" Grid.Column="1" Name="ButtonExitWithoutSaving" Click="ButtonExitWithoutSaving_OnClick" Content="Exit Application Without Saving" ToolTip="Per default, the application saves changes when it is closed. Click here if you do not wish to preserve changes at this time."></Button>
     </Grid>
 </Page>

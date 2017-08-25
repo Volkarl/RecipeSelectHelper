@@ -176,9 +176,8 @@ namespace RecipeSelectHelper
             SetRootPage(new SettingsPage(this), sender as Button);
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        public void SaveChanges()
         {
-            if(!SaveChangesOnExit) return;
             string path = UtilityMethods.AddDefaultFileName(Settings.Default.DataDirectoryPath);
             Settings.Default.Save();
             try
@@ -191,6 +190,24 @@ namespace RecipeSelectHelper
                 XmlDataHandler.SaveToXml(defaultPath, Data);
                 MessageBox.Show("Invalid save path: data instead saved at " + defaultPath, ex.Message);
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if(SaveChangesOnExit) SaveChanges();
+            //if (!SaveChangesOnExit) return;
+
+            //try
+            //{
+            //    SaveChanges();
+            //}
+            //catch (Exception)
+            //{
+            //    var result = MessageBox.Show(this, "Error occured while saving changes: continue closing the program?",
+            //        "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+
+            //    e.Cancel = (result == MessageBoxResult.No);
+            //}
         }
     }
 }
