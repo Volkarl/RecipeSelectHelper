@@ -72,6 +72,7 @@
     <Compile Include="Resources\Boolable.cs" />
     <Compile Include="Resources\BoolableWithValue.cs" />
     <Compile Include="Resources\BpValue.cs" />
+    <Compile Include="Resources\ConcreteTypesForXaml\StringList.cs" />
     <Compile Include="Resources\FullItemDescriptor.cs" />
     <Compile Include="Resources\ProgressInfo.cs" />
     <Compile Include="Resources\ErrorReporter.cs" />
@@ -106,6 +107,9 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
+    <Compile Include="Resources\StringListDisplay.xaml.cs">
+      <DependentUpon>StringListDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\SubstituteRelationsDictionary.cs" />
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
     <Compile Include="Resources\TextProgressBar.xaml.cs">
@@ -220,6 +224,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Page Include="Resources\StandardStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\StringListDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -350,7 +358,6 @@
     <Resource Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\ConcreteTypesForXaml\" />
     <Folder Include="Resources\Converters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

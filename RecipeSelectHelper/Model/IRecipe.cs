@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Model
 {
@@ -7,8 +8,7 @@ namespace RecipeSelectHelper.Model
     {
         string Name { get; set; }
         string Description { get; set; }
-        string Instruction { get; set; }
-        //int ID { get; }             //Remove?
+        StringList Instructions { get; set; }
         int Value { get; }
         ValueInformation OwnValue { get; }
         List<Ingredient> Ingredients { get; set; }

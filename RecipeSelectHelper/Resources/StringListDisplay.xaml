@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="RecipeSelectHelper.Resources.StringListDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="{Binding Title}" Visibility="{Binding Title, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ></TextBlock>
+            <ItemsControl ItemsSource="{Binding StringList.NumberedStrings}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Name="ButtonAdd" Content="Add Instruction" Background="LightGreen" Click="ButtonAdd_OnClick"></Button>
+            <UniformGrid Rows="1">
+                <Button Name="ButtonUp" Content="Up" Click="ButtonUp_OnClick"></Button>
+                <Button Name="ButtonDown" Content="Down" Click="ButtonDown_OnClick"></Button>
+                <Button Name="ButtonEdit" Content="Edit" Click="ButtonEdit_OnClick"></Button>
+                <Button Name="ButtonRemove" Content="Remove" Background="IndianRed" Click="ButtonRemove_OnClick"></Button>
+            </UniformGrid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Forms;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Forms.Clipboard;
 using MessageBox = System.Windows.MessageBox;
@@ -60,7 +62,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         //todo delete this when done testing
         private ObservableCollection<Recipe> _recipes = new ObservableCollection<Recipe>
         {
-            new Recipe("Tomato Juice", 1, "Dont drink, danger!", "Mash tomatoes, then throw in the trash.", 
+            new Recipe("Tomato Juice", 1, "Dont drink, danger!", new StringList("Mash tomatoes", "Throw in the trash"), 
                 new List<Ingredient>
                 {
                     new Ingredient(10, new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")})),
@@ -136,7 +138,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             {
                 rcList.Add(_parent.Data.AllRecipeCategories[rand.Next(0, _parent.Data.AllRecipeCategories.Count)]);
             }
-            var r = new Recipe("Recipe" + _rClicks++, 1, "Lorem", "Ipsum", iList, rcList);
+            var r = new Recipe("Recipe" + _rClicks++, 1, "Lorem", new StringList("Ipsum"), iList, rcList);
             _parent.Data.AllRecipes.Add(r);
         }
 

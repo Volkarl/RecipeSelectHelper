@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -22,7 +23,7 @@ namespace RecipeSelectHelper.Resources
             int i = 0;
             if (RecipeNameIsValid(recipe.Name) &&
                 DescriptionIsValid(recipe.Description, out errorArray[i++]) &&
-                InstructionIsValid(recipe.Instruction, out errorArray[i++]) &&
+                InstructionIsValid(recipe.Instructions, out errorArray[i++]) &&
                 GroupedRcAreValid(recipe.GroupedCategories, out errorArray[i++]) &&
                 CategoriesAreValid(recipe.Categories, out errorArray[i++]) &&
                 IngredientsAreValid(recipe.Ingredients, out errorArray[i]))
@@ -53,7 +54,7 @@ namespace RecipeSelectHelper.Resources
             throw new NotImplementedException();
         }
 
-        public bool InstructionIsValid(string name, out string error)
+        public bool InstructionIsValid(StringList name, out string error)
         {
             error = String.Empty;
             return true;

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Tests.UnitTests
 {
@@ -78,9 +79,9 @@ namespace RecipeSelectHelper.Tests.UnitTests
 
             int i = 0;
             int servings = 1;
-            recipes.Add(new Recipe("RLowComplexity", servings, "D" + i, "I" + i++));
-            recipes.Add(new Recipe("RMediumComplexity", servings, "D" + i, "I" + i++, categories:recipeCategories));
-            recipes.Add(new Recipe("RHighComplexity", servings, "D" + i, "I" + i, ingredients, recipeCategories));
+            recipes.Add(new Recipe("RLowComplexity", servings, "D" + i, new StringList("I" + i++)));
+            recipes.Add(new Recipe("RMediumComplexity", servings, "D" + i, new StringList("I" + i++), categories:recipeCategories));
+            recipes.Add(new Recipe("RHighComplexity", servings, "D" + i, new StringList("I" + i), ingredients, recipeCategories));
 
             return recipes;
         }

@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 using RecipeSelectHelper.View.Categories;
 using RecipeSelectHelper.View.Products;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
@@ -43,7 +44,7 @@ namespace RecipeSelectHelper.View.Recipes
 
         public string RecipeDescription { get; set; }
 
-        public string RecipeInstruction { get; set; }
+        public StringList RecipeInstructions { get; set; }
 
         public int RecipeServings { get; set; } = 1;
 
@@ -158,7 +159,7 @@ namespace RecipeSelectHelper.View.Recipes
             List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance);
             List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(Convert.ToUInt32(y.Value), y.Instance));
 
-            var recipe = new Recipe(RecipeName, RecipeServings, RecipeDescription, RecipeInstruction, ingredients, categories, groupedRc);
+            var recipe = new Recipe(RecipeName, RecipeServings, RecipeDescription, RecipeInstructions, ingredients, categories, groupedRc);
             List<string> errors;
             bool success = _valid.RecipeIsValid(recipe, out errors);
             ItemSuccessfullyAdded?.Invoke(this, success);

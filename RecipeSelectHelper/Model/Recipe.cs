@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Model
 {
@@ -17,7 +18,7 @@ namespace RecipeSelectHelper.Model
         [DataMember]
         public string Description { get; set; }
         [DataMember]
-        public string Instruction { get; set; }
+        public StringList Instructions { get; set; }
         [DataMember]
         public int Servings { get; set; }
 
@@ -69,11 +70,11 @@ namespace RecipeSelectHelper.Model
 
         private Recipe() { }
 
-        public Recipe(string name, int servings = 1, string description = null, string instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
+        public Recipe(string name, int servings = 1, string description = null, StringList instruction = null, List<Ingredient> ingredients = null, List<RecipeCategory> categories = null, List<GroupedRecipeCategory> groupedCategories = null)
         {
             this.Name = name;
             this.Description = description ?? String.Empty;
-            this.Instruction = instruction ?? String.Empty;
+            this.Instructions = instruction ?? new StringList();
             this.Servings = servings;
             this.Ingredients = ingredients ?? new List<Ingredient>();
             this.Categories = categories ?? new List<RecipeCategory>();

@@ -16,7 +16,7 @@ namespace RecipeSelectHelper.Resources
                    StringIfContainsAnyMembers(r.Categories, $"Categories: {r.CategoriesAsString}\n") +
                    StringIfContainsAnyMembers(r.GroupedCategories, $"Types: {r.GroupedCategoriesAsString}\n") +
                    $"Description: {r.Description}\n" +
-                   $"Instruction: {r.Instruction}\n" +
+                   $"Instructions: {r.Instructions}\n" +
                    StringIfContainsAnyMembers(r.Ingredients, $"Ingredients: {string.Join(",\n", r.Ingredients.ConvertAll(GetDescription))}\n");
         }
 
