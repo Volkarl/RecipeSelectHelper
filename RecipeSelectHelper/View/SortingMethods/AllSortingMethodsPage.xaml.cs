@@ -62,7 +62,7 @@ namespace RecipeSelectHelper.View.SortingMethods
 
         private void Button_AddSortingMethod_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new SortingMethods.AddSortingMethodPage(_parent), "Add New Sorting Method", _parent);
+            _parent.SetPage(new AddElementBasePage(new SortingMethods.AddSortingMethodPage(_parent), "Add New Sorting Method", _parent));
         }
 
         private void Button_EditSortingMethod_Click(object sender, RoutedEventArgs e)

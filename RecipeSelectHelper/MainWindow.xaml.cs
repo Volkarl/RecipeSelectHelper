@@ -104,11 +104,18 @@ namespace RecipeSelectHelper
             OnPropertyChanged(nameof(NavigationHistory));
         }
 
-        public void SetRootPage(Page newpage, Button buttonToHighlight)
+        public void SetRootPage(Page newpage, Button highlightSpecificButton = null)
         {
             ClearNavigationPath();
             SetPage(newpage);
-            HighlightButtonBackground(buttonToHighlight);
+            if (highlightSpecificButton != null)
+            {
+                HighlightButtonBackground(highlightSpecificButton);
+            }
+            else
+            {
+                HighlightButtonBackground(newpage);
+            }
         }
 
         private void AddNavigationPath(string path)
@@ -121,6 +128,20 @@ namespace RecipeSelectHelper
         {
             _navigationHistory.Clear();
             OnPropertyChanged(nameof(NavigationHistory));
+        }
+
+        private void HighlightButtonBackground(Page page)
+        {
+            Button buttonToHighlight;
+            if (page is RankingsViewPage) buttonToHighlight = Button_RankRecipes;
+            else if (page is AllBoughtProductsPage) buttonToHighlight = Button_FridgeIngredients;
+            else if (page is AllRecipesPage) buttonToHighlight = Button_AllRecipes;
+            else if (page is AllStoreProductsPage) buttonToHighlight = Button_AllStoreProducts;
+            else if (page is AllSortingMethodsPage) buttonToHighlight = Button_AllSortingMethods;
+            else if (page is AllCategoriesPage) buttonToHighlight = Button_AllCategories;
+            else if (page is SettingsPage) buttonToHighlight = Button_Settings;
+            else throw new ArgumentException();
+            HighlightButtonBackground(buttonToHighlight);
         }
 
         private void HighlightButtonBackground(Button button)

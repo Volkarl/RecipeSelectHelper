@@ -67,5 +67,10 @@ namespace RecipeSelectHelper.Resources
             return $"{(exp.ProductCreatedTime == null ? null : $"Created date: {exp.ProductCreatedTime}\n")}" +
                    $"{(exp.ProductExpirationTime == null ? null : $"Expiration date: {exp.ProductExpirationTime}\n")}";
         }
+
+        public static string GetDescription<T>(GroupedSelection<T> gpc)
+        {
+            return $"Select {gpc.MinSelect} to {gpc.MaxSelect}: {string.Join(", ", gpc.GroupedItems)}";
+        }
     }
 }

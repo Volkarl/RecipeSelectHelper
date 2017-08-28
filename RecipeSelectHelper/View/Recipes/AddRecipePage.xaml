@@ -37,7 +37,7 @@
                         <ItemsControl ItemTemplate="{StaticResource DataTemplateGroupedRecipeCategory}" Name="ItemsControl_GroupedCategories" ItemsSource="{Binding GroupedRecipeCategories}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel></StackPanel>
+                                    <StackPanel></StackPanel> <!--er det ikke standard?-->
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>

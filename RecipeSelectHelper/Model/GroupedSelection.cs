@@ -24,7 +24,7 @@ namespace RecipeSelectHelper.Model
             GroupedItems = groupedItems;
 
             if(groupedItems == null ||
-                groupedItems.Count == 0) throw new ArgumentException("No items selected.");
+                groupedItems.Count == 0) throw new ArgumentException("No items.");
 
             if(minSelect > groupedItems.Count ||
                 minSelect < 0 ||
@@ -35,18 +35,6 @@ namespace RecipeSelectHelper.Model
 
             MinSelect = minSelect;
             MaxSelect = maxSelect;
-        }
-
-        public override string ToString()
-        {
-            string s = String.Empty;
-            foreach (T item in GroupedItems)
-            {
-                s += item + ", ";
-            }
-            s = s.TrimEnd(' ', ',');
-            s += " | ";
-            return s + $"{MinSelect}-{MaxSelect}";
         }
     }
 }
