@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="RecipeSelectHelper.Resources.InputSlider"
+﻿<UserControl x:Class="RecipeSelectHelper.Resources.CustomControls.InputSlider"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
+             xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
     <Grid>
@@ -12,10 +13,11 @@
             <ColumnDefinition Width="30"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Slider Name="Slider" Value="{Binding OuterValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:InputSlider}}" Maximum="{Binding OuterMaximum, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:InputSlider}}" Minimum="{Binding OuterMinimum, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:InputSlider}}" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickPlacement="BottomRight"></Slider>
+        <Slider Name="Slider" Value="{Binding OuterValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=customControls:InputSlider}}" Maximum="{Binding OuterMaximum, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=customControls:InputSlider}}" Minimum="{Binding OuterMinimum, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=customControls:InputSlider}}" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickPlacement="BottomRight"></Slider>
         <!--About the ridiculous looking bindings: I do this to avoid having to set the datacontex in here.
         If I were to set datacontext here, then any bindings outside of here would be trying to look INSIDE THIS DATACONTEXT to find 
         their source data. That source data is obviously not in here. -->
-        <local:PositiveIntegerTextBox VerticalContentAlignment="Center" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></local:PositiveIntegerTextBox>
+        <customControls:PositiveIntegerTextBox VerticalContentAlignment="Center" Text="{Binding ElementName=Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></customControls:PositiveIntegerTextBox>
     </Grid>
 </UserControl>
+

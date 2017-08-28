@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="580"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -12,11 +13,11 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Max. Selection Amount: " ToolTip="The maximum amount of items the user is allowed to select to create a recipe." Width="200"></Label>
-            <resources:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></resources:InputSlider>
+            <customControls:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></customControls:InputSlider>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Min. Selection Amount: " ToolTip="The minimum amount of items the user is required to select before he can create a recipe." Width="200"></Label>
-            <resources:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></resources:InputSlider>
+            <customControls:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding ProductCategories.Count}"></customControls:InputSlider>
         </DockPanel>
 
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
@@ -29,6 +30,18 @@
         <ListView DockPanel.Dock="Top" Name="ListView_ProductCategories" SelectedItem="{Binding SelectedPc, Mode=TwoWay}" ItemsSource="{Binding Path=ProductCategories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" DisplayMemberPath="Name"></ListView>
     </DockPanel>
 </Page>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

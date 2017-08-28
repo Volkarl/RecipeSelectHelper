@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
       mc:Ignorable="d" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="500" d:DesignWidth="700"
@@ -62,7 +63,7 @@
                 <Button Name="Button_RemoveBoughtProduct" Click="Button_RemoveBoughtProduct_OnClick"  Content="Remove"></Button>
             </UniformGrid>
 
-            <custom:FilterableListView Margin="0,10,0,0" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding BoughtProducts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <customControls:FilterableListView Margin="0,10,0,0" DockPanel.Dock="Top" x:Name="ListView_BoughtProducts" SelectedItem="{Binding SelectedBoughtProduct, Mode=TwoWay}" ItemsSource="{Binding BoughtProducts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
@@ -78,7 +79,7 @@
                         <GridViewColumn Header="Expiration" Width="Auto" DisplayMemberBinding="{Binding ExpirationData.ProductExpirationTime, StringFormat={}{0:MM/dd/yy}}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </custom:FilterableListView>
+            </customControls:FilterableListView>
 
         </DockPanel>
     </ScrollViewer>

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.CustomControls;
 using Button = System.Windows.Controls.Button;
 using ComboBox = System.Windows.Controls.ComboBox;
 using Label = System.Windows.Controls.Label;

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Resources
 {

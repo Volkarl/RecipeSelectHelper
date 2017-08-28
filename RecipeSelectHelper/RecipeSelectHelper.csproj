@@ -78,20 +78,20 @@
     <Compile Include="Resources\FullItemDescriptor.cs" />
     <Compile Include="Resources\ProgressInfo.cs" />
     <Compile Include="Resources\ErrorReporter.cs" />
-    <Compile Include="Resources\FilterableListView.cs" />
-    <Compile Include="Resources\FilterGroupedProductCategories.cs" />
-    <Compile Include="Resources\FilterGroupedRecipeCategories.cs" />
-    <Compile Include="Resources\FilterProductCategory.cs" />
-    <Compile Include="Resources\FilterRecipeCategory.cs" />
+    <Compile Include="Resources\CustomControls\FilterableListView.cs" />
+    <Compile Include="Resources\ConcreteTypesForXaml\FilterGroupedProductCategories.cs" />
+    <Compile Include="Resources\ConcreteTypesForXaml\FilterGroupedRecipeCategories.cs" />
+    <Compile Include="Resources\ConcreteTypesForXaml\FilterProductCategory.cs" />
+    <Compile Include="Resources\ConcreteTypesForXaml\FilterRecipeCategory.cs" />
     <Compile Include="Resources\IAddElement.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Resources\IgnoreMouseWheelBehavior.cs" />
-    <Compile Include="Resources\InputLimitedIntegerTextBox.cs" />
-    <Compile Include="Resources\InputSlider.xaml.cs">
+    <Compile Include="Resources\CustomControls\InputLimitedIntegerTextBox.cs" />
+    <Compile Include="Resources\CustomControls\InputSlider.xaml.cs">
       <DependentUpon>InputSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\IntegerTextBox.cs" />
-    <Compile Include="Resources\LimitedInputTextBox.cs" />
+    <Compile Include="Resources\CustomControls\IntegerTextBox.cs" />
+    <Compile Include="Resources\CustomControls\LimitedInputTextBox.cs" />
     <Compile Include="Resources\Converters\NullOrEmptyToHiddenVisibilityConverter.cs" />
     <Compile Include="Resources\OrderBy.cs" />
     <Compile Include="Resources\Prettyprinter.cs" />
@@ -109,20 +109,17 @@
     <Compile Include="Model\IRecipeCategory.cs" />
     <Compile Include="Model\SortingMethods\ISortingMethod.cs" />
     <Compile Include="Model\ProgramData.cs" />
-    <Compile Include="Resources\StringListDisplay.xaml.cs">
+    <Compile Include="Resources\CustomControls\StringListDisplay.xaml.cs">
       <DependentUpon>StringListDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\SubstituteRelationsDictionary.cs" />
     <Compile Include="Resources\SubstituteRelationsRepository.cs" />
-    <Compile Include="Resources\TextProgressBar.xaml.cs">
+    <Compile Include="Resources\CustomControls\TextProgressBar.xaml.cs">
       <DependentUpon>TextProgressBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UtilityMethods.cs" />
     <Compile Include="Resources\ValidityChecker.cs" />
     <Compile Include="Resources\ValueInformation.cs" />
-    <Compile Include="Resources\ViewIngredientBpComposition.xaml.cs">
-      <DependentUpon>ViewIngredientBpComposition.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\XmlDataHandler.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RecipeCategory.cs" />
@@ -130,12 +127,12 @@
     <Compile Include="Model\SortingMethods\RecipeCategoryPreference.cs" />
     <Compile Include="Model\SortingMethods\SingleIngredientPreference.cs" />
     <Compile Include="Model\SortingMethods\SortingMethod.cs" />
-    <Compile Include="Resources\DockPanelWithLabel.cs" />
+    <Compile Include="Resources\CustomControls\DockPanelWithLabel.cs" />
     <Compile Include="Resources\ExtensionMethods.cs" />
-    <Compile Include="Resources\PositiveIntegerTextBox.cs" />
+    <Compile Include="Resources\CustomControls\PositiveIntegerTextBox.cs" />
     <Compile Include="Resources\ListViewTools.cs" />
-    <Compile Include="Resources\ExtendedListView.cs" />
-    <Compile Include="Resources\SearchableListView.xaml.cs">
+    <Compile Include="Resources\CustomControls\ExtendedListView.cs" />
+    <Compile Include="Resources\CustomControls\SearchableListView.xaml.cs">
       <DependentUpon>SearchableListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\BoughtProducts\AddBoughtProductPage.xaml.cs">
@@ -212,11 +209,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\InputSlider.xaml">
+    <Page Include="Resources\CustomControls\InputSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\SearchableListView.xaml">
+    <Page Include="Resources\CustomControls\SearchableListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,15 +226,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\StringListDisplay.xaml">
+    <Page Include="Resources\CustomControls\StringListDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\TextProgressBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\ViewIngredientBpComposition.xaml">
+    <Page Include="Resources\CustomControls\TextProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

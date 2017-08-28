@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RecipeSelectHelper.Model;
 
-namespace RecipeSelectHelper.Resources
+namespace RecipeSelectHelper.Resources.ConcreteTypesForXaml
 {
     public class FilterGroupedProductCategories : List<Boolable<ProductCategory>>
     {

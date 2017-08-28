@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       Title="AllRecipesPage"
@@ -76,7 +77,7 @@
             
             <Grid Height="10" DockPanel.Dock="Top"></Grid>
 
-            <custom:FilterableListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <customControls:FilterableListView x:Name="ListView_Recipes" SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" ItemsSource="{Binding Path=Recipes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
@@ -89,7 +90,7 @@
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </custom:FilterableListView>
+            </customControls:FilterableListView>
         </DockPanel>
         
         <!--<Button Name="Button_SearchRecipes" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Click="Button_SearchRecipes_Click">

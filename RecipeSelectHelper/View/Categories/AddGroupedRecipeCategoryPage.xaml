@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="580"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -14,12 +15,12 @@
             <Label Content="Max. Selection Amount: " ToolTip="The maximum amount of items the user is allowed to select to create a recipe." Width="200"></Label>
             <!--<custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MaxSelectionAmount}"></custom:IntegerTextBox>-->
             <!--<Slider VerticalAlignment="Center" Name="Slider_MaxAmount" Value="{Binding MaxSelectionAmount}" Maximum="{Binding RecipeCategories.Count}"></Slider>-->
-            <custom:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
+            <customControls:InputSlider OuterValue="{Binding MaxSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></customControls:InputSlider>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" MinHeight="30">
             <Label Content="Min. Selection Amount: " ToolTip="The minimum amount of items the user is required to select before he can create a recipe." Width="200"></Label>
             <!--<custom:IntegerTextBox DockPanel.Dock="Right" Width="30" Text="{Binding MinSelectionAmount}"></custom:IntegerTextBox>-->
-            <custom:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></custom:InputSlider>
+            <customControls:InputSlider OuterValue="{Binding MinSelectionAmount, Mode=TwoWay}" OuterMaximum="{Binding RecipeCategories.Count}"></customControls:InputSlider>
             <!--<Slider VerticalAlignment="Center" Name="Slider_MinAmount" Value="{Binding MinSelectionAmount}" Maximum="{Binding RecipeCategories.Count}"></Slider>-->
         </DockPanel>
 

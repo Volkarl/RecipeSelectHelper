@@ -7,6 +7,7 @@
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
+      xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
       mc:Ignorable="d" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="360" d:DesignWidth="680"
@@ -59,7 +60,7 @@
 
                 <DockPanel Margin="0,1,0,0" DockPanel.Dock="Bottom">
                     <Label Height="30" Width="100" Content="Amount: "></Label>
-                    <resources:PositiveIntegerTextBox x:Name="IntegerTextBoxAmountBought"></resources:PositiveIntegerTextBox>
+                    <customControls:PositiveIntegerTextBox x:Name="IntegerTextBoxAmountBought"></customControls:PositiveIntegerTextBox>
                 </DockPanel>
 
                 <DockPanel DockPanel.Dock="Top">
@@ -80,3 +81,4 @@
         </Grid>
     </ScrollViewer>
 </Page>
+

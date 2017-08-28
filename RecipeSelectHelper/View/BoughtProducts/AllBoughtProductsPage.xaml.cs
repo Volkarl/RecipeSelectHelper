@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 

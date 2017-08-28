@@ -3,7 +3,9 @@
                     xmlns:local="clr-namespace:RecipeSelectHelper.Resources;assembly=RecipeSelectHelper"
                     xmlns:model="clr-namespace:RecipeSelectHelper.Model;assembly=RecipeSelectHelper"
                     xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
-                    xmlns:converters="clr-namespace:RecipeSelectHelper.Resources.Converters;assembly=RecipeSelectHelper">
+                    xmlns:converters="clr-namespace:RecipeSelectHelper.Resources.Converters;assembly=RecipeSelectHelper"
+                    xmlns:concreteTypesForXaml="clr-namespace:RecipeSelectHelper.Resources.ConcreteTypesForXaml"
+                    xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls">
 
     <DataTemplate x:Key="ArrowUp">
         <DockPanel>
@@ -167,15 +169,15 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="local:FilterProductCategory">
+    <DataTemplate x:Key="ItemsControlFilterByProductCategory" DataType="concreteTypesForXaml:FilterProductCategory">
         <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
     </DataTemplate>
 
-    <DataTemplate x:Key="ItemsControlFilterByRecipeCategory" DataType="local:FilterRecipeCategory">
+    <DataTemplate x:Key="ItemsControlFilterByRecipeCategory" DataType="concreteTypesForXaml:FilterRecipeCategory">
         <CheckBox Content="{Binding Instance.Name}" IsChecked="{Binding Bool}"></CheckBox>
     </DataTemplate>
 
-    <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="local:FilterGroupedProductCategories">
+    <DataTemplate x:Key="ItemsControlFilterByGroupedProductCategory" DataType="concreteTypesForXaml:FilterGroupedProductCategories">
         <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -190,7 +192,7 @@
         </ItemsControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="ItemsControlFilterByGroupedRecipeCategory" DataType="local:FilterGroupedRecipeCategories">
+    <DataTemplate x:Key="ItemsControlFilterByGroupedRecipeCategory" DataType="concreteTypesForXaml:FilterGroupedRecipeCategories">
         <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -295,45 +297,45 @@
 
 
     <DataTemplate x:Key="DataTemplateViewProgressBar" DataType="local:ProgressInfo">
-        <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
+        <customControls:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
                                OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}"
                                OuterValue="{Binding Value, Mode=OneWay}">
-            <local:TextProgressBar.OuterText>
+            <customControls:TextProgressBar.OuterText>
                 <MultiBinding StringFormat="{}{0} %   {1} / {2}">
                     <Binding Path="PercentageCompletion"></Binding>
                     <Binding Path="Value"></Binding>
                     <Binding Path="Maximum"></Binding>
                 </MultiBinding>
-            </local:TextProgressBar.OuterText>
-        </local:TextProgressBar>
+            </customControls:TextProgressBar.OuterText>
+        </customControls:TextProgressBar>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateViewProgressInfoHorizontally" DataType="local:ProgressInfo">
         <DockPanel>
             <TextBlock DockPanel.Dock="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
-            <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Right">
-                <local:TextProgressBar.OuterText>
+            <customControls:TextProgressBar Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Right">
+                <customControls:TextProgressBar.OuterText>
                     <MultiBinding StringFormat="{}{0} %   {1} / {2}">
                         <Binding Path="PercentageCompletion"></Binding>
                         <Binding Path="Value"></Binding>
                         <Binding Path="Maximum"></Binding>
                     </MultiBinding>
-                </local:TextProgressBar.OuterText>
-            </local:TextProgressBar>
+                </customControls:TextProgressBar.OuterText>
+            </customControls:TextProgressBar>
         </DockPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="DataTemplateViewProgressInfoVertically" DataType="local:ProgressInfo">
         <DockPanel Background="AliceBlue">
-            <local:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Top">
-                <local:TextProgressBar.OuterText>
+            <customControls:TextProgressBar HorizontalAlignment="Left" Background="OrangeRed" Width="200" Height="10" OuterMaximum="{Binding MaximumNeverZero, Mode=OneWay}" OuterValue="{Binding Value, Mode=OneWay}" DockPanel.Dock="Top">
+                <customControls:TextProgressBar.OuterText>
                     <MultiBinding StringFormat="{}{0} %   {1} / {2}">
                         <Binding Path="PercentageCompletion"></Binding>
                         <Binding Path="Value"></Binding>
                         <Binding Path="Maximum"></Binding>
                     </MultiBinding>
-                </local:TextProgressBar.OuterText>
-            </local:TextProgressBar>
+                </customControls:TextProgressBar.OuterText>
+            </customControls:TextProgressBar>
             <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Left" Text="{Binding Description, Mode=OneWay}"></TextBlock>
         </DockPanel>
     </DataTemplate>
@@ -432,17 +434,17 @@
             <StackPanel>
                 <DockPanel>
                     <TextBlock Text="{Binding CorrespondingProduct.Name, StringFormat={}{0}: }" Background="LightBlue" DockPanel.Dock="Left" Margin="0,0,10,0"></TextBlock>
-                    <local:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
+                    <customControls:TextProgressBar Background="OrangeRed" Width="200" Height="10" DockPanel.Dock="Right"
                                            OuterMaximum="{Binding AmountNeeded, Mode=OneWay}"
                                            OuterValue="{Binding AmountSatisfied, Mode=OneWay}">
-                        <local:TextProgressBar.OuterText>
+                        <customControls:TextProgressBar.OuterText>
                             <MultiBinding StringFormat="{}{0} %   {1} / {2}">
                                 <Binding Path="PercentageOfTotalIngredientsGathered"></Binding>
                                 <Binding Path="AmountSatisfied"></Binding>
                                 <Binding Path="AmountNeeded"></Binding>
                             </MultiBinding>
-                        </local:TextProgressBar.OuterText>
-                    </local:TextProgressBar>
+                        </customControls:TextProgressBar.OuterText>
+                    </customControls:TextProgressBar>
                 </DockPanel>
 
                 <ItemsControl Margin="10,0,0,0" Background="PaleGreen" ItemsSource="{Binding BpCompositionInfo}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoHorizontally}"></ItemsControl>
