@@ -44,7 +44,7 @@ namespace RecipeSelectHelper.View.Recipes
 
         public string RecipeDescription { get; set; }
 
-        public StringList RecipeInstructions { get; set; }
+        public StringList RecipeInstructions { get; set; } = new StringList();
 
         public int RecipeServings { get; set; } = 1;
 
@@ -136,9 +136,9 @@ namespace RecipeSelectHelper.View.Recipes
 
         private void ClearUiElements()
         {
-            TextBox_RecipeName.Text = string.Empty;
-            TextBox_RecipeDescription.Text = string.Empty;
-            TextBox_RecipeInstruction.Text = string.Empty;
+            RecipeName = String.Empty;
+            RecipeDescription = String.Empty;
+            RecipeInstructions = new StringList();
             InitializeObservableObjects();
             TextBox_RecipeName.Focus(); //ClearValue(Border.BorderBrushProperty);
         }

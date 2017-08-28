@@ -128,7 +128,7 @@ namespace RecipeSelectHelper.Resources
             return collection;
         }
 
-        public static void MoveElement<T>(this List<T> collection, int index, int newIndex)
+        public static void MoveElement<T>(this IList<T> collection, int index, int newIndex)
         {
             T item = collection[index];
             collection.RemoveAt(index);

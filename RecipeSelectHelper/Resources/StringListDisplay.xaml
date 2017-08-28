@@ -4,19 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeSelectHelper.Resources"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <TextBlock Text="{Binding Title}" Visibility="{Binding Title, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" ></TextBlock>
-            <ItemsControl ItemsSource="{Binding StringList.NumberedStrings}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"></TextBlock>
+        <StackPanel DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:StringListDisplay}}}">
+            <TextBlock Text="{Binding Title}" Visibility="{Binding Title, Converter={StaticResource NullOrEmptyToCollapsedVisibilityConverter}}"></TextBlock>
+            <ListView Name="ListViewOfInstructions" ItemsSource="{Binding Strings}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type system:String}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource IndexConverter}}"></TextBlock>
+                            <TextBlock Text=": "></TextBlock>
+                            <TextBlock Text="{Binding}"></TextBlock>
+                        </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <TextBox Name="TextBoxNewInstruction" Visibility="Collapsed" Background="Beige" LostFocus="TextBoxNewInstruction_OnLostFocus" KeyDown="TextBoxNewInstruction_OnKeyDown"></TextBox>
+            
             <Button Name="ButtonAdd" Content="Add Instruction" Background="LightGreen" Click="ButtonAdd_OnClick"></Button>
             <UniformGrid Rows="1">
                 <Button Name="ButtonUp" Content="Up" Click="ButtonUp_OnClick"></Button>

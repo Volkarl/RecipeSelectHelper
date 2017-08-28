@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace RecipeSelectHelper.Resources.ConcreteTypesForXaml
 {
-    public class StringList : List<string>
+    [CollectionDataContract(Name = "StringList")]
+    public class StringList : ObservableCollection<string>
     {
-        public StringList(params string[] strings) : this(new List<string>(strings)) { }
+        private StringList() { } // Needed for deserialization
 
-        public StringList(List<string> strings = null) : base(strings ?? new List<string>()) { }
+        public StringList(params string[] strings) : this(new ObservableCollection<string>(strings)) { }
+
+        public StringList(IEnumerable<string> strings = null) : base(strings ?? new ObservableCollection<string>()) { }
 
         public enum MoveDirection
         {

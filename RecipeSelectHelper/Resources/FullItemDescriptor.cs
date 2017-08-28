@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RecipeSelectHelper.Model;
+using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 
 namespace RecipeSelectHelper.Resources
 {
@@ -16,8 +17,23 @@ namespace RecipeSelectHelper.Resources
                    StringIfContainsAnyMembers(r.Categories, $"Categories: {r.CategoriesAsString}\n") +
                    StringIfContainsAnyMembers(r.GroupedCategories, $"Types: {r.GroupedCategoriesAsString}\n") +
                    $"Description: {r.Description}\n" +
-                   $"Instructions: {r.Instructions}\n" +
+                   StringIfContainsAnyMembers(r.Instructions.ToList(), $"{GetDescription(r.Instructions)}\n") +
                    StringIfContainsAnyMembers(r.Ingredients, $"Ingredients: {string.Join(",\n", r.Ingredients.ConvertAll(GetDescription))}\n");
+        }
+
+        private static string GetDescription(StringList instructions)
+        {
+            if (instructions == null) return null;
+            int i = 0;
+            const string indent = "    ";
+            return instructions.Aggregate("Instructions: \n", (current, instruction) => current + $"{indent}{i++}. {instruction}\n");
+            // Same in non-linq below:
+            //string str = "Instructions: \n";
+            //foreach (string instruction in instructions)
+            //{
+            //    str += $"{indent}{i++}. {instruction}\n";
+            //}
+            //return str;
         }
 
         private static string GetDescription(Ingredient i)
