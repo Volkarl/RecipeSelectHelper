@@ -83,10 +83,10 @@ namespace RecipeSelectHelper
             SetPage(newpage, newpage.ContentPageTitle);
         }
 
-        public void SetPage(Page newpage, string title = null)
+        public void SetPage(Page newpage, string title = null, bool addNavigationEvent = true)
         {
             ContentControl.Content = newpage;
-            AddNavigationPath(title ?? newpage.Title);
+            if(addNavigationEvent) AddNavigationPath(title ?? newpage.Title);
         }
 
         public void NavigatePageBack()

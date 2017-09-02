@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,50 +14,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.View.Miscellaneous
 {
     /// <summary>
-    /// Interaction logic for MassEditElementsPage.xaml
-    /// This page can be used for any items that can be edited using only questions that can be answered with either yes or no. 
-    /// For instance: asking the user one-by-one whether each recipe should recieve a new category.
+    /// Interaction logic for MassAddGroupedCategoriesPage.xaml
+    /// This page is used for modifying items where yes-no questions are not enough.
+    /// For instance, adding a new GroupedCategory to every recipe.
+    /// It works by turning every item into a UiElement (using Func), displaying this, and then turning the UiElement back into a modified item.
     /// </summary>
-    public partial class MassEditElementsPage : Page, INotifyPropertyChanged
+    public partial class MassAddGroupedCategoriesPage : Page, INotifyPropertyChanged
     {
         private MainWindow _parent;
         private Func<object, string> _createItemDescription;
-        private Action<object> _yesIsClicked;
-        private Action<object> _noIsClicked;
-        private List<bool> _logOfAnswers;
+        private Func<object, UIElement> _convertItemToUiElement;
+        private Action<UIElement, object> _alterOriginalWithResultAndItem;
+        private List<UIElement> _modifiedItems;
 
-        public MassEditElementsPage(MainWindow parent, string title, string pageDescription, string question,
-            List<object> itemsToEdit, Func<object, string> createItemDescription, 
-            Action<object> yesIsClicked, Action<object> noIsClicked)
+        public MassAddGroupedCategoriesPage(MainWindow parent, string title, string pageDescription, 
+            List<object> itemsToEdit, Func<object, string> createItemDescription,
+            Func<object, UIElement> convertItemToUiElement, Action<UIElement, object> alterOriginalWithResultAndItem)
         {
             _parent = parent;
 
             if (!itemsToEdit.IsNullOrEmpty()) // If empty, it'll initialize the page and then navigate back
             {
                 ItemsToEdit = itemsToEdit ?? new List<object>();
-                _logOfAnswers = new List<bool>(ItemsToEdit.Count);
+                _modifiedItems = new List<UIElement>(ItemsToEdit.Count);
                 _createItemDescription = createItemDescription;
-                _yesIsClicked = yesIsClicked;
-                _noIsClicked = noIsClicked;
+                _convertItemToUiElement = convertItemToUiElement;
+                _alterOriginalWithResultAndItem = alterOriginalWithResultAndItem;
                 PageTitle = title;
                 PageDescription = pageDescription;
-                Question = question;
-                ItemDescription = createItemDescription(GetNextObject());
             }
 
-            Loaded += MassEditElementsBasePage_Loaded;
+            Loaded += MassAddGroupedCategoriesPage_Loaded; ;
             InitializeComponent();
         }
 
-        private void MassEditElementsBasePage_Loaded(object sender, RoutedEventArgs e)
+        private void MassAddGroupedCategoriesPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if(ItemsToEdit.IsNullOrEmpty()) ClosePage();
+            if (ItemsToEdit.IsNullOrEmpty()) ClosePage();
+            else GetNextObject();
         }
 
         #region ObservableObjects
@@ -72,8 +70,6 @@ namespace RecipeSelectHelper.View.Miscellaneous
         public string PageTitle { get; }
 
         public string PageDescription { get; }
-
-        public string Question { get; }
 
         public IList<object> ItemsToEdit { get; }
 
@@ -91,18 +87,25 @@ namespace RecipeSelectHelper.View.Miscellaneous
             set { _itemDescription = value; OnPropertyChanged(nameof(ItemDescription)); }
         }
 
+        private UIElement _currentUiElement;
+        public UIElement CurrentUiElement
+        {
+            get { return _currentUiElement; }
+            set { _currentUiElement = value; OnPropertyChanged(nameof(CurrentUiElement)); }
+        }
+
         #endregion
 
-        private object GetNextObject()
+        private void GetNextObject()
         {
             if (ItemsToEdit.Count <= CurrentIndex)
             {
                 ApplyAndClosePage();
-                return null;
+                return;
             }
             object newItem = ItemsToEdit[CurrentIndex++];
+            CurrentUiElement = _convertItemToUiElement(newItem);
             ItemDescription = _createItemDescription(newItem);
-            return newItem;
         }
 
         private void ApplyAndClosePage()
@@ -118,24 +121,16 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ApplyChanges()
         {
-            if(_logOfAnswers.Count > ItemsToEdit.Count) throw new ArgumentException();
-            for (var i = 0; i < _logOfAnswers.Count; i++)
+            if (_modifiedItems.Count != ItemsToEdit.Count) throw new ArgumentException();
+            for (var i = 0; i < _modifiedItems.Count; i++)
             {
-                bool answer = _logOfAnswers[i];
-                if (answer) _yesIsClicked(ItemsToEdit[i]);
-                else _noIsClicked(ItemsToEdit[i]);
+                _alterOriginalWithResultAndItem(_modifiedItems[i], ItemsToEdit[i]);
             }
         }
 
-        private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
         {
-            _logOfAnswers.Add(true);
-            GetNextObject();
-        }
-
-        private void ButtonNo_OnClick(object sender, RoutedEventArgs e)
-        {
-            _logOfAnswers.Add(false);
+            _modifiedItems.Add(CurrentUiElement);
             GetNextObject();
         }
 

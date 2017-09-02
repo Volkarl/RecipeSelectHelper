@@ -88,7 +88,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddGroupedPC_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedProductCategoryPage(_parent), "Add New Grouped Product Categories", _parent);
+            _parent.SetPage(new AddElementBasePage(new AddGroupedProductCategoryPage(_parent), "Add New Product Type", _parent));
         }
 
         private void Button_EditGroupedPC_OnClick(object sender, RoutedEventArgs e)
@@ -111,7 +111,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddGroupedRecipeCategoryPage(_parent), "Add New Grouped Recipe Categories", _parent);
+            _parent.SetPage(new AddElementBasePage(new AddGroupedRecipeCategoryPage(_parent), "Add New Recipe Type", _parent));
         }
 
         private void Button_EditGroupedRC_OnClick(object sender, RoutedEventArgs e)
@@ -133,7 +133,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_ViewCategories_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AllCategoriesPage(_parent));
+            _parent.SetPage(new AllCategoriesPage(_parent), addNavigationEvent:false);
         }
 
         private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)
@@ -143,57 +143,35 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EvaluateMissingProducts_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if(SelectedGroupedPC == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
 
-            //Todo Find some way to allow the user to re-select the contents of a grouped recipe category, perhaps I need a new type of massedit page?!
-            //< ItemsControl ItemTemplate="{StaticResource DataTemplateGroupedRecipeCategory}" ItemsSource="{Binding GroupedRecipeCategories}" >
+            //rename to massedit, not massadd
+            _parent.SetPage(new MassAddGroupedCategoriesPage(
+                _parent,
+                "Evaluate All Products By Type",
+                $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPC)}",
+                _parent.Data.AllProducts.ConvertAll(p => (object) p),
+                o => 
+                {
+                    var p = (Product) o;
+                    return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
+                           $"Product {(p.GroupedCategories.Any(gpc => gpc.CorrespondingGroupedSelection == SelectedGroupedPC) ? "already contains" : "does not contain")} type.";
+                },
+                o =>
+                {
+                    var p = (Product) o;
+                    GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ?? new GroupedProductCategory(SelectedGroupedPC);
+                    return new ContentControl {ContentTemplate = Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc};
+                },
+                (ui, o) =>
+                {
+                    var p = (Product) o;
+                    var gpc = ((ContentControl) ui).Content as GroupedProductCategory;
+                    if(p.GroupedCategories.All(x => x.CorrespondingGroupedSelection != SelectedGroupedPC)) p.GroupedCategories.Add(gpc);
+                    // We add the gpc if it's not already there (and edited because of reference value).
+                }));
 
-
-            //if (SelectedGroupedPC == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
-
-            //_parent.SetPage(new MassEditElementsPage(
-            //    _parent,
-            //    "Evaluate All Products By Type",
-            //    $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPC)}",
-            //    "Should the product contain the type?", 
-            //    _parent.Data.AllProducts,
-            //    o =>
-            //    {
-            //        var p = (Product) o;
-            //        return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
-            //               $"{(p.GroupedCategories.Contains(SelectedGroupedPC))}"
-            //    }
-            //    ));
-
-
-
-
-            //if (SelectedProductCategory == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
-
-            //_parent.SetPage(new MassEditElementsPage(
-            //    _parent,
-            //    "Evaluate All Products By Category",
-            //    $"Product Category: {SelectedProductCategory}",
-            //    $"Should the product contain the category {SelectedProductCategory.Name}?",
-            //    _parent.Data.AllProducts.ConvertAll(p => (object)p),
-            //    o =>
-            //    {
-            //        var p = (Product)o;
-            //        return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
-            //               $"{(p.Categories.Contains(SelectedProductCategory) ? "Product already contains the category." : "Product does not contain the category.")}\n";
-            //    },
-
-            //    o =>
-            //    {
-            //        var p = (Product)o;
-            //        if (!p.Categories.Contains(SelectedProductCategory)) p.Categories.Add(SelectedProductCategory);
-            //    },
-
-            //    o =>
-            //    {
-            //        var p = (Product)o;
-            //        if (p.Categories.Contains(SelectedProductCategory)) p.Categories.Remove(SelectedProductCategory);
-            //    }));
+            //todo still missing some way to check for errors, for instance the user not selecting enough items
         }
     }
 }

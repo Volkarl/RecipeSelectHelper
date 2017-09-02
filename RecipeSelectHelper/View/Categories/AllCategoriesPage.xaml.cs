@@ -122,7 +122,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddRecipeCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent);
+            _parent.SetPage(new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category", _parent));
         }
 
         private void Button_EditRecipeCategory_Click(object sender, RoutedEventArgs e)
@@ -147,7 +147,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_ViewGroupedCategories_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SetPage(new AllGroupedCategoriesPage(_parent));
+            _parent.SetPage(new AllGroupedCategoriesPage(_parent), addNavigationEvent:false);
         }
 
         private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)

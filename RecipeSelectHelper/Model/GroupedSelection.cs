@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using RecipeSelectHelper.Resources;
 
 namespace RecipeSelectHelper.Model
 {
@@ -35,6 +36,11 @@ namespace RecipeSelectHelper.Model
 
             MinSelect = minSelect;
             MaxSelect = maxSelect;
+        }
+
+        public override string ToString()
+        {
+            return FullItemDescriptor.GetDescription(this);
         }
     }
 }

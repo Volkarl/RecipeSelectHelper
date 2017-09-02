@@ -1,4 +1,4 @@
-﻿<Page x:Class="RecipeSelectHelper.View.Miscellaneous.MassEditElementsPage"
+﻿<Page x:Class="RecipeSelectHelper.View.Miscellaneous.MassAddGroupedCategoriesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="680"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
-      Title="MassEditElementsPage">
+      Title="MassAddGroupedCategoriesPage">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <DockPanel>
@@ -21,13 +21,15 @@
             <Border BorderThickness="2" BorderBrush="Black" DockPanel.Dock="Top">
                 <TextBlock Margin="0,10,0,10" Text="{Binding PageDescription}" DockPanel.Dock="Top"></TextBlock>
             </Border>
-            <UniformGrid Columns="3" DockPanel.Dock="Bottom">
-                <Button Name="ButtonYes" Content="Yes" Click="ButtonYes_OnClick"></Button>
-                <Button Name="ButtonNo" Content="No" Click="ButtonNo_OnClick"></Button>
+            <UniformGrid Columns="2" DockPanel.Dock="Bottom">
+                <Button Name="ButtonNext" Content="Next" Click="ButtonNext_OnClick"></Button>
                 <Button Name="ButtonAbort" Content="Abort All (Do not save changes)" Click="ButtonAbort_OnClick"></Button>
             </UniformGrid>
-            <Label Margin="0,10,0,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Question}" Foreground="OrangeRed" Background="LightYellow" FontWeight="SemiBold" DockPanel.Dock="Bottom"></Label>
+            <Border BorderBrush="Black" BorderThickness="2" DockPanel.Dock="Bottom">
+                <ContentControl Margin="10" Content="{Binding CurrentUiElement}" DockPanel.Dock="Bottom"></ContentControl>
+            </Border>
             <TextBlock Margin="1" Text="{Binding ItemDescription}" VerticalAlignment="Top" DockPanel.Dock="Top"></TextBlock>
         </DockPanel>
     </ScrollViewer>
+
 </Page>
