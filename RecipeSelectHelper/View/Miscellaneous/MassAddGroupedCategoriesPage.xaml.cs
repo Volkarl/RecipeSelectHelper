@@ -28,20 +28,20 @@ namespace RecipeSelectHelper.View.Miscellaneous
     {
         private MainWindow _parent;
         private Func<object, string> _createItemDescription;
-        private Func<object, UIElement> _convertItemToUiElement;
-        private Action<UIElement, object> _alterOriginalWithResultAndItem;
-        private List<UIElement> _modifiedItems;
+        private Func<object, ContentControl> _convertItemToUiElement;
+        private Action<ContentControl, object> _alterOriginalWithResultAndItem;
+        private List<ContentControl> _modifiedItems;
 
         public MassAddGroupedCategoriesPage(MainWindow parent, string title, string pageDescription, 
             List<object> itemsToEdit, Func<object, string> createItemDescription,
-            Func<object, UIElement> convertItemToUiElement, Action<UIElement, object> alterOriginalWithResultAndItem)
+            Func<object, ContentControl> convertItemToUiElement, Action<ContentControl, object> alterOriginalWithResultAndItem)
         {
             _parent = parent;
 
             if (!itemsToEdit.IsNullOrEmpty()) // If empty, it'll initialize the page and then navigate back
             {
                 ItemsToEdit = itemsToEdit ?? new List<object>();
-                _modifiedItems = new List<UIElement>(ItemsToEdit.Count);
+                _modifiedItems = new List<ContentControl>(ItemsToEdit.Count);
                 _createItemDescription = createItemDescription;
                 _convertItemToUiElement = convertItemToUiElement;
                 _alterOriginalWithResultAndItem = alterOriginalWithResultAndItem;
@@ -87,8 +87,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             set { _itemDescription = value; OnPropertyChanged(nameof(ItemDescription)); }
         }
 
-        private UIElement _currentUiElement;
-        public UIElement CurrentUiElement
+        private ContentControl _currentUiElement;
+        public ContentControl CurrentUiElement
         {
             get { return _currentUiElement; }
             set { _currentUiElement = value; OnPropertyChanged(nameof(CurrentUiElement)); }

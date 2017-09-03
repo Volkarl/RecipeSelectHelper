@@ -161,14 +161,14 @@ namespace RecipeSelectHelper.View.Categories
                 {
                     var p = (Product) o;
                     GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ?? new GroupedProductCategory(SelectedGroupedPC);
-                    return new ContentControl {ContentTemplate = Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc};
+                    return new ContentControl {ContentTemplate = Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc};
                 },
                 (ui, o) =>
                 {
                     var p = (Product) o;
-                    var gpc = ((ContentControl) ui).Content as GroupedProductCategory;
+                    var gpc = ui.Content as GroupedProductCategory;
                     if(p.GroupedCategories.All(x => x.CorrespondingGroupedSelection != SelectedGroupedPC)) p.GroupedCategories.Add(gpc);
-                    // We add the gpc if it's not already there (and edited because of reference value).
+                    // We add the gpc if it's not already there (if i is, then it's already been edited because it's a reference value).
                 }));
 
             //todo still missing some way to check for errors, for instance the user not selecting enough items

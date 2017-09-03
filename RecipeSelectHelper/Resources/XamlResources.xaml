@@ -57,6 +57,17 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
 
+    <Style TargetType="ListView" x:Key="StyleChangeBackgroundOnListViewItemSelectionActive">
+        <Style.Triggers>
+            <Trigger Property="IsSelectionActive" Value="True">
+                <Setter Property="Background" Value="LightYellow"></Setter>
+            </Trigger>
+            <Trigger Property="IsSelectionActive" Value="False">
+                <Setter Property="Background" Value="White"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <converters:NullOrEmptyToHiddenVisibilityConverter x:Key="NullOrEmptyToHiddenVisibilityConverter"></converters:NullOrEmptyToHiddenVisibilityConverter>
     
     <converters:NullOrEmptyToCollapsedVisibilityConverter x:Key="NullOrEmptyToCollapsedVisibilityConverter"></converters:NullOrEmptyToCollapsedVisibilityConverter>
