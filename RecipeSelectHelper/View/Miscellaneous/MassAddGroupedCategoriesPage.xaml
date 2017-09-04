@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="680"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
-      Title="MassAddGroupedCategoriesPage">
+      Title="MassAddGroupedCategoriesPage"
+      MouseUp="OnMouseUp">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <DockPanel>
@@ -22,11 +23,11 @@
                 <TextBlock Margin="0,10,0,10" Text="{Binding PageDescription}" DockPanel.Dock="Top"></TextBlock>
             </Border>
             <UniformGrid Columns="2" DockPanel.Dock="Bottom">
-                <Button Name="ButtonNext" Content="Next" Click="ButtonNext_OnClick"></Button>
+                <Button Name="ButtonNext" Content="Next" Click="ButtonNext_OnClick" IsEnabled="{Binding NextIsClickable}"></Button>
                 <Button Name="ButtonAbort" Content="Abort All (Do not save changes)" Click="ButtonAbort_OnClick"></Button>
             </UniformGrid>
             <Border BorderBrush="Black" BorderThickness="2" DockPanel.Dock="Bottom">
-                <ContentControl Margin="10" Content="{Binding CurrentUiElement}" DockPanel.Dock="Bottom"></ContentControl>
+                <ContentControl Name="ContentControl" Margin="10" Content="{Binding CurrentUiElement}" DockPanel.Dock="Bottom"></ContentControl>
             </Border>
             <TextBlock Margin="1" Text="{Binding ItemDescription}" VerticalAlignment="Top" DockPanel.Dock="Top"></TextBlock>
         </DockPanel>

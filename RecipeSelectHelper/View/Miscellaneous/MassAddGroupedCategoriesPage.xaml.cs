@@ -29,12 +29,15 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private MainWindow _parent;
         private Func<object, string> _createItemDescription;
         private Func<object, ContentControl> _convertItemToUiElement;
+        private Func<ContentControl, object> _convertBack;
         private Action<ContentControl, object> _alterOriginalWithResultAndItem;
         private List<ContentControl> _modifiedItems;
+        private Predicate<object> _isNextClickable;
 
         public MassAddGroupedCategoriesPage(MainWindow parent, string title, string pageDescription, 
             List<object> itemsToEdit, Func<object, string> createItemDescription,
-            Func<object, ContentControl> convertItemToUiElement, Action<ContentControl, object> alterOriginalWithResultAndItem)
+            Func<object, ContentControl> convertItemToUiElement, Func<ContentControl, object> convertBack, Action<ContentControl, object> alterOriginalWithResultAndOriginalItem,
+            Predicate<object> isNextClickable = null)
         {
             _parent = parent;
 
@@ -44,7 +47,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
                 _modifiedItems = new List<ContentControl>(ItemsToEdit.Count);
                 _createItemDescription = createItemDescription;
                 _convertItemToUiElement = convertItemToUiElement;
-                _alterOriginalWithResultAndItem = alterOriginalWithResultAndItem;
+                _convertBack = convertBack;
+                _alterOriginalWithResultAndItem = alterOriginalWithResultAndOriginalItem;
+                _isNextClickable = isNextClickable ?? (o => true);
                 PageTitle = title;
                 PageDescription = pageDescription;
             }
@@ -53,10 +58,19 @@ namespace RecipeSelectHelper.View.Miscellaneous
             InitializeComponent();
         }
 
+        private void SetNextIsClickable()
+        {
+            NextIsClickable = _isNextClickable(_convertBack(CurrentUiElement));
+        }
+
         private void MassAddGroupedCategoriesPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (ItemsToEdit.IsNullOrEmpty()) ClosePage();
-            else GetNextObject();
+            else
+            {
+                GetNextObject();
+                SetNextIsClickable();
+            }
         }
 
         #region ObservableObjects
@@ -92,6 +106,13 @@ namespace RecipeSelectHelper.View.Miscellaneous
         {
             get { return _currentUiElement; }
             set { _currentUiElement = value; OnPropertyChanged(nameof(CurrentUiElement)); }
+        }
+
+        private bool _nextIsClickable;
+        public bool NextIsClickable
+        {
+            get { return _nextIsClickable; }
+            set { _nextIsClickable = value; OnPropertyChanged(nameof(NextIsClickable)); }
         }
 
         #endregion
@@ -137,6 +158,11 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private void ButtonAbort_OnClick(object sender, RoutedEventArgs e)
         {
             ClosePage();
+        }
+
+        private void OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SetNextIsClickable();
         }
     }
 }

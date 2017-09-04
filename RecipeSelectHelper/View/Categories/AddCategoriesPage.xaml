@@ -9,7 +9,7 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="AddRecipeCategoriesPage">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" KeyDown="EnterPressed">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <DockPanel Height="30" Margin="1">
                 <Label Content="Category Name: " Width="125" HorizontalAlignment="Right" DockPanel.Dock="Left"></Label>

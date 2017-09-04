@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -34,6 +35,25 @@ namespace RecipeSelectHelper.View.Categories
             Loaded += AllGroupedCategoriesPage_Loaded;
             InitializeComponent();
         }
+
+        enum SelectedListView
+        {
+            GroupedProductCategory,
+            GroupedRecipeCategory,
+            None
+        }
+        
+        //private SelectedListView ActiveSelection
+        //{
+        //    get
+        //    {
+        //        var pc = SearchableListView_GroupedPC.GetValue(Selector.IsSelectionActiveProperty);
+        //        if(pc != null && pc.Equals(true)) return SelectedListView.GroupedProductCategory;
+        //        var rc = SearchableListView_GroupedRC.GetValue(Selector.IsSelectionActiveProperty);
+        //        if(rc != null && rc.Equals(true)) return SelectedListView.GroupedRecipeCategory;
+        //        return SelectedListView.None;
+        //    }
+        //}
 
         #region ObservableObjects
 
@@ -93,10 +113,54 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EditGroupedPC_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            //switch (ActiveSelection)
+            //{
+            //    case SelectedListView.GroupedProductCategory:
+            //        throw new NotImplementedException();
+            //        break;
+            //    case SelectedListView.GroupedRecipeCategory:
+            //        throw new NotImplementedException();
+            //        break;
+            //    case SelectedListView.None:
+            //        throw new NotImplementedException();
+            //        break;
+            //    default:
+            //        throw new ArgumentOutOfRangeException();
+            //}
         }
 
         private void Button_RemoveGroupedPC_OnClick(object sender, RoutedEventArgs e)
+        {
+            PcRemoveElement();
+            //switch (ActiveSelection)
+            //{
+            //    case SelectedListView.GroupedProductCategory:
+            //        PcRemoveElement();
+            //        break;
+            //    case SelectedListView.GroupedRecipeCategory:
+            //        RcRemoveElement();
+            //        break;
+            //    case SelectedListView.None:
+            //        break;
+            //    default:
+            //        throw new ArgumentOutOfRangeException();
+            //}
+        }
+
+        private void RcRemoveElement()
+        {
+            _parent.Data.RemoveElement(SelectedGroupedRc);
+
+            GroupedSelection<RecipeCategory> selectedGrc = SelectedGroupedRc;
+            ObservableCollection<GroupedSelection<RecipeCategory>> grc = GroupedRc;
+            ListViewTools.RemoveElementAndSelectPrevious(ref selectedGrc, ref grc);
+            SelectedGroupedRc = selectedGrc;
+            GroupedRc = grc;
+
+            SearchableListView_GroupedRC.Focus();
+        }
+
+        private void PcRemoveElement()
         {
             _parent.Data.RemoveElement(SelectedGroupedPC);
 
@@ -116,19 +180,12 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EditGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
+            //switch here as well
         }
 
         private void Button_RemoveGroupedRC_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.Data.RemoveElement(SelectedGroupedRc);
-
-            GroupedSelection<RecipeCategory> selectedGrc = SelectedGroupedRc;
-            ObservableCollection<GroupedSelection<RecipeCategory>> grc = GroupedRc;
-            ListViewTools.RemoveElementAndSelectPrevious(ref selectedGrc, ref grc);
-            SelectedGroupedRc = selectedGrc;
-            GroupedRc = grc;
-
-            SearchableListView_GroupedRC.Focus();
+            RcRemoveElement();
         }
 
         private void Button_ViewCategories_OnClick(object sender, RoutedEventArgs e)
@@ -151,7 +208,7 @@ namespace RecipeSelectHelper.View.Categories
                 "Evaluate All Products By Type",
                 $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPC)}",
                 _parent.Data.AllProducts.ConvertAll(p => (object) p),
-                o => 
+                o =>
                 {
                     var p = (Product) o;
                     return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
@@ -160,16 +217,26 @@ namespace RecipeSelectHelper.View.Categories
                 o =>
                 {
                     var p = (Product) o;
-                    GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ?? new GroupedProductCategory(SelectedGroupedPC);
-                    return new ContentControl {ContentTemplate = Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc};
+                    GroupedProductCategory gpc =
+                        p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ??
+                        new GroupedProductCategory(SelectedGroupedPC);
+                    return new ContentControl
+                    {
+                        ContentTemplate =
+                            Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate,
+                        Content = gpc
+                    };
                 },
+                ui => ui.Content as GroupedProductCategory,
                 (ui, o) =>
                 {
                     var p = (Product) o;
                     var gpc = ui.Content as GroupedProductCategory;
                     if(p.GroupedCategories.All(x => x.CorrespondingGroupedSelection != SelectedGroupedPC)) p.GroupedCategories.Add(gpc);
                     // We add the gpc if it's not already there (if i is, then it's already been edited because it's a reference value).
-                }));
+                },
+                o => ((GroupedProductCategory) o).SelectionIsValid()
+                ));
 
             //todo still missing some way to check for errors, for instance the user not selecting enough items
         }

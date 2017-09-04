@@ -83,11 +83,6 @@ namespace RecipeSelectHelper.View.Categories
             TextBox_CategoryName.Text = string.Empty;
         }
 
-        private void EnterPressed(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter) AddItem(sender, e);
-        }
-
         private void CategoryNameChanged(object sender, RoutedEventArgs e)
         {
             CategoryNameValid = _mode == CategoryMode.ProductCategory ? 
