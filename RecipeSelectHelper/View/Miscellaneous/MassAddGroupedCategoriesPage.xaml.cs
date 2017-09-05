@@ -26,34 +26,47 @@ namespace RecipeSelectHelper.View.Miscellaneous
     /// </summary>
     public partial class MassAddGroupedCategoriesPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
-        private Func<object, string> _createItemDescription;
-        private Func<object, ContentControl> _convertItemToUiElement;
-        private Func<ContentControl, object> _convertBack;
-        private Action<ContentControl, object> _alterOriginalWithResultAndItem;
-        private List<ContentControl> _modifiedItems;
-        private Predicate<object> _isNextClickable;
+        public class Result
+        {
+            public ContentControl ModifiedUi;
+            public object ModifiedObject;
+
+            public Result(ContentControl modifiedUi, object modifiedObject)
+            {
+                ModifiedUi = modifiedUi;
+                ModifiedObject = modifiedObject;
+            }
+        }
+
+        private readonly MainWindow _parent;
+        private readonly Func<object, string> _createItemDescription;
+        private readonly Func<object, ContentControl> _convertItemToUiElement;
+        private readonly Func<ContentControl, object> _convertBack;
+        private readonly Action<object, Result> _alterOriginalWithResult;
+        private readonly List<ContentControl> _modifiedItems;
+        private readonly List<object> _originalItems;
+        private readonly Predicate<object> _isNextClickable;
 
         public MassAddGroupedCategoriesPage(MainWindow parent, string title, string pageDescription, 
-            List<object> itemsToEdit, Func<object, string> createItemDescription,
-            Func<object, ContentControl> convertItemToUiElement, Func<ContentControl, object> convertBack, Action<ContentControl, object> alterOriginalWithResultAndOriginalItem,
+            List<object> itemsToEdit, List<object> itemsForCreatingUi, Func<object, string> createItemDescription,
+            Func<object, ContentControl> convertItemToUiElement, Func<ContentControl, object> convertBack, Action<object, Result> alterOriginalWithResult,
             Predicate<object> isNextClickable = null)
         {
             _parent = parent;
 
             if (!itemsToEdit.IsNullOrEmpty()) // If empty, it'll initialize the page and then navigate back
             {
-                ItemsToEdit = itemsToEdit ?? new List<object>();
-                _modifiedItems = new List<ContentControl>(ItemsToEdit.Count);
+                _originalItems = itemsToEdit;
+                ItemsForCreatingUi = itemsForCreatingUi; 
+                _modifiedItems = new List<ContentControl>(ItemsForCreatingUi.Count);
                 _createItemDescription = createItemDescription;
                 _convertItemToUiElement = convertItemToUiElement;
                 _convertBack = convertBack;
-                _alterOriginalWithResultAndItem = alterOriginalWithResultAndOriginalItem;
+                _alterOriginalWithResult = alterOriginalWithResult;
                 _isNextClickable = isNextClickable ?? (o => true);
                 PageTitle = title;
                 PageDescription = pageDescription;
             }
-
             Loaded += MassAddGroupedCategoriesPage_Loaded; ;
             InitializeComponent();
         }
@@ -65,11 +78,14 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void MassAddGroupedCategoriesPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ItemsToEdit.IsNullOrEmpty()) ClosePage();
+            if (ItemsForCreatingUi.IsNullOrEmpty()) ClosePage();
             else
             {
                 GetNextObject();
                 SetNextIsClickable();
+                ContentControl.AddHandler(MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
+                // This ensures that the OnMouseUp is executed every mouse click. As such, if the UI Element is modified by mouse, 
+                // then we check whether it's still in an acceptable state for clicking next.
             }
         }
 
@@ -85,7 +101,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         public string PageDescription { get; }
 
-        public IList<object> ItemsToEdit { get; }
+        public IList<object> ItemsForCreatingUi { get; }
 
         private int _currentIndex = 0;
         public int CurrentIndex
@@ -119,14 +135,15 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void GetNextObject()
         {
-            if (ItemsToEdit.Count <= CurrentIndex)
+            if (ItemsForCreatingUi.Count <= CurrentIndex)
             {
                 ApplyAndClosePage();
                 return;
             }
-            object newItem = ItemsToEdit[CurrentIndex++];
+            object newItem = ItemsForCreatingUi[CurrentIndex++];
             CurrentUiElement = _convertItemToUiElement(newItem);
             ItemDescription = _createItemDescription(newItem);
+            SetNextIsClickable();
         }
 
         private void ApplyAndClosePage()
@@ -142,17 +159,22 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ApplyChanges()
         {
-            if (_modifiedItems.Count != ItemsToEdit.Count) throw new ArgumentException();
+            if (_modifiedItems.Count != ItemsForCreatingUi.Count) throw new ArgumentException();
             for (var i = 0; i < _modifiedItems.Count; i++)
             {
-                _alterOriginalWithResultAndItem(_modifiedItems[i], ItemsToEdit[i]);
+                _alterOriginalWithResult(_originalItems[i], new Result(_modifiedItems[i], ItemsForCreatingUi[i]));
             }
         }
 
         private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
         {
-            _modifiedItems.Add(CurrentUiElement);
-            GetNextObject();
+            SetNextIsClickable();
+            if (!NextIsClickable) e.Handled = false;
+            else
+            {
+                _modifiedItems.Add(CurrentUiElement);
+                GetNextObject();
+            }
         }
 
         private void ButtonAbort_OnClick(object sender, RoutedEventArgs e)

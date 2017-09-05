@@ -43,14 +43,6 @@ namespace RecipeSelectHelper.Model
         public List<ProductCategory> GetCurrentSelectedItems()
         {
             return GroupedPc.Where(pc => pc.Bool).Select(bpc => bpc.Instance).ToList();
-
-            //List<ProductCategory> selectedItems = new List<ProductCategory>();
-            //foreach (Boolable<ProductCategory> pcBoolable in GroupedPc)
-            //{
-            //    if (pcBoolable.Bool) selectedItems.Add(pcBoolable.Instance);
-            //}
-
-            //return selectedItems;
         }
 
         public bool SelectionIsValid()

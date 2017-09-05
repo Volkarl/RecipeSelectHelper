@@ -76,6 +76,7 @@
     <Compile Include="Resources\Converters\IndexConverter.cs" />
     <Compile Include="Resources\Converters\NullOrEmptyToCollapsedVisibilityConverter.cs" />
     <Compile Include="Resources\FullItemDescriptor.cs" />
+    <Compile Include="Resources\ObjectExtensions.cs" />
     <Compile Include="Resources\ProgressInfo.cs" />
     <Compile Include="Resources\ErrorReporter.cs" />
     <Compile Include="Resources\CustomControls\FilterableListView.cs" />

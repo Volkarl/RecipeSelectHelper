@@ -208,6 +208,8 @@ namespace RecipeSelectHelper.View.Categories
                 "Evaluate All Products By Type",
                 $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPC)}",
                 _parent.Data.AllProducts.ConvertAll(p => (object) p),
+                _parent.Data.AllProducts.ConvertAll(p => (object) new Product(p.Name, p.Categories, p.GroupedCategories.ConvertAll(CloneGpc))),
+                // The above is done to have a product item that can be modified in the UI without it changing the original item until the changes are applied.
                 o =>
                 {
                     var p = (Product) o;
@@ -217,28 +219,28 @@ namespace RecipeSelectHelper.View.Categories
                 o =>
                 {
                     var p = (Product) o;
-                    GroupedProductCategory gpc =
-                        p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ??
-                        new GroupedProductCategory(SelectedGroupedPC);
-                    return new ContentControl
-                    {
-                        ContentTemplate =
-                            Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate,
-                        Content = gpc
-                    };
+                    GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ?? new GroupedProductCategory(SelectedGroupedPC);
+                    return new ContentControl { ContentTemplate = Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc };
                 },
                 ui => ui.Content as GroupedProductCategory,
-                (ui, o) =>
+                (o, r) =>
                 {
                     var p = (Product) o;
-                    var gpc = ui.Content as GroupedProductCategory;
-                    if(p.GroupedCategories.All(x => x.CorrespondingGroupedSelection != SelectedGroupedPC)) p.GroupedCategories.Add(gpc);
-                    // We add the gpc if it's not already there (if i is, then it's already been edited because it's a reference value).
+                    var gpc = p.GroupedCategories.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC);
+                    var editedGpc = (GroupedProductCategory) r.ModifiedUi.Content;
+                    if (gpc == null) p.GroupedCategories.Add(editedGpc);
+                    else gpc.GroupedPc = editedGpc.GroupedPc;
                 },
                 o => ((GroupedProductCategory) o).SelectionIsValid()
                 ));
+        }
 
-            //todo still missing some way to check for errors, for instance the user not selecting enough items
+        private GroupedProductCategory CloneGpc(GroupedProductCategory input)
+        {
+            var result = new GroupedProductCategory(input.CorrespondingGroupedSelection);
+            for (var i = 0; i < input.GroupedPc.Count; i++)
+                result.GroupedPc[i].Bool = input.GroupedPc[i].Bool;
+            return result;
         }
     }
 }
