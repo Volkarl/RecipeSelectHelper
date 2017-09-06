@@ -193,7 +193,7 @@ namespace RecipeSelectHelper.View.Categories
             _parent.SetPage(new AllCategoriesPage(_parent), addNavigationEvent:false);
         }
 
-        private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)
+        private void Button_ReevaluateRecipes_OnClick(object sender, RoutedEventArgs e)
         {
             if (SelectedGroupedRc == null || _parent.Data.AllRecipes.IsNullOrEmpty()) return;
 
@@ -230,7 +230,7 @@ namespace RecipeSelectHelper.View.Categories
             ));
         }
 
-        private void Button_EvaluateMissingProducts_OnClick(object sender, RoutedEventArgs e)
+        private void Button_ReevaluateProducts_OnClick(object sender, RoutedEventArgs e)
         {
             if(SelectedGroupedPc == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
 

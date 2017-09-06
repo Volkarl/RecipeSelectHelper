@@ -23,10 +23,8 @@ namespace RecipeSelectHelper.Model
 
         public double GetExpiredPercentage(DateTime? timeNow = null)
         {
-            if (ProductCreatedTime == null || ProductExpirationTime == null)
-            {
-                return 0;
-            }
+            if (ProductCreatedTime == null || ProductExpirationTime == null) return 0;
+            if (ProductCreatedTime == ProductExpirationTime) return 1;
             long now = (timeNow ?? DateTime.Now).Ticks;
             long pCreation = ProductCreatedTime.Value.Ticks;
             long diffNow = now - pCreation;

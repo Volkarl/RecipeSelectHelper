@@ -411,7 +411,8 @@ namespace RecipeSelectHelper.Tests.IntegrationTests
         private ExpirationInfo CreateExpir(int daysOld)
         {
             if(daysOld > 0) throw new ArgumentException("Value must be below zero.");
-            return new ExpirationInfo(DateTime.Today.AddDays(daysOld), DateTime.Today.AddDays(1));
+            return new ExpirationInfo(DateTime.Today.AddDays(daysOld), DateTime.Today.AddDays(3)); 
+            //Adding 3 instead of just 1 day because otherwise these tests wont work if it's a few minutes before midnight.
         }
 
         private void ExecuteAndVerifyRecipeBpComposition(ProgramData pd, bool allowSubs, List<BoughtProduct> expectedBpsToCookWith)

@@ -45,7 +45,8 @@ namespace RecipeSelectHelper.Model.SortingMethods
 
         private int CalcExpirationValue(ExpirationInfo exp, DateTime time)
         {
-            var decimalExpired = (int)(exp.GetExpiredPercentage(time) * 100);
+            var doubledecimal = (exp.GetExpiredPercentage(time) * 100);
+            var decimalExpired = (int) doubledecimal;
             if (decimalExpired == 0) return 0;
             // double formulaResult = ValueDecayFormula(decimalExpired);
             // return Val * Convert.ToInt32(formulaResult);

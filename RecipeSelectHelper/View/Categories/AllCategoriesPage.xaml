@@ -11,9 +11,9 @@
 
     <DockPanel>
         <UniformGrid Height="30" Columns="3" DockPanel.Dock="Bottom">
-            <Button Name="Button_EvaluateMissingProducts" Click="Button_EvaluateMissingProducts_OnClick"  Content="Evaluate Missing Products"></Button>
+            <Button Name="Button_ReevaluateProducts" Click="Button_ReevaluateProducts_OnClick"  Content="Reevaluate Products"></Button>
             <Button Name="Button_ViewGroupedCategories" Content="View Grouped Categories" Click="Button_ViewGroupedCategories_OnClick"></Button>
-            <Button Name="Button_EvaluateMissingRecipes" Click="Button_EvaluateMissingRecipes_OnClick"  Content="Evaluate Missing Recipes"></Button>
+            <Button Name="Button_ReevaluateRecipes" Click="Button_ReevaluateRecipes_OnClick"  Content="Reevaluate Recipes"></Button>
         </UniformGrid>
 
         <Grid DockPanel.Dock="Top">
