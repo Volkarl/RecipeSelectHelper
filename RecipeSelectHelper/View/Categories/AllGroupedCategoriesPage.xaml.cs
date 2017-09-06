@@ -71,10 +71,10 @@ namespace RecipeSelectHelper.View.Categories
         }
 
         private GroupedSelection<ProductCategory> _selectedGroupedPc;
-        public GroupedSelection<ProductCategory> SelectedGroupedPC
+        public GroupedSelection<ProductCategory> SelectedGroupedPc
         {
             get { return _selectedGroupedPc; }
-            set { _selectedGroupedPc = value; OnPropertyChanged(nameof(SelectedGroupedPC)); }
+            set { _selectedGroupedPc = value; OnPropertyChanged(nameof(SelectedGroupedPc)); }
         }
 
         private ObservableCollection<GroupedSelection<RecipeCategory>> _groupedRc;
@@ -102,7 +102,7 @@ namespace RecipeSelectHelper.View.Categories
         {
             GroupedPc = new ObservableCollection<GroupedSelection<ProductCategory>>(_parent.Data.AllGroupedProductCategories.OrderBy(x => x.MinSelect));
             GroupedRc = new ObservableCollection<GroupedSelection<RecipeCategory>>(_parent.Data.AllGroupedRecipeCategories.OrderBy(x => x.MinSelect));
-            SelectedGroupedPC = null;
+            SelectedGroupedPc = null;
             SelectedGroupedRc = null;
         }
 
@@ -162,12 +162,12 @@ namespace RecipeSelectHelper.View.Categories
 
         private void PcRemoveElement()
         {
-            _parent.Data.RemoveElement(SelectedGroupedPC);
+            _parent.Data.RemoveElement(SelectedGroupedPc);
 
-            GroupedSelection<ProductCategory> selectedGpc = SelectedGroupedPC;
+            GroupedSelection<ProductCategory> selectedGpc = SelectedGroupedPc;
             ObservableCollection<GroupedSelection<ProductCategory>> gpc = GroupedPc;
             ListViewTools.RemoveElementAndSelectPrevious(ref selectedGpc, ref gpc);
-            SelectedGroupedPC = selectedGpc;
+            SelectedGroupedPc = selectedGpc;
             GroupedPc = gpc;
 
             SearchableListView_GroupedPC.Focus();
@@ -195,18 +195,50 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_EvaluateMissingRecipes_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (SelectedGroupedRc == null || _parent.Data.AllRecipes.IsNullOrEmpty()) return;
+
+            //rename to massedit, not massadd
+            _parent.SetPage(new MassAddGroupedCategoriesPage(
+                _parent,
+                "Evaluate All Recipes By Type",
+                $"Recipe type: {FullItemDescriptor.GetDescription(SelectedGroupedRc)}",
+                _parent.Data.AllRecipes.ConvertAll(r => (object) r),
+                _parent.Data.AllRecipes.ConvertAll(r => (object) new Recipe(r.Name, r.Servings, r.Description, r.Instructions, r.Ingredients, r.Categories, r.GroupedCategories.ConvertAll(CloneGrc))),
+                // The above is done to have a recipe item that can be modified in the UI without it changing the original item until the changes are applied.
+                o =>
+                {
+                    var r = (Recipe) o;
+                    return $"{FullItemDescriptor.GetDescription(r)}\n\n" +
+                           $"Recipe {(r.GroupedCategories.Any(grc => grc.CorrespondingGroupedSelection == SelectedGroupedRc) ? "already contains" : "does not contain")} type.";
+                },
+                o =>
+                {
+                    var r = (Recipe) o;
+                    GroupedRecipeCategory grc = r?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedRc) ?? new GroupedRecipeCategory(SelectedGroupedRc);
+                    return new ContentControl { ContentTemplate = Application.Current.Resources["DataTemplateGroupedRecipeCategory"] as DataTemplate, Content = grc };
+                },
+                ui => ui.Content as GroupedRecipeCategory,
+                (o, r) =>
+                {
+                    var rec = (Recipe) o;
+                    var grc = rec.GroupedCategories.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedRc);
+                    var editedGrc = (GroupedRecipeCategory) r.ModifiedUi.Content;
+                    if (grc == null) rec.GroupedCategories.Add(editedGrc);
+                    else grc.GroupedRc = editedGrc.GroupedRc;
+                },
+                o => ((GroupedRecipeCategory) o).SelectionIsValid()
+            ));
         }
 
         private void Button_EvaluateMissingProducts_OnClick(object sender, RoutedEventArgs e)
         {
-            if(SelectedGroupedPC == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
+            if(SelectedGroupedPc == null || _parent.Data.AllProducts.IsNullOrEmpty()) return;
 
             //rename to massedit, not massadd
             _parent.SetPage(new MassAddGroupedCategoriesPage(
                 _parent,
                 "Evaluate All Products By Type",
-                $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPC)}",
+                $"Product type: {FullItemDescriptor.GetDescription(SelectedGroupedPc)}",
                 _parent.Data.AllProducts.ConvertAll(p => (object) p),
                 _parent.Data.AllProducts.ConvertAll(p => (object) new Product(p.Name, p.Categories, p.GroupedCategories.ConvertAll(CloneGpc))),
                 // The above is done to have a product item that can be modified in the UI without it changing the original item until the changes are applied.
@@ -214,19 +246,19 @@ namespace RecipeSelectHelper.View.Categories
                 {
                     var p = (Product) o;
                     return $"{FullItemDescriptor.GetDescription(p)}\n\n" +
-                           $"Product {(p.GroupedCategories.Any(gpc => gpc.CorrespondingGroupedSelection == SelectedGroupedPC) ? "already contains" : "does not contain")} type.";
+                           $"Product {(p.GroupedCategories.Any(gpc => gpc.CorrespondingGroupedSelection == SelectedGroupedPc) ? "already contains" : "does not contain")} type.";
                 },
                 o =>
                 {
                     var p = (Product) o;
-                    GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC) ?? new GroupedProductCategory(SelectedGroupedPC);
+                    GroupedProductCategory gpc = p?.GroupedCategories?.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPc) ?? new GroupedProductCategory(SelectedGroupedPc);
                     return new ContentControl { ContentTemplate = Application.Current.Resources["DataTemplateGroupedProductCategory"] as DataTemplate, Content = gpc };
                 },
                 ui => ui.Content as GroupedProductCategory,
                 (o, r) =>
                 {
                     var p = (Product) o;
-                    var gpc = p.GroupedCategories.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPC);
+                    var gpc = p.GroupedCategories.Find(x => x.CorrespondingGroupedSelection == SelectedGroupedPc);
                     var editedGpc = (GroupedProductCategory) r.ModifiedUi.Content;
                     if (gpc == null) p.GroupedCategories.Add(editedGpc);
                     else gpc.GroupedPc = editedGpc.GroupedPc;
@@ -240,6 +272,14 @@ namespace RecipeSelectHelper.View.Categories
             var result = new GroupedProductCategory(input.CorrespondingGroupedSelection);
             for (var i = 0; i < input.GroupedPc.Count; i++)
                 result.GroupedPc[i].Bool = input.GroupedPc[i].Bool;
+            return result;
+        }
+
+        private GroupedRecipeCategory CloneGrc(GroupedRecipeCategory input) 
+        {
+            var result = new GroupedRecipeCategory(input.CorrespondingGroupedSelection);
+            for (var i = 0; i < input.GroupedRc.Count; i++)
+                result.GroupedRc[i].Bool = input.GroupedRc[i].Bool;
             return result;
         }
     }

@@ -51,6 +51,12 @@ namespace RecipeSelectHelper.Model
             return selectedItems;
         }
 
+        public bool SelectionIsValid()
+        {
+            string error;
+            return SelectionIsValid(out error);
+        }
+
         public bool SelectionIsValid(out string error)
         {
             List<RecipeCategory> selectedItems = GetCurrentSelectedItems();
