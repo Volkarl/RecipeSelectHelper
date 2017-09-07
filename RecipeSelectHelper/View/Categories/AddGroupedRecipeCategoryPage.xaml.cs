@@ -44,7 +44,6 @@ namespace RecipeSelectHelper.View.Categories
         {
             RecipeCategories = new ObservableCollection<RecipeCategory>(_data.AllRecipeCategories.OrderBy(x => x.Name));
             // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
-            SelectedRc = null;
         }
 
         #region ObservableObjects
@@ -119,7 +118,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddNewRecipeCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category To Group", _parent);
+            _parent.SetPage(new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.RecipeCategory), "Add New Recipe Category To Group", _parent));
         }
 
         private void Button_EditRecipeCategory_OnClick(object sender, RoutedEventArgs e)
@@ -129,7 +128,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void ButtonRemoveRecipeCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _data.RemoveElement(SelectedRc); // AllRecipeCategories.Remove(SelectedRC);
+            _data.RemoveElement(SelectedRc);
 
             RecipeCategory selectedRc = SelectedRc;
             ObservableCollection<RecipeCategory> rc = RecipeCategories;

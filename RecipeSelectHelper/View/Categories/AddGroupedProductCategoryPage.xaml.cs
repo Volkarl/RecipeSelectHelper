@@ -44,7 +44,6 @@ namespace RecipeSelectHelper.View.Categories
         {
             ProductCategories = new ObservableCollection<ProductCategory>(_data.AllProductCategories.OrderBy(x => x.Name));
             // This is done to not lose all created recipe categories when we switch pages (to add new recipe categories for instance)
-            SelectedPc = null;
         }
 
         #region ObservableObjects
@@ -119,7 +118,7 @@ namespace RecipeSelectHelper.View.Categories
 
         private void Button_AddNewProductCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category To Group", _parent);
+            _parent.SetPage(new AddElementBasePage(new AddCategoriesPage(_data, AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category To Group", _parent));
         }
 
         private void Button_EditProductCategory_OnClick(object sender, RoutedEventArgs e)

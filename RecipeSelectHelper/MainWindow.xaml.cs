@@ -1,25 +1,12 @@
 ﻿using RecipeSelectHelper.Model;
-using RecipeSelectHelper.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using RecipeSelectHelper.Properties;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.BoughtProducts;
@@ -30,7 +17,6 @@ using AllSortingMethodsPage = RecipeSelectHelper.View.SortingMethods.AllSortingM
 using AllStoreProductsPage = RecipeSelectHelper.View.Products.AllStoreProductsPage;
 using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.MessageBox;
-using Path = System.IO.Path;
 using RankingsViewPage = RecipeSelectHelper.View.Miscellaneous.RankingsViewPage;
 using SettingsPage = RecipeSelectHelper.View.Miscellaneous.SettingsPage;
 

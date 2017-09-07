@@ -8,51 +8,38 @@ namespace RecipeSelectHelper.Resources.CustomControls
     /// </summary>
     public partial class InputSlider : UserControl
     {
-        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("OuterMaximum", typeof(int), typeof(InputSlider), new PropertyMetadata(ChangedMax));
-        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("OuterMinimum", typeof(int), typeof(InputSlider), new PropertyMetadata(ChangedMin));
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("OuterValue", typeof(int), typeof(InputSlider), new PropertyMetadata(ChangedVal));
-
         public InputSlider()
         {
             InitializeComponent();
         }
 
-        #region ObservableObjects
+        #region DependencyProperty
 
-        private static void ChangedMax(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var c = d as InputSlider;
-            c.Slider.Maximum = (int)e.NewValue;
-        }
-
-        private static void ChangedMin(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var c = d as InputSlider;
-            c.Slider.Minimum = (int)e.NewValue;
-        }
-
-        private static void ChangedVal(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var c = d as InputSlider;
-            c.Slider.Value = (int)e.NewValue;
-        }
-
-        public int OuterMaximum
-        {
-            get { return (int)GetValue(MaximumProperty); }
-            set { SetValue(MaximumProperty, value); }
-        }
+        public static readonly DependencyProperty OuterMinimumProperty = DependencyProperty.Register(
+            "OuterMinimum", typeof(int), typeof(InputSlider), new PropertyMetadata(default(int)));
 
         public int OuterMinimum
         {
-            get { return (int)GetValue(MinimumProperty); }
-            set { SetValue(MinimumProperty, value); }
+            get { return (int) GetValue(OuterMinimumProperty); }
+            set { SetValue(OuterMinimumProperty, value); }
         }
+
+        public static readonly DependencyProperty OuterMaximumProperty = DependencyProperty.Register(
+            "OuterMaximum", typeof(int), typeof(InputSlider), new PropertyMetadata(default(int)));
+
+        public int OuterMaximum
+        {
+            get { return (int) GetValue(OuterMaximumProperty); }
+            set { SetValue(OuterMaximumProperty, value); }
+        }
+
+        public static readonly DependencyProperty OuterValueProperty = DependencyProperty.Register(
+            "OuterValue", typeof(int), typeof(InputSlider), new PropertyMetadata(default(int)));
 
         public int OuterValue
         {
-            get { return (int)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (int) GetValue(OuterValueProperty); }
+            set { SetValue(OuterValueProperty, value); }
         }
 
         #endregion
