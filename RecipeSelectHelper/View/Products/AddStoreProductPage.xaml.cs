@@ -140,12 +140,12 @@ namespace RecipeSelectHelper.View.Products
 
         private void Button_AddNewProduct_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent);
+            _parent.SetPage(new AddElementBasePage(new AddStoreProductPage(_parent), "Add New Store Product", _parent));
         }
 
         private void Button_AddNewCategory_Click(object sender, RoutedEventArgs e)
         {
-            _parent.ContentControl.Content = new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent);
+            _parent.SetPage(new AddElementBasePage(new Categories.AddCategoriesPage(_parent.Data, Categories.AddCategoriesPage.CategoryMode.ProductCategory), "Add New Product Category", _parent));
         }
 
         private void Button_ViewSelectedSubstituteProducts_OnClick(object sender, RoutedEventArgs e)
