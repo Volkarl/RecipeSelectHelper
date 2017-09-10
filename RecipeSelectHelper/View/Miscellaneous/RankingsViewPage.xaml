@@ -85,7 +85,7 @@
         </ScrollViewer>
         <DockPanel Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Background="LightGray">
             <CheckBox Name="CheckBox_SubstitutesEnabled" IsChecked="True" Content="Substitutes" DockPanel.Dock="Top" HorizontalAlignment="Center"></CheckBox>
-            <Button Name="Button_SortRecipes" Content="Sort Recipes" Click="Button_SortRecipes_Click" DockPanel.Dock="Top"></Button>
+            <Button Name="Button_SortRecipes" Content="Sort Recipes" Click="Button_SortRecipes_Click" DockPanel.Dock="Top"  IsEnabled="{Binding Recipes, Converter={StaticResource NullToBooleanConverter}}"></Button>
         </DockPanel>
         <customControls:TextProgressBar x:Name="ProgressBar_Sorting" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="5"></customControls:TextProgressBar>
         <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="8" ItemsSource="{Binding SortingMethods}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSortingMethod}"></ComboBox>

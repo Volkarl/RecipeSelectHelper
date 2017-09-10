@@ -74,7 +74,9 @@
     <Compile Include="Resources\BpValue.cs" />
     <Compile Include="Resources\ConcreteTypesForXaml\StringList.cs" />
     <Compile Include="Resources\Converters\IndexConverter.cs" />
+    <Compile Include="Resources\Converters\NullOrEmptyToBoolConverter.cs" />
     <Compile Include="Resources\Converters\NullOrEmptyToCollapsedVisibilityConverter.cs" />
+    <Compile Include="Resources\Converters\NullToBooleanConverter.cs" />
     <Compile Include="Resources\FullItemDescriptor.cs" />
     <Compile Include="Resources\ObjectExtensions.cs" />
     <Compile Include="Resources\ProgressInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,6 +44,12 @@ namespace RecipeSelectHelper.Resources
                 }
             }
             return false;
+        }
+
+        public static bool IsListWithoutElements(object value)
+        {
+            var list = value as IList;
+            return list?.Count == 0;
         }
     }
 }

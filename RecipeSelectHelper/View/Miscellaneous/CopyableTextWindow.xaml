@@ -14,7 +14,7 @@
         <TextBox Name="TextBoxTextToCopy" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"></TextBox>
         <UniformGrid Grid.Row="1" Rows="1">
             <Button Name="ButtonCopy" Click="ButtonCopy_OnClick" Content="Copy" VerticalAlignment="Bottom" Height="30"></Button>
-            <Button Name="ButtonOk" Click="ButtonOk_OnClick" Content="OK" Height="30" VerticalAlignment="Bottom"></Button>
+            <Button Name="ButtonOk" Click="ButtonOk_OnClick" Content="OK" Height="30" VerticalAlignment="Bottom" IsCancel="True"></Button>
         </UniformGrid>
     </Grid>
 </Window>

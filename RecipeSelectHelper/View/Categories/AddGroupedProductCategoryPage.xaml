@@ -22,8 +22,8 @@
 
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="3">
             <Button Name="Button_AddNewProductCategory" Height="30" Content="Add" Click="Button_AddNewProductCategory_OnClick"></Button>
-            <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_OnClick"></Button>
-            <Button Name="ButtonRemoveProductCategory" Content="Remove" Click="ButtonRemoveProductCategory_OnClick"></Button>
+            <Button Name="Button_EditProductCategory" Content="Edit" Click="Button_EditProductCategory_OnClick" IsEnabled="{Binding SelectedPc, Converter={StaticResource NullToBooleanConverter}}"></Button>
+            <Button Name="ButtonRemoveProductCategory" Content="Remove" Click="ButtonRemoveProductCategory_OnClick" IsEnabled="{Binding SelectedPc, Converter={StaticResource NullToBooleanConverter}}"></Button>
         </UniformGrid>
 
         <Label DockPanel.Dock="Top" Height="30" Content="List of categories to group: " VerticalAlignment="Center"></Label>

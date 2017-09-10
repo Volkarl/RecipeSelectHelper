@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
       xmlns:local="clr-namespace:RecipeSelectHelper.View.Categories"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -12,17 +13,17 @@
 
     <DockPanel>
         <UniformGrid Rows="1" DockPanel.Dock="Bottom">
-            <Button Name="Button_ReevaluateProducts" Click="Button_ReevaluateProducts_OnClick" Content="Reevaluate Products"></Button>
+            <Button Name="Button_ReevaluateProducts" Click="Button_ReevaluateProducts_OnClick" Content="Reevaluate Products" IsEnabled="{Binding GroupedPc, Converter={StaticResource NullOrEmptyToBoolConverter}}"></Button>
             <Button Name="Button_ViewCategories" Content="View Categories" Click="Button_ViewCategories_OnClick"></Button>
-            <Button Name="Button_ReevaluateRecipes" Click="Button_ReevaluateRecipes_OnClick" Content="Reevaluate Recipes"></Button>
+            <Button Name="Button_ReevaluateRecipes" Click="Button_ReevaluateRecipes_OnClick" Content="Reevaluate Recipes" IsEnabled="{Binding GroupedRc, Converter={StaticResource NullOrEmptyToBoolConverter}}"></Button>
         </UniformGrid>
         <UniformGrid Rows="1" DockPanel.Dock="Bottom">
             <Button Name="Button_AddGroupedPC" Content="Add" Click="Button_AddGroupedPC_OnClick"></Button>
-            <Button Name="Button_EditGroupedPC" Content="Edit" Click="Button_EditGroupedPC_OnClick"></Button>
-            <Button Name="Button_RemoveGroupedPC" Content="Remove" Click="Button_RemoveGroupedPC_OnClick"></Button>
+            <Button Name="Button_EditGroupedPC" Content="Edit" Click="Button_EditGroupedPC_OnClick" IsEnabled="{Binding SelectedGroupedPc, Converter={StaticResource NullToBooleanConverter}}"></Button>
+            <Button Name="Button_RemoveGroupedPC" Content="Remove" Click="Button_RemoveGroupedPC_OnClick" IsEnabled="{Binding SelectedGroupedPc, Converter={StaticResource NullToBooleanConverter}}"></Button>
             <Button Name="Button_AddGroupedRC" Content="Add" Click="Button_AddGroupedRC_OnClick"></Button>
-            <Button Name="Button_EditGroupedRC" Content="Edit" Click="Button_EditGroupedRC_OnClick"></Button>
-            <Button Name="Button_RemoveGroupedRC" Content="Remove" Click="Button_RemoveGroupedRC_OnClick"></Button>
+            <Button Name="Button_EditGroupedRC" Content="Edit" Click="Button_EditGroupedRC_OnClick" IsEnabled="{Binding SelectedGroupedRc, Converter={StaticResource NullToBooleanConverter}}"></Button>
+            <Button Name="Button_RemoveGroupedRC" Content="Remove" Click="Button_RemoveGroupedRC_OnClick" IsEnabled="{Binding SelectedGroupedRc, Converter={StaticResource NullToBooleanConverter}}"></Button>
         </UniformGrid>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -41,9 +42,17 @@
             <TextBlock Text="Grouped Product Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Grouped Recipe Categories:" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-            <ListView Name="SearchableListView_GroupedPC" Grid.Column="0" Grid.Row="2" SelectedItem="{Binding SelectedGroupedPc, Mode=TwoWay}" ItemsSource="{Binding Path=GroupedPc, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource StyleChangeBackgroundOnListViewItemSelectionActive}"></ListView>
+            <ListView Name="SearchableListView_GroupedPC" Grid.Column="0" Grid.Row="2" SelectedItem="{Binding SelectedGroupedPc, Mode=TwoWay}" ItemsSource="{Binding Path=GroupedPc, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource StyleChangeBackgroundOnListViewItemSelectionActive}">
+                <i:Interaction.Behaviors>
+                    <custom:IgnoreMouseWheelBehavior />
+                </i:Interaction.Behaviors>
+            </ListView>
             
-            <ListView Name="SearchableListView_GroupedRC" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding SelectedGroupedRc, Mode=TwoWay}" ItemsSource="{Binding Path=GroupedRc, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource StyleChangeBackgroundOnListViewItemSelectionActive}"></ListView>
+            <ListView Name="SearchableListView_GroupedRC" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding SelectedGroupedRc, Mode=TwoWay}" ItemsSource="{Binding Path=GroupedRc, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource StyleChangeBackgroundOnListViewItemSelectionActive}">
+                <i:Interaction.Behaviors>
+                    <custom:IgnoreMouseWheelBehavior />
+                </i:Interaction.Behaviors>
+            </ListView>
         </Grid>
     </DockPanel>
 

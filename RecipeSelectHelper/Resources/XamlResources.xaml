@@ -72,6 +72,10 @@
     
     <converters:NullOrEmptyToCollapsedVisibilityConverter x:Key="NullOrEmptyToCollapsedVisibilityConverter"></converters:NullOrEmptyToCollapsedVisibilityConverter>
     
+    <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter"></converters:NullOrEmptyToBoolConverter>
+    
+    <converters:NullToBooleanConverter x:Key="NullToBooleanConverter"></converters:NullToBooleanConverter>
+    
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
 
     <converters:IndexConverter x:Key="IndexConverter"></converters:IndexConverter>

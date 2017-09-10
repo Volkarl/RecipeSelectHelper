@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:custom="clr-namespace:RecipeSelectHelper.Resources"
       xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       Title="AllRecipesPage"
@@ -90,6 +91,9 @@
                         <GridViewColumn Header="Attributes" Width="Auto" DisplayMemberBinding="{Binding CategoriesAsString}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <i:Interaction.Behaviors>
+                    <custom:IgnoreMouseWheelBehavior />
+                </i:Interaction.Behaviors>
             </customControls:FilterableListView>
         </DockPanel>
         
@@ -103,8 +107,8 @@
         
         <UniformGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="8" Rows="1">
             <Button Name="Button_AddRecipe" Content="Add Recipes" Click="Button_AddRecipe_Click"></Button>
-            <Button Name="Button_EditRecipe" Content="Edit Recipe" Click="Button_EditRecipe_Click"></Button>
-            <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Click="Button_RemoveRecipe_Click"></Button>
+            <Button Name="Button_EditRecipe" Content="Edit Recipe" Click="Button_EditRecipe_Click" IsEnabled="{Binding SelectedRecipe, Converter={StaticResource NullToBooleanConverter}}"></Button>
+            <Button Name="Button_RemoveRecipe" Content="Remove Recipe" Click="Button_RemoveRecipe_Click" IsEnabled="{Binding SelectedRecipe, Converter={StaticResource NullToBooleanConverter}}"></Button>
         </UniformGrid>
     </Grid>
 </Page>

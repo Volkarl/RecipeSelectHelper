@@ -10,13 +10,7 @@ namespace RecipeSelectHelper.Resources.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null || IsListWithoutElements(value) ? Visibility.Hidden : Visibility.Visible;
-        }
-
-        private bool IsListWithoutElements(object value)
-        {
-            var list = value as IList;
-            return list?.Count == 0;
+            return value == null || UtilityMethods.IsListWithoutElements(value) ? Visibility.Hidden : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
