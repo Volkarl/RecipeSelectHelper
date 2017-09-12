@@ -159,10 +159,14 @@ namespace RecipeSelectHelper.Resources.CustomControls
                     HideNewInstruction(true);
                     SelectedString = Strings[oldSelected];
                 }
+                e.Handled = true;
                 RefreshListView();
             }
             else if (e.Key == Key.Escape)
+            {
                 HideNewInstruction(false);
+                e.Handled = true;
+            }
         }
     }
 }
