@@ -28,8 +28,8 @@ namespace RecipeSelectHelper.View.Categories
     /// </summary>
     public partial class AllGroupedCategoriesPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
-        public AllGroupedCategoriesPage(MainWindow parent)
+        private IParentPage _parent;
+        public AllGroupedCategoriesPage(IParentPage parent)
         {
             _parent = parent;
             Loaded += AllGroupedCategoriesPage_Loaded;

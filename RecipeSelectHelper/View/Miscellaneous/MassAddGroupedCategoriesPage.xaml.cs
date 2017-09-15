@@ -38,7 +38,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             }
         }
 
-        private readonly MainWindow _parent;
+        private readonly IParentPage _parent;
         private readonly Func<object, string> _createItemDescription;
         private readonly Func<object, ContentControl> _convertItemToUiElement;
         private readonly Func<ContentControl, object> _convertBack;
@@ -47,7 +47,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
         private readonly List<object> _originalItems;
         private readonly Predicate<object> _isNextClickable;
 
-        public MassAddGroupedCategoriesPage(MainWindow parent, string title, string pageDescription, 
+        public MassAddGroupedCategoriesPage(IParentPage parent, string title, string pageDescription, 
             List<object> itemsToEdit, List<object> itemsForCreatingUi, Func<object, string> createItemDescription,
             Func<object, ContentControl> convertItemToUiElement, Func<ContentControl, object> convertBack, Action<object, Result> alterOriginalWithResult,
             Predicate<object> isNextClickable = null)
@@ -154,7 +154,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ClosePage()
         {
-            _parent.ContentControl.NavigationService.GoBack();
+            _parent.NavigatePageBack();
         }
 
         private void ApplyChanges()

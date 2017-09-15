@@ -10,6 +10,7 @@ using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.Resources.CustomControls;
+using RecipeSelectHelper.View.Miscellaneous;
 using Button = System.Windows.Controls.Button;
 using ComboBox = System.Windows.Controls.ComboBox;
 using Label = System.Windows.Controls.Label;
@@ -23,7 +24,7 @@ namespace RecipeSelectHelper.View.SortingMethods
     /// </summary>
     public partial class AddSortingMethodPage : Page, INotifyPropertyChanged, IAddElement
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -31,7 +32,7 @@ namespace RecipeSelectHelper.View.SortingMethods
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public AddSortingMethodPage(MainWindow parent)
+        public AddSortingMethodPage(IParentPage parent)
         {
             _parent = parent;
             LoadObservableObjects();

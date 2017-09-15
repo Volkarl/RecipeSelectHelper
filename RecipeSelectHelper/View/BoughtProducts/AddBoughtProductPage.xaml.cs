@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Miscellaneous;
 
 namespace RecipeSelectHelper.View.BoughtProducts
 {
@@ -17,9 +18,9 @@ namespace RecipeSelectHelper.View.BoughtProducts
     /// </summary>
     public partial class AddBoughtProductPage : Page, IAddElement, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
-        public AddBoughtProductPage(MainWindow parent)
+        public AddBoughtProductPage(IParentPage parent)
         {
             _parent = parent;
             this.Loaded += AddBoughtProductPage_Loaded;

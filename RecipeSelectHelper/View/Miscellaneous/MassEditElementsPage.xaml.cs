@@ -27,13 +27,13 @@ namespace RecipeSelectHelper.View.Miscellaneous
     /// </summary>
     public partial class MassEditElementsPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
         private Func<object, string> _createItemDescription;
         private Action<object> _yesIsClicked;
         private Action<object> _noIsClicked;
         private List<bool> _logOfAnswers;
 
-        public MassEditElementsPage(MainWindow parent, string title, string pageDescription, string question,
+        public MassEditElementsPage(IParentPage parent, string title, string pageDescription, string question,
             List<object> itemsToEdit, Func<object, string> createItemDescription, 
             Action<object> yesIsClicked, Action<object> noIsClicked)
         {
@@ -113,7 +113,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ClosePage()
         {
-            _parent.ContentControl.NavigationService.GoBack();
+            _parent.NavigatePageBack();
         }
 
         private void ApplyChanges()

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.Categories
@@ -17,10 +18,10 @@ namespace RecipeSelectHelper.View.Categories
     /// </summary>
     public partial class AddGroupedRecipeCategoryPage : Page, IAddElement, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
         private static ProgramData _data = new ProgramData();
 
-        public AddGroupedRecipeCategoryPage(MainWindow parent)
+        public AddGroupedRecipeCategoryPage(IParentPage parent)
         {
             _parent = parent;
             ResetInternalData();

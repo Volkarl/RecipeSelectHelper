@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.View.Categories;
+using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.Products
@@ -18,10 +19,10 @@ namespace RecipeSelectHelper.View.Products
     /// </summary>
     public partial class AddStoreProductPage : Page, IAddElement, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
         private ValidityChecker _valid;
 
-        public AddStoreProductPage(MainWindow parent)
+        public AddStoreProductPage(IParentPage parent)
         {
             _parent = parent;
             InitializeObservableObjects();
