@@ -44,7 +44,12 @@ namespace RecipeSelectHelper.View.Recipes
 
         public string RecipeDescription { get; set; }
 
-        public StringList RecipeInstructions { get; set; } = new StringList();
+        private StringList _recipeInstructions = new StringList();
+        public StringList RecipeInstructions
+        {
+            get { return _recipeInstructions; }
+            set { _recipeInstructions = value; OnPropertyChanged(nameof(RecipeInstructions)); }
+        }
 
         public int RecipeServings { get; set; } = 1;
 
@@ -72,7 +77,6 @@ namespace RecipeSelectHelper.View.Recipes
         }
 
         private ObservableCollection<BoolableWithValue<Product, int>> _ingredients;
-
         public ObservableCollection<BoolableWithValue<Product, int>> Ingredients
         {
             get { return _ingredients; }
