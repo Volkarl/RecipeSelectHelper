@@ -11,6 +11,7 @@ using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
 using RecipeSelectHelper.View.Categories;
+using RecipeSelectHelper.View.Miscellaneous;
 using RecipeSelectHelper.View.Products;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
@@ -21,10 +22,10 @@ namespace RecipeSelectHelper.View.Recipes
     /// </summary>
     public partial class AddRecipePage : Page, IAddElement, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
         private ValidityChecker _valid;
 
-        public AddRecipePage(MainWindow parent)
+        public AddRecipePage(IParentPage parent)
         {
             _parent = parent;
             InitializeObservableObjects();

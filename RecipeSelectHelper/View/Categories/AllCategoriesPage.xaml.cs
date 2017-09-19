@@ -17,7 +17,7 @@ namespace RecipeSelectHelper.View.Categories
     /// </summary>
     public partial class AllCategoriesPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
         #region ObservableObjects
 
@@ -57,7 +57,7 @@ namespace RecipeSelectHelper.View.Categories
 
         #endregion
 
-        public AllCategoriesPage(MainWindow parent)
+        public AllCategoriesPage(IParentPage parent)
         {
             this._parent = parent;
             this.Loaded += AllCategoriesPage_Loaded;

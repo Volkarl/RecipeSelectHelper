@@ -20,7 +20,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
     /// </summary>
     public partial class AllBoughtProductsPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
         #region ObservableObjects
 
@@ -67,7 +67,7 @@ namespace RecipeSelectHelper.View.BoughtProducts
 
         #endregion
 
-        public AllBoughtProductsPage(MainWindow parent)
+        public AllBoughtProductsPage(IParentPage parent)
         {
             this._parent = parent;
             Loaded += FridgePage_Loaded;

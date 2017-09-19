@@ -159,6 +159,7 @@
     <Compile Include="View\Miscellaneous\CopyableTextWindow.xaml.cs">
       <DependentUpon>CopyableTextWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Miscellaneous\IParentPage.cs" />
     <Compile Include="View\Miscellaneous\MassAddGroupedCategoriesPage.xaml.cs">
       <DependentUpon>MassAddGroupedCategoriesPage.xaml</DependentUpon>
     </Compile>

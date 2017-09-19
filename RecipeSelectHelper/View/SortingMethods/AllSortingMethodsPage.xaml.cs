@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeSelectHelper.Model.SortingMethods;
 using RecipeSelectHelper.Resources;
+using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.SortingMethods
@@ -14,9 +15,9 @@ namespace RecipeSelectHelper.View.SortingMethods
     /// </summary>
     public partial class AllSortingMethodsPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
-        public AllSortingMethodsPage(MainWindow parent)
+        public AllSortingMethodsPage(IParentPage parent)
         {
             _parent = parent;
             DataContext = this;

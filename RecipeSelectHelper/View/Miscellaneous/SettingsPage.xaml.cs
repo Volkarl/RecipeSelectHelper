@@ -24,9 +24,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
     /// </summary>
     public partial class SettingsPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
-        public SettingsPage(MainWindow parent)
+        public SettingsPage(IParentPage parent)
         {
             _parent = parent;
             Loaded += SettingsPage_Loaded;
@@ -255,8 +255,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         private void ButtonExitWithoutSaving_OnClick(object sender, RoutedEventArgs e)
         {
-            _parent.SaveChangesOnExit = false;
-            Application.Current.Shutdown();
+            _parent.Shutdown(false);
         }
 
         private void ButtonChangeSaveLocation_OnClick(object sender, RoutedEventArgs e)

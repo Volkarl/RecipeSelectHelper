@@ -25,7 +25,7 @@ namespace RecipeSelectHelper
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged, IParentPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -33,8 +33,7 @@ namespace RecipeSelectHelper
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ProgramData Data { get; set; }
-        public bool SaveChangesOnExit = true;
+        public ProgramData Data { get; private set; }
         private readonly List<string> _navigationHistory = new List<string>();
         public string NavigationHistory => string.Join(" > ", _navigationHistory);
 
@@ -201,7 +200,8 @@ namespace RecipeSelectHelper
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if(SaveChangesOnExit) SaveChanges();
+            Shutdown();
+//            if(SaveChangesOnExit) SaveChanges();
             //if (!SaveChangesOnExit) return;
 
             //try
@@ -215,6 +215,12 @@ namespace RecipeSelectHelper
 
             //    e.Cancel = (result == MessageBoxResult.No);
             //}
+        }
+
+        public void Shutdown(bool saveChanges = true)
+        {
+            if(saveChanges) SaveChanges();
+            Application.Current.Shutdown();
         }
     }
 }

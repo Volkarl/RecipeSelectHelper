@@ -10,6 +10,7 @@ using System.Windows.Input;
 using RecipeSelectHelper.Model;
 using RecipeSelectHelper.Resources;
 using RecipeSelectHelper.Resources.ConcreteTypesForXaml;
+using RecipeSelectHelper.View.Miscellaneous;
 using AddElementBasePage = RecipeSelectHelper.View.Miscellaneous.AddElementBasePage;
 
 namespace RecipeSelectHelper.View.Products
@@ -19,7 +20,7 @@ namespace RecipeSelectHelper.View.Products
     /// </summary>
     public partial class AllStoreProductsPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
         #region ObservableObjects
 
@@ -59,7 +60,7 @@ namespace RecipeSelectHelper.View.Products
 
         #endregion
 
-        public AllStoreProductsPage(MainWindow parent)
+        public AllStoreProductsPage(IParentPage parent)
         {
             _parent = parent;
             Loaded += AllStoreProductsPage_Loaded;

@@ -17,9 +17,9 @@ namespace RecipeSelectHelper.View.Miscellaneous
     /// </summary>
     public partial class RankingsViewPage : Page, INotifyPropertyChanged
     {
-        private MainWindow _parent;
+        private IParentPage _parent;
 
-        public RankingsViewPage(MainWindow parent)
+        public RankingsViewPage(IParentPage parent)
         {
             this._parent = parent;
             InitializeObservableObjects();

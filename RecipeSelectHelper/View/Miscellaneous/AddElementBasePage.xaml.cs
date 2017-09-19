@@ -14,7 +14,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
     {
         private IAddElement _content;
         public string ContentPageTitle;
-        private MainWindow _parent;
+        private IParentPage _parent;
         private object _finalizeButtonContent;
 
         #region ObservableObjects
@@ -34,11 +34,11 @@ namespace RecipeSelectHelper.View.Miscellaneous
 
         #endregion
 
-        public AddElementBasePage(MainWindow parent) : this(null, "Page Not Implemented", parent, string.Empty) { }
+        public AddElementBasePage(IParentPage parent) : this(null, "Page Not Implemented", parent, string.Empty) { }
 
         // Rename this class maybe. Its no longer only for adding elements, but also for editing elements. 
         // Anything with a back button and a finalize button!
-        public AddElementBasePage(IAddElement content, string title, MainWindow parent, string contentOfFinalizeButton = "Add")
+        public AddElementBasePage(IAddElement content, string title, IParentPage parent, string contentOfFinalizeButton = "Add")
         {
             _content = content;
             ContentPageTitle = title;
