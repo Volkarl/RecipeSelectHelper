@@ -5,7 +5,7 @@
                     xmlns:resources="clr-namespace:RecipeSelectHelper.Resources"
                     xmlns:converters="clr-namespace:RecipeSelectHelper.Resources.Converters;assembly=RecipeSelectHelper"
                     xmlns:concreteTypesForXaml="clr-namespace:RecipeSelectHelper.Resources.ConcreteTypesForXaml"
-                    xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls">
+                    xmlns:customControls="clr-namespace:RecipeSelectHelper.Resources.CustomControls;assembly=RecipeSelectHelper">
 
     <DataTemplate x:Key="ArrowUp">
         <DockPanel>
@@ -402,7 +402,7 @@
             </Expander.Header>
             <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+                <ItemsControl Margin="10,0,0,0" Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateProductCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -420,7 +420,7 @@
             </Expander.Header>
             <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <ContentControl Visibility="{Binding CorrespondingProduct, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ContentTemplate="{StaticResource DataTemplateProductDetailView}" Content="{Binding CorrespondingProduct}"></ContentControl>
+                <ContentControl Margin="10,0,0,0" Visibility="{Binding CorrespondingProduct, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ContentTemplate="{StaticResource DataTemplateProductDetailView}" Content="{Binding CorrespondingProduct}"></ContentControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
@@ -438,8 +438,8 @@
             </Expander.Header>
             <StackPanel>
                 <ItemsControl Visibility="{Binding OwnValue.GetSenders, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateViewProgressInfoVertically}" ItemsSource="{Binding OwnValue.GetSenders}"></ItemsControl>
-                <ItemsControl Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
-                <ItemsControl Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
+                <ItemsControl Margin="10,0,0,0" Visibility="{Binding Categories, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{StaticResource DataTemplateRecipeCategoryDetailView}" ItemsSource="{Binding Categories}"></ItemsControl>
+                <ItemsControl Margin="10,0,0,0" Visibility="{Binding Ingredients, Converter={StaticResource NullOrEmptyToHiddenVisibilityConverter}}" ItemTemplate="{DynamicResource DataTemplateIngredientDetailView}" ItemsSource="{Binding Ingredients}"></ItemsControl>
             </StackPanel>
         </Expander>
     </DataTemplate>
