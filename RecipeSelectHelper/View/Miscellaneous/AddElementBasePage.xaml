@@ -35,9 +35,9 @@
             <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button IsCancel="True" Name="Button_Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold" ContentTemplate="{StaticResource IconBack}"></Button>
+        <Button Style="{StaticResource StyleIsCancelWithColor}" Name="Button_Back" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Click="Button_Back_Click" FontSize="15" FontWeight="DemiBold" ContentTemplate="{StaticResource IconBack}"></Button>
         <TextBlock Name="TextBlock_PageTitle" Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="1" TextAlignment="Center" FontSize="30" FontWeight="DemiBold"></TextBlock>
-        <Button IsDefault="True" Name="Button_Add" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" FontSize="15" FontWeight="DemiBold" Click="Button_Add_Click" Tag="{Binding ItemSuccessfullyAdded}" Style="{StaticResource StyleBorderColorOnBool}"></Button>
+        <Button Name="Button_Add" Content="Add" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="5" FontSize="15" FontWeight="DemiBold" Click="Button_Add_Click" Tag="{Binding ItemSuccessfullyAdded}" Style="{StaticResource StyleBorderColorOnBoolWithBlueAsDefault}"></Button>
 
         <Frame Name="ContentControl_AddNewItem" Grid.Column="1" Grid.ColumnSpan="9" Grid.Row="3"></Frame>
         

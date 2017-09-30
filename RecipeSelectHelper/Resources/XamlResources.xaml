@@ -111,6 +111,35 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="StyleBorderColorOnBoolWithBlueAsDefault" TargetType="{x:Type Button}">
+        <Setter Property="BorderBrush" Value="DeepSkyBlue"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="IsDefault" Value="True"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="Null">
+                <Setter Property="BorderBrush" Value="DeepSkyBlue"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"  Value="True">
+                <Setter Property="BorderBrush" Value="LawnGreen"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="BorderBrush" Value="Orange"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StyleIsDefaultWithColor" TargetType="Button">
+        <Setter Property="BorderBrush" Value="DeepSkyBlue"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="IsDefault" Value="True"></Setter>
+    </Style>
+
+    <Style x:Key="StyleIsCancelWithColor" TargetType="Button">
+        <Setter Property="BorderBrush" Value="Red"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="IsCancel" Value="True"></Setter>
+    </Style>
+
     <DataTemplate x:Key="DataTemplateGroupedRecipeCategory" DataType="{x:Type model:GroupedRecipeCategory}">
         <StackPanel Margin="1">
             <StackPanel.Background>
