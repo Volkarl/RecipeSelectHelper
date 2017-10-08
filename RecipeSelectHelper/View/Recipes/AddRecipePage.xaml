@@ -79,6 +79,9 @@
                                 <CheckBox IsChecked="{Binding Bool}" DockPanel.Dock="Left" HorizontalContentAlignment="Stretch">
                                     <!-- Both HorizontalContentAlignment=Stretch and the ItemContainerStyle=StyleStretch are needed for the items to fill the entire listviewitem -->
                                     <DockPanel>
+                                        <!--<ComboBox ItemsSource="UnitsAsCollection" FIND A WAY TO CONVERT ENUM TO LIST OF STRINGS SelectedItem="{Binding Instance ??}" DockPanel.Dock="Right"></ComboBox>
+                                        PROBLEM HERE! AMOUNTS ARE PER INGREDIENT, BUT here we're showing all products, not ingredients. So I need some list of ingredient selections!
+                                        -->
                                         <customControls:PositiveIntegerTextBox Text="{Binding Value}" MinWidth="100" DockPanel.Dock="Right" IsEnabled="{Binding Bool}"></customControls:PositiveIntegerTextBox>
                                         <TextBlock Text="{Binding Instance.Name}"></TextBlock>
                                     </DockPanel>

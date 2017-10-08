@@ -13,13 +13,13 @@ namespace RecipeSelectHelper.Model
     public class Ingredient : IIngredient
     {
         [DataMember]
-        public uint AmountNeeded { get; set; }
+        public Amount AmountNeeded { get; set; }
         [DataMember]
         public Product CorrespondingProduct { get; set; }
 
-        public uint AmountSatisfied { get; private set; }
+        public Amount AmountSatisfied { get; private set; }
 
-        public int PercentageOfTotalIngredientsGathered => AmountNeeded == 0 ? 0 : Convert.ToInt32(((double) AmountSatisfied / AmountNeeded) * 100);
+        public int PercentageOfTotalIngredientsGathered => AmountNeeded.ToGrams == 0 ? 0 : Convert.ToInt32(((double) AmountSatisfied.ToGrams / AmountNeeded.ToGrams) * 100);
 
         public int Value => OwnValue.GetValue + CorrespondingProduct.Value;
 
@@ -36,13 +36,13 @@ namespace RecipeSelectHelper.Model
             {
                 if(BpValueLog == null || BpValueLog.IsEmpty()) return new List<ProgressInfo>();
                 return new List<ProgressInfo>(BpValueLog.Select(x => new ProgressInfo((int) x.AmountSatisfied,
-                    (int) AmountSatisfied, x.Bp.CorrespondingProduct.Name)));
+                    AmountSatisfied.ToGrams, x.Bp.CorrespondingProduct.Name)));
             }
         }
 
         private Ingredient() { }
 
-        public Ingredient(uint amountNeeded, Product correspondingProduct)
+        public Ingredient(Amount amountNeeded, Product correspondingProduct)
         {
             if(correspondingProduct == null) throw new ArgumentException();
             AmountNeeded = amountNeeded;
@@ -65,7 +65,7 @@ namespace RecipeSelectHelper.Model
         {
             OwnValueCalculator = null;
             OwnValue.Reset();
-            AmountSatisfied = 0;
+            AmountSatisfied = new Amount(MeasurementUnit.Unit.Gram, 0);
             BpValueLog = null;
         }
 
@@ -74,7 +74,7 @@ namespace RecipeSelectHelper.Model
             if (OwnValueCalculator == null) throw new ArgumentNullException(nameof(bpAmountsRemaining));
             // Translated: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
 
-            OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded);
+            OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded.ToGrams);
             RecordResult(result);
         }
 

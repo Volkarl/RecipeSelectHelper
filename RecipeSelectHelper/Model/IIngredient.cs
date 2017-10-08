@@ -4,7 +4,7 @@ namespace RecipeSelectHelper.Model
 {
     public interface IIngredient
     {
-        uint AmountNeeded { get; set; }
+        Amount AmountNeeded { get; set; }
         int Value { get; }
         ValueInformation OwnValue { get; }
         Product CorrespondingProduct { get; set; }
