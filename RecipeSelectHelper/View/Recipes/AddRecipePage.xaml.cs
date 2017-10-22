@@ -162,7 +162,8 @@ namespace RecipeSelectHelper.View.Recipes
         {
             List<GroupedRecipeCategory> groupedRc = GroupedRecipeCategories.ToList();
             List<RecipeCategory> categories = RecipeCategories.Where(x => x.Bool).ToList().ConvertAll(y => y.Instance);
-            List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(Convert.ToUInt32(y.Value), y.Instance));
+            List<Ingredient> ingredients = Ingredients.Where(x => x.Bool).ToList().ConvertAll(y => new Ingredient(new Amount(  , y.Value), y.Instance));
+            /*todo I need some unit selection*/
 
             var recipe = new Recipe(RecipeName, RecipeServings, RecipeDescription, RecipeInstructions, ingredients, categories, groupedRc);
             List<string> errors;

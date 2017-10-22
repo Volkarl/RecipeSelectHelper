@@ -35,7 +35,7 @@ namespace RecipeSelectHelper.Resources
                         uint removalAmount = (amount >= amountNeeded) ? amountNeeded : amount;
                         // Done to avoid removing more than allowed.
                         bpAmountsRemaining[current.Bp] -= removalAmount;
-                        returnVal.AddValue(current.Bp, current.ValuePerAmount * removalAmount, removalAmount);
+                        returnVal.AddValue(current.Bp, current.ValuePerAmount * removalAmount, Convert.ToInt32(removalAmount)); //todo uint shit
                         amountNeeded -= removalAmount;
                     }
                 }
@@ -58,21 +58,21 @@ namespace RecipeSelectHelper.Resources
     public class OptimalValue
     {
         public double Value { get; private set; }
-        public uint AmountSatisfied { get; private set; }
+        public Amount AmountSatisfied { get; }
         public List<BpValueSourceInfo> ValueLog { get; } = new List<BpValueSourceInfo>();
 
         public OptimalValue() : this(0, 0) { }
-        public OptimalValue(double value, uint amountSatisfied)
+        public OptimalValue(double value, int amountSatisfiedInGrams)
         {
             Value = value;
-            AmountSatisfied = amountSatisfied;
+            AmountSatisfied = new Amount(MeasurementUnit.Unit.Gram, amountSatisfiedInGrams); 
         }
 
-        public void AddValue(BoughtProduct source, double totalValueToAdd, uint amountToAdd)
+        public void AddValue(BoughtProduct source, double totalValueToAdd, int amountToAdd)
         {
-            ValueLog.Add(new BpValueSourceInfo(source, totalValueToAdd, amountToAdd));
+            ValueLog.Add(new BpValueSourceInfo(source, totalValueToAdd, Convert.ToUInt32(amountToAdd))); // todo shit uint
             Value += totalValueToAdd;
-            AmountSatisfied += amountToAdd;
+            AmountSatisfied.AddAmount(amountToAdd);
         }
     }
 

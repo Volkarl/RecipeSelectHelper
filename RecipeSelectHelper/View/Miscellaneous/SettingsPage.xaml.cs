@@ -65,8 +65,8 @@ namespace RecipeSelectHelper.View.Miscellaneous
             new Recipe("Tomato Juice", 1, "Dont drink, danger!", new StringList("Mash tomatoes", "Throw in the trash"), 
                 new List<Ingredient>
                 {
-                    new Ingredient(10, new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")})),
-                    new Ingredient(20, new Product("Water", new List<ProductCategory> {new ProductCategory("Tasteless things")}))
+                    new Ingredient(new Amount(10) , new Product("Tomato", new List<ProductCategory> {new ProductCategory("Vegetable"), new ProductCategory("Pretty disgusting.")})),
+                    new Ingredient(new Amount(20), new Product("Water", new List<ProductCategory> {new ProductCategory("Tasteless things")}))
                 }, new List<RecipeCategory> {new RecipeCategory("Not ingestible")})
         };
         public ObservableCollection<Recipe> Recipes
@@ -132,7 +132,7 @@ namespace RecipeSelectHelper.View.Miscellaneous
             if (_parent.Data.AllProducts.Count > 0)
             {
                 var corrP = _parent.Data.AllProducts[rand.Next(0, _parent.Data.AllProducts.Count)];
-                iList.Add(new Ingredient(Convert.ToUInt32(_rClicks), corrP));
+                iList.Add(new Ingredient(new Amount(_rClicks), corrP));
             }
             if (_parent.Data.AllRecipeCategories.Count > 0)
             {

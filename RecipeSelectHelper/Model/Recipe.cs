@@ -61,8 +61,8 @@ namespace RecipeSelectHelper.Model
                 int amounts = 0, amountNeeded = 0;
                 foreach (Ingredient i in Ingredients)
                 {
-                    amounts += (int) i.AmountSatisfied;
-                    amountNeeded += (int) i.AmountNeeded;
+                    amounts += i.AmountSatisfied.ToGrams;
+                    amountNeeded += i.AmountNeeded.ToGrams;
                 }
                 return new ProgressInfo(amounts, amountNeeded, string.Empty);
             }

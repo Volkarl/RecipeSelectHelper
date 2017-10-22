@@ -74,14 +74,15 @@ namespace RecipeSelectHelper.Model
             if (OwnValueCalculator == null) throw new ArgumentNullException(nameof(bpAmountsRemaining));
             // Translated: where is Ingredient supposed to get its value from if it doesn't yet know about any of the Bought Products?
 
-            OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, AmountNeeded.ToGrams);
+            OptimalValue result = OwnValueCalculator.GetOptimalValueCombination(bpAmountsRemaining, Convert.ToUInt32(AmountNeeded.ToGrams));
+            //todo remove this uint shit, but make sure the numbers are not below zero or convert in some safe way.
             RecordResult(result);
         }
 
         private void RecordResult(OptimalValue result)
         {
             OwnValue.AddValue((int)Math.Round(result.Value), new AggregatedValue(this));
-            AmountSatisfied += result.AmountSatisfied;
+            AmountSatisfied.AddAmount(result.AmountSatisfied); 
             BpValueLog = result.ValueLog;
         }
 
