@@ -81,7 +81,7 @@ namespace RecipeSelectHelper.Resources.CustomControls
 
         private Visibility NewInstructionVisibility
         {
-            set { DockPanelNewInstruction.Visibility = value; }
+            set { TextBoxNewInstruction.Visibility = value; }
         }
 
         private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
@@ -123,6 +123,11 @@ namespace RecipeSelectHelper.Resources.CustomControls
             RefreshListView();
         }
 
+        private void TextBoxNewInstruction_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            HideNewInstruction(false);
+        }
+
         private void HideNewInstruction(bool clear)
         {
             if(clear) NewInstruction = String.Empty;
@@ -133,14 +138,27 @@ namespace RecipeSelectHelper.Resources.CustomControls
         {
             if(clearFirst) NewInstruction = String.Empty;
             NewInstructionVisibility = Visibility.Visible;
-            DockPanelNewInstruction.Focus();
+            TextBoxNewInstruction.Focus();
         }
 
-        private void DockPanelNewInstruction_OnKeyDown(object sender, KeyEventArgs e)
+        private void TextBoxNewInstruction_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                AddNewOrEditInstruction();
+                if (_onEnter == OnEnterPressed.AddNew)
+                {
+                    int oldSelected = SelectedString == null ? 0 : SelectedIndex;
+                    Strings.Add(NewInstruction);
+                    NewInstruction = String.Empty;
+                    SelectedString = Strings[oldSelected];
+                }
+                else
+                {
+                    int oldSelected = SelectedIndex;
+                    Strings[SelectedIndex] = NewInstruction;
+                    HideNewInstruction(true);
+                    SelectedString = Strings[oldSelected];
+                }
                 e.Handled = true;
                 RefreshListView();
             }
@@ -149,36 +167,6 @@ namespace RecipeSelectHelper.Resources.CustomControls
                 HideNewInstruction(false);
                 e.Handled = true;
             }
-        }
-
-        private void AddNewOrEditInstruction()
-        {
-            if (_onEnter == OnEnterPressed.AddNew)
-            {
-                int oldSelected = SelectedString == null ? 0 : SelectedIndex;
-                Strings.Add(NewInstruction);
-                NewInstruction = String.Empty;
-                SelectedString = Strings[oldSelected];
-            }
-            else
-            {
-                int oldSelected = SelectedIndex;
-                Strings[SelectedIndex] = NewInstruction;
-                HideNewInstruction(true);
-                SelectedString = Strings[oldSelected];
-            }
-        }
-
-        private void ButtonNewInstruction_OnClick(object sender, RoutedEventArgs e)
-        {
-            AddNewOrEditInstruction();
-            RefreshListView();
-        }
-
-        private void DockPanelNewInstruction_OnIsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if((bool) e.OldValue == true && (bool) e.NewValue == false) // Has the keyboard focus changed to not be within the dockpanel? 
-                HideNewInstruction(false);
         }
     }
 }
