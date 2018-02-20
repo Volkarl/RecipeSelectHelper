@@ -22,8 +22,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <TextBox Name="TextBoxNewInstruction" Visibility="Collapsed" Background="Beige" LostFocus="TextBoxNewInstruction_OnLostFocus" KeyDown="TextBoxNewInstruction_OnKeyDown"></TextBox>
+
+            <DockPanel Name="DockPanelNewInstruction" Visibility="Collapsed" IsKeyboardFocusWithinChanged="DockPanelNewInstruction_OnIsKeyboardFocusWithinChanged" KeyDown="DockPanelNewInstruction_OnKeyDown">
+                <Button DockPanel.Dock="Right" Content="OK" Width="50" Name="ButtonNewInstruction" Click="ButtonNewInstruction_OnClick"></Button>
+                <TextBox Name="TextBoxNewInstruction" DockPanel.Dock="Left" Background="Beige"></TextBox>
+            </DockPanel>
             
             <Button Name="ButtonAdd" Content="Add Instruction" Background="LightGreen" Click="ButtonAdd_OnClick"></Button>
             <UniformGrid Rows="1">
