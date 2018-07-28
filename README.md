@@ -1,3 +1,6 @@
+```diff
+- This project was soft abandoned: the approach worked for the most part, but my demos show that the final program is no joy to use, since it takes far too long to type in recipes. As close as it got to being finished, I probably won't do much with it, as the approach is quite bad compared to things I've learnt in the meantime (SQL). 
+```
 # RecipeSelectHelper
 The purpose of the program is to rank recipes in regards to the needs/preferences that the user has for food, in order to ease the process of figuring out which food to cook. 
 
